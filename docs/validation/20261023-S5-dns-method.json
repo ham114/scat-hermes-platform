@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "real_probe_report": "docs/validation/20261023-S5-native-7279bd5dc4.json",
+  "condition": "Intermittent provider connectivity during synthetic validation",
+  "resolution_source": "Authorized server socket.getaddrinfo answers for configured provider/proxy hosts",
+  "cache_scope": "One synthetic probe and its descendant Python processes",
+  "cache_max_seconds": 600,
+  "provider_hostname_changed": false,
+  "tls_verification_disabled": false,
+  "system_dns_modified": false,
+  "private_configuration_modified": false,
+  "cached_addresses_in_report": false,
+  "source": "scripts/run_synthetic_s5_with_dns_cache.py",
+  "temporary_files_root": ".tmp/s5",
+  "stability_claim": false
+}

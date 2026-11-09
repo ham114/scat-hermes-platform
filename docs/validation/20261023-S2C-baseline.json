@@ -1,0 +1,195 @@
+{
+  "files": [
+    {
+      "path": "authoring/README.md",
+      "expected": null,
+      "new_sha256": "7164dabfb24a565872321f6401662be07f02984788a13952bd883974ae91b0d4"
+    },
+    {
+      "path": "authoring/drafts/scat-investigation-candidate/SKILL.md",
+      "expected": null,
+      "new_sha256": "5d23092b61d7a24bd6578b47afe2e7c75f09810649317f037cb806edb44bce43"
+    },
+    {
+      "path": "authoring/drafts/scat-investigation-candidate/draft.json",
+      "expected": null,
+      "new_sha256": "d2305493f30f0c51cfb265ee8e4e135490de896a76713ab3d38edac67edb3896"
+    },
+    {
+      "path": "authoring/templates/comparison.md",
+      "expected": null,
+      "new_sha256": "b63478f25a2ef012675e6f9232b66425ff66cc3beb2b834259132a58ab741a11"
+    },
+    {
+      "path": "authoring/templates/evaluation.md",
+      "expected": null,
+      "new_sha256": "694a4f3aef98bcd692a6febc8e5bc9d22ee0da4e1f7d8b4232b09abb0d28efbe"
+    },
+    {
+      "path": "authoring/templates/experiment.md",
+      "expected": null,
+      "new_sha256": "079330caaf59dd33bb9708f24e06e47f7031826b187de46759bcea57f425836f"
+    },
+    {
+      "path": "authoring/templates/knowledge.md",
+      "expected": null,
+      "new_sha256": "d54fbb8ad0eb10a496994227930a9af2a32e2deacf00b7495f17f18ea75702a7"
+    },
+    {
+      "path": "authoring/templates/materialization.md",
+      "expected": null,
+      "new_sha256": "17819a448ba4f3b33da13623bee3be9b18fe926c3ae104bc618c9ec01019ac80"
+    },
+    {
+      "path": "authoring/templates/prediction.md",
+      "expected": null,
+      "new_sha256": "024f2d89a7ba3d1f75cdcdb80b66cb531e8317191ce59296f639dadfd48a2cb6"
+    },
+    {
+      "path": "authoring/templates/quality.md",
+      "expected": null,
+      "new_sha256": "99bc9165ceed6117782f7ed90b308d90029ebf4e1b36264d7a0803a8a20709d1"
+    },
+    {
+      "path": "authoring/templates/query.md",
+      "expected": null,
+      "new_sha256": "2cf8717cc7c40af615e39005579d49975d5c073360c1ca6df9b3949311765f91"
+    },
+    {
+      "path": "authoring/templates/report.md",
+      "expected": null,
+      "new_sha256": "326b930e0fa078b8254dab7fd4092c42ae350648d9e165f02f451360a0e6ddf0"
+    },
+    {
+      "path": "authoring/templates/trajectory.md",
+      "expected": null,
+      "new_sha256": "d191ce5204d09438161d4c872a1035a8d7da28767c0c07377748e26349d47920"
+    },
+    {
+      "path": "authoring/templates/uav.md",
+      "expected": null,
+      "new_sha256": "3de36c6d9cb36a23ed4d83ace7f9da4c2b05213b25822a74037e8740ed67e515"
+    },
+    {
+      "path": "config/investigation-synthetic-a.json",
+      "expected": null,
+      "new_sha256": "6dd67eb88a7f7282167e3ff156c35d5aea697eca7ace626cc016a8a888521b78"
+    },
+    {
+      "path": "config/investigation-synthetic-b.json",
+      "expected": null,
+      "new_sha256": "03266df0d71e2bb327f2fb3164539580958f100d7515e4b3d0ac0d5e54a5b09b"
+    },
+    {
+      "path": "config/skills-policy.schema.json",
+      "expected": null,
+      "new_sha256": "741e674e9d2edd1d24845f3915adc67159b25f14f279755d90c13a4e7829f5ea"
+    },
+    {
+      "path": "config/skills-policy.yaml",
+      "expected": null,
+      "new_sha256": "ceda341249c6cb8b2c758cb4e25c3cdfc4b129cad7d45f523c460dfa82eaf60c"
+    },
+    {
+      "path": "evaluations/hermes_s2_v1.json",
+      "expected": null,
+      "new_sha256": "017738eae5bd46ddcc9a15ba7c5db0ea7ca9e2c1c6a8c345994337883907fbc1"
+    },
+    {
+      "path": "scripts/evaluate_skills_s2.py",
+      "expected": null,
+      "new_sha256": "327e0aab89349eff23608570bf4585bd8174f389f123c69a8f5e0fdadabbebb5"
+    },
+    {
+      "path": "scripts/probe_skills_s2_final.py",
+      "expected": null,
+      "new_sha256": "1808e185d2e4d42f49589e1a586e5c11d096b87c11c8614d52b18bcd88ca5d92"
+    },
+    {
+      "path": "scripts/run_hermes_api.py",
+      "expected": "d6b224227c8e781ad874b17f51e64599fcf1e52edbd35f266d943a4a8c502f3a",
+      "new_sha256": "656403835da8ca87c103a70206cea365fbe5c978969839d09a25926549be1806"
+    },
+    {
+      "path": "scripts/skills_tool.py",
+      "expected": null,
+      "new_sha256": "6353c2600d1b808fce9b3d2ab0df3c2ed382ba047fe9242f117b2376ff83d753"
+    },
+    {
+      "path": "services/hermes/budget.lock.json",
+      "expected": null,
+      "new_sha256": "40595085bd5c329c32f5e145f43d2dc44d0ddade63bdd4bdcef81306eb7c38b7"
+    },
+    {
+      "path": "src/application/skill_synthetic.py",
+      "expected": "cffdaa55a9a49f51b0a8ec60cf0aa094b297daf5add05d9f82c4bbe9f4c65582",
+      "new_sha256": "3118b12330072786ce925b8dcb2594b651376949dab14eed46eeffa2540f04a6"
+    },
+    {
+      "path": "src/hermes_runtime/native_budget.py",
+      "expected": null,
+      "new_sha256": "b5998b91c112218e745d1f6899d85866234df70e081bc3319403eaf5d4337f39"
+    },
+    {
+      "path": "src/hermes_runtime/readonly_contracts.py",
+      "expected": null,
+      "new_sha256": "efdb8135622d1797cc3998c8f8ede1f2b91b88b245e522dd1da9b5bf63fe852d"
+    },
+    {
+      "path": "src/hermes_runtime/skill_authoring.py",
+      "expected": null,
+      "new_sha256": "418fac0a452a5ec145b2b368f5c2b020142d60b3dbf76338a85b5ec01ff2b091"
+    },
+    {
+      "path": "src/hermes_runtime/skill_budget.py",
+      "expected": null,
+      "new_sha256": "c46b82a4dbed81156819b660a8134a1b63f5119a840e10a4fb54b9bca34f0da2"
+    },
+    {
+      "path": "src/hermes_runtime/skill_contracts.py",
+      "expected": "c68438255184ceba06f2110c982bf4cb0a859a45c412960a17680246c9b2dab6",
+      "new_sha256": "474713a29bb1226057e2484a60dd880add099facd7dde011d190bbb23a9f9dd0"
+    },
+    {
+      "path": "src/hermes_runtime/skill_evaluation.py",
+      "expected": null,
+      "new_sha256": "52e5865c52574f3cf6b43c762fcd6cf56e529c395c8a09b116e1f65ab298de57"
+    },
+    {
+      "path": "src/hermes_runtime/skill_guard.py",
+      "expected": "642cabc21a9e8ae79630604d7b9a826323a0cc4e30989e082586592eaa0d46a6",
+      "new_sha256": "2700c28bf763104cff1345fc0481d2a8d918b5b067100053e2d2a4488c4561eb"
+    },
+    {
+      "path": "src/hermes_runtime/skill_policy.py",
+      "expected": null,
+      "new_sha256": "61443cfbd13821afbc90169f2924248918425eb3ada254238487489a3c98adb3"
+    },
+    {
+      "path": "src/hermes_runtime/skill_templates.py",
+      "expected": null,
+      "new_sha256": "df26bcdbea3da724388b135872404bfdbf6cc3ec6f032b2c7ae80c6bdb234e3a"
+    },
+    {
+      "path": "src/hermes_runtime/skills.py",
+      "expected": "9ccb70a9f7a5e56030befa7a2014a0f27997524ddf1feb68d01657d662898101",
+      "new_sha256": "cc5af7fc6750a423789d2cce1662d9bd5b2139091066cd7a412feac54c13090f"
+    },
+    {
+      "path": "tests/hermes_runtime/test_skill_guard.py",
+      "expected": "bcfd7b3b3594ab27d6af912cc3bb0913c48edbd5df9cac523e0d54b056c419d2",
+      "new_sha256": "859acff2fe8af1db459cc4ca0520565f04095b90d5518b45c2d72709ad587394"
+    },
+    {
+      "path": "tests/hermes_runtime/test_skill_policy_budget.py",
+      "expected": null,
+      "new_sha256": "414d9399d59efb0fe24fb53b3488a5b894a951d6b19b30ec808aadbcf98350b6"
+    },
+    {
+      "path": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "expected": null,
+      "new_sha256": "e5520c092459929fd25e0dc21d3c59fbd5ae97ce6651c58ea75559281a1c9737"
+    }
+  ],
+  "source": "expected remote hashes from prior verified S2/S2B cleanup; upload rechecks before mutation"
+}

@@ -1,0 +1,56 @@
+{
+  "status": "failed",
+  "pid": 3402940,
+  "started_at": 1792701860.123332,
+  "phases": [
+    {
+      "name": "ruff",
+      "returncode": 0,
+      "seconds": 0.11,
+      "log": "docs/validation/20261023-S2C-ruff1.log"
+    },
+    {
+      "name": "format",
+      "returncode": 0,
+      "seconds": 0.06,
+      "log": "docs/validation/20261023-S2C-format1.log"
+    },
+    {
+      "name": "full",
+      "returncode": 0,
+      "seconds": 31.97,
+      "log": "docs/validation/20261023-S2C-full1.log"
+    },
+    {
+      "name": "scenarios",
+      "returncode": 0,
+      "seconds": 0.77,
+      "log": "docs/validation/20261023-S2C-scenarios1.log"
+    },
+    {
+      "name": "draft",
+      "returncode": 0,
+      "seconds": 0.26,
+      "log": "docs/validation/20261023-S2C-draft1.log"
+    },
+    {
+      "name": "policy",
+      "returncode": 0,
+      "seconds": 0.27,
+      "log": "docs/validation/20261023-S2C-policy1.log"
+    },
+    {
+      "name": "native",
+      "returncode": 0,
+      "seconds": 3.67,
+      "log": "docs/validation/20261023-S2C-native1.log"
+    },
+    {
+      "name": "business",
+      "returncode": 1,
+      "seconds": 8.78,
+      "log": "docs/validation/20261023-S2C-business1.log"
+    }
+  ],
+  "finished_at": 1792701906.0216432
+}

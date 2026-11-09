@@ -1,0 +1,29 @@
+{
+  "status": "failed",
+  "stage": "verified",
+  "checks": {
+    "invalid_auth_rejected": false,
+    "workspace_token_cannot_read_other_workspace": false,
+    "embedding_requires_auth": true,
+    "local_cpu_embeddings_1024": true,
+    "plugin_resolves_correct_host_and_workspace": true,
+    "actual_model_derived_memory": true,
+    "distinct_thread_session_keys": true,
+    "cross_session_recall": true,
+    "preference_correction_recalled": true,
+    "synthetic_conclusion_deleted": true,
+    "hermes_scat-worker_inactive": true,
+    "hermes_scat-author_inactive": true
+  },
+  "responses": {
+    "derived_representation": "## Explicit Observations\n\n[2026-10-26 23:09:59] scat-researcher's test project is codenamed HONCHO-TEST-741.\n[2026-10-26 23:09:59] scat-researcher prefers distances measured in nautical miles.\n[2026-10-26 23:09:59] scat-researcher prefers brief answers in Simplified Chinese.\n[2026-10-26 23:09:59] On 2026-10-26, scat-researcher described the acceptance as an independent synthesis acceptance.\n",
+    "cross_session_recall": "{\"result\": \"根据已有记忆，scat-researcher 的偏好如下：\\n\\n- **回复语言**：简体中文（Simplified Chinese）\\n- **回复长度**：偏好简短的回答（brief answers）\\n- **距离单位**：海里（nautical miles）\\n\\n以上均来自 2026-10-26 的已记录观察，记忆中没有其他与之冲突的语言、长度或单位偏好信息。\"}",
+    "corrected_representation": "## Explicit Observations\n\n[2026-10-26 23:09:59] On 2026-10-26, scat-researcher described the acceptance as an independent synthesis acceptance.\n[2026-10-26 23:09:59] scat-researcher prefers brief answers in Simplified Chinese.\n[2026-10-26 23:09:59] scat-researcher prefers distances measured in nautical miles.\n[2026-10-26 23:09:59] scat-researcher's test project is codenamed HONCHO-TEST-741.\n[2026-10-26 23:10:26] On 2026-10-26, scat-researcher requested that short replies in Simplified Chinese and the test project codename remain unchanged.\n[2026-10-26 23:10:26] On 2026-10-26, scat-researcher requested correcting the preference for this synthetic test: from then on, distance units are to be kilometers instead of nautical miles.\n",
+    "corrected_recall": "{\"result\": \"**公里（kilometers）**。\"}",
+    "canary_delete": "{\"result\": \"Conclusion UCtAC-XTfQ9LkLQdp5cqa deleted.\"}"
+  },
+  "session_keys": [
+    "scat-main-scat-researcher-honcho-synthetic-thread-a-20261027",
+    "scat-main-scat-researcher-honcho-synthetic-thread-b-20261027"
+  ]
+}

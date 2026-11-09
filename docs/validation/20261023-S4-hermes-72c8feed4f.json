@@ -1,0 +1,30 @@
+{
+  "status": "failed",
+  "probe_id": "08c3cba7dd",
+  "stage": "recovery",
+  "task_id": "d1f44e41caae4671b79ca5e4c78e5bf7",
+  "parent_run_id": "run_9388638f5bf641878999de70096fa64f",
+  "parent_dialogue_available_during_job": true,
+  "chat_services_stopped_before_job_completion": true,
+  "worker_process_group_crashed_and_restarted": true,
+  "cleanup_jobs": [
+    {
+      "task_id": "d1f44e41caae4671b79ca5e4c78e5bf7",
+      "state": "succeeded",
+      "error": null
+    }
+  ],
+  "cleanup_backends": [
+    {
+      "id": "64a57e8b94465b17ff360ea1b055526614cbc8630d876430967cece14e2f0db1",
+      "state": "succeeded",
+      "calls": 1,
+      "pid": 3533748,
+      "process_start": "769888370"
+    }
+  ],
+  "owned_processes_remaining": 0,
+  "temporary_home_removed": true,
+  "isolated_collections_removed": true,
+  "error_type": "AssertionError"
+}

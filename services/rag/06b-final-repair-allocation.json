@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "prior_actual_calls": 1501,
+  "prior_actual_conservative_tokens": 46420777,
+  "regressions": {
+    "max_calls": 52,
+    "max_conservative_tokens": 3000000
+  },
+  "api_v2": {
+    "max_calls": 28,
+    "max_conservative_tokens": 700000
+  },
+  "maximum_total_calls": 1581,
+  "maximum_total_conservative_tokens": 50120777,
+  "campaign_request_ceiling": 1600,
+  "campaign_conservative_ceiling": 55000000,
+  "retired_allocations": "All earlier completed batch, negative and API v1 unused allowances are retired; original ledgers retained. New v4 targets do not replace the 40-pair v3 comparison."
+}

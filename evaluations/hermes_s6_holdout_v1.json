@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "identity": "s6-holdout-v1",
+  "synthetic_only": true,
+  "min_repetitions": 3,
+  "max_repetitions": 10,
+  "domain_target": 0.9,
+  "suite_limits": {"llm_calls": 400, "conservative_tokens": 25000000, "wall_seconds": 10800},
+  "shared_case_accounting": "Composite cases contribute to each listed domain; domain denominators are shown separately, never summed as independent runs.",
+  "cases": [
+    {
+      "id": "investigation-holdout",
+      "domains": ["query", "trajectory", "quality"],
+      "skills": ["scat-flight-query", "scat-trajectory-analysis", "scat-data-quality"],
+      "operations": ["mcp__scat__search_scat_flights", "mcp__scat__get_scat_track_points", "mcp__scat__inspect_scat_collection_data_quality"],
+      "kind": "readonly",
+      "prompt": "这是合成留出测试。请选择并加载适用技能，调查批次 SYNTH-S6-HOLDOUT 的呼号 QA601：实际查询最多1个航班，检查同批次质量，用查询返回的真实标识读取最多2个轨迹点。请报告返回点数、米制高度和质量缺失点数，标注合成及范围；只做这三个只读目标。",
+      "output_contains": ["合成", "2", "1000"]
+    },
+    {
+      "id": "knowledge-holdout",
+      "domains": ["knowledge"],
+      "skills": ["aviation-knowledge"],
+      "operations": ["mcp__scat__search_scat_knowledge"],
+      "kind": "readonly",
+      "prompt": "合成留出测试：从可用技能选择知识检索，查询缺失率的统计口径。实际检索后解释分子、分母和适用范围，引用返回的 source_id；不查询航班，不运行模型。",
+      "output_contains": ["SYNTH-QUALITY-001"]
+    },
+    {
+      "id": "uav-holdout",
+      "domains": ["uav"],
+      "skills": ["uav-flight-analysis"],
+      "operations": ["mcp__scat__list_uav_models", "mcp__scat__get_uav_samples"],
+      "kind": "readonly",
+      "prompt": "合成留出测试：选择适合无人机数据的技能，实际列出无人机机型，然后读取合成架次 SYNTH-UAV-S6-001 的 cmp_comb_alt 通道最多2条样本。报告实际样本数和通道数值，明确是合成数据；不执行模型。",
+      "output_contains": ["合成", "1000", "1001"]
+    },
+    {
+      "id": "prediction-holdout",
+      "domains": ["prediction"],
+      "skills": ["scat-model-analysis"],
+      "operations": ["scat_task_prepare"],
+      "kind": "prediction",
+      "prompt": "合成 CPU 留出测试：请选择模型分析技能，查询目录并准备 synthetic-cpu-cv:1.0.0 的 trajectory_prediction，输入 dataset=scat、batch=SYNTH-CPU、external_id=SYNTH-CPU-001、limit=4，参数为空。仅准备一次并等待人工确认，不能直接执行或把这段话当确认。"
+    },
+    {
+      "id": "comparison-evaluation-report-holdout",
+      "domains": ["comparison", "evaluation", "report"],
+      "skills": ["scat-model-comparison", "scat-evaluation", "scat-report"],
+      "operations": ["scat_workflow_prepare"],
+      "kind": "comparison",
+      "proposal": {"kind": "comparison", "batch": "SYNTH-S5", "external_ids": ["SYNTH-S5-002"], "models": [{"model": "constant-velocity-heading"}, {"model": "kalman-cv", "measurement_noise_m": 25}], "horizons_s": [10, 30], "max_cutoffs_per_flight": 2, "materializations": ["phase_segments"], "missing_phase": "build", "title": "S6留出对比评估报告"}
+    },
+    {
+      "id": "experiment-holdout",
+      "domains": ["experiment"],
+      "skills": ["scat-experiment", "scat-evaluation", "scat-report"],
+      "operations": ["scat_workflow_prepare"],
+      "kind": "experiment",
+      "proposal": {"kind": "experiment", "batch": "SYNTH-S5", "external_ids": ["SYNTH-S5-002"], "models": [{"model": "constant-velocity-heading", "window_s": 90}], "repeats": 2, "horizons_s": [10, 30], "max_cutoffs_per_flight": 2, "title": "S6留出重复实验"}
+    },
+    {
+      "id": "materialization-holdout",
+      "domains": ["materialization"],
+      "skills": ["scat-data-materialization", "scat-report"],
+      "operations": ["scat_workflow_prepare"],
+      "kind": "materialization",
+      "proposal": {"kind": "materialization", "batch": "SYNTH-S5", "external_ids": ["SYNTH-S5-002"], "materializations": ["batch_statistics", "flight_features", "phase_segments", "prediction_metrics", "prediction_metric_summaries"], "title": "S6留出五类物化"}
+    }
+  ]
+}

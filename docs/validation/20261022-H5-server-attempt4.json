@@ -1,0 +1,17 @@
+{
+  "started_at": 1792672573.6794562,
+  "steps": [
+    {
+      "name": "h5-tests",
+      "returncode": 0,
+      "seconds": 29.27
+    },
+    {
+      "name": "pip-check",
+      "returncode": 0,
+      "seconds": 0.57
+    }
+  ],
+  "finished_at": 1792672603.5140793,
+  "status": "passed"
+}

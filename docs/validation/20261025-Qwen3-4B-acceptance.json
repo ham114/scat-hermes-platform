@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "scope": "download_integrity_and_offline_smoke_only",
+  "models": [
+    {
+      "kind": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "destination": "/mnt/h3c/scat-rag/models/reranker/qwen3-reranker-4b-14f36843fc02cea94c1e0c59b6ae0ab1f9b9ebe2",
+      "modelscope_revision": "14f36843fc02cea94c1e0c59b6ae0ab1f9b9ebe2",
+      "huggingface_revision": "22e683669bc0f0bd69640a1354a6d0aebcfeede5",
+      "total_bytes": 8059546924,
+      "verified_files": 17
+    },
+    {
+      "kind": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-4B",
+      "destination": "/mnt/h3c/scat-rag/models/embedding/qwen3-embedding-4b-959bed3521cc1e8714392c77e15ae213b00aa921",
+      "modelscope_revision": "959bed3521cc1e8714392c77e15ae213b00aa921",
+      "huggingface_revision": "5cf2132abc99cad020ac570b19d031efec650f2b",
+      "total_bytes": 8059520478,
+      "verified_files": 14
+    }
+  ],
+  "total_files": 31,
+  "total_bytes": 16119067402,
+  "final_sha256_differences": [],
+  "smoke_status": "passed",
+  "source_files": [
+    {
+      "path": "scripts/download_qwen3_rag_candidates.py",
+      "sha256": "40c7887c056afcbe011cb6b4eb31abd422880a36942dcc380af46ba86da1cea7"
+    },
+    {
+      "path": "scripts/validate_qwen3_rag_candidates.py",
+      "sha256": "2b48885f3b7ad145520981332f4e3b6b8c179216c6f290ed51f46baffe203256"
+    },
+    {
+      "path": "services/rag/qwen3-4b-download.json",
+      "sha256": "65c5abb79931c79fafb1956aff3b01f7826632b5b52e7f016cc3ce13c4952ded"
+    }
+  ],
+  "owned_processes": [],
+  "temporary_directory_removed": true,
+  "existing_ports_retained": [
+    80,
+    443,
+    8080,
+    8091,
+    8501,
+    27017
+  ],
+  "reserved_ports_closed": true,
+  "api_keys_required": 0,
+  "dependencies_installed": 0,
+  "new_environments": 0,
+  "business_corpus_used": false,
+  "old_rag_switched": false,
+  "retrieval_quality_admitted": false,
+  "latency_sla_validated": false,
+  "runtime": "existing_anaconda_scat-rag-train",
+  "gpu": "Tesla V100-PCIE-32GB",
+  "nvml_driver_mismatch_unmodified": true,
+  "first_attempt": {
+    "result": "failed_readback_sha256",
+    "reranker_shard": "model-00002-of-00002.safetensors",
+    "observed_sha256": "b5e56c24bdbb34171af94c054c2f0d17bb296250cf2367afeb2a3fe01b1072ac",
+    "expected_sha256": "78946d22b7f6456ea7a5358dbdf3982de36c5bac1f166a5fd58e18e31db8048a",
+    "repeated_read_confirmed": true,
+    "redownloaded": true,
+    "underlying_cause_confirmed": false
+  },
+  "finished_at": 1792863107.0790973
+}

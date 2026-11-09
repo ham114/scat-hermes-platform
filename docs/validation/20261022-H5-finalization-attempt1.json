@@ -1,0 +1,9 @@
+{
+  "status": "guard_stopped_before_upload",
+  "reason": "Historical local/server snapshots are per-environment and need not have identical hashes",
+  "differing_historical_snapshots": [
+    "docs/validation/20261022-H1-H2-local-manifest.json"
+  ],
+  "historical_files_modified": false,
+  "resolution": "Keep each historical file intact; record per-side SHA and verify unchanged across final sync"
+}

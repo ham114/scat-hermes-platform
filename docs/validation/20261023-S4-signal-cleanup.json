@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "signal": "SIGTERM",
+  "probe_returncode": 1,
+  "cancelled_probe_report": "docs/validation/20261023-S4-hermes-9822af059c.json",
+  "no_job_or_backend": true,
+  "owned_cleanup_verified": true
+}

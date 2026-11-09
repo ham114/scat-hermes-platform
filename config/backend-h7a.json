@@ -1,0 +1,14 @@
+{
+  "instance": "h7a",
+  "platform_port": 18120,
+  "hermes_port": 18121,
+  "background_port": 18122,
+  "startup_seconds": 120,
+  "shutdown_seconds": 25,
+  "health_seconds": 3,
+  "max_hours": 8,
+  "min_free_bytes": 2147483648,
+  "max_used_percent": 98,
+  "log_bytes": 4194304,
+  "log_backups": 3
+}

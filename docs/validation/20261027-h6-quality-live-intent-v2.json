@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "id": "filename-deep",
+      "checks": {
+        "completed": true,
+        "actual_evidence": true,
+        "direct_answer": true,
+        "actual_source_cited": true,
+        "skill_body_loaded": true,
+        "budget_not_exhausted": true,
+        "actual_deep_receipt": true
+      },
+      "seconds": 51.78544764406979,
+      "model_calls": 14,
+      "conservative_tokens": 512477
+    }
+  ],
+  "model_requests": 14,
+  "conservative_tokens": 512477,
+  "historical_scores_unchanged": true,
+  "independent_admission": false,
+  "all_phases_model_requests": 38,
+  "all_phases_conservative_tokens": 1543990
+}

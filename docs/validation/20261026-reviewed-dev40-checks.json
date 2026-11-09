@@ -1,0 +1,38 @@
+{
+  "strict_initial": {
+    "pytest": {
+      "exit": 0,
+      "tail": "...........................................................              [100%]\n59 passed in 0.25s\n"
+    },
+    "ruff": {
+      "exit": 1,
+      "tail": "E402 Module level import not at top of file\n  --> scripts/prepare_reviewed_rag_dataset.py:13:1\n   |\n11 | ROOT = Path(__file__).resolve().parents[1]\n12 | sys.path.insert(0, str(ROOT / \"src\"))\n13 | from rag_retrieval.reviewed_dataset import convert_reviewed\n   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n14 |\n15 | SOURCE = Path(\n   |\n\nE741 Ambiguous variable name: `l`\n  --> scripts/prepare_reviewed_rag_dataset.py:45:37\n   |\n43 |     if sha(corpus_path) != corpus_sha:\n44 |         raise ValueError(\"corpus_changed\")\n45 |     candidates = [json.loads(l) for l in SOURCE.read_text().splitlines()]\n   |                                     ^\n46 |     corpus = [json.loads(l) for l in corpus_path.read_text().splitlines()]\n47 |     evaluation, claims, audit = convert_reviewed(\n   |\n\nE741 Ambiguous variable name: `l`\n  --> scripts/prepare_reviewed_rag_dataset.py:46:33\n   |\n44 |         raise ValueError(\"corpus_changed\")\n45 |     candidates = [json.loads(l) for l in SOURCE.read_text().splitlines()]\n46 |     corpus = [json.loads(l) for l in corpus_path.read_text().splitlines()]\n   |                                 ^\n47 |     evaluation, claims, audit = convert_reviewed(\n48 |         candidates, corpus, json.loads(RULES.read_text()), corpus_sha\n   |\n\nFound 3 errors.\n"
+    }
+  },
+  "freeze_aware": {
+    "ruff-frozen-entrypoint": {
+      "exit": 2,
+      "tail": "error: invalid value 'E741' for '--per-file-ignores <PER_FILE_IGNORES>': Expected <FilePattern>:<RuleCode> pattern\n\nFor more information, try '--help'.\n"
+    },
+    "format": {
+      "exit": 0,
+      "tail": "6 files already formatted\n"
+    },
+    "frozen_entrypoint_style_exceptions": {
+      "E402": "explicit src path bootstrap before importing pure converter",
+      "E741": "two one-letter comprehensions in already executed immutable preparation source",
+      "scope": "scripts/prepare_reviewed_rag_dataset.py only; preserve executed source hash after observing rankings"
+    }
+  },
+  "final_lint": {
+    "exit": 0,
+    "output": "All checks passed!\n",
+    "excluded_rules": {
+      "scripts/prepare_reviewed_rag_dataset.py": [
+        "E402",
+        "E741"
+      ]
+    },
+    "frozen_sources_modified": false
+  }
+}

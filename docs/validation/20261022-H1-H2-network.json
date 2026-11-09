@@ -1,0 +1,148 @@
+{
+  "historical_ssh_checks": [
+    {
+      "time": "2026-10-22T07:56:19.653421+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T07:59:23.773962+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:00:30.481743+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:00:46.460616+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:01:02.474827+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:10:34.515365+00:00",
+      "ssh": "SSHException"
+    },
+    {
+      "time": "2026-10-22T08:11:49.479757+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:12:05.475030+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:12:21.477355+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:12:37.470282+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:15:50.782177+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:15:56.017591+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:20:46.034910+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:21:41.986330+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:21:57.972265+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:22:13.976176+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:23:29.971002+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:24:51.026405+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:25:50.977619+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:26:11.986123+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:26:32.977070+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:26:53.973407+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:27:14.967421+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:31:16.752152+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:32:21.465497+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:39:35.483294+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "time": "2026-10-22T08:39:40.724404+00:00",
+      "ssh": "TimeoutError"
+    }
+  ],
+  "final_primary_check": {
+    "at": "2026-10-22T08:58:10.099353+00:00",
+    "host": "172.26.67.148:22",
+    "ssh": "timeout",
+    "icmp": "timeout"
+  },
+  "note": "successful SSH windows earlier in this turn completed real evaluation and regression; only final sync/audit pending",
+  "closeout_ssh_checks": [
+    {
+      "at": "2026-10-22T09:56:39.902135+00:00",
+      "ssh": "connected"
+    },
+    {
+      "at": "2026-10-22T09:57:50.960701+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "at": "2026-10-22T09:57:59.970776+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "at": "2026-10-22T09:58:08.987016+00:00",
+      "ssh": "TimeoutError"
+    },
+    {
+      "at": "2026-10-22T09:58:57.264647+00:00",
+      "ssh": "connected"
+    }
+  ],
+  "closeout_verified_connection_at": "2026-10-22T09:59:03.061149+00:00",
+  "closeout_ping": {
+    "host": "172.26.67.148",
+    "received": 1,
+    "sent": 1,
+    "latency_ms": 58
+  }
+}

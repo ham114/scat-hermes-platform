@@ -1,0 +1,30 @@
+{
+  "status": "failed",
+  "probe_id": "19b2e0d0a9",
+  "stage": "recovery",
+  "task_id": "d6a29e815bfd4a849239fadaee2d0a77",
+  "parent_run_id": "run_0930680d837546cfa1f052b3a517060f",
+  "parent_dialogue_available_during_job": true,
+  "chat_services_stopped_before_job_completion": true,
+  "worker_process_group_crashed_and_restarted": true,
+  "cleanup_jobs": [
+    {
+      "task_id": "d6a29e815bfd4a849239fadaee2d0a77",
+      "state": "unknown",
+      "error": "lease_expired"
+    }
+  ],
+  "cleanup_backends": [
+    {
+      "id": "5c855ec5f25a1cc0dcf31b1fca19d92e7fc1618ea16455ad12a9f03674423859",
+      "state": "succeeded",
+      "calls": 1,
+      "pid": 3531405,
+      "process_start": "769866110"
+    }
+  ],
+  "owned_processes_remaining": 0,
+  "temporary_home_removed": true,
+  "isolated_collections_removed": true,
+  "error_type": "RuntimeError"
+}

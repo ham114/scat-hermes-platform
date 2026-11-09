@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "real_model": false,
+  "business_effects": 0,
+  "checks": [
+    {
+      "action": "maintain",
+      "expected_exit": 0,
+      "exit": 0
+    },
+    {
+      "action": "read",
+      "expected_exit": 0,
+      "exit": 0
+    },
+    {
+      "action": "read",
+      "expected_exit": 0,
+      "exit": 0
+    },
+    {
+      "action": "hold",
+      "expected_exit": 0,
+      "exit": 0
+    },
+    {
+      "action": "release",
+      "expected_exit": 0,
+      "exit": 0
+    },
+    {
+      "action": "preview",
+      "expected_exit": 0,
+      "exit": 0
+    },
+    {
+      "action": "apply",
+      "expected_exit": 1,
+      "exit": 1
+    },
+    {
+      "action": "apply",
+      "expected_exit": 0,
+      "exit": 0
+    }
+  ],
+  "archive_integrity_and_scope": true,
+  "preview_required": true,
+  "acknowledged_retention_applied": true,
+  "temporary_workspace_removed": true
+}

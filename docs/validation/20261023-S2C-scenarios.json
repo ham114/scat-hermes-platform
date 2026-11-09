@@ -1,0 +1,240 @@
+{
+  "status": "passed",
+  "kind": "deterministic contract scenarios; not model selection accuracy",
+  "real_model": false,
+  "real_database_query": false,
+  "domains": {
+    "knowledge": {
+      "passed": 5,
+      "total": 5
+    },
+    "quality": {
+      "passed": 5,
+      "total": 5
+    },
+    "query": {
+      "passed": 5,
+      "total": 5
+    },
+    "trajectory": {
+      "passed": 5,
+      "total": 5
+    },
+    "uav": {
+      "passed": 5,
+      "total": 5
+    }
+  },
+  "cases": [
+    {
+      "id": "query-success",
+      "domain": "query",
+      "mode": "success",
+      "passed": true,
+      "observed": "ok",
+      "backend_calls": 1
+    },
+    {
+      "id": "query-invalid",
+      "domain": "query",
+      "mode": "invalid",
+      "passed": true,
+      "observed": "invalid_request",
+      "backend_calls": 0
+    },
+    {
+      "id": "query-empty",
+      "domain": "query",
+      "mode": "empty",
+      "passed": true,
+      "observed": "not_found",
+      "backend_calls": 1
+    },
+    {
+      "id": "query-fault",
+      "domain": "query",
+      "mode": "fault",
+      "passed": true,
+      "observed": "internal_error",
+      "backend_calls": 1
+    },
+    {
+      "id": "query-forbidden",
+      "domain": "query",
+      "mode": "forbidden",
+      "passed": true,
+      "observed": "skill_required",
+      "backend_calls": 0
+    },
+    {
+      "id": "quality-success",
+      "domain": "quality",
+      "mode": "success",
+      "passed": true,
+      "observed": "ok",
+      "backend_calls": 1
+    },
+    {
+      "id": "quality-invalid",
+      "domain": "quality",
+      "mode": "invalid",
+      "passed": true,
+      "observed": "invalid_request",
+      "backend_calls": 0
+    },
+    {
+      "id": "quality-empty",
+      "domain": "quality",
+      "mode": "empty",
+      "passed": true,
+      "observed": "not_found",
+      "backend_calls": 1
+    },
+    {
+      "id": "quality-fault",
+      "domain": "quality",
+      "mode": "fault",
+      "passed": true,
+      "observed": "internal_error",
+      "backend_calls": 1
+    },
+    {
+      "id": "quality-forbidden",
+      "domain": "quality",
+      "mode": "forbidden",
+      "passed": true,
+      "observed": "skill_required",
+      "backend_calls": 0
+    },
+    {
+      "id": "trajectory-success",
+      "domain": "trajectory",
+      "mode": "success",
+      "passed": true,
+      "observed": "ok",
+      "backend_calls": 1
+    },
+    {
+      "id": "trajectory-invalid",
+      "domain": "trajectory",
+      "mode": "invalid",
+      "passed": true,
+      "observed": "invalid_request",
+      "backend_calls": 0
+    },
+    {
+      "id": "trajectory-empty",
+      "domain": "trajectory",
+      "mode": "empty",
+      "passed": true,
+      "observed": "not_found",
+      "backend_calls": 1
+    },
+    {
+      "id": "trajectory-fault",
+      "domain": "trajectory",
+      "mode": "fault",
+      "passed": true,
+      "observed": "internal_error",
+      "backend_calls": 1
+    },
+    {
+      "id": "trajectory-forbidden",
+      "domain": "trajectory",
+      "mode": "forbidden",
+      "passed": true,
+      "observed": "skill_required",
+      "backend_calls": 0
+    },
+    {
+      "id": "knowledge-success",
+      "domain": "knowledge",
+      "mode": "success",
+      "passed": true,
+      "observed": "ok",
+      "backend_calls": 1
+    },
+    {
+      "id": "knowledge-invalid",
+      "domain": "knowledge",
+      "mode": "invalid",
+      "passed": true,
+      "observed": "invalid_request",
+      "backend_calls": 0
+    },
+    {
+      "id": "knowledge-empty",
+      "domain": "knowledge",
+      "mode": "empty",
+      "passed": true,
+      "observed": "not_found",
+      "backend_calls": 1
+    },
+    {
+      "id": "knowledge-fault",
+      "domain": "knowledge",
+      "mode": "fault",
+      "passed": true,
+      "observed": "internal_error",
+      "backend_calls": 1
+    },
+    {
+      "id": "knowledge-forbidden",
+      "domain": "knowledge",
+      "mode": "forbidden",
+      "passed": true,
+      "observed": "skill_required",
+      "backend_calls": 0
+    },
+    {
+      "id": "uav-success",
+      "domain": "uav",
+      "mode": "success",
+      "passed": true,
+      "observed": "ok",
+      "backend_calls": 1
+    },
+    {
+      "id": "uav-invalid",
+      "domain": "uav",
+      "mode": "invalid",
+      "passed": true,
+      "observed": "invalid_request",
+      "backend_calls": 0
+    },
+    {
+      "id": "uav-empty",
+      "domain": "uav",
+      "mode": "empty",
+      "passed": true,
+      "observed": "not_found",
+      "backend_calls": 1
+    },
+    {
+      "id": "uav-fault",
+      "domain": "uav",
+      "mode": "fault",
+      "passed": true,
+      "observed": "internal_error",
+      "backend_calls": 1
+    },
+    {
+      "id": "uav-forbidden",
+      "domain": "uav",
+      "mode": "forbidden",
+      "passed": true,
+      "observed": "skill_required",
+      "backend_calls": 0
+    }
+  ],
+  "deferred_domains": {
+    "prediction": "S3/S4",
+    "comparison": "S3-S5",
+    "evaluation": "S3-S5",
+    "materialization": "S5",
+    "experiment": "S5",
+    "report": "computed artifact report S5; readonly narrative combination tested in S2"
+  },
+  "bundle_sha256": "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+  "temporary_workspace_removed": true
+}

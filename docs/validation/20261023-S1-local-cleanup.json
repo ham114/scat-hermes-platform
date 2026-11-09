@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "temporary_s1_removed": true,
+  "private_value_leaks": [],
+  "scanned_files": 44,
+  "project_venv_exists": false,
+  "no_new_dependencies": true,
+  "original_project": "reference only; no writes"
+}

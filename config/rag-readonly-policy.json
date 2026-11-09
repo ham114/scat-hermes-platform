@@ -1,0 +1,4 @@
+{
+  "readonly_ceiling": {"max_turns": 48, "max_llm_tokens": 2000000, "max_tool_calls": 96, "wall_seconds": 600},
+  "budgets": {"readonly": {"max_turns": 48, "max_llm_tokens": 2000000, "max_tool_calls": 96, "wall_seconds": 600}}
+}

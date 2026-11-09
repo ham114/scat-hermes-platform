@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "real_database": true,
+  "llm_calls": 0,
+  "prediction_calls": 0,
+  "raw_data_exported": false,
+  "points": 100,
+  "block_types": [
+    "metrics",
+    "trajectory_2d"
+  ],
+  "scope": "fetched_page",
+  "has_more": true,
+  "source_preserved": true,
+  "coordinate_equality_checked": true
+}

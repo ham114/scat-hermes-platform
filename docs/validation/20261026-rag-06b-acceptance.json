@@ -1,0 +1,338 @@
+{
+  "status": "backend-development-completed-with-quality-limitations",
+  "checks": {
+    "native_and_budget_sources_pinned": true,
+    "existing_conda_histories_unchanged": true,
+    "frozen_inputs_and_labels_unchanged": true,
+    "original_retriever_sources_unchanged": true,
+    "eight_model_files_verified": true,
+    "all_forty_pairs_recorded": true,
+    "budget_within_request_and_corrected_conservative_ceiling": true,
+    "guard_acceptance": true,
+    "api_acceptance": true,
+    "restart_acceptance": true,
+    "targeted_v4_regressions": true,
+    "synthetic_negative_provenance": true,
+    "full_backend_tests": true,
+    "actual_private_values_not_exposed": true,
+    "original_six_ports_listening": true,
+    "reserved_test_ports_closed": true,
+    "task_temp_removed": true
+  },
+  "model": {
+    "repo": "Qwen/Qwen3-Reranker-0.6B",
+    "revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
+    "verified_files": 8,
+    "bytes": 1207485009
+  },
+  "all_phases_usage_including_failures_and_reviews": {
+    "llm_calls": 1550,
+    "tool_calls": 1179,
+    "charged_tokens": 47884698,
+    "provider_input_tokens": 11238169,
+    "provider_output_tokens": 714085,
+    "provider_cached_tokens": 7733760
+  },
+  "phase_usage": {
+    "20261026-rag06b-dev40-shard-1": {
+      "llm_calls": 243,
+      "tool_calls": 181,
+      "charged_tokens": 7447146,
+      "provider_input_tokens": 1783188,
+      "provider_output_tokens": 95264,
+      "provider_cached_tokens": 1270528
+    },
+    "20261026-rag06b-dev40-shard-2": {
+      "llm_calls": 245,
+      "tool_calls": 188,
+      "charged_tokens": 7980902,
+      "provider_input_tokens": 1916752,
+      "provider_output_tokens": 113104,
+      "provider_cached_tokens": 1382528
+    },
+    "20261026-rag06b-v2-dev40-shard-1": {
+      "llm_calls": 140,
+      "tool_calls": 107,
+      "charged_tokens": 4209127,
+      "provider_input_tokens": 1007917,
+      "provider_output_tokens": 67432,
+      "provider_cached_tokens": 647296
+    },
+    "20261026-rag06b-v2-dev40-shard-2": {
+      "llm_calls": 64,
+      "tool_calls": 51,
+      "charged_tokens": 2163880,
+      "provider_input_tokens": 515379,
+      "provider_output_tokens": 27713,
+      "provider_cached_tokens": 380544
+    },
+    "20261026-rag06b-v3-continuation-1": {
+      "llm_calls": 214,
+      "tool_calls": 163,
+      "charged_tokens": 7188682,
+      "provider_input_tokens": 1630276,
+      "provider_output_tokens": 114733,
+      "provider_cached_tokens": 1103872
+    },
+    "20261026-rag06b-v3-continuation-2": {
+      "llm_calls": 166,
+      "tool_calls": 126,
+      "charged_tokens": 4584791,
+      "provider_input_tokens": 1103427,
+      "provider_output_tokens": 71219,
+      "provider_cached_tokens": 729600
+    },
+    "20261026-rag06b-v3-continuation-3": {
+      "llm_calls": 177,
+      "tool_calls": 133,
+      "charged_tokens": 5337218,
+      "provider_input_tokens": 1231535,
+      "provider_output_tokens": 90625,
+      "provider_cached_tokens": 836736
+    },
+    "20261026-rag06b-v3-dev40-shard-1": {
+      "llm_calls": 99,
+      "tool_calls": 74,
+      "charged_tokens": 2992446,
+      "provider_input_tokens": 669049,
+      "provider_output_tokens": 49535,
+      "provider_cached_tokens": 431872
+    },
+    "20261026-rag06b-v3-dev40-shard-2": {
+      "llm_calls": 90,
+      "tool_calls": 72,
+      "charged_tokens": 2986930,
+      "provider_input_tokens": 686943,
+      "provider_output_tokens": 44487,
+      "provider_cached_tokens": 482944
+    },
+    "negative-v3": {
+      "llm_calls": 48,
+      "tool_calls": 39,
+      "charged_tokens": 1011649,
+      "provider_input_tokens": 228440,
+      "provider_output_tokens": 11516,
+      "provider_cached_tokens": 170368
+    },
+    "regressions-v4": {
+      "llm_calls": 34,
+      "tool_calls": 25,
+      "charged_tokens": 932580,
+      "provider_input_tokens": 213697,
+      "provider_output_tokens": 15557,
+      "provider_cached_tokens": 140160
+    },
+    "api-integration": {
+      "llm_calls": 15,
+      "tool_calls": 10,
+      "charged_tokens": 518006,
+      "provider_input_tokens": 127236,
+      "provider_output_tokens": 6745,
+      "provider_cached_tokens": 78336
+    },
+    "api-integration-v2": {
+      "llm_calls": 15,
+      "tool_calls": 10,
+      "charged_tokens": 531341,
+      "provider_input_tokens": 124330,
+      "provider_output_tokens": 6155,
+      "provider_cached_tokens": 78976
+    }
+  },
+  "usage_note": "provider_input includes cached tokens; conservative UTF-8 reservation is not billable-token usage or a price guarantee",
+  "test_summary": {
+    "tests": 1251,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "ports": {
+    "80": true,
+    "443": true,
+    "8080": true,
+    "8501": true,
+    "8091": true,
+    "27017": true,
+    "18130": false,
+    "18131": false,
+    "18132": false,
+    "18133": false
+  },
+  "temporary_directories": {
+    ".tmp/rag-06b": true,
+    ".tmp/real-rag": true
+  },
+  "credential_scan": {
+    "files": 1458,
+    "exposure_files": []
+  },
+  "negative_provenance": [
+    {
+      "case": "injection",
+      "mode": "fast",
+      "execution_passed": true,
+      "citations_verified": 1,
+      "real_native_sessions": 1,
+      "tool_rejections": 0
+    },
+    {
+      "case": "injection",
+      "mode": "deep",
+      "execution_passed": true,
+      "citations_verified": 3,
+      "real_native_sessions": 4,
+      "tool_rejections": 0
+    },
+    {
+      "case": "conflict",
+      "mode": "fast",
+      "execution_passed": true,
+      "citations_verified": 6,
+      "real_native_sessions": 1,
+      "tool_rejections": 0
+    },
+    {
+      "case": "conflict",
+      "mode": "deep",
+      "execution_passed": true,
+      "citations_verified": 8,
+      "real_native_sessions": 4,
+      "tool_rejections": 0
+    },
+    {
+      "case": "insufficient",
+      "mode": "fast",
+      "execution_passed": true,
+      "citations_verified": 2,
+      "real_native_sessions": 1,
+      "tool_rejections": 0
+    },
+    {
+      "case": "insufficient",
+      "mode": "deep",
+      "execution_passed": true,
+      "citations_verified": 3,
+      "real_native_sessions": 4,
+      "tool_rejections": 0
+    }
+  ],
+  "v3_negative_behavior_passes": 5,
+  "v3_negative_runs": 6,
+  "v4_injection_regression_passed": true,
+  "v4_full_negative_matrix_rerun": false,
+  "qa": {
+    "fast": {
+      "runs": 40,
+      "execution_passed": 40,
+      "provenance_verified": 40,
+      "model_review_passed": 36,
+      "model_review_failed": 1,
+      "model_review_unavailable": 3,
+      "median_seconds": 12.069608139805496,
+      "max_seconds": 35.80559766385704,
+      "mean_cited_group_coverage": 1.0,
+      "model_requests": 172
+    },
+    "deep": {
+      "runs": 40,
+      "execution_passed": 38,
+      "provenance_verified": 38,
+      "model_review_passed": 33,
+      "model_review_failed": 4,
+      "model_review_unavailable": 3,
+      "median_seconds": 45.51728463359177,
+      "max_seconds": 106.6947115631774,
+      "mean_cited_group_coverage": 0.95,
+      "model_requests": 521
+    }
+  },
+  "source_reference_conflict": {
+    "status": "verified-source-and-reference-scope-conflict",
+    "case_id": "DEV-20261025-dev40-040",
+    "corpus_sha256": "61788775e03c392b493a7835bba2e5d38d7f8721035b73ccbb1dda441eb53b86",
+    "tables": {
+      "Table 1A：": {
+        "chunk_id": "kc1_e68282842131f4da6aa566ed5b9c3e07",
+        "source_version": "sha256-765f7e800054",
+        "text_sha256": "cd9b3bf0bb4a0a60ff9dc66b766ef8f0da530d92bf99afde499bfeda0a17d418",
+        "packages": [
+          {
+            "package": "scat20161015_20161021.zip",
+            "flights": 13138
+          },
+          {
+            "package": "scat20161112_20161118.zip",
+            "flights": 12248
+          },
+          {
+            "package": "scat20161210_20161216.zip",
+            "flights": 12099
+          },
+          {
+            "package": "scat20170107_20170113.zip",
+            "flights": 11195
+          },
+          {
+            "package": "scat20170215_20170221.zip",
+            "flights": 11610
+          },
+          {
+            "package": "scat20170304_20170310.zip",
+            "flights": 12265
+          }
+        ],
+        "computed_subtotal": 72555
+      },
+      "Table 1B：": {
+        "chunk_id": "kc1_53d9b0f8db060a7fe5149059b6d5bdea",
+        "source_version": "sha256-765f7e800054",
+        "text_sha256": "bdaa2bc80e45e8e46762dc41f986fe089ec647f290bc55607366d5159ceeb3ee",
+        "packages": [
+          {
+            "package": "scat20170401_20170407.zip",
+            "flights": 13255
+          },
+          {
+            "package": "scat20170429_20170505.zip",
+            "flights": 12855
+          },
+          {
+            "package": "scat20170527_20170602.zip",
+            "flights": 13832
+          },
+          {
+            "package": "scat20170624_20170630.zip",
+            "flights": 13772
+          },
+          {
+            "package": "scat20170722_20170728.zip",
+            "flights": 12950
+          },
+          {
+            "package": "scat20170819_20170825.zip",
+            "flights": 13963
+          },
+          {
+            "package": "scat20170916_20170922.zip",
+            "flights": 14365
+          }
+        ],
+        "computed_subtotal": 94992
+      }
+    },
+    "all_13_packages_total": 167547,
+    "table_1b_7_packages_subtotal": 94992,
+    "printed_table_1b_total_and_frozen_reference": 167547,
+    "conclusion": "The printed total/reference is for all 13 packages, whereas this question asks for Table 1B's seven packages. The deep answer detected a real source scope inconsistency; raw judge failure is retained and must not be treated as an established model arithmetic error.",
+    "proposed_source_revision": "Label Table 1B subtotal 94,992; label 167,547 separately as Table 1A+1B total for all 13 packages.",
+    "proposed_reference_revision": "Keep dates and 14,365 for the named package; answer seven-package subtotal 94,992 and explicitly distinguish the all-package total 167,547.",
+    "original_labels_and_scores_modified": false,
+    "automatic_dataset_rewrite": false,
+    "requires_new_reviewed_version_before_rescoring": true,
+    "external_model_requests": 0
+  },
+  "user_retrieval_latency_accepted": true,
+  "multi_agent_quality_advantage_demonstrated": false,
+  "independent_production_admission": false,
+  "default_service_or_skill_release_changed": false
+}

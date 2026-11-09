@@ -1,0 +1,9 @@
+{
+  "upstream_commit": "5b147ab036d6d19131bff8d20701b5001eab844a",
+  "files": {
+    "hermes_cli/profiles.py": "bf02f8442a80ce0daad0ddde130662294e6f5b26b75d2d432e4fc021dd0edf3a",
+    "hermes_cli/profiles_initialization.py": "9a9f0e5bd4a92f075831c570c0f65cb7f371e75c1582d0453f7429650c7649d1",
+    "hermes_constants.py": "870ad9935a62968636d6a14d160c0269dfbefd8091ab3cb71be78b30bef6360f",
+    "hermes_state.py": "e507ebd78b870364fd2fced94212592380cd26d0d39eec67547ed9bc233ebb98"
+  }
+}

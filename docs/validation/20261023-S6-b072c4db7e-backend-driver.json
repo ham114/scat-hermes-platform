@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "identity": "b072c4db7e",
+  "frontend_modified": false,
+  "new_dependencies": false,
+  "checks": [
+    {
+      "name": "lint",
+      "exit": 0,
+      "elapsed_seconds": 0.11,
+      "log": "var/validation/20261023-S6-b072c4db7e-lint.log"
+    },
+    {
+      "name": "format",
+      "exit": 0,
+      "elapsed_seconds": 0.06,
+      "log": "var/validation/20261023-S6-b072c4db7e-format.log"
+    },
+    {
+      "name": "native-imports",
+      "exit": 0,
+      "elapsed_seconds": 0.26,
+      "log": "var/validation/20261023-S6-b072c4db7e-native-imports.log"
+    },
+    {
+      "name": "pytest",
+      "exit": 0,
+      "elapsed_seconds": 230.24,
+      "log": "var/validation/20261023-S6-b072c4db7e-pytest.log"
+    },
+    {
+      "name": "app-pip-check",
+      "exit": 0,
+      "elapsed_seconds": 0.57,
+      "log": "var/validation/20261023-S6-b072c4db7e-app-pip-check.log"
+    },
+    {
+      "name": "native-pip-check",
+      "exit": 0,
+      "elapsed_seconds": 0.42,
+      "log": "var/validation/20261023-S6-b072c4db7e-native-pip-check.log"
+    }
+  ],
+  "temporary_workspace_removed": true
+}

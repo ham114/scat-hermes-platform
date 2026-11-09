@@ -1,0 +1,24 @@
+{
+  "services": {
+    "actions": {
+      "environment": {
+        "SCAT_S5_SYNTHETIC": "1"
+      }
+    },
+    "platform": {
+      "environment": {
+        "SCAT_S5_SYNTHETIC": "1"
+      }
+    },
+    "worker": {
+      "environment": {
+        "SCAT_S5_SYNTHETIC": "1"
+      }
+    },
+    "hermes-main": {
+      "environment": {
+        "SCAT_READONLY_BUDGET_JSON": "{\"max_turns\": 24, \"max_llm_tokens\": 600000, \"max_tool_calls\": 60, \"wall_seconds\": 360}"
+      }
+    }
+  }
+}

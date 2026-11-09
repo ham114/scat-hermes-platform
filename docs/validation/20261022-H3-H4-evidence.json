@@ -1,0 +1,163 @@
+{
+  "h3-real-business": {
+    "status": "passed",
+    "batch": "scat20161015_20161021",
+    "started_at": 1792648673.856122,
+    "mongodb": {
+      "connected": true,
+      "batch_count": 10637
+    },
+    "operations": {
+      "search_scat_flights": {
+        "status": "ok",
+        "seconds": 0.03,
+        "returned_count": 1,
+        "total": 10637,
+        "database_count_matches": true
+      },
+      "get_scat_track_points": {
+        "status": "ok",
+        "seconds": 0.01,
+        "result_fields": [
+          "flight",
+          "pagination",
+          "points"
+        ],
+        "returned_points": 3,
+        "bounded": true
+      },
+      "get_scat_batch_overview": {
+        "status": "ok",
+        "seconds": 3.39,
+        "result_fields": [
+          "data_quality",
+          "flight_volume",
+          "statistics",
+          "statistics_generated_at",
+          "statistics_source",
+          "top_aircraft_types",
+          "top_arrival_airports",
+          "top_departure_airports",
+          "top_routes"
+        ]
+      },
+      "inspect_scat_collection_data_quality": {
+        "status": "ok",
+        "seconds": 30.14,
+        "result_fields": [
+          "anomaly_definition",
+          "batch",
+          "batches",
+          "clean_definition",
+          "clean_trajectory_samples",
+          "features",
+          "identifier_note",
+          "partition_coverage_verified",
+          "quality_policy_version",
+          "scope",
+          "summary",
+          "temporal_spikes_included",
+          "trajectory_ordering"
+        ]
+      },
+      "search_scat_knowledge": {
+        "status": "ok",
+        "seconds": 0.07,
+        "retrieval_status": "ok",
+        "count": 2,
+        "citations_present": true,
+        "source_ids": [
+          "trajectory-evaluation-curated"
+        ]
+      }
+    },
+    "mcp_server": "SCAT readonly",
+    "tool_count": 5,
+    "mcp_closed": true,
+    "finished_at": 1792648715.9361486
+  },
+  "h4-platform-api": {
+    "status": "passed",
+    "started_at": 1792648717.4408896,
+    "profile": "var/hermes/probe-business-api-e470ac569fa8",
+    "platform_state": ".tmp/h4/platform-probe/bindings-e470ac569fa8.sqlite",
+    "health": "ready",
+    "stage": "completed",
+    "idempotency_replayed_same_run": true,
+    "business_run": {
+      "terminal": "run.completed",
+      "events": {
+        "tool.started": 1,
+        "tool.completed": 1,
+        "message.delta": 56,
+        "run.completed": 1
+      },
+      "tool": [
+        "mcp__scat__search_scat_flights"
+      ],
+      "count_matches": true,
+      "nonce_present": true,
+      "reconnect_ids_increase": true
+    },
+    "multi_turn_memory": true,
+    "rag_run": {
+      "terminal": "run.completed",
+      "tool_called": true,
+      "source_cited": true
+    },
+    "cancellation": {
+      "actual_status": "cancelled",
+      "completed": false
+    },
+    "degradation": {
+      "readiness_status": 503,
+      "deterministic_http_status": 200,
+      "database_available": true
+    },
+    "child_pids": [
+      3085359,
+      3085504
+    ],
+    "children_stopped": true,
+    "finished_at": 1792648767.6416876
+  },
+  "server_regression": {
+    "passed": 730,
+    "warnings": 1,
+    "seconds": 24.57,
+    "conda": "scat-agent"
+  },
+  "local_related": {
+    "passed": 67,
+    "seconds": 9.57,
+    "conda": "scat-frontend"
+  },
+  "frontend": {
+    "test_files": 22,
+    "passed": 92,
+    "lint": "passed",
+    "typecheck": "passed",
+    "production_build": "passed",
+    "browser_tests": 6,
+    "browser": "installed Edge",
+    "browser_api": "mocked contract; separate real API probe above"
+  },
+  "nginx_sse": {
+    "status": "passed",
+    "upstream": "timed synthetic SSE",
+    "started_at": 1792649304.5639908,
+    "prefix": ".tmp/h4/nginx-35166905a972",
+    "configuration_valid": true,
+    "child_pid": 3089082,
+    "first_event_seconds": 0.007,
+    "last_event_seconds": 1.507,
+    "last_event_id_forwarded": true,
+    "events": [
+      "probe.started",
+      "probe.completed"
+    ],
+    "child_stopped": true,
+    "upstream_stopped": true,
+    "finished_at": 1792649307.071568
+  }
+}

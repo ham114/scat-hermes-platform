@@ -1,0 +1,428 @@
+{
+  "schema_version": 1,
+  "legacy_count": 52,
+  "s2_legacy_readonly_count": 25,
+  "s2_new_readonly_operations": [
+    "list_scat_prediction_snapshots"
+  ],
+  "s2_total_operations": 26,
+  "scope": "S2 SCAT/UAV/knowledge readonly foundation; numerical evaluation and job-domain migration retain original S3-S5 stages",
+  "rows": [
+    {
+      "legacy_tool": "get_scat_flight_phase_segments",
+      "source": "src/agents/eval_tools.py",
+      "stage": "S3-S5",
+      "status": "pending_numerical_step_contract",
+      "target": null,
+      "reason": "Materialized phase/CFPL metric diagnosis with numerical fallback and protocol identity; belongs to evaluation-step migration"
+    },
+    {
+      "legacy_tool": "get_worst_prediction_cases",
+      "source": "src/agents/eval_tools.py",
+      "stage": "S3-S5",
+      "status": "pending_numerical_step_contract",
+      "target": null,
+      "reason": "Materialized phase/CFPL metric diagnosis with numerical fallback and protocol identity; belongs to evaluation-step migration"
+    },
+    {
+      "legacy_tool": "get_prediction_metric_summaries",
+      "source": "src/agents/eval_tools.py",
+      "stage": "S3-S5",
+      "status": "pending_numerical_step_contract",
+      "target": null,
+      "reason": "Materialized phase/CFPL metric diagnosis with numerical fallback and protocol identity; belongs to evaluation-step migration"
+    },
+    {
+      "legacy_tool": "prepare_prediction_experiment",
+      "source": "src/agents/experiment_tools.py",
+      "stage": "S5",
+      "status": "pending_job_domain",
+      "target": null,
+      "reason": "Prepare/submit/cancel and job-domain history migrate together; not exposed through S2 readonly profile"
+    },
+    {
+      "legacy_tool": "submit_prediction_experiment",
+      "source": "src/agents/experiment_tools.py",
+      "stage": "S5",
+      "status": "pending_job_domain",
+      "target": null,
+      "reason": "Prepare/submit/cancel and job-domain history migrate together; not exposed through S2 readonly profile"
+    },
+    {
+      "legacy_tool": "cancel_prediction_experiment_submission",
+      "source": "src/agents/experiment_tools.py",
+      "stage": "S5",
+      "status": "pending_job_domain",
+      "target": null,
+      "reason": "Prepare/submit/cancel and job-domain history migrate together; not exposed through S2 readonly profile"
+    },
+    {
+      "legacy_tool": "get_experiment_run",
+      "source": "src/agents/experiment_tools.py",
+      "stage": "S5",
+      "status": "pending_job_domain",
+      "target": null,
+      "reason": "Prepare/submit/cancel and job-domain history migrate together; not exposed through S2 readonly profile"
+    },
+    {
+      "legacy_tool": "list_prediction_experiments",
+      "source": "src/agents/experiment_tools.py",
+      "stage": "S5",
+      "status": "pending_job_domain",
+      "target": null,
+      "reason": "Prepare/submit/cancel and job-domain history migrate together; not exposed through S2 readonly profile"
+    },
+    {
+      "legacy_tool": "prepare_materialization_job",
+      "source": "src/agents/materialization_tools.py",
+      "stage": "S5",
+      "status": "pending_job_domain",
+      "target": null,
+      "reason": "Prepare/submit/cancel and job-domain history migrate together; not exposed through S2 readonly profile"
+    },
+    {
+      "legacy_tool": "submit_materialization_job",
+      "source": "src/agents/materialization_tools.py",
+      "stage": "S5",
+      "status": "pending_job_domain",
+      "target": null,
+      "reason": "Prepare/submit/cancel and job-domain history migrate together; not exposed through S2 readonly profile"
+    },
+    {
+      "legacy_tool": "cancel_materialization_job_submission",
+      "source": "src/agents/materialization_tools.py",
+      "stage": "S5",
+      "status": "pending_job_domain",
+      "target": null,
+      "reason": "Prepare/submit/cancel and job-domain history migrate together; not exposed through S2 readonly profile"
+    },
+    {
+      "legacy_tool": "get_materialization_job",
+      "source": "src/agents/materialization_tools.py",
+      "stage": "S5",
+      "status": "pending_job_domain",
+      "target": null,
+      "reason": "Prepare/submit/cancel and job-domain history migrate together; not exposed through S2 readonly profile"
+    },
+    {
+      "legacy_tool": "list_materialization_jobs",
+      "source": "src/agents/materialization_tools.py",
+      "stage": "S5",
+      "status": "pending_job_domain",
+      "target": null,
+      "reason": "Prepare/submit/cancel and job-domain history migrate together; not exposed through S2 readonly profile"
+    },
+    {
+      "legacy_tool": "list_task_models",
+      "source": "src/agents/model_tools.py",
+      "stage": "H5/S2",
+      "status": "control_history",
+      "target": "scat_task_catalog",
+      "reason": "Current task catalog/history authorization retained; not a new analysis effect"
+    },
+    {
+      "legacy_tool": "prepare_model_task",
+      "source": "src/agents/model_tools.py",
+      "stage": "S3/S4",
+      "status": "pending_model_domain",
+      "target": null,
+      "reason": "Model/selection/confirmation/effect or artifact domain requires new step contracts and/or approved background execution"
+    },
+    {
+      "legacy_tool": "prepare_random_gbar_batch",
+      "source": "src/agents/model_tools.py",
+      "stage": "S3/S4",
+      "status": "pending_model_domain",
+      "target": null,
+      "reason": "Model/selection/confirmation/effect or artifact domain requires new step contracts and/or approved background execution"
+    },
+    {
+      "legacy_tool": "prepare_random_comparison_batch",
+      "source": "src/agents/model_tools.py",
+      "stage": "S3/S4",
+      "status": "pending_model_domain",
+      "target": null,
+      "reason": "Model/selection/confirmation/effect or artifact domain requires new step contracts and/or approved background execution"
+    },
+    {
+      "legacy_tool": "prepare_comparison_batch",
+      "source": "src/agents/model_tools.py",
+      "stage": "S3/S4",
+      "status": "pending_model_domain",
+      "target": null,
+      "reason": "Model/selection/confirmation/effect or artifact domain requires new step contracts and/or approved background execution"
+    },
+    {
+      "legacy_tool": "submit_model_task",
+      "source": "src/agents/model_tools.py",
+      "stage": "S3/S4",
+      "status": "pending_model_domain",
+      "target": null,
+      "reason": "Model/selection/confirmation/effect or artifact domain requires new step contracts and/or approved background execution"
+    },
+    {
+      "legacy_tool": "get_analysis_artifact",
+      "source": "src/agents/model_tools.py",
+      "stage": "H5/S2",
+      "status": "control_history",
+      "target": "scat_task_artifact",
+      "reason": "Current task catalog/history authorization retained; not a new analysis effect"
+    },
+    {
+      "legacy_tool": "get_model_run",
+      "source": "src/agents/model_tools.py",
+      "stage": "H5/S2",
+      "status": "control_history",
+      "target": "scat_task_get",
+      "reason": "Current task catalog/history authorization retained; not a new analysis effect"
+    },
+    {
+      "legacy_tool": "list_model_runs",
+      "source": "src/agents/model_tools.py",
+      "stage": "H5/S2",
+      "status": "control_history",
+      "target": "scat_task_list",
+      "reason": "Current task catalog/history authorization retained; not a new analysis effect"
+    },
+    {
+      "legacy_tool": "list_analysis_artifacts",
+      "source": "src/agents/model_tools.py",
+      "stage": "S3/S4",
+      "status": "pending_model_domain",
+      "target": null,
+      "reason": "Model/selection/confirmation/effect or artifact domain requires new step contracts and/or approved background execution"
+    },
+    {
+      "legacy_tool": "cancel_model_task",
+      "source": "src/agents/model_tools.py",
+      "stage": "S3/S4",
+      "status": "pending_model_domain",
+      "target": null,
+      "reason": "Model/selection/confirmation/effect or artifact domain requires new step contracts and/or approved background execution"
+    },
+    {
+      "legacy_tool": "cancel_model_run",
+      "source": "src/agents/model_tools.py",
+      "stage": "S3/S4",
+      "status": "pending_model_domain",
+      "target": null,
+      "reason": "Model/selection/confirmation/effect or artifact domain requires new step contracts and/or approved background execution"
+    },
+    {
+      "legacy_tool": "list_prediction_models",
+      "source": "src/agents/prediction_tools.py",
+      "stage": "S3/S4",
+      "status": "pending_model_domain",
+      "target": null,
+      "reason": "Model/selection/confirmation/effect or artifact domain requires new step contracts and/or approved background execution"
+    },
+    {
+      "legacy_tool": "predict_scat_flight_trajectory",
+      "source": "src/agents/prediction_tools.py",
+      "stage": "S3/S4",
+      "status": "pending_model_domain",
+      "target": null,
+      "reason": "Model/selection/confirmation/effect or artifact domain requires new step contracts and/or approved background execution"
+    },
+    {
+      "legacy_tool": "search_scat_knowledge",
+      "source": "src/agents/rag_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__search_scat_knowledge",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_scat_database_overview",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_scat_database_overview",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "list_scat_batches",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__list_scat_batches",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "inspect_scat_collection_data_quality",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__inspect_scat_collection_data_quality",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "list_scat_quality_problem_flights",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__list_scat_quality_problem_flights",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "list_scat_quality_clean_flights",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__list_scat_quality_clean_flights",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_scat_batch_overview",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_scat_batch_overview",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "search_scat_flights",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__search_scat_flights",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_scat_flight_overview",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_scat_flight_overview",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_scat_track_points",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_scat_track_points",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "inspect_scat_model_data_quality",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__inspect_scat_model_data_quality",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_scat_fpl_overview",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_scat_fpl_overview",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_scat_prediction_overview",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_scat_prediction_overview",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_scat_prediction_snapshot",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_scat_prediction_snapshot",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_scat_airport_stats",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_scat_airport_stats",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_scat_flight_phase_stats",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_scat_flight_phase_stats",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_scat_prediction_error_stats",
+      "source": "src/agents/scat_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_scat_prediction_error_stats",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "list_uav_models",
+      "source": "src/agents/uav_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__list_uav_models",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "search_uav_flights",
+      "source": "src/agents/uav_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__search_uav_flights",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_uav_flight_overview",
+      "source": "src/agents/uav_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_uav_flight_overview",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "list_uav_channels",
+      "source": "src/agents/uav_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__list_uav_channels",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_uav_samples",
+      "source": "src/agents/uav_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_uav_samples",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_uav_channel_stats",
+      "source": "src/agents/uav_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_uav_channel_stats",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_uav_normal_vs_anomaly_stats",
+      "source": "src/agents/uav_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_uav_normal_vs_anomaly_stats",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    },
+    {
+      "legacy_tool": "get_uav_phase_stats",
+      "source": "src/agents/uav_tools.py",
+      "stage": "S2",
+      "status": "implemented_readonly",
+      "target": "mcp__scat__get_uav_phase_stats",
+      "reason": "SCAT/UAV/knowledge query profile; current-run applicable skill required"
+    }
+  ]
+}

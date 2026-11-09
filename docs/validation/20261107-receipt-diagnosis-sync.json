@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-07",
+  "matched_files": 19,
+  "files_sha256": {
+    "frontend/src/components/RunEvidencePanel.vue": "dc08b7ca060f59e3cebaf1f9aaded480ff96f773fa090a0d0fb714bcd2610d20",
+    "frontend/src/components/RunEvidencePanel.spec.ts": "ac786243f286aac8ba40dd26d70b55f0a1ae1a74a18cc4b4a5a9ab01cb1865e0",
+    "frontend/src/views/HermesAssistantView.vue": "ffd68ef7ecea79b10209c49a0294ece94f1416a584e208e8ed035adc441de3f3",
+    "frontend/e2e/receipt-diagnosis-live.spec.ts": "c26618f801390b9bcdfdc5c95f9a08e073ba45adbd00658a56ffaf888707e8cb",
+    "frontend/playwright.receipt-live.config.ts": "a7a2306a7d69b6ff5fc9b57aad1eb9687ec0fa8050971b1960bc767301f78f31",
+    "scripts/audit_receipt_failures.py": "52f0cf458683aa6722f7bba1c1d6ac44b4e09d4fbfd62b0d2037fce5479b2380",
+    "README.md": "08428ec78c83c6399cfeeb36df53e4bf622934aa650129e738171f0084f6976c",
+    "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md": "8b4f07c3b05e42667833c13a3ae05c2799417ea2172920bc49a6763d31acbc06",
+    "docs/DEVELOPMENT_LOG.md": "292f6818c04c572f24fb0643082768df747da4d368a42af7df54817aa7c79279",
+    "docs/HERMES_RECEIPT_FAILURE_20261107.md": "5b130f01853b820fbd0fd5d2a6b059a7293913c7acebdcd24495449e4ae28fb9",
+    "docs/validation/20261107-receipt-diagnosis-acceptance.json": "5510ecd7c330e8b7eec6323e12649aa5586434dc2736637ec010388c92810906",
+    "var/deploy/frontend/20261107-receipt-status/frontend-dist.zip": "4d65fc9b0397a0ea88245cec1b2a7dcc0b702a1104169596625b4f8bc2330779",
+    "var/deploy/frontend/20261107-receipt-status/manifest.json": "8a0ad88fd127dc521e1642a9f7f210058eb4b6bbb22c6bcb92a256fba65fca14",
+    "var/validation/20261107-receipt-diagnosis/backend-audit.json": "5ef5dc541b20cef0df5d90a91ab85ad54356e1d47e4c5ba0dd7f45db5b357a4d",
+    "var/validation/20261107-receipt-diagnosis/browser-regression.log": "d866cf3fd2b64285ec0fef401cc47ee934a500b1bb6ad73336489762ddd2f420",
+    "var/validation/20261107-receipt-diagnosis/frontend-check.log": "c0235fec77eb101aad32ae94b0f615e6d9840d8325ec0ae3b9d24795df5bba18",
+    "var/validation/20261107-receipt-diagnosis/readback-desktop.json": "337eb91535e3ba0464c91ffd8d30cd4d3c8ad157f6fb5c1b45f24d858c0f6058",
+    "var/validation/20261107-receipt-diagnosis/readback-mobile.json": "337eb91535e3ba0464c91ffd8d30cd4d3c8ad157f6fb5c1b45f24d858c0f6058",
+    "var/validation/20261107-receipt-diagnosis/recovery-run.json": "399eeb165e72b936cb67af5096831045e2856363a6f1e103c834b2fb2fb13c6d"
+  },
+  "server_not_rebooted": true,
+  "container_restarts_performed": 0,
+  "provider_recovered": false,
+  "local_test_temp_removed_at_finish": true,
+  "active_preview_preserved": true
+}

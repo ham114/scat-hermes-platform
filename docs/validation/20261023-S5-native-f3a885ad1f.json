@@ -1,0 +1,14 @@
+{
+  "status": "failed",
+  "probe_id": "eec2ccce6c",
+  "stage": "planner",
+  "python": "/home/h3c/anaconda3/envs/scat-agent/bin/python",
+  "native_python": "/home/h3c/anaconda3/envs/scat-hermes/bin/python",
+  "synthetic": true,
+  "parent_run_id": "run_c9bde3984d434531b25dd6f02e17b801",
+  "cleanup_jobs": [],
+  "owned_processes_remaining": 0,
+  "temporary_home_removed": true,
+  "isolated_collections_removed": true,
+  "error_type": "AssertionError"
+}

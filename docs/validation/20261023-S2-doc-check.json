@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-23",
+  "status": "passed",
+  "kind": "v2.3 current documentation links and fence/anchor checks",
+  "files": [
+    {
+      "path": "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md",
+      "sha256": "8adfbf67d00d5dca41bac7826044265959d8912c2c53479cce495baec72db3b8",
+      "local_links": 36
+    },
+    {
+      "path": "README.md",
+      "sha256": "77bbad02dba3638ed54e2ad7f6d51d26df7ce823ab9ff5d4463dd0cd3d4bd3ae",
+      "local_links": 25
+    },
+    {
+      "path": "docs/DEVELOPMENT_LOG.md",
+      "sha256": "b573c98efe85749b38cf35bc5e106af7639293a8259573a3b93113de268b26a4",
+      "local_links": 2
+    },
+    {
+      "path": "docs/HERMES_API_AND_PORTAL.md",
+      "sha256": "2ad4ca4112d65c7bb5d31fdea26d599d6aaf70c0592dafcaac476f13cf343e01",
+      "local_links": 7
+    },
+    {
+      "path": "docs/HERMES_SKILLS_ARCHITECTURE_AND_REUSE_20261023.md",
+      "sha256": "df083de2d0ab0952c036b7cc06dec15f7f2b1ca56d1d6387a9dd5df63ee08765",
+      "local_links": 7
+    },
+    {
+      "path": "docs/HERMES_SKILLS_LIFECYCLE_AND_TOOL_MAPPING.md",
+      "sha256": "97c448fb839ece22ff5291f5807947b2d85e7d6bbd8915797ad4c3d3fde93ba5",
+      "local_links": 5
+    },
+    {
+      "path": "docs/HERMES_S2_SKILL_OPERATION_BINDING.md",
+      "sha256": "b64d22059fe719729544a33d7f707a8c6b81e2f83c27d8042bb5005cdfa45781",
+      "local_links": 20
+    }
+  ],
+  "errors": [],
+  "historical_reports": "v2.2 and S1 reports unchanged"
+}

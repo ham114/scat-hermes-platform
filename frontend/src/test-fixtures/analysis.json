@@ -1,0 +1,206 @@
+{
+  "artifact_id": "h6-synthetic-artifact",
+  "run_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "payload_sha256": "f9650dbab808cf88376ee12d81822e41fe6e0e3a85dae59fa9b1f2793b2157d8",
+  "analysis_result": {
+    "schema_version": "1.6",
+    "dataset": "scat",
+    "operation": "h6-synthetic-display",
+    "title": "H6 合成结果协议展示",
+    "start_time": "2026-10-25T00:00:00Z",
+    "context": {
+      "synthetic": true
+    },
+    "blocks": [
+      {
+        "type": "metrics",
+        "title": "指标",
+        "items": [
+          {
+            "key": "ade",
+            "label": "平均位移误差",
+            "value": 12.75,
+            "unit": "m"
+          },
+          {
+            "key": "missing",
+            "label": "缺失指标",
+            "value": null,
+            "unit": "m"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "title": "样本表格",
+        "columns": [
+          {
+            "key": "sample",
+            "label": "样本",
+            "unit": null
+          },
+          {
+            "key": "error",
+            "label": "误差",
+            "unit": "m"
+          }
+        ],
+        "rows": [
+          {
+            "sample": "SYNTH-H6-001",
+            "error": 12.75
+          }
+        ]
+      },
+      {
+        "type": "timeseries",
+        "title": "速度时序",
+        "x_key": "t",
+        "x_label": "相对时间",
+        "x_type": "number",
+        "x_unit": "s",
+        "series": [
+          {
+            "key": "speed",
+            "label": "速度",
+            "unit": "m/s"
+          }
+        ],
+        "points": [
+          {
+            "t": 0,
+            "speed": 100
+          },
+          {
+            "t": 10,
+            "speed": null
+          },
+          {
+            "t": 20,
+            "speed": 110
+          }
+        ]
+      },
+      {
+        "type": "trajectory_2d",
+        "title": "观测与预测轨迹",
+        "x_key": "east",
+        "x_label": "东向位置",
+        "x_unit": "m",
+        "y_key": "north",
+        "y_label": "北向位置",
+        "y_unit": "m",
+        "time_key": "t",
+        "path_key": "path",
+        "path_label": "轨迹角色",
+        "segment_key": "segment",
+        "segment_label": "分段",
+        "snapshot_key": "snapshot",
+        "snapshot_label": "预测快照",
+        "series": [
+          {
+            "key": "altitude",
+            "label": "高度",
+            "unit": "m",
+            "role": "color"
+          }
+        ],
+        "points": [
+          {
+            "east": 0,
+            "north": 0,
+            "t": 0,
+            "path": "观测",
+            "segment": "连续段1",
+            "snapshot": "时刻A",
+            "altitude": 1000
+          },
+          {
+            "east": 10,
+            "north": 5,
+            "t": 10,
+            "path": "观测",
+            "segment": "连续段1",
+            "snapshot": "时刻A",
+            "altitude": 1020
+          },
+          {
+            "east": 10,
+            "north": 5,
+            "t": 10,
+            "path": "预测",
+            "segment": "未来段",
+            "snapshot": "时刻A",
+            "altitude": 1020
+          },
+          {
+            "east": 20,
+            "north": 12,
+            "t": 20,
+            "path": "预测",
+            "segment": "未来段",
+            "snapshot": "时刻A",
+            "altitude": 1040
+          },
+          {
+            "east": 12,
+            "north": 7,
+            "t": 20,
+            "path": "观测",
+            "segment": "连续段2",
+            "snapshot": "时刻B",
+            "altitude": 1030
+          }
+        ]
+      },
+      {
+        "type": "classification",
+        "title": "样本分类",
+        "class_labels": ["正常", "异常"],
+        "items": [
+          {
+            "label": "正常",
+            "count": 2,
+            "confidence": 0.9,
+            "sample_ref": "SYNTH-H6-001"
+          },
+          {
+            "label": "异常",
+            "count": 1,
+            "confidence": null,
+            "sample_ref": "SYNTH-H6-002"
+          }
+        ]
+      },
+      {
+        "type": "prediction",
+        "title": "带上下界的预测",
+        "source": "synthetic-cpu-fixture",
+        "target_label": "高度",
+        "target_unit": "m",
+        "points": [
+          {
+            "time_step_s": 10.0,
+            "value": 1040.0,
+            "lower_bound": 1030.0,
+            "upper_bound": 1050.0
+          },
+          {
+            "time_step_s": 20.0,
+            "value": 1060.0,
+            "lower_bound": null,
+            "upper_bound": 1080.0
+          }
+        ]
+      },
+      {
+        "type": "action_link",
+        "label": "返回分析助手",
+        "url": "/assistant",
+        "kind": "back_to_chat",
+        "artifact_id": null,
+        "thread_id": null
+      }
+    ]
+  }
+}

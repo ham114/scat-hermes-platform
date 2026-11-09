@@ -1,0 +1,350 @@
+{
+  "status": "resolved_at_S2C_start",
+  "original_report": "20261023-S2B-sync.json",
+  "note": "Original pending report is preserved. These files were SHA-verified and synchronized at S2C start; current source/documents have since evolved under S2C. Final current hashes are in S2C-sync.",
+  "files": [
+    {
+      "path": "README.md",
+      "before": "77bbad02dba3638ed54e2ad7f6d51d26df7ce823ab9ff5d4463dd0cd3d4bd3ae",
+      "sha256": "01338d50b2975a6d27827311c2fdb255bcef9b364275ca51165491368ed2269d",
+      "uploaded": true
+    },
+    {
+      "path": "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md",
+      "before": "f7f5980a4b1b1dacd9b94ddfd1233f34846ee5495f6ee6155c4564b9851fb198",
+      "sha256": "802e5e9f030fb2ef5eebd5e326a6871c2f21b60498bf4764bf605d203830912c",
+      "uploaded": true
+    },
+    {
+      "path": "docs/DEVELOPMENT_LOG.md",
+      "before": "b3e57c18d1ff253b0ff2e66c709363b8ab2da6e7cbb9909e697e3dfae95c0347",
+      "sha256": "696da192678fc65f7ab575c68b8442bb071244821de2cbbe3abc00c0a49e0fe8",
+      "uploaded": true
+    },
+    {
+      "path": "docs/HERMES_API_AND_PORTAL.md",
+      "before": "2ad4ca4112d65c7bb5d31fdea26d599d6aaf70c0592dafcaac476f13cf343e01",
+      "sha256": "8ff237ee76518e6be85de9a9fc44be784fd3853bead5ba20016f30a10bf68c31",
+      "uploaded": true
+    },
+    {
+      "path": "docs/HERMES_S2_READONLY_COMPOSITION.md",
+      "before": null,
+      "sha256": "b48420e49e9679c07249949d7ff0ec5a89b00367a823295034a6366bb43470c2",
+      "uploaded": true
+    },
+    {
+      "path": "docs/HERMES_SKILLS_ARCHITECTURE_AND_REUSE_20261023.md",
+      "before": "df083de2d0ab0952c036b7cc06dec15f7f2b1ca56d1d6387a9dd5df63ee08765",
+      "sha256": "7d2513c3e019aa429bf6408e5f66a7ca16564fa0d11485f38762584b60f62424",
+      "uploaded": true
+    },
+    {
+      "path": "docs/HERMES_SKILLS_LIFECYCLE_AND_TOOL_MAPPING.md",
+      "before": "97c448fb839ece22ff5291f5807947b2d85e7d6bbd8915797ad4c3d3fde93ba5",
+      "sha256": "ee0ccfe3897f49a53aa86415db10b28ad5a9581536e835b21ab5b889fa976e7b",
+      "uploaded": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-app-deps1.log",
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-baseline.json",
+      "before": null,
+      "sha256": "ae6a4c32350476f73ec2f155889fc22a8a1ad535b5e0a9b3341b954d99c101a9",
+      "uploaded": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-business.json",
+      "sha256": "0c5a70bc8b28ce12722752d83b7c92659a05bd60cb78c6002dff686f4efae85c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-business1.log",
+      "sha256": "5bfd89bf769649c8b849c39f252b696f4164b5473e0f07f9806eb045d94664c4",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-completion.json",
+      "before": null,
+      "sha256": "b095633172410d7d1a1eea0d0035f6c0a22c441fb040ef0987cb41fa725fbdab",
+      "uploaded": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-doc-check.json",
+      "before": null,
+      "sha256": "5904282ca546d550428d20d3f3016a58ae8d6b573b8e27c80718d20dda85855a",
+      "uploaded": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-driver1.json",
+      "sha256": "63f72f5c39df38850d6cd729a9a293f8a8d3e883c90a90466f1132315d45793f",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-format1.log",
+      "sha256": "75666443b60b94a34a2084d9e10fded6d4386e17dd82921093dc269f32a413cd",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-full1.log",
+      "sha256": "97552fb4bf12b72b239e65bea62902e117484078a3e9b9952c80e785e28aff97",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-full1.xml",
+      "sha256": "de4c9d533ffb524306e4e6185ceb54ae75c6225c2426404ffec55c88e73507b6",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-full2.log",
+      "sha256": "bdd938ac11e5b6b0614ea14fbcfeb2cfc95043917fe2e06dfe2a39a4d8730495",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-full2.xml",
+      "sha256": "83b7e3cf06000632a4621fb529a8d0ea03cf5e4c4632fd40347278c6ad65d90e",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-hermes-deps1.log",
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-launch1.log",
+      "sha256": "98752d16c0fc50758acc779b13e338f2c050b1bee965cf0062c75b20ac4c8b79",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-local-cleanup.json",
+      "before": null,
+      "sha256": "78349cebf53b9c313c93ffd652416e69afb2c408917bdb86c4171e62c2ee222b",
+      "uploaded": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-local-ruff.json",
+      "before": null,
+      "sha256": "f1e131638809603131f0da4251fc6889cb6ac5615d82037227ebc3cca8cdcea5",
+      "uploaded": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-local-scan.json",
+      "before": null,
+      "sha256": "7b162002f42d25b93853b092f13c0c81fe803f6cac89bbe59d12d6fc5af3c70a",
+      "uploaded": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-native-05c6d75b.json",
+      "sha256": "e5e913bda72ed260f9125be210ab8ad2d6298d4b6d59fe34528cf22866fda033",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-native1.log",
+      "sha256": "41a6890ac5f21152011d4adb15600ffeb337ae639bac8dea37e66b009d86cbc5",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-prepare1.log",
+      "sha256": "7f167ad984b9f69d505d2cafffa41e1e23887df7be3a224553a8719578152aea",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-real-10b3ac57.json",
+      "sha256": "64b3f174c583eaa6f27046c80e3f6038aff0edc76dbd578dc9f94bc86a926299",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-real-87551c70.json",
+      "sha256": "eb3b4455f3ae3107f46461c2a9477c42ccfae06c33f836d5a4d2e63042cb3f7f",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-real.json",
+      "sha256": "29fc092addc0f4d0791cc4baae8cda551c02ec11b6558c0a904830d1067e3eb5",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-real2.log",
+      "sha256": "46e5282cac52e2674f0b2b640689b6819eb150a78d161eb212bcd88e1dded2ef",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-real3.log",
+      "sha256": "adfde60581687cc95ad0c9e7339bb93ce1dc9925c36f7f1f7dd7f1eaeaf10016",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-real4.log",
+      "sha256": "e6ab2cb2c6ff00cc55689f1132c4f67968d9d684b1e9315456ec3a87ff0cf0dd",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-ruff1.log",
+      "sha256": "bc06d7b5b37a3824c70d625e84465c8bec1579b05cf3a4e219a92bcde17eab2f",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-ruff2.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-ruff3.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-ruff4.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-server-cleanup.json",
+      "sha256": "4b92bf21bf03818afeb6a304455203af46b3529b73e4465e388d4567802808f7",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-server-final-ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-targeted1.log",
+      "sha256": "5fe89268b0c7e838a753143ed579abacd9c4281169745781705f77456f493e57",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-targeted1.xml",
+      "sha256": "aa53fcd71df2fb86cf8e4cba234523eab1ece0f18b40b6c93e6631daa320165d",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-targeted2.log",
+      "sha256": "4959b1f01dd5beefd636459aaf7a1a87e7b4e183ecce90244eac665e897c6574",
+      "unchanged": true
+    },
+    {
+      "path": "docs/validation/20261023-S2B-targeted2.xml",
+      "sha256": "11bcb861c637ba289f48339a2e773423fbf85e5ed688c48bc1d863600f9a3a1c",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/probe_hermes_composition.py",
+      "sha256": "97adff7351decc26ad89a9ca2f0ab715cc7719137d9bda7d73a1ee088d88c152",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/probe_skill_business_readonly.py",
+      "sha256": "08d9dc2b4d9d1cae8ea4cebe70a840347fa3a5b4ffd146a425377c3532cbb3bc",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/probe_skill_composition_native.py",
+      "sha256": "c24e7932e1702a4e51381bd8c16d7703e94db62fce98ccc9142c34079ee70e5e",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/run_hermes_api.py",
+      "sha256": "d6b224227c8e781ad874b17f51e64599fcf1e52edbd35f266d943a4a8c502f3a",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/run_scat_mcp.py",
+      "sha256": "dd38f61f9b481aae87f8992e279614d335af64cd99b3ac9d3fb38bfe7a638f27",
+      "unchanged": true
+    },
+    {
+      "path": "services/hermes/skills.lock.json",
+      "sha256": "49ae66ee587f16a195949b4aca4617affd692e3926205b3b21f164fba75d844e",
+      "unchanged": true
+    },
+    {
+      "path": "skills/aviation-knowledge/SKILL.md",
+      "sha256": "3d5baac0b8673f00858eecccf94b35483dd792209751e5b61684260510f8f082",
+      "unchanged": true
+    },
+    {
+      "path": "skills/scat-data-quality/SKILL.md",
+      "sha256": "9e29536b8475d31e7ba998cc939ff2b9812c67036f144ca53960c0436f870933",
+      "unchanged": true
+    },
+    {
+      "path": "skills/scat-flight-query/SKILL.md",
+      "sha256": "f771a94edd3085d3c8ed2d0bad9a63f8d75ce95ada485e0797899940980ab15c",
+      "unchanged": true
+    },
+    {
+      "path": "skills/scat-flight-query/references/query-contract.md",
+      "sha256": "8f9c31e8cf19816304faae59d86d2484092cca1ad8c4df8bfafaefcf61bea1fe",
+      "unchanged": true
+    },
+    {
+      "path": "skills/scat-investigation/SKILL.md",
+      "sha256": "1e86e6e232824702d9861e29d2f0e2bc02564ed08e028308a37f632acd798122",
+      "unchanged": true
+    },
+    {
+      "path": "skills/scat-trajectory-analysis/SKILL.md",
+      "sha256": "87b739a4f984048d18aa8aa0a985473dffb64545b17ac599c3aa117e1489a561",
+      "unchanged": true
+    },
+    {
+      "path": "skills/uav-flight-analysis/SKILL.md",
+      "sha256": "24a6bf7bbd395fe1af96cf77827e3852ee668e9f2baae9ff4460fbb062368059",
+      "unchanged": true
+    },
+    {
+      "path": "src/application/readonly.py",
+      "sha256": "ef88618ca372e3e2b87df090ac3c2255fb0cc51ff49ede1ad1e827c0431c07c4",
+      "unchanged": true
+    },
+    {
+      "path": "src/application/readonly_extensions.py",
+      "sha256": "11ae228e8d723268c96028f473ac61aae5f774b44605fc1bd4b98b497e67eb22",
+      "unchanged": true
+    },
+    {
+      "path": "src/application/skill_synthetic.py",
+      "sha256": "cffdaa55a9a49f51b0a8ec60cf0aa094b297daf5add05d9f82c4bbe9f4c65582",
+      "unchanged": true
+    },
+    {
+      "path": "src/hermes_runtime/results.py",
+      "sha256": "3e384ae4a284cd2e11c86e05072b991e082950262908e50146239a501492adc3",
+      "unchanged": true
+    },
+    {
+      "path": "src/hermes_runtime/skill_contracts.py",
+      "sha256": "c68438255184ceba06f2110c982bf4cb0a859a45c412960a17680246c9b2dab6",
+      "unchanged": true
+    },
+    {
+      "path": "src/hermes_runtime/skills.py",
+      "sha256": "9ccb70a9f7a5e56030befa7a2014a0f27997524ddf1feb68d01657d662898101",
+      "unchanged": true
+    },
+    {
+      "path": "src/scat_mcp/server.py",
+      "sha256": "729ddc106c1bf9fff1f5e52db66d2156f8d21e4b6abb7dbb62426ac4428cd844",
+      "unchanged": true
+    },
+    {
+      "path": "tests/hermes_runtime/test_skill_composition.py",
+      "sha256": "72ad21baff6868aea23bdf0d7b0fb9ce4008b70ea8e3710e7e2e16c29e088d36",
+      "unchanged": true
+    },
+    {
+      "path": "tests/hermes_runtime/test_skills.py",
+      "sha256": "30caa6e821437e6843522ba7d6f1854c1cac9e40d77e2d1e306abb53d30efcc6",
+      "unchanged": true
+    },
+    {
+      "path": "tests/scat_mcp/test_skill_extensions.py",
+      "sha256": "e52dd1a183fb0b12836e2265e91878911334d122c557c226ad1f93278be592ac",
+      "unchanged": true
+    }
+  ]
+}

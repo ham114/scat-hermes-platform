@@ -1,0 +1,135 @@
+{
+  "date": "2026-11-07",
+  "timezone": "Asia/Shanghai",
+  "status": "production_cutover_and_live_validation_passed",
+  "thread_id": "3a298bec-bafd-48bd-b99c-509f295dbd1f",
+  "run_id": "run_63a16cd882dd4b33bfd260959c1e12c8",
+  "root_causes": [
+    "provider output length limit after successful queries",
+    "deployed API missing validated AnalysisResult projection"
+  ],
+  "successful_existing_track_pages": 6,
+  "existing_track_points": 524,
+  "failed_run_status_preserved": true,
+  "new_model_calls": 3,
+  "new_prediction_requests": 0,
+  "server_tests_passed": 59,
+  "server_tests_seconds": 7.81,
+  "candidate_image_tests_passed": 59,
+  "candidate_image_tests_seconds": 7.95,
+  "image_source_policy_checks": "passed",
+  "candidate_api_real_receipt_readback": {
+    "status": "passed",
+    "candidate_api_readback": true,
+    "pages": [
+      {
+        "start": 0,
+        "points": 100,
+        "source_hash_preserved": true
+      },
+      {
+        "start": 100,
+        "points": 100,
+        "source_hash_preserved": true
+      },
+      {
+        "start": 200,
+        "points": 100,
+        "source_hash_preserved": true
+      },
+      {
+        "start": 300,
+        "points": 100,
+        "source_hash_preserved": true
+      },
+      {
+        "start": 400,
+        "points": 100,
+        "source_hash_preserved": true
+      },
+      {
+        "start": 500,
+        "points": 24,
+        "source_hash_preserved": true
+      }
+    ],
+    "cross_owner_denied": true,
+    "production_database_writes": 0,
+    "raw_data_exported": false,
+    "new_model_calls": 0,
+    "services_restarted": false
+  },
+  "browser_live_regressions": {
+    "passed": 4,
+    "mocked_responses": false,
+    "retries": 0,
+    "old_run_desktop_mobile": true,
+    "one_new_ordinary_request": true,
+    "same_new_result_mobile_get_only": true
+  },
+  "static_python_files_passed": 5,
+  "browser_test_format_lint_and_discovery": "passed",
+  "candidate_release": "20261107-track-display-3ee814b9c60b",
+  "previous_release": "20261028-s7b-3ad5eac48b08",
+  "candidate_images": {
+    "business": "sha256:bba1f700b99d5c37ac51be5f879be6145d80908f1ab6e4748b9122d75d1be4fd",
+    "native": "sha256:5863254ca640619b51038f50584a42f6153f5c388ddb3b6de9dee8e57978491a",
+    "author": "sha256:f9805ed5337851c5ca58d1d218367d171f7019da5c3f9a0acc7aeb1b0016dc45"
+  },
+  "staged_patch_sha256": {
+    "src/application/readonly_display.py": "35110970270505aa2c46d6a1653a2802503203649bbad326af724b8ec3a5e276",
+    "src/service/hermes_api.py": "f78bbb403577c3b7c202479f92220eb119ea825afb96c1271c79d83213f0c499",
+    "src/workflow_runtime/catalog.py": "a41e80be453f35b324c13063f167db2729dc9ef673818fbdb3615d172b40a974",
+    "scripts/run_hermes_api.py": "430bb0f988dcfda66a956e079ca62dfffcc97e0519e847d3f738083d408dd993"
+  },
+  "active_skill_bundle_changed": false,
+  "gpu_configuration_changed": false,
+  "production_services_restarted": [
+    "platform",
+    "actions",
+    "worker",
+    "hermes-main",
+    "hermes-worker"
+  ],
+  "auto_review_rejected_cutover": false,
+  "safety": [
+    "idle and unknown-task gates",
+    "stop admission and recheck",
+    "private on-server SQLite backup",
+    "rollback Compose preserving current DNS",
+    "no dependency installation",
+    "no raw trajectory file export"
+  ],
+  "authorization": "可以进行生产切换，只要不重启服务器就行",
+  "active_release": "20261107-track-display-3ee814b9c60b",
+  "server_not_rebooted": true,
+  "author_services_restarted": false,
+  "private_server_backups_checked": 10,
+  "scheduler": "active",
+  "live_usage": {
+    "llm_calls": 3,
+    "tool_calls": 2,
+    "charged_tokens": 225378,
+    "provider_input_tokens": 62035,
+    "provider_output_tokens": 369,
+    "exhausted": null
+  },
+  "live_thread_id": "343b8430-55d0-40bf-b6e1-cb0b4ca65f3c",
+  "live_run_id": "run_ff948b7e76124769a2e91470ce2a5857",
+  "live_output_characters": 370,
+  "live_result_pages": [
+    {
+      "points": 100,
+      "has_more": true,
+      "total": 524,
+      "source_hash_matches": true
+    }
+  ],
+  "live_browser_authorization_headers": 0,
+  "prior_rejection_resolved_by_explicit_user_approval": true,
+  "preview": "http://127.0.0.1:5175/",
+  "preview_duration_hours": 4,
+  "raw_trajectory_saved_locally": false,
+  "new_model_calls_scope": "main_agent_run",
+  "background_memory_quality_retested": false
+}

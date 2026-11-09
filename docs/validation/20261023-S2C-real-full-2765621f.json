@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "case": "full",
+  "started_at": 1792702845.143129,
+  "terminal": "run.completed",
+  "run_status": "completed",
+  "completed_tools": [
+    "skills_list",
+    "skill_view",
+    "skill_view",
+    "skill_view",
+    "skill_view",
+    "skill_view",
+    "skill_view",
+    "mcp__scat__search_scat_flights",
+    "mcp__scat__inspect_scat_collection_data_quality",
+    "mcp__scat__search_scat_knowledge",
+    "mcp__scat__get_scat_track_points"
+  ],
+  "budget": {
+    "scope": "scat:841a4f2e76d4a76b0fb4d0900c779443561972a7ff69f5a8d57abe34cead24db",
+    "run_id": "run_41437a6d47294ab5b9aa2c55c2bed311",
+    "started_at": 1792702861.5187361,
+    "policy_sha256": "21281509759d9185621313110c66e997e222acc48911327b6de0e2e4ae38e7f1",
+    "limits_json": "{\"max_turns\": 16, \"max_llm_tokens\": 1000000, \"max_tool_calls\": 32, \"wall_seconds\": 240, \"max_cost\": null, \"currency\": \"CNY\"}",
+    "llm_calls": 6,
+    "tool_calls": 11,
+    "charged_tokens": 354719,
+    "provider_input_tokens": 94090,
+    "provider_output_tokens": 1361,
+    "provider_cached_tokens": 78336,
+    "exhausted": null,
+    "finished_at": 1792702880.4354577
+  },
+  "loads": [
+    {
+      "skill_id": "scat-investigation",
+      "file_path": "SKILL.md"
+    },
+    {
+      "skill_id": "scat-flight-query",
+      "file_path": "SKILL.md"
+    },
+    {
+      "skill_id": "scat-flight-query",
+      "file_path": "references/query-contract.md"
+    },
+    {
+      "skill_id": "scat-data-quality",
+      "file_path": "SKILL.md"
+    },
+    {
+      "skill_id": "scat-trajectory-analysis",
+      "file_path": "SKILL.md"
+    },
+    {
+      "skill_id": "aviation-knowledge",
+      "file_path": "SKILL.md"
+    }
+  ],
+  "matching_operation_loads": 4,
+  "elapsed_seconds": 23.53,
+  "validated_readonly_references": 4,
+  "real_model": true,
+  "synthetic": true,
+  "real_database_query": false,
+  "gpu_executed": false,
+  "child_stopped": true,
+  "temporary_home_removed": true,
+  "log": "var/validation/hermes-s2c-5384f6d1120d.log",
+  "finished_at": 1792702881.3859456,
+  "evidence": "docs/validation/20261023-S2C-real-full-2765621f.json"
+}

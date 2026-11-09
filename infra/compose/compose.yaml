@@ -1,0 +1,1109 @@
+{
+  "name": "scat-hermes-h7b",
+  "services": {
+    "actions": {
+      "init": true,
+      "network_mode": "host",
+      "user": "1000:1000",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "restart": "unless-stopped",
+      "stop_grace_period": "40s",
+      "pids_limit": 256,
+      "cpus": 2,
+      "mem_limit": "2g",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "4m",
+          "max-file": "3"
+        }
+      },
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HERMES_API_KEY_FILE": "var/deploy/h7b/secrets/hermes.key",
+        "HERMES_BASE_URL": "http://127.0.0.1:18121",
+        "HERMES_STATE_FILE": "var/deploy/h7b/shared/state/bindings.sqlite",
+        "HERMES_TASK_STATE_FILE": "var/deploy/h7b/shared/state/tasks.sqlite",
+        "HERMES_RESULT_STATE_FILE": "var/deploy/h7b/shared/state/results.sqlite",
+        "SCAT_SKILL_RELEASE_STATE": "var/deploy/h7b/shared/skills/catalog.sqlite",
+        "SCAT_S5_WORKFLOWS": "1",
+        "SCAT_SKILL_JOBS": "1",
+        "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
+        "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
+        "ANALYSIS_IDENTITY_MODE": "single_user",
+        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
+        "SCAT_GBAR_V23_ENABLED": "false",
+        "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
+        "SCAT_S5_SYNTHETIC": "0"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-validation",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/validation",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/workflow-inputs",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/workflow-inputs",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/rag-operations",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag-operations",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-tmp/actions",
+          "target": "/home/h3c/project/python/scat-hermes-platform/.tmp",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-main.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-main.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-worker.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-worker.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-platform.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-platform.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "image": "${SCAT_BUSINESS_IMAGE}",
+      "command": [
+        "actions"
+      ],
+      "env_file": [
+        "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/backend.env"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "/usr/local/bin/scat-python",
+          "-B",
+          "-c",
+          "import urllib.request;urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:18123/health',timeout=4)"
+        ],
+        "interval": "15s",
+        "timeout": "6s",
+        "start_period": "90s",
+        "retries": 3
+      }
+    },
+    "platform": {
+      "init": true,
+      "network_mode": "host",
+      "user": "1000:1000",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "restart": "unless-stopped",
+      "stop_grace_period": "40s",
+      "pids_limit": 256,
+      "cpus": 1,
+      "mem_limit": "1536m",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "4m",
+          "max-file": "3"
+        }
+      },
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HERMES_API_KEY_FILE": "var/deploy/h7b/secrets/hermes.key",
+        "HERMES_BASE_URL": "http://127.0.0.1:18121",
+        "HERMES_STATE_FILE": "var/deploy/h7b/shared/state/bindings.sqlite",
+        "HERMES_TASK_STATE_FILE": "var/deploy/h7b/shared/state/tasks.sqlite",
+        "HERMES_RESULT_STATE_FILE": "var/deploy/h7b/shared/state/results.sqlite",
+        "SCAT_SKILL_RELEASE_STATE": "var/deploy/h7b/shared/skills/catalog.sqlite",
+        "SCAT_S5_WORKFLOWS": "1",
+        "SCAT_SKILL_JOBS": "1",
+        "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
+        "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
+        "ANALYSIS_IDENTITY_MODE": "single_user",
+        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
+        "SCAT_GBAR_V23_ENABLED": "false",
+        "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
+        "SCAT_S5_SYNTHETIC": "0",
+        "SCAT_ACTION_BASE_URL": "http://127.0.0.1:18123",
+        "SCAT_ACTION_KEY_FILE": "var/deploy/h7b/secrets/rpc-platform.key",
+        "SCAT_EXECUTION_REMOTE": "1"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-validation",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/validation",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/workflow-inputs",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/workflow-inputs",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/rag-operations",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag-operations",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-tmp/platform",
+          "target": "/home/h3c/project/python/scat-hermes-platform/.tmp",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-platform.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-platform.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "image": "${SCAT_BUSINESS_IMAGE}",
+      "command": [
+        "platform"
+      ],
+      "env_file": [
+        "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/backend.env",
+        "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/platform.env"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "/usr/local/bin/scat-python",
+          "-B",
+          "-c",
+          "import urllib.request;urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:18120/health/ready',timeout=4)"
+        ],
+        "interval": "15s",
+        "timeout": "6s",
+        "start_period": "90s",
+        "retries": 3
+      },
+      "depends_on": {
+        "hermes-main": {
+          "condition": "service_healthy"
+        }
+      }
+    },
+    "hermes-main": {
+      "init": true,
+      "network_mode": "host",
+      "user": "1000:1000",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "restart": "unless-stopped",
+      "stop_grace_period": "40s",
+      "pids_limit": 256,
+      "cpus": 2,
+      "mem_limit": "2g",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "4m",
+          "max-file": "3"
+        }
+      },
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HERMES_API_KEY_FILE": "var/deploy/h7b/secrets/hermes.key",
+        "HERMES_BASE_URL": "http://127.0.0.1:18121",
+        "HERMES_STATE_FILE": "var/deploy/h7b/shared/state/bindings.sqlite",
+        "HERMES_TASK_STATE_FILE": "var/deploy/h7b/shared/state/tasks.sqlite",
+        "HERMES_RESULT_STATE_FILE": "var/deploy/h7b/shared/state/results.sqlite",
+        "SCAT_SKILL_RELEASE_STATE": "var/deploy/h7b/shared/skills/catalog.sqlite",
+        "SCAT_S5_WORKFLOWS": "1",
+        "SCAT_SKILL_JOBS": "1",
+        "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
+        "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
+        "ANALYSIS_IDENTITY_MODE": "single_user",
+        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
+        "SCAT_GBAR_V23_ENABLED": "false",
+        "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
+        "SCAT_S5_SYNTHETIC": "0",
+        "SCAT_HERMES_PROFILE_ROOT": "var/deploy/h7b/profile-roots/hermes-main",
+        "SCAT_ACTION_BASE_URL": "http://127.0.0.1:18123",
+        "SCAT_ACTION_KEY_FILE": "var/deploy/h7b/secrets/rpc-main.key",
+        "SCAT_MCP_URL": "http://127.0.0.1:18123/mcp/"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-validation",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/validation",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/workflow-inputs",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/workflow-inputs",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/rag-operations",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag-operations",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-tmp/hermes-main",
+          "target": "/home/h3c/project/python/scat-hermes-platform/.tmp",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-main.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-main.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/profile-roots/hermes-main",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/profile-roots/hermes-main",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "image": "${SCAT_NATIVE_IMAGE}",
+      "command": [
+        "main"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "/usr/local/bin/scat-python",
+          "-B",
+          "-c",
+          "import urllib.request;urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:18121/health',timeout=4)"
+        ],
+        "interval": "15s",
+        "timeout": "6s",
+        "start_period": "90s",
+        "retries": 3
+      },
+      "depends_on": {
+        "actions": {
+          "condition": "service_healthy"
+        }
+      },
+      "dns": [
+        "223.5.5.5",
+        "119.29.29.29"
+      ]
+    },
+    "hermes-worker": {
+      "init": true,
+      "network_mode": "host",
+      "user": "1000:1000",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "restart": "unless-stopped",
+      "stop_grace_period": "40s",
+      "pids_limit": 256,
+      "cpus": 1,
+      "mem_limit": "2g",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "4m",
+          "max-file": "3"
+        }
+      },
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HERMES_API_KEY_FILE": "var/deploy/h7b/secrets/hermes.key",
+        "HERMES_BASE_URL": "http://127.0.0.1:18121",
+        "HERMES_STATE_FILE": "var/deploy/h7b/shared/state/bindings.sqlite",
+        "HERMES_TASK_STATE_FILE": "var/deploy/h7b/shared/state/tasks.sqlite",
+        "HERMES_RESULT_STATE_FILE": "var/deploy/h7b/shared/state/results.sqlite",
+        "SCAT_SKILL_RELEASE_STATE": "var/deploy/h7b/shared/skills/catalog.sqlite",
+        "SCAT_S5_WORKFLOWS": "1",
+        "SCAT_SKILL_JOBS": "1",
+        "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
+        "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
+        "ANALYSIS_IDENTITY_MODE": "single_user",
+        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
+        "SCAT_GBAR_V23_ENABLED": "false",
+        "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
+        "SCAT_S5_SYNTHETIC": "0",
+        "SCAT_HERMES_PROFILE_ROOT": "var/deploy/h7b/profile-roots/hermes-worker",
+        "SCAT_ACTION_BASE_URL": "http://127.0.0.1:18123",
+        "SCAT_ACTION_KEY_FILE": "var/deploy/h7b/secrets/rpc-worker.key"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-validation",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/validation",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/workflow-inputs",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/workflow-inputs",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/rag-operations",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag-operations",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-tmp/hermes-worker",
+          "target": "/home/h3c/project/python/scat-hermes-platform/.tmp",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-worker.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-worker.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/job-control.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/job-control.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/profile-roots/hermes-worker",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/profile-roots/hermes-worker",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "image": "${SCAT_NATIVE_IMAGE}",
+      "command": [
+        "job-control"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "/usr/local/bin/scat-python",
+          "-B",
+          "-c",
+          "import urllib.request;urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:18122/health',timeout=4)"
+        ],
+        "interval": "15s",
+        "timeout": "6s",
+        "start_period": "90s",
+        "retries": 3
+      },
+      "dns": [
+        "223.5.5.5",
+        "119.29.29.29"
+      ]
+    },
+    "worker": {
+      "init": true,
+      "network_mode": "host",
+      "user": "1000:1000",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "restart": "unless-stopped",
+      "stop_grace_period": "40s",
+      "pids_limit": 256,
+      "cpus": 1,
+      "mem_limit": "1g",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "4m",
+          "max-file": "3"
+        }
+      },
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HERMES_API_KEY_FILE": "var/deploy/h7b/secrets/hermes.key",
+        "HERMES_BASE_URL": "http://127.0.0.1:18121",
+        "HERMES_STATE_FILE": "var/deploy/h7b/shared/state/bindings.sqlite",
+        "HERMES_TASK_STATE_FILE": "var/deploy/h7b/shared/state/tasks.sqlite",
+        "HERMES_RESULT_STATE_FILE": "var/deploy/h7b/shared/state/results.sqlite",
+        "SCAT_SKILL_RELEASE_STATE": "var/deploy/h7b/shared/skills/catalog.sqlite",
+        "SCAT_S5_WORKFLOWS": "1",
+        "SCAT_SKILL_JOBS": "1",
+        "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
+        "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
+        "ANALYSIS_IDENTITY_MODE": "single_user",
+        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
+        "SCAT_GBAR_V23_ENABLED": "false",
+        "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
+        "SCAT_S5_SYNTHETIC": "0",
+        "SCAT_ACTION_BASE_URL": "http://127.0.0.1:18123",
+        "SCAT_ACTION_KEY_FILE": "var/deploy/h7b/secrets/rpc-worker.key",
+        "SCAT_EXECUTION_REMOTE": "1",
+        "SCAT_JOB_CONTROL_URL": "http://127.0.0.1:18122"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-validation",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/validation",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/workflow-inputs",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/workflow-inputs",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/rag-operations",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag-operations",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-tmp/worker",
+          "target": "/home/h3c/project/python/scat-hermes-platform/.tmp",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-worker.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/rpc-worker.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/job-control.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/job-control.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "image": "${SCAT_BUSINESS_IMAGE}",
+      "command": [
+        "worker"
+      ],
+      "env_file": [
+        "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/backend.env"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "/usr/local/bin/scat-python",
+          "-B",
+          "-c",
+          "import urllib.request;urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:18126/health',timeout=4)"
+        ],
+        "interval": "15s",
+        "timeout": "6s",
+        "start_period": "90s",
+        "retries": 3
+      },
+      "depends_on": {
+        "actions": {
+          "condition": "service_healthy"
+        },
+        "platform": {
+          "condition": "service_healthy"
+        },
+        "hermes-worker": {
+          "condition": "service_healthy"
+        }
+      }
+    },
+    "author-api": {
+      "init": true,
+      "network_mode": "host",
+      "user": "1000:1000",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "restart": "unless-stopped",
+      "stop_grace_period": "40s",
+      "pids_limit": 256,
+      "cpus": 2,
+      "mem_limit": "3g",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "4m",
+          "max-file": "3"
+        }
+      },
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HERMES_API_KEY_FILE": "var/deploy/h7b/secrets/hermes.key",
+        "HERMES_BASE_URL": "http://127.0.0.1:18121",
+        "HERMES_STATE_FILE": "var/deploy/h7b/shared/state/bindings.sqlite",
+        "HERMES_TASK_STATE_FILE": "var/deploy/h7b/shared/state/tasks.sqlite",
+        "HERMES_RESULT_STATE_FILE": "var/deploy/h7b/shared/state/results.sqlite",
+        "SCAT_SKILL_RELEASE_STATE": "var/deploy/h7b/shared/skills/catalog.sqlite",
+        "SCAT_S5_WORKFLOWS": "1",
+        "SCAT_SKILL_JOBS": "1",
+        "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
+        "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
+        "ANALYSIS_IDENTITY_MODE": "single_user",
+        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
+        "SCAT_GBAR_V23_ENABLED": "false",
+        "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
+        "SCAT_S5_SYNTHETIC": "0",
+        "SCAT_HERMES_PROFILE_ROOT": "var/deploy/h7b/profile-roots/author-api",
+        "SCAT_AUTHOR_KEY_FILE": "var/deploy/h7b/secrets/author.key",
+        "SCAT_AUTHOR_RELEASE_KEY_FILE": "var/deploy/h7b/secrets/release.key"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-validation",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/validation",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/workflow-inputs",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/workflow-inputs",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/rag-operations",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag-operations",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-tmp/author-api",
+          "target": "/home/h3c/project/python/scat-hermes-platform/.tmp",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/author.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/author.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/release.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/release.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/profile-roots/author-api",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/profile-roots/author-api",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/author.env",
+          "target": "/home/h3c/project/python/scat-hermes-platform/.env",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "image": "${SCAT_AUTHOR_IMAGE}",
+      "command": [
+        "author-api"
+      ],
+      "env_file": [
+        "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/backend.env"
+      ],
+      "profiles": [
+        "author"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "/usr/local/bin/scat-python",
+          "-B",
+          "-c",
+          "import urllib.request;urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:18124/health',timeout=4)"
+        ],
+        "interval": "15s",
+        "timeout": "6s",
+        "start_period": "90s",
+        "retries": 3
+      }
+    },
+    "hermes-author": {
+      "init": true,
+      "network_mode": "host",
+      "user": "1000:1000",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "restart": "unless-stopped",
+      "stop_grace_period": "40s",
+      "pids_limit": 256,
+      "cpus": 1,
+      "mem_limit": "1536m",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "4m",
+          "max-file": "3"
+        }
+      },
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HERMES_API_KEY_FILE": "var/deploy/h7b/secrets/hermes.key",
+        "HERMES_BASE_URL": "http://127.0.0.1:18121",
+        "HERMES_STATE_FILE": "var/deploy/h7b/shared/state/bindings.sqlite",
+        "HERMES_TASK_STATE_FILE": "var/deploy/h7b/shared/state/tasks.sqlite",
+        "HERMES_RESULT_STATE_FILE": "var/deploy/h7b/shared/state/results.sqlite",
+        "SCAT_SKILL_RELEASE_STATE": "var/deploy/h7b/shared/skills/catalog.sqlite",
+        "SCAT_S5_WORKFLOWS": "1",
+        "SCAT_SKILL_JOBS": "1",
+        "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
+        "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
+        "ANALYSIS_IDENTITY_MODE": "single_user",
+        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
+        "SCAT_GBAR_V23_ENABLED": "false",
+        "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
+        "SCAT_S5_SYNTHETIC": "0",
+        "SCAT_HERMES_PROFILE_ROOT": "var/deploy/h7b/profile-roots/hermes-author",
+        "SCAT_AUTHOR_KEY_FILE": "var/deploy/h7b/secrets/author.key"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-validation",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/validation",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/workflow-inputs",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/workflow-inputs",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/rag-operations",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag-operations",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-tmp/hermes-author",
+          "target": "/home/h3c/project/python/scat-hermes-platform/.tmp",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/hermes.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/author.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/author.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/profile-roots/hermes-author",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/profile-roots/hermes-author",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "image": "${SCAT_NATIVE_IMAGE}",
+      "command": [
+        "author"
+      ],
+      "profiles": [
+        "author"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "/usr/local/bin/scat-python",
+          "-B",
+          "-c",
+          "import urllib.request;urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:18125/health',timeout=4)"
+        ],
+        "interval": "15s",
+        "timeout": "6s",
+        "start_period": "90s",
+        "retries": 3
+      },
+      "depends_on": {
+        "author-api": {
+          "condition": "service_healthy"
+        }
+      }
+    }
+  },
+  "x-external-gpu-services": {
+    "rag": {
+      "endpoint": "http://127.0.0.1:18133",
+      "mode": "existing-conda-service",
+      "candidate_port": 18134
+    },
+    "gbar": {
+      "mode": "existing-bentoml-container",
+      "container": "scat-gbar-production-gbar-1",
+      "candidate_port": 18127
+    },
+    "migration": "GPU_MIGRATION.md; no unbuilt image or unverified GPU service is enabled"
+  }
+}

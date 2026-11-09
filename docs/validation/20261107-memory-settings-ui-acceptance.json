@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-07",
+  "status": "development_validated_real_honcho_effect_blocked_production_not_switched",
+  "tests": {
+    "server_full": {
+      "passed": 1430,
+      "skipped": 1,
+      "seconds": 259.29
+    },
+    "server_targeted": {
+      "passed": 74,
+      "seconds": 7.92
+    },
+    "frontend_unit": 137,
+    "browser_desktop_mobile": {
+      "passed": 36,
+      "seconds": 29.9
+    },
+    "format_lint_type_build": "passed_with_existing_trajectory_lint_order_and_chunk_warnings",
+    "ruff_files": 11
+  },
+  "real_honcho": {
+    "evaluation": "real_honcho_synthetic_storage_smoke",
+    "native_agent_quality_evaluated": false,
+    "before_usage": [
+      70,
+      4520033
+    ],
+    "checks": {
+      "a_recall_kilometres": false,
+      "b_initial_empty": true
+    },
+    "limits": {
+      "additional_requests": 12,
+      "additional_reserved_units": 500000
+    },
+    "created_workspaces": 2,
+    "error": "ValueError",
+    "cleanup": {
+      "0": {
+        "deletion": "pending",
+        "enabled": false
+      },
+      "1": {
+        "deletion": "pending",
+        "enabled": false
+      }
+    },
+    "after_usage": [
+      88,
+      4626971
+    ],
+    "usage_delta": [
+      18,
+      106938
+    ],
+    "status": "incomplete_or_failed"
+  },
+  "real_honcho_cleanup_verification": {
+    "cleanup_verified": {
+      "workspaces": 0,
+      "queue_items": 0,
+      "messages": 0
+    },
+    "automatic_api_deletion_passed": false,
+    "maintenance_cleanup_passed": true,
+    "dns_failure": "api.deepseek.com getaddrinfo gaierror; HTTPS URLError",
+    "usage": [
+      88,
+      4626971,
+      1121768,
+      11144
+    ],
+    "window_states": [
+      [
+        "memory",
+        "unknown",
+        18,
+        106938
+      ]
+    ],
+    "production_release": "20261028-s7b-3ad5eac48b08"
+  },
+  "evaluation_statement": "Do not combine mock contract/browser success with real memory effect. Real recall failed under DNS outage; later correction/restart checkpoints not run; automatic API deletion remained pending; separate scoped maintenance cleanup is not a deletion-quality pass.",
+  "billing_statement": "Unknown attempts consume conservative ledger units; they do not prove supplier response tokens or actual billing.",
+  "runtime_configuration_observed": false,
+  "configuration_apply": "offline maintenance only, proposals pending until explicit CLI and service rollout verification",
+  "dependencies_added": 0,
+  "frontend_files": 428,
+  "frontend_zip_sha256": "a76c1142f23033d22ac43e864a0261782268e543c1b0b916cf3c4a18a48a82ca",
+  "production_switched": false,
+  "source_and_bundle_sync_record": "docs/validation/20261107-memory-settings-ui-sync.json",
+  "cleanup_record": "docs/validation/20261107-memory-settings-ui-cleanup.json",
+  "private_evaluation_state": "retained only on server as formal failure/cleanup evidence; not downloaded",
+  "documents": [
+    "docs/HERMES_MEMORY_AGENT_SETTINGS_UI.md",
+    "docs/api/hermes-memory-settings.openapi.json"
+  ]
+}

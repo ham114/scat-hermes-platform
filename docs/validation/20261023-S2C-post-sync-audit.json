@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "verified_files": 127,
+  "temporary_round_directories_absent": true,
+  "staged_uploads_absent": true,
+  "private_value_match_paths": [],
+  "listening_ports": {
+    "80": true,
+    "443": true,
+    "8080": true,
+    "8501": true,
+    "8091": true,
+    "27017": true,
+    "18080": false,
+    "18081": false,
+    "18090": false,
+    "18091": false
+  },
+  "note": "Post-sync checks after all final documentation changes; full source/secret audit remains separately preserved"
+}

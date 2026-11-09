@@ -1,0 +1,11 @@
+{
+  "upstream_commit": "5b147ab036d6d19131bff8d20701b5001eab844a",
+  "native_sources": {
+    "agent/client_lifecycle.py": "4e8a80556184c415256934c50e6191b840910867fe68d36efc263440ea7b7dd2",
+    "gateway/platforms/api_server_runs.py": "a9c3b02e51407ca30fc948753149984c0ec75dcc047763cf75a356c1baaba466",
+    "agent/chat_completion_helpers.py": "dfefd09d09ac65f1ebfeb85c07740ccad6505ec3601e66d36de0d2fdba7d0b06",
+    "agent/agent_init.py": "1e29225039534583ef0f3e7ae0d7a02b091e03792f8170c880ba83fff9c977cd",
+    "gateway/platforms/api_server.py": "71ac56c28683aa6b935a432b58e5bfe3753492363ef2cf9f8853b121d0e8214f",
+    "run_agent.py": "33c7195fc6efa9122f1a6700d416fd283f9634712189af3fd72feb01bcea054f"
+  }
+}

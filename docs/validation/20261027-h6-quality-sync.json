@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "compared_files": 19,
+  "mismatches": [],
+  "sha256": {
+    "src/schema/analysis.py": "293986889418bcfcb11e0222768bac49e69d93891c81bf114ac3f7563e317a4c",
+    "src/workflow_runtime/report.py": "79c3d8889b1d8799842d7c1cc9050361b00b95570ad23bf1426d9268486682a1",
+    "src/application/skill_worker.py": "a11a0d81a56b002b268644cbe8611a0af1bcb0f422b25cd5ad419f4df289a661",
+    "src/application/workflow_operations.py": "6808aed1ee61df6b07ba683ebbb14a4cea5c295e9d705bc0eff1a6ee0c2af271",
+    "src/application/workflow_tasks.py": "47b0bc892195eda3161edab6414d0fe8ebf4ac93c06ab431a5c13ad29e9852cd",
+    "scripts/run_hermes_api.py": "4303c4d10819ed45a5a5fd3d28d4e1e19ca93c112b9fe345636e6b140a0a2a0a",
+    "src/hermes_runtime/real_rag_native.py": "8b291418b0d34eed0bc294fc76234f302a7ee02d5cf445e02988c30284738940",
+    "src/hermes_runtime/rag_operation.py": "1ca18fd90f5374823e45045a493602a6b963a782ebefec5bebc3cf7b8d9ee969",
+    "tests/hermes_runtime/test_rag_operation.py": "fc2b0c197b3a486f54b92e620339ecbb379b9bf2db826b1a8f628c88e6c48dbf",
+    "scripts/probe_h6_quality.py": "fdbde84cd4c33badd6d58299219239997f7075afaa968fce7d601da0a87b6efe",
+    "tests/workflows/test_report_quality.py": "50d76fd9c4aa1e8cfd48430afd8885cfde3c86e0d0c62d46c8b2178afb3f3b3f",
+    "docs/HERMES_H6_BACKEND_QUALITY.md": "5e9bf3e99d5838c1027c8e54c1f8cb5bb983b38b0adbd54e5519d6448eac0a7d",
+    "docs/DEVELOPMENT_LOG.md": "d32285055221e57430a3f1e3cc52c23d43b9faf8d86b4390e23ffc028ca86b0c",
+    "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md": "aaa8795c20a1c03541ae65d6f8288dcb57beaf38584774a01d3b9f7d837f9317",
+    "docs/HERMES_H6_DISPLAY_AND_RAG.md": "3eb4102b51c384b9f7a21b76c4a5af2cd8ad070d127614e128c69fefc9f599c8",
+    "scripts/audit_h6_quality.py": "04bea21f81c5b5d9030e861c9fa05eef645d216299b2451d34c077c392db61f4",
+    "docs/validation/20261027-h6-quality-acceptance.json": "b1e54b64db452c24b9782f60d8bd0310a601acc529cdd1ec761fabe8289f1136",
+    "docs/validation/20261027-h6-quality-live.json": "5e079dcc290abb7b42106a0cba576ee6faaf0c66a4aca1457e254203cdf7d410",
+    "docs/validation/20261027-h6-quality-live-intent-v2.json": "e75c8fbc75d8e67d378329617e77ebbd12cc55fa738135a8d04509012106a1e5"
+  },
+  "local_and_server_task_scratch_removed": true,
+  "credentials_transferred": false
+}

@@ -1,0 +1,217 @@
+{
+  "result_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "payload_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "operation": "get_scat_track_points",
+  "result": {
+    "status": "ok",
+    "query": {
+      "batch": "SYNTH",
+      "external_id": "100002",
+      "start": 100,
+      "every_nth": 2
+    },
+    "data": {
+      "pagination": {
+        "start": 100,
+        "total_points": 500,
+        "has_more": true,
+        "next_start": 104
+      },
+      "points": [
+        {
+          "sequence": 100,
+          "timestamp": "2020-01-01T00:00:00Z",
+          "position": {
+            "lat_deg": 50.0,
+            "lon_deg": 4.0,
+            "altitude_m": 1000
+          },
+          "motion": {
+            "ground_speed_mps": 150
+          }
+        },
+        {
+          "sequence": 102,
+          "timestamp": "2020-01-01T00:00:01Z",
+          "position": {
+            "lat_deg": 50.01,
+            "lon_deg": 4.02,
+            "altitude_m": 1001
+          },
+          "motion": {
+            "ground_speed_mps": 151
+          }
+        }
+      ]
+    }
+  },
+  "analysis_result": {
+    "schema_version": "1.3",
+    "dataset": "scat",
+    "operation": "get_scat_track_points",
+    "title": "SCAT 航班 100002 轨迹分析",
+    "start_time": "2020-01-01T00:00:00Z",
+    "context": {
+      "batch": "SYNTH",
+      "external_id": "100002",
+      "start": 100,
+      "every_nth": 2,
+      "readonly_result_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "readonly_payload_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "display_scope": "fetched_page"
+    },
+    "blocks": [
+      {
+        "type": "metrics",
+        "title": "轨迹窗口",
+        "items": [
+          {
+            "key": "total_points",
+            "label": "轨迹总点数",
+            "value": 500,
+            "unit": "个"
+          },
+          {
+            "key": "returned_points",
+            "label": "本页展示点",
+            "value": 2,
+            "unit": "个"
+          },
+          {
+            "key": "every_nth",
+            "label": "降采样步长",
+            "value": 2,
+            "unit": null
+          },
+          {
+            "key": "has_more",
+            "label": "是否还有下一页",
+            "value": true,
+            "unit": null
+          }
+        ]
+      },
+      {
+        "type": "timeseries",
+        "title": "SCAT 轨迹时序（deg）",
+        "x_key": "time_step_s",
+        "x_label": "时间步",
+        "x_type": "number",
+        "x_unit": "s",
+        "series": [
+          {
+            "key": "latitude",
+            "label": "纬度",
+            "unit": "deg"
+          },
+          {
+            "key": "longitude",
+            "label": "经度",
+            "unit": "deg"
+          }
+        ],
+        "points": [
+          {
+            "time_step_s": 0.0,
+            "latitude": 50.0,
+            "longitude": 4.0
+          },
+          {
+            "time_step_s": 1.0,
+            "latitude": 50.01,
+            "longitude": 4.02
+          }
+        ]
+      },
+      {
+        "type": "timeseries",
+        "title": "SCAT 轨迹时序（m）",
+        "x_key": "time_step_s",
+        "x_label": "时间步",
+        "x_type": "number",
+        "x_unit": "s",
+        "series": [
+          {
+            "key": "altitude",
+            "label": "高度",
+            "unit": "m"
+          }
+        ],
+        "points": [
+          {
+            "time_step_s": 0.0,
+            "altitude": 1000
+          },
+          {
+            "time_step_s": 1.0,
+            "altitude": 1001
+          }
+        ]
+      },
+      {
+        "type": "timeseries",
+        "title": "SCAT 轨迹时序（m/s）",
+        "x_key": "time_step_s",
+        "x_label": "时间步",
+        "x_type": "number",
+        "x_unit": "s",
+        "series": [
+          {
+            "key": "ground_speed",
+            "label": "地速",
+            "unit": "m/s"
+          }
+        ],
+        "points": [
+          {
+            "time_step_s": 0.0,
+            "ground_speed": 150
+          },
+          {
+            "time_step_s": 1.0,
+            "ground_speed": 151
+          }
+        ]
+      },
+      {
+        "type": "trajectory_2d",
+        "title": "SCAT 二维轨迹",
+        "x_key": "longitude",
+        "x_label": "经度",
+        "x_unit": "deg",
+        "y_key": "latitude",
+        "y_label": "纬度",
+        "y_unit": "deg",
+        "time_key": "time_step_s",
+        "path_key": null,
+        "path_label": null,
+        "segment_key": null,
+        "segment_label": null,
+        "snapshot_key": null,
+        "snapshot_label": null,
+        "series": [
+          {
+            "key": "altitude",
+            "label": "高度",
+            "unit": "m",
+            "role": "color"
+          }
+        ],
+        "points": [
+          {
+            "longitude": 4.0,
+            "latitude": 50.0,
+            "time_step_s": 0.0,
+            "altitude": 1000
+          },
+          {
+            "longitude": 4.02,
+            "latitude": 50.01,
+            "time_step_s": 1.0,
+            "altitude": 1001
+          }
+        ]
+      }
+    ]
+  }
+}

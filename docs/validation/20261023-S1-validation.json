@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "local_passed": 69,
+  "server_passed": 841,
+  "server_skipped": 1,
+  "ruff": "passed; 6 code files check and format",
+  "native_and_model_bundle_match": true,
+  "observed_order": "list -> skill -> reference -> query",
+  "original_inventory_files_unchanged": 236,
+  "markdown_links_valid": true,
+  "model_data": "synthetic only",
+  "real_business": "server-local MCP and database; no LLM"
+}

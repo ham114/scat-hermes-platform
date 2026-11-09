@@ -1,0 +1,20 @@
+{
+  "started_at": 1792672273.641796,
+  "checks": {
+    "platform_hermes_mongo_ready": true
+  },
+  "mode": "real DeepSeek/Hermes, HTTP FastAPI, separate worker, isolated real Mongo; controlled CPU model fixture; no production GPU",
+  "actual_tool_completions": [
+    "scat_task_catalog",
+    "scat_task_prepare"
+  ],
+  "status": "failed",
+  "error_type": "AssertionError",
+  "error_code": "prepared_task_count",
+  "isolated_mongo_cleanup": true,
+  "process_returncodes": [
+    0,
+    -15
+  ],
+  "finished_at": 1792672320.145447
+}

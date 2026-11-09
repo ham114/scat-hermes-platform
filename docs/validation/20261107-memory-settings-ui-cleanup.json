@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-07",
+  "local_task_temp_removed": true,
+  "server_task_temp_removed": true,
+  "private_failed_evaluation_state_retained_server_only": true,
+  "formal_evidence_retained": true,
+  "synthetic_workspaces_messages_queue_removed": true,
+  "existing_conda_environments_preserved": true,
+  "new_environments": 0,
+  "new_dependencies": 0,
+  "production_switched": false
+}

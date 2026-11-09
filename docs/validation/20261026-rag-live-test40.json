@@ -1,0 +1,957 @@
+{
+  "status": "completed",
+  "distinct_questions": 40,
+  "aggregate": {
+    "fast": {
+      "runs": 40,
+      "execution_and_tool_provenance_passed": 39,
+      "model_review_passed": 6,
+      "model_review_unavailable": 33,
+      "median_seconds": 11.90360509371385
+    },
+    "deep": {
+      "runs": 5,
+      "execution_and_tool_provenance_passed": 5,
+      "model_review_passed": 0,
+      "model_review_unavailable": 5,
+      "median_seconds": 93.63122509699315
+    }
+  },
+  "retrieval": {
+    "queries": 40,
+    "group_recall_at_5": 0.975,
+    "group_recall_at_10": 1.0,
+    "complete_at_5": 39,
+    "complete_at_10": 40,
+    "p50_ms": 1353.2975,
+    "p95_ms": 1518.699
+  },
+  "rows": [
+    {
+      "case_id": "LIVE-20261026-001",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 13.615994869731367,
+      "model_calls": 4,
+      "conservative_tokens": 227682,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-002",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 11.64008756633848,
+      "model_calls": 4,
+      "conservative_tokens": 235165,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "pass",
+      "review_error_type": null
+    },
+    {
+      "case_id": "LIVE-20261026-003",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 9.671615515835583,
+      "model_calls": 4,
+      "conservative_tokens": 234411,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-004",
+      "mode": "fast",
+      "status": "failed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": false,
+        "real_knowledge_receipt": false,
+        "loaded_knowledge_body": false,
+        "answer_cites_returned_source": false,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 4.607713396660984,
+      "model_calls": 2,
+      "conservative_tokens": 107932,
+      "actual_evidence_group_coverage": 0.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-005",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 25.229675316251814,
+      "model_calls": 5,
+      "conservative_tokens": 303284,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-006",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 18.676518969237804,
+      "model_calls": 4,
+      "conservative_tokens": 232877,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-007",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 8.654376194812357,
+      "model_calls": 3,
+      "conservative_tokens": 181553,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-005",
+      "mode": "deep",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 93.63122509699315,
+      "model_calls": 20,
+      "conservative_tokens": 835341,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-008",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 9.745975562371314,
+      "model_calls": 4,
+      "conservative_tokens": 228099,
+      "actual_evidence_group_coverage": 0.0,
+      "model_review": "fail",
+      "review_error_type": null
+    },
+    {
+      "case_id": "LIVE-20261026-009",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 14.672863676212728,
+      "model_calls": 5,
+      "conservative_tokens": 280958,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-010",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 13.159298244863749,
+      "model_calls": 4,
+      "conservative_tokens": 229027,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "pass",
+      "review_error_type": null
+    },
+    {
+      "case_id": "LIVE-20261026-011",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 20.21052369941026,
+      "model_calls": 5,
+      "conservative_tokens": 329076,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-012",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 15.662798578850925,
+      "model_calls": 4,
+      "conservative_tokens": 215255,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-013",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 7.1461340403184295,
+      "model_calls": 3,
+      "conservative_tokens": 166126,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-014",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 8.128786906599998,
+      "model_calls": 3,
+      "conservative_tokens": 161017,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-015",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 16.680192082189023,
+      "model_calls": 4,
+      "conservative_tokens": 264487,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-016",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 11.656506503000855,
+      "model_calls": 3,
+      "conservative_tokens": 195162,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-017",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 10.665801358409226,
+      "model_calls": 3,
+      "conservative_tokens": 181545,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-011",
+      "mode": "deep",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 127.92922279238701,
+      "model_calls": 37,
+      "conservative_tokens": 1403142,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-018",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 9.71335955709219,
+      "model_calls": 3,
+      "conservative_tokens": 176695,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-019",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 6.6251748306676745,
+      "model_calls": 3,
+      "conservative_tokens": 166816,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-020",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 10.653700485825539,
+      "model_calls": 4,
+      "conservative_tokens": 226358,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-021",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 13.67088601179421,
+      "model_calls": 4,
+      "conservative_tokens": 235728,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-022",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 10.67270775232464,
+      "model_calls": 4,
+      "conservative_tokens": 253839,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "pass",
+      "review_error_type": null
+    },
+    {
+      "case_id": "LIVE-20261026-018",
+      "mode": "deep",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 58.430581426247954,
+      "model_calls": 17,
+      "conservative_tokens": 629232,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-023",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 12.150703684426844,
+      "model_calls": 4,
+      "conservative_tokens": 235164,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-025",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 13.669011377729475,
+      "model_calls": 3,
+      "conservative_tokens": 181521,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-026",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 12.162827455438673,
+      "model_calls": 3,
+      "conservative_tokens": 192752,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-027",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 20.195203199982643,
+      "model_calls": 4,
+      "conservative_tokens": 225973,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-028",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 13.655347222462296,
+      "model_calls": 4,
+      "conservative_tokens": 237139,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-025",
+      "mode": "deep",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 64.96712244860828,
+      "model_calls": 16,
+      "conservative_tokens": 690690,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-029",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 9.160190887749195,
+      "model_calls": 3,
+      "conservative_tokens": 178595,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-030",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 8.624324570409954,
+      "model_calls": 4,
+      "conservative_tokens": 227219,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-031",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 10.147012347355485,
+      "model_calls": 3,
+      "conservative_tokens": 166154,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-032",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 11.141141457483172,
+      "model_calls": 4,
+      "conservative_tokens": 231635,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-033",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 14.180523667484522,
+      "model_calls": 3,
+      "conservative_tokens": 167594,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-034",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 16.171201311983168,
+      "model_calls": 4,
+      "conservative_tokens": 227708,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-035",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 8.628632230684161,
+      "model_calls": 3,
+      "conservative_tokens": 178081,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-036",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 9.131378079764545,
+      "model_calls": 3,
+      "conservative_tokens": 181104,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "pass",
+      "review_error_type": null
+    },
+    {
+      "case_id": "LIVE-20261026-026",
+      "mode": "deep",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 102.69682700838894,
+      "model_calls": 25,
+      "conservative_tokens": 861150,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-037",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 27.221614616923034,
+      "model_calls": 4,
+      "conservative_tokens": 235773,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "pass",
+      "review_error_type": null
+    },
+    {
+      "case_id": "LIVE-20261026-038",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 18.191525359638035,
+      "model_calls": 5,
+      "conservative_tokens": 293778,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "pass",
+      "review_error_type": null
+    },
+    {
+      "case_id": "LIVE-20261026-039",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 7.616190601140261,
+      "model_calls": 3,
+      "conservative_tokens": 181104,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-040",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 16.667177786119282,
+      "model_calls": 4,
+      "conservative_tokens": 236178,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    },
+    {
+      "case_id": "LIVE-20261026-041",
+      "mode": "fast",
+      "status": "passed",
+      "actual_live_api": true,
+      "checks": {
+        "api_completed": true,
+        "real_knowledge_receipt": true,
+        "loaded_knowledge_body": true,
+        "answer_cites_returned_source": true,
+        "no_other_business_operations": true,
+        "parent_budget_not_exhausted": true
+      },
+      "seconds": 12.646799714304507,
+      "model_calls": 4,
+      "conservative_tokens": 248943,
+      "actual_evidence_group_coverage": 1.0,
+      "model_review": "unavailable",
+      "review_error_type": "BadRequestError"
+    }
+  ],
+  "api_usage_including_live_smoke": {
+    "llm_calls": 265,
+    "charged_tokens": 13248283,
+    "provider_input_tokens": 3307970,
+    "provider_output_tokens": 87053,
+    "provider_cached_tokens": 2744576
+  },
+  "review_budget": {
+    "policy_sha256": "live40-frozen-review",
+    "limits_json": "{\"max_turns\": 80, \"max_llm_tokens\": 3000000, \"max_tool_calls\": 1, \"wall_seconds\": 3600, \"max_cost\": null, \"currency\": \"CNY\"}",
+    "llm_calls": 40,
+    "tool_calls": 0,
+    "charged_tokens": 865489,
+    "provider_input_tokens": 37832,
+    "provider_output_tokens": 1471,
+    "provider_cached_tokens": 0,
+    "exhausted": null,
+    "finished_at": 1793012611.5579655,
+    "started_at": 1793012593.4561527
+  },
+  "total_model_requests": 305,
+  "total_conservative_tokens": 14113772,
+  "human_approved": 0,
+  "independent_admission": false,
+  "original_datasets_modified": false,
+  "sources_unchanged": true
+}

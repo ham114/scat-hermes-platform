@@ -1,0 +1,30 @@
+[Unit]
+Description=SCAT Hermes real readonly knowledge API
+Wants=scat-hermes-rag.service
+After=scat-hermes-rag.service network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+WorkingDirectory=/home/h3c/project/python/scat-hermes-platform
+ExecStartPre=/home/h3c/anaconda3/envs/scat-agent/bin/python -B scripts/manage_rag_production.py wait
+ExecStart=/home/h3c/anaconda3/envs/scat-hermes/bin/python -B scripts/run_hermes_api.py --profile scat-main --home var/hermes/rag-production --port 18081 --with-mcp --with-skills --skills-policy config/rag-readonly-policy.json --rag-config services/rag/real-agent-production-v1.json
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONNOUSERSITE=1
+Environment=SCAT_RAG_BASELINE_ENABLED=true
+Environment=SCAT_RAG_BASELINE_URL=http://127.0.0.1:18133
+Environment=SCAT_RAG_BASELINE_TIMEOUT_SECONDS=10
+UMask=0077
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=120
+TimeoutStopSec=35
+KillMode=mixed
+NoNewPrivileges=true
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=scat-hermes-api
+
+[Install]
+WantedBy=default.target

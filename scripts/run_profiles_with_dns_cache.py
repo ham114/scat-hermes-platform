@@ -1,0 +1,81 @@
+"""One synthetic probe with process-local OS DNS answers; TLS and destinations stay unchanged."""
+
+import json
+import os
+import shutil
+import socket
+import subprocess
+import sys
+import time
+from pathlib import Path
+from urllib.parse import urlparse
+from uuid import uuid4
+
+from dotenv import dotenv_values
+
+ROOT = Path(__file__).resolve().parents[1]
+values = dotenv_values(ROOT / ".env")
+urls = [values.get("DEEPSEEK_BASE_URL") or "https://api.deepseek.com"]
+urls += [
+    v
+    for k, v in os.environ.items()
+    if k.lower() in {"https_proxy", "http_proxy", "all_proxy"} and v
+]
+hosts = {urlparse(u).hostname for u in urls if urlparse(u).hostname}
+answers = {}
+deadline = time.monotonic() + 180
+while hosts - answers.keys() and time.monotonic() < deadline:
+    for host in hosts - answers.keys():
+        try:
+            answers[host] = socket.getaddrinfo(host, 443, type=socket.SOCK_STREAM)
+        except OSError:
+            print("os_dns_temporarily_unavailable", flush=True)
+    if hosts - answers.keys():
+        time.sleep(5)
+if hosts - answers.keys():
+    raise RuntimeError("DNS readiness unavailable; no model request issued")
+home = ROOT / ".tmp/profiles" / ("resolver-" + uuid4().hex[:8])
+home.mkdir()
+try:
+    (home / "answers.json").write_text(json.dumps(answers), encoding="utf-8")
+    (home / "sitecustomize.py").write_text(
+        """import json,socket,time
+from pathlib import Path
+_records=json.loads((Path(__file__).with_name('answers.json')).read_text())
+_original=socket.getaddrinfo
+_expires=time.monotonic()+1800
+def _resolve(host,port,family=0,type=0,proto=0,flags=0):
+    key=(host.decode() if isinstance(host,bytes) else str(host)).rstrip('.').lower()
+    rows=_records.get(key)
+    if rows and time.monotonic()<_expires and (isinstance(port,int) or str(port).isdecimal()):
+        result=[]
+        for af,kind,protocol,name,address in rows:
+            if (not family or family==af) and (not type or type==kind) and (not proto or proto==protocol):
+                address=list(address)
+                address[1]=int(port)
+                result.append((af,kind,protocol,name,tuple(address)))
+        if result:
+            return result
+    return _original(host,port,family,type,proto,flags)
+socket.getaddrinfo=_resolve
+""",
+        encoding="utf-8",
+    )
+    env = os.environ | {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": str(home) + os.pathsep + os.environ.get("PYTHONPATH", ""),
+    }
+    print("using_os_dns_answers_for_probe_processes_only", len(answers), flush=True)
+    if sys.argv[1:] not in ([], ["--authoring"]):
+        raise ValueError("Only the fixed profile acceptance is allowed")
+    target = "scripts/probe_profiles_runtime.py"
+    code = subprocess.call(
+        ["/home/h3c/anaconda3/envs/scat-agent/bin/python", "-B", target],
+        cwd=ROOT,
+        env=env,
+    )
+    print("probe_returncode", code, flush=True)
+    raise SystemExit(code)
+finally:
+    assert home.resolve().parent == (ROOT / ".tmp/profiles").resolve() and not home.is_symlink()
+    shutil.rmtree(home)

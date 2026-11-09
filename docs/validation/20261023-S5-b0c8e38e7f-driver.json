@@ -1,0 +1,33 @@
+{
+  "status": "failed",
+  "pid": 3641472,
+  "python": "/home/h3c/anaconda3/envs/scat-agent/bin/python3.12",
+  "started_at": 1792740780.0521827,
+  "phases": [
+    {
+      "name": "ruff",
+      "returncode": 0,
+      "seconds": 0.06,
+      "log": "docs/validation/20261023-S5-b0c8e38e7f-ruff.log"
+    },
+    {
+      "name": "format",
+      "returncode": 0,
+      "seconds": 0.11,
+      "log": "docs/validation/20261023-S5-b0c8e38e7f-format.log"
+    },
+    {
+      "name": "native-import",
+      "returncode": 0,
+      "seconds": 0.26,
+      "log": "docs/validation/20261023-S5-b0c8e38e7f-native-import.log"
+    },
+    {
+      "name": "full",
+      "returncode": 1,
+      "seconds": 220.7,
+      "log": "docs/validation/20261023-S5-b0c8e38e7f-full.log"
+    }
+  ],
+  "finished_at": 1792741001.2023935
+}

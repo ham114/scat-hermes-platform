@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "scope": "skill_learning_interfaces_source_only",
+  "checks": {
+    "targeted_passed": true,
+    "new_tests_21_passed": true,
+    "full_passed": true,
+    "conda_history_unchanged": true,
+    "eight_existing_containers_preserved": true,
+    "formal_ports_open": true,
+    "honcho_test_ports_closed": true,
+    "source_only_not_deployed": true,
+    "test_workers_exited": true,
+    "test_temporary_directory_removed": true
+  },
+  "targeted": {
+    "tests": 79,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 79,
+    "seconds": 16.999
+  },
+  "full": {
+    "tests": 1330,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 1329,
+    "seconds": 252.542
+  },
+  "new_tests": 21,
+  "sources": {
+    "src/hermes_runtime/skill_learning.py": "f16d74fc2299ea7ecff6079096d4d371937d1a238b20ac6fe6ce99fede170500",
+    "src/hermes_runtime/authoring_store.py": "7bbc9b6a5169067240bdae35943fc940f303d3457b76339b10d98355f39f3981",
+    "src/hermes_runtime/author_bridge.py": "974e26be8245b6b7016e442b3a3f77c79d05478021ab781d8e4e3fc9c72f7f15",
+    "src/service/skill_authoring_api.py": "13ac309c493f35390a652f535ce9f5742041a4a64c379fae0afe0ed75d4518d3",
+    "scripts/run_hermes_api.py": "35fbe92ef7bb09252664d80896d61182e63f63eeedeb7b8f071638bc98d97f73",
+    "tests/hermes_runtime/test_skill_learning.py": "720b5d0f830927b58fcf540fa44cac92d9ea3c9993b66e8957160462174d5416",
+    "config/hermes-profiles/scat-author/SOUL.md": "eb7690ee41e53f1d09b81aa68cfe1bbdb4e7daef1c9dfe084245968973ed388d",
+    "config/hermes-profiles/scat-author/operations.md": "017fc85cf89b3f881492734ec7126782e3364396691d3ecd19aa58edc1ecc3e6",
+    "docs/DEVELOPMENT_LOG.md": "eaa38b63e96d8d0efd3c7fa9fdd362bae0a5912b7a50456935b4a9a8c2569929",
+    "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md": "22244f744acd5f2a954aa92585533818f6d982ada49b01648e61ffdc8ae645d1",
+    "docs/HERMES_SKILL_LEARNING_INTERFACES.md": "8c697488147b634419f68de87443fd58759572712ff1818d2e51bb1570f0c800",
+    "docs/HERMES_S7A_AUTHORING.md": "f97ed7a6b44e0b621aced911843a7aec2ea2af17d866a7f1ef5fb17cb852b71a"
+  },
+  "server_artifacts": {
+    "targeted-first.log": "934b4a6779b1d02d207e54287e4e3e2e869648077eaee9f44ea90d4e186143fe",
+    "targeted-first.xml": "e06ef81489552d882634614061a24b98c5febf48e3b76cc9a8a314e3338cd0c1",
+    "full.log": "d407f55cc7f8c66571e215ae7c2fa9ebc351edf995275b93d4f998f9044017d8",
+    "full.xml": "cbf739bdc2606ed37be6a4e5b5a2ac6272c980edabeec22744ec8633404b60e3",
+    "preflight.json": "be57cdff41a687735250134c034c15af544a9ef23cd1bafbd92030a3ce592f9f"
+  },
+  "ports": {
+    "18081": true,
+    "18133": true,
+    "18124": true,
+    "18140": false,
+    "18141": false,
+    "18142": false
+  },
+  "running_author_http": {
+    "/health": 200,
+    "/v1/skills/learning/candidates": 404
+  },
+  "live_llm_requests_this_task": 0,
+  "local_lint": {
+    "ruff_check": "passed",
+    "ruff_format": "passed",
+    "files": 6
+  },
+  "deployment_updated": false,
+  "automatic_memory_ingestion_enabled": false,
+  "automatic_author_scheduling_enabled": false,
+  "additional_api_key_required": false,
+  "evidence_trust": "caller_supplied_snapshot_not_source_verification"
+}

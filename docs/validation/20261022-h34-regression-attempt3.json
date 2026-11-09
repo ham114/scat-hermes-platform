@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "started_at": 1792666903.2783015,
+  "python": "/home/h3c/anaconda3/envs/scat-agent/bin/python",
+  "pytest_returncode": 0,
+  "pip_checks": {
+    "scat-agent": {
+      "returncode": 0,
+      "no_broken_requirements": true
+    },
+    "scat-hermes": {
+      "returncode": 0,
+      "no_broken_requirements": true
+    }
+  },
+  "finished_at": 1792666933.1989129
+}

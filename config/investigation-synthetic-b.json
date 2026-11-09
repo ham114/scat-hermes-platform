@@ -1,0 +1,1 @@
+{"schema_version":1,"batch":"SYNTH-B","callsign":"TEST456","limit":1,"track_limit":2,"quality":false,"trajectory":true,"knowledge":false,"budget":{"max_tool_calls":16}}

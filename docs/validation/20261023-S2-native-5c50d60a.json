@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "native_dispatch": true,
+  "handler_refresh_guarded": true,
+  "backend_calls": 2,
+  "rejected_without_backend_calls": 6,
+  "operation_receipts": [
+    [
+      "s2-run-1",
+      "mcp__scat__search_scat_flights",
+      "scat-flight-query",
+      "returned",
+      3
+    ],
+    [
+      "s2-run-2",
+      "mcp__scat__search_scat_flights",
+      "scat-flight-query",
+      "returned",
+      4
+    ]
+  ],
+  "preprocess_calls": 0,
+  "dependency_install_calls": 0,
+  "real_model": false,
+  "real_database_query": false,
+  "synthetic": true,
+  "bundle_sha256": "8718f08d284c47bd157b69203932af68fc6b2a7019b29f3e72229e7406d51fef",
+  "temporary_home_removed": true
+}

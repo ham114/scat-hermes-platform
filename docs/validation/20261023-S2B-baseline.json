@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-23",
+  "remote_project": "/home/h3c/project/python/scat-hermes-platform",
+  "files": [
+    {
+      "path": "src/application/readonly.py",
+      "sha256": "c41847e8c51a9e29b8917f768a548f3ff5fe4bedd5c376a757ce14755728184d"
+    },
+    {
+      "path": "src/scat_mcp/server.py",
+      "sha256": "28e36c3acfd0a16fd4f8cd9e87c3352247445537fbcf14fc7a77aecbb054dae6"
+    },
+    {
+      "path": "src/hermes_runtime/results.py",
+      "sha256": "132f2ffb81fb8e13d93636e463b58904b615bc954c14d5caf0c1632ec800397b"
+    },
+    {
+      "path": "src/hermes_runtime/skills.py",
+      "sha256": "be44c99888ae4fd34f299efbca688468763ed393c6aa4cf9943b5542b14c2072"
+    },
+    {
+      "path": "scripts/run_scat_mcp.py",
+      "sha256": "d9d1bea9c0a0deec2db26f12dcf1268ce23b3399d4636759e9a2df0a6ddbda51"
+    },
+    {
+      "path": "scripts/run_hermes_api.py",
+      "sha256": "6ef50bf740e50d1f7d94d0ff806261ebfb10a252c63395e46f324ec22c6bd965"
+    },
+    {
+      "path": "services/hermes/skills.lock.json",
+      "sha256": "4a60da6df3eadbcc48c0d84dae0b20c3df632ffe66a782facd5dae71b2320085"
+    },
+    {
+      "path": "tests/hermes_runtime/test_skills.py",
+      "sha256": "6cee78e8f5a122e29cc44033007916b5f576946709ca4dcf9adfcf1313de380a"
+    },
+    {
+      "path": "tests/hermes_runtime/test_skill_guard.py",
+      "sha256": "bcfd7b3b3594ab27d6af912cc3bb0913c48edbd5df9cac523e0d54b056c419d2"
+    },
+    {
+      "path": "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md",
+      "sha256": "8adfbf67d00d5dca41bac7826044265959d8912c2c53479cce495baec72db3b8"
+    },
+    {
+      "path": "docs/DEVELOPMENT_LOG.md",
+      "sha256": "b573c98efe85749b38cf35bc5e106af7639293a8259573a3b93113de268b26a4"
+    },
+    {
+      "path": "README.md",
+      "sha256": "77bbad02dba3638ed54e2ad7f6d51d26df7ce823ab9ff5d4463dd0cd3d4bd3ae"
+    },
+    {
+      "path": "docs/HERMES_API_AND_PORTAL.md",
+      "sha256": "2ad4ca4112d65c7bb5d31fdea26d599d6aaf70c0592dafcaac476f13cf343e01"
+    },
+    {
+      "path": "docs/HERMES_SKILLS_ARCHITECTURE_AND_REUSE_20261023.md",
+      "sha256": "df083de2d0ab0952c036b7cc06dec15f7f2b1ca56d1d6387a9dd5df63ee08765"
+    },
+    {
+      "path": "docs/HERMES_SKILLS_LIFECYCLE_AND_TOOL_MAPPING.md",
+      "sha256": "97c448fb839ece22ff5291f5807947b2d85e7d6bbd8915797ad4c3d3fde93ba5"
+    }
+  ],
+  "server_read_files": 12,
+  "additional_docs": "last synchronized local hashes; server comparison required before overwrite"
+}

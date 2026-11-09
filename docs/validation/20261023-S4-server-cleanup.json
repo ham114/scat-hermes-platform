@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "active_s4_processes": [],
+  "ports_listening": {
+    "80": true,
+    "443": true,
+    "8080": true,
+    "8501": true,
+    "8091": true,
+    "27017": true,
+    "18093": false,
+    "18094": false,
+    "18095": false
+  },
+  "text_files_scanned": 870,
+  "private_value_findings": [],
+  "dotenv_mode": "0600",
+  "project_venv": false,
+  "conda_python": "/home/h3c/anaconda3/envs/scat-agent/bin/python",
+  "temporary_s4_removed": true,
+  "old_oracle_sha256": {
+    "src/agents/model_agent/graph.py": "5696f5a9d2f0adfe9b024b1b17e6e60a99aefa7ae02367713a46cb140b0f43e1",
+    "src/agents/model_tools.py": "fddbfd93603f1194600ad5d404d6194ae0e37d2e48e8da2d16c098c84d1cdb31"
+  },
+  "bundle_version": "s4.0.0",
+  "bundle_sha256": "0db8b567de0536119118e10bcd0475d0602c24a72c13eb85fd5ce83b7307a967",
+  "source_sha256": {
+    "src/application/skill_jobs.py": "28df390ba21fea3debd63041b8c3d856c13af949bfd03bb3907130ef30fbf417",
+    "src/application/skill_job_store.py": "331f75e402336b45f397dcf40e403e6104ca08bea566a5f5a3655a42b72b58a3",
+    "src/application/skill_cpu_backend.py": "3594ab63ab82f3c2ea03466628a9ae0f326cb335e9142bea6a32c88c28750113",
+    "src/application/model_steps.py": "e8c19d499fc3c1fcaa5a744e76231f352fb41cea02be8ccb7f4ecb98dbea5ba5",
+    "src/application/model_step_store.py": "37e03ae07fefa0401ff8db398d25bfff99a38a6c81ed350099a8858821c88bc1",
+    "src/scat_model_runtime/cpu_fixture.py": "53186f0cc1542dd81c96ed4abdcdf8b831ec04402de4f23d4d02e10cc02bcf79",
+    "src/scat_model_runtime/steps.py": "e86c90955189dc8b8074be2e61a52a896b66665a34bfc50d0ca2673490595bf2",
+    "src/scat_model_runtime/step_codec.py": "51e5ddee1d56d90c402e09b9b221215a10e1b93957c3f170bf720bcf91a1be8f",
+    "src/hermes_runtime/job_budget.py": "f1aa2bd3526282f85920b690c588556b45b60b10dbd42e993eca916ebd2db92e",
+    "src/hermes_runtime/job_context.py": "ddf39c14134a7fee954bdb65c0539fd8433f215beb80c0d0bc5edbc9f158ddeb",
+    "src/hermes_runtime/native_budget.py": "b5998b91c112218e745d1f6899d85866234df70e081bc3319403eaf5d4337f39",
+    "src/hermes_runtime/skill_guard.py": "2700c28bf763104cff1345fc0481d2a8d918b5b067100053e2d2a4488c4561eb",
+    "src/application/skill_worker.py": "8e20b6e5fa44ba5c862f8fa51fb1b119519fee3fa84e1a67908cb71b9a1b2547",
+    "src/application/skill_job_factory.py": "20f671e9f36751f815983cc78bfb917f5981abb358de48502d2ba7fc51bae4e2",
+    "src/hermes_runtime/model_step_bridge.py": "60b3b2873760c090eed6a884328b9ae1593f9085e29ea5d09064ca6fa1093d6b",
+    "scripts/run_model_step_tool.py": "d192d048e593687b17774904220315baaf4f3363f4b1bf2438e06c7e2d949bb8",
+    "scripts/run_skill_cpu_backend.py": "ffb57100f8f80c721ad604273d42a4b3623849b4607c13f9d152ce46b2474415",
+    "scripts/run_hermes_api.py": "31146aa9c834b566c8eaebed932901b8c85b34276db36470a87839e5e3a763bc",
+    "scripts/run_model_worker.py": "05ccda26ce830f154a7ad037d4e5b5fed2518e5985c25db6a7e5bc483c32bd9a",
+    "src/application/task_store.py": "f1bad17e0208a8e41eeaf6b1b41b929d735e4e46af596973d3ce27b1e1373974"
+  }
+}

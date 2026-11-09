@@ -1,0 +1,43 @@
+{
+  "scope": "readonly_business_display_and_five_bounded_natural_cases",
+  "status": "selected_changes_deployed_and_verified",
+  "full_business_parity": "incomplete",
+  "backend_release": "20261108-parity-f187d1d95013",
+  "portal_release": "20261108-portal-cb3e549d33ae",
+  "backend_tests": {
+    "passed": 1505,
+    "skipped": 2
+  },
+  "frontend_tests": 167,
+  "ordinary_browser_cases": 36,
+  "live_https_readonly_cases": 10,
+  "natural_cases_submitted": 5,
+  "natural_cases_passed": 5,
+  "natural_cases_not_admitted": [
+    "empty_recovery"
+  ],
+  "natural_budget": {
+    "llm_calls": 20,
+    "conservative_units": 1631980,
+    "admission_status": "admission_budget_stopped",
+    "per_run_limits_increased": false
+  },
+  "gpu_calls": 0,
+  "server_rebooted": false,
+  "real_display_types_this_round": [
+    "metrics",
+    "table",
+    "timeseries",
+    "trajectory_2d"
+  ],
+  "real_seven_type_legacy_interaction_parity_complete": false,
+  "remaining": [
+    "all_business_natural_language_semantics",
+    "seven_type_real_artifact_interaction_parity",
+    "independent_RAG_memory_model_quality",
+    "standard_GPU_Conda_migration",
+    "mixed_load_cold_warm_SLA",
+    "manual_distribution_license_review",
+    "multiuser_identity"
+  ]
+}

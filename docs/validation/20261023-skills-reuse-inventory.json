@@ -1,0 +1,2003 @@
+{
+  "date": "2026-10-23",
+  "assessment": "static module-role classification, not implemented or verified future reuse",
+  "scope": "src/**/*.py and frontend/src/**/*.{ts,vue}; exclude tests, .spec.ts, .d.ts, generated JSON, scripts/, third-party/vendor, dependencies, build products; voice separately excluded from core denominator",
+  "line_metric": "nonblank source lines; includes comments/docstrings/templates; not executable LOC, edit fraction or schedule estimate",
+  "core_files": 229,
+  "core_nonblank_lines": 45696,
+  "all_scanned_files": 236,
+  "summary": {
+    "retain": {
+      "files": 148,
+      "nonblank_lines": 26331,
+      "percent_core_nonblank": 57.62
+    },
+    "workflow_replace": {
+      "files": 10,
+      "nonblank_lines": 2780,
+      "percent_core_nonblank": 6.08
+    },
+    "adapt": {
+      "files": 51,
+      "nonblank_lines": 13695,
+      "percent_core_nonblank": 29.97
+    },
+    "legacy_retire": {
+      "files": 20,
+      "nonblank_lines": 2890,
+      "percent_core_nonblank": 6.32
+    },
+    "out_of_scope": {
+      "files": 7,
+      "nonblank_lines": 581,
+      "percent_core_nonblank": null
+    }
+  },
+  "legacy_decorated_tool_count": 52,
+  "legacy_tool_definitions": {
+    "src/agents/eval_tools.py": [
+      "get_scat_flight_phase_segments",
+      "get_worst_prediction_cases",
+      "get_prediction_metric_summaries"
+    ],
+    "src/agents/experiment_tools.py": [
+      "prepare_prediction_experiment",
+      "submit_prediction_experiment",
+      "cancel_prediction_experiment_submission",
+      "get_experiment_run",
+      "list_prediction_experiments"
+    ],
+    "src/agents/materialization_tools.py": [
+      "prepare_materialization_job",
+      "submit_materialization_job",
+      "cancel_materialization_job_submission",
+      "get_materialization_job",
+      "list_materialization_jobs"
+    ],
+    "src/agents/model_tools.py": [
+      "list_task_models",
+      "prepare_model_task",
+      "prepare_random_gbar_batch",
+      "prepare_random_comparison_batch",
+      "prepare_comparison_batch",
+      "submit_model_task",
+      "get_analysis_artifact",
+      "get_model_run",
+      "list_model_runs",
+      "list_analysis_artifacts",
+      "cancel_model_task",
+      "cancel_model_run"
+    ],
+    "src/agents/prediction_tools.py": [
+      "list_prediction_models",
+      "predict_scat_flight_trajectory"
+    ],
+    "src/agents/rag_tools.py": [
+      "search_scat_knowledge"
+    ],
+    "src/agents/scat_tools.py": [
+      "get_scat_database_overview",
+      "list_scat_batches",
+      "inspect_scat_collection_data_quality",
+      "list_scat_quality_problem_flights",
+      "list_scat_quality_clean_flights",
+      "get_scat_batch_overview",
+      "search_scat_flights",
+      "get_scat_flight_overview",
+      "get_scat_track_points",
+      "inspect_scat_model_data_quality",
+      "get_scat_fpl_overview",
+      "get_scat_prediction_overview",
+      "get_scat_prediction_snapshot",
+      "get_scat_airport_stats",
+      "get_scat_flight_phase_stats",
+      "get_scat_prediction_error_stats"
+    ],
+    "src/agents/uav_tools.py": [
+      "list_uav_models",
+      "search_uav_flights",
+      "get_uav_flight_overview",
+      "list_uav_channels",
+      "get_uav_samples",
+      "get_uav_channel_stats",
+      "get_uav_normal_vs_anomaly_stats",
+      "get_uav_phase_stats"
+    ]
+  },
+  "files": [
+    {
+      "path": "src/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 0,
+      "nonblank_lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/agents/__init__.py",
+      "category": "workflow_replace",
+      "reason": "旧注册、提示词、命令解析及 LangGraph 流程由 Hermes Skills 替代",
+      "total_lines": 25,
+      "nonblank_lines": 19,
+      "sha256": "5273ee54ee87b66a70e0404e5d1f6699315f361827a286fc510972fcd47c73df"
+    },
+    {
+      "path": "src/agents/agents.py",
+      "category": "workflow_replace",
+      "reason": "旧注册、提示词、命令解析及 LangGraph 流程由 Hermes Skills 替代",
+      "total_lines": 56,
+      "nonblank_lines": 40,
+      "sha256": "1a7119243d3766c25c3674de06dce07903543cd6d65e4a05d63244c47dae5cbe"
+    },
+    {
+      "path": "src/agents/analysis_results.py",
+      "category": "retain",
+      "reason": "复用确定性结果构造，迁移到中性业务模块时保留函数实现",
+      "total_lines": 2065,
+      "nonblank_lines": 1968,
+      "sha256": "4535fa31052c2e987ee688fccf1cca83c0e7c1cc3758f1ecfe2a6a04e13060b0"
+    },
+    {
+      "path": "src/agents/deterministic_model_commands.py",
+      "category": "workflow_replace",
+      "reason": "旧注册、提示词、命令解析及 LangGraph 流程由 Hermes Skills 替代",
+      "total_lines": 593,
+      "nonblank_lines": 550,
+      "sha256": "a0511a4e45cc10fed9f79818d7942c7237a81fcc2368af3c1f72245d6234a225"
+    },
+    {
+      "path": "src/agents/eval_tools.py",
+      "category": "adapt",
+      "reason": "提取应用函数并移除 LangChain Tool 依赖，保留数值/规则实现",
+      "total_lines": 265,
+      "nonblank_lines": 224,
+      "sha256": "e79327f61ce2480d5116c1e4a6c66de775cde1e5a6e0421183a0e06ff98449ac"
+    },
+    {
+      "path": "src/agents/experiment_agent/__init__.py",
+      "category": "workflow_replace",
+      "reason": "旧注册、提示词、命令解析及 LangGraph 流程由 Hermes Skills 替代",
+      "total_lines": 20,
+      "nonblank_lines": 17,
+      "sha256": "d7c45e754164f6ca645d359047546394560ce3294349ba3f3792070d21b4693d"
+    },
+    {
+      "path": "src/agents/experiment_agent/graph.py",
+      "category": "workflow_replace",
+      "reason": "旧注册、提示词、命令解析及 LangGraph 流程由 Hermes Skills 替代",
+      "total_lines": 190,
+      "nonblank_lines": 158,
+      "sha256": "643a35b60b553c27cf81a04fbb00e1f1cf1e98186b96660bb60422c806365f8e"
+    },
+    {
+      "path": "src/agents/experiment_tools.py",
+      "category": "adapt",
+      "reason": "提取应用函数并移除 LangChain Tool 依赖，保留数值/规则实现",
+      "total_lines": 572,
+      "nonblank_lines": 508,
+      "sha256": "d226cc4b1eb87897e32a4967b4b63f2b7546e5901dbcd56c19b451f782384e23"
+    },
+    {
+      "path": "src/agents/lazy_agent.py",
+      "category": "workflow_replace",
+      "reason": "旧注册、提示词、命令解析及 LangGraph 流程由 Hermes Skills 替代",
+      "total_lines": 41,
+      "nonblank_lines": 33,
+      "sha256": "24d031c6821a7d039d82680d9647ba7c22fc4ba52d20d436671148a079a23c10"
+    },
+    {
+      "path": "src/agents/materialization_tools.py",
+      "category": "adapt",
+      "reason": "提取应用函数并移除 LangChain Tool 依赖，保留数值/规则实现",
+      "total_lines": 485,
+      "nonblank_lines": 424,
+      "sha256": "1ffed8d24beaa283e48b593d6a54ab65f05e62f1e5e5bf751f8c176e711a37da"
+    },
+    {
+      "path": "src/agents/model_agent/__init__.py",
+      "category": "workflow_replace",
+      "reason": "旧注册、提示词、命令解析及 LangGraph 流程由 Hermes Skills 替代",
+      "total_lines": 19,
+      "nonblank_lines": 16,
+      "sha256": "8d0becce7876da841ae2367cdd53bfe935b6d67e6b80c6a428b2546a9b2c1a86"
+    },
+    {
+      "path": "src/agents/model_agent/graph.py",
+      "category": "workflow_replace",
+      "reason": "旧注册、提示词、命令解析及 LangGraph 流程由 Hermes Skills 替代",
+      "total_lines": 587,
+      "nonblank_lines": 549,
+      "sha256": "5696f5a9d2f0adfe9b024b1b17e6e60a99aefa7ae02367713a46cb140b0f43e1"
+    },
+    {
+      "path": "src/agents/model_tools.py",
+      "category": "adapt",
+      "reason": "提取应用函数并移除 LangChain Tool 依赖，保留数值/规则实现",
+      "total_lines": 1758,
+      "nonblank_lines": 1617,
+      "sha256": "fddbfd93603f1194600ad5d404d6194ae0e37d2e48e8da2d16c098c84d1cdb31"
+    },
+    {
+      "path": "src/agents/prediction_tools.py",
+      "category": "adapt",
+      "reason": "提取应用函数并移除 LangChain Tool 依赖，保留数值/规则实现",
+      "total_lines": 137,
+      "nonblank_lines": 118,
+      "sha256": "b8e402e59790750a6f8565f7f37ff4c2e7a20a18149c788be2294dba1abcc358"
+    },
+    {
+      "path": "src/agents/rag_tools.py",
+      "category": "adapt",
+      "reason": "提取应用函数并移除 LangChain Tool 依赖，保留数值/规则实现",
+      "total_lines": 36,
+      "nonblank_lines": 25,
+      "sha256": "2e911cad2c0ecaa93a10712d051dec2dc6770ea291978c3b93b88b2e7909caea"
+    },
+    {
+      "path": "src/agents/scat_agent.py",
+      "category": "workflow_replace",
+      "reason": "旧注册、提示词、命令解析及 LangGraph 流程由 Hermes Skills 替代",
+      "total_lines": 846,
+      "nonblank_lines": 668,
+      "sha256": "c7b9f480d66f8767584cb8d895fb6971c5cbb841c3402b2ec7d08ac82292ba2d"
+    },
+    {
+      "path": "src/agents/scat_tools.py",
+      "category": "adapt",
+      "reason": "提取应用函数并移除 LangChain Tool 依赖，保留数值/规则实现",
+      "total_lines": 731,
+      "nonblank_lines": 634,
+      "sha256": "6c5b342cad325eddd7a9950fc1a163f919c8f63590083f698f194ea1fd9ed115"
+    },
+    {
+      "path": "src/agents/uav_tools.py",
+      "category": "adapt",
+      "reason": "提取应用函数并移除 LangChain Tool 依赖，保留数值/规则实现",
+      "total_lines": 285,
+      "nonblank_lines": 246,
+      "sha256": "1553bc4b5e0f73a550785b345de2bc360ee8d789e49ad64c090147beeac566ec"
+    },
+    {
+      "path": "src/analysis_runs/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 44,
+      "nonblank_lines": 42,
+      "sha256": "a9a46e96a4cd6bc67350c81b4354a4a070b8273a52edd336dd42e824901f39a6"
+    },
+    {
+      "path": "src/analysis_runs/api_contracts.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 100,
+      "nonblank_lines": 80,
+      "sha256": "9c291427c72fa46b134274f284a633bbaf8fa1c0970ce450c57b1ef9fa459b49"
+    },
+    {
+      "path": "src/analysis_runs/artifact_contracts.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 141,
+      "nonblank_lines": 122,
+      "sha256": "ab67c2b61042091cd481421e1271a15486613d46ce7b62205bbecd9f22b95e00"
+    },
+    {
+      "path": "src/analysis_runs/artifact_repository.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 118,
+      "nonblank_lines": 100,
+      "sha256": "7e1b5e6c55cde1660c0dab2a4b14bca0c36d39a99803d38bea921b97bef05be9"
+    },
+    {
+      "path": "src/analysis_runs/contracts.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 168,
+      "nonblank_lines": 146,
+      "sha256": "51e242fd734fd573d02596ece3150ad194bd58016f96823a06fa16b2d7922d96"
+    },
+    {
+      "path": "src/analysis_runs/executor.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 83,
+      "nonblank_lines": 67,
+      "sha256": "f77971070098e68eaf662cf194d97dd4415cf3d83780e2a12700ef5447ef6be4"
+    },
+    {
+      "path": "src/analysis_runs/repository.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 196,
+      "nonblank_lines": 172,
+      "sha256": "3222245ef3ede76ca54a642ace364555c33e3ee218fbc3af41262844346649e0"
+    },
+    {
+      "path": "src/application/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 1,
+      "nonblank_lines": 1,
+      "sha256": "f0f8fca330b5d9cd1495db7ef6381f2a7fc23abd0e113c7b41890826facb91e9"
+    },
+    {
+      "path": "src/application/context.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 26,
+      "nonblank_lines": 19,
+      "sha256": "3cc1cd1cca98cc9d306f2ef13c4868e2d10d33b68cbdbf670c5c2ce01e0a924e"
+    },
+    {
+      "path": "src/application/knowledge.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 57,
+      "nonblank_lines": 48,
+      "sha256": "e81a8b9b197695eb270c421497bc1b079393d5e9c8a4ebb874c9b7aaffd75401"
+    },
+    {
+      "path": "src/application/model_tasks.py",
+      "category": "adapt",
+      "reason": "保留确认/租约/幂等，增加技能任务与步骤回执",
+      "total_lines": 171,
+      "nonblank_lines": 148,
+      "sha256": "9fe806905697e91a95f667c52f93bb382562617b4d14c7ca3a50668d556cab1d"
+    },
+    {
+      "path": "src/application/model_worker.py",
+      "category": "adapt",
+      "reason": "保留确认/租约/幂等，增加技能任务与步骤回执",
+      "total_lines": 118,
+      "nonblank_lines": 104,
+      "sha256": "565cc394c9127cd697b070d26a90757793d186d1be8122b4e85c4d30a3530402"
+    },
+    {
+      "path": "src/application/readonly.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 222,
+      "nonblank_lines": 198,
+      "sha256": "c41847e8c51a9e29b8917f768a548f3ff5fe4bedd5c376a757ce14755728184d"
+    },
+    {
+      "path": "src/application/task_store.py",
+      "category": "adapt",
+      "reason": "保留确认/租约/幂等，增加技能任务与步骤回执",
+      "total_lines": 233,
+      "nonblank_lines": 209,
+      "sha256": "e428de7caf3d000c20611ae9acd3270e11e008d0f5225a7449f0c45bc5a0892f"
+    },
+    {
+      "path": "src/client/__init__.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 4,
+      "nonblank_lines": 3,
+      "sha256": "59d9790f1565a0dcd64fe95eab1990dfefd66a3b6bf42524cafccce2fc37d9d1"
+    },
+    {
+      "path": "src/client/client.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 393,
+      "nonblank_lines": 355,
+      "sha256": "4e9f70b6683db6f810abdcd79557730c8abd619b447e95f44f4703e1fb027b37"
+    },
+    {
+      "path": "src/client/scat_client.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 224,
+      "nonblank_lines": 196,
+      "sha256": "5a9980e24235456f080b0d1183921245729c4b53bfb0ee2bf2d3e08e24f9964e"
+    },
+    {
+      "path": "src/core/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 4,
+      "nonblank_lines": 3,
+      "sha256": "186fcae4a80366618573a8ecacaa77e609fe9074dd0dc46c6afc9dc90e5c815d"
+    },
+    {
+      "path": "src/core/file_integrity.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 33,
+      "nonblank_lines": 22,
+      "sha256": "72a50ca6617a469ef018b61e7369bf2be27538c3460abd90a2081e3279afd3bd"
+    },
+    {
+      "path": "src/core/identity_scope.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 22,
+      "nonblank_lines": 15,
+      "sha256": "19d1a8534f5950dfc809349a04df49c7a687583eaea2da829f59ef572956cf0d"
+    },
+    {
+      "path": "src/core/llm.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 151,
+      "nonblank_lines": 137,
+      "sha256": "34815a5d68c6a1236c8498b3ca35bbf2030b02d012b8d446d57036102e6ae934"
+    },
+    {
+      "path": "src/core/observability.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 335,
+      "nonblank_lines": 294,
+      "sha256": "f5c3907b9059f0334a110cacca0357f2c9e0e8c7a8ac940206aae476ff6ac457"
+    },
+    {
+      "path": "src/core/redis_confirmation.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 176,
+      "nonblank_lines": 157,
+      "sha256": "8ec4a084ab53559c6bf5fbd3acfa7c13a92202ee1c7989d3d4e2e65895d826c6"
+    },
+    {
+      "path": "src/core/redis_request_limiter.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 160,
+      "nonblank_lines": 140,
+      "sha256": "73bd16c3ef1c5651dbc0d8de8f917673020b2390e27d3d4283cc7939afeaa951"
+    },
+    {
+      "path": "src/core/redis_runtime.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 89,
+      "nonblank_lines": 73,
+      "sha256": "97ac19769c2e6920454689a02bbad9f4ad8f6f7ad43b3b57a33867e29a10d321"
+    },
+    {
+      "path": "src/core/redis_task_notifications.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 141,
+      "nonblank_lines": 122,
+      "sha256": "ed842ca18c69dcf4a741fb3de93347d791e9b7e769cfb285e498aaac60193549"
+    },
+    {
+      "path": "src/core/resilience.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 69,
+      "nonblank_lines": 56,
+      "sha256": "8cddf9ebcf3b8564db2bc8ca72195001ba9732e806ab5bccd1124c7dfdd40dae"
+    },
+    {
+      "path": "src/core/settings.py",
+      "category": "adapt",
+      "reason": "复用身份/API；新分析动作从技能运行进入，历史读取保持独立",
+      "total_lines": 393,
+      "nonblank_lines": 348,
+      "sha256": "024d8cde52d86a7ec2f3ef3bf117dc83807ea3f9c5bbecfb29623fed4a1b03a4"
+    },
+    {
+      "path": "src/gbar_core/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 4,
+      "nonblank_lines": 3,
+      "sha256": "8810a642323a049e72d9989e62c5a2df13d91a23a8f15d17569fa83bc463cad3"
+    },
+    {
+      "path": "src/gbar_core/decoding.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 46,
+      "nonblank_lines": 42,
+      "sha256": "61f9b55039f9d7cf9ade3080e18464f39e140f9be0dc3807330a37d57b2b0764"
+    },
+    {
+      "path": "src/gbar_core/model.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 87,
+      "nonblank_lines": 77,
+      "sha256": "fdd06c2fc59ba19a2346a0f075e747a8606c15f8960280adca3a0a526e254539"
+    },
+    {
+      "path": "src/gbar_core/preprocessing.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 625,
+      "nonblank_lines": 574,
+      "sha256": "783cd19e0dae5de18c97805e1a0d2859675e0ebffb5b3005fed92d250125d2d8"
+    },
+    {
+      "path": "src/gbar_core/runtime.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 60,
+      "nonblank_lines": 51,
+      "sha256": "2607ddfc94c87fe6d7161e435198f48ba0244f470ddb2c5f2a16fc1c348a166f"
+    },
+    {
+      "path": "src/gbar_core/transport.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 300,
+      "nonblank_lines": 256,
+      "sha256": "7b71ab5adf885152add97f9b9824eb1b31bd15b3cfd7a424269cfc829faed91c"
+    },
+    {
+      "path": "src/hermes_runtime/__init__.py",
+      "category": "adapt",
+      "reason": "接入原生技能加载、版本/摘要与执行轨迹，复用现有传输/上下文",
+      "total_lines": 1,
+      "nonblank_lines": 1,
+      "sha256": "426df62c52e9bea3fa412891be3f941f7c6d8413fc19e033d6806f576e38e81c"
+    },
+    {
+      "path": "src/hermes_runtime/client.py",
+      "category": "adapt",
+      "reason": "接入原生技能加载、版本/摘要与执行轨迹，复用现有传输/上下文",
+      "total_lines": 261,
+      "nonblank_lines": 238,
+      "sha256": "09b019dbd0bed774778bd0f04c7ed06d5b6c7308381735aab4d9c58789cb84f0"
+    },
+    {
+      "path": "src/hermes_runtime/evaluation.py",
+      "category": "adapt",
+      "reason": "接入原生技能加载、版本/摘要与执行轨迹，复用现有传输/上下文",
+      "total_lines": 253,
+      "nonblank_lines": 228,
+      "sha256": "1b792fbd62354f2f428c7f6cbc9f1c17680bb1c454ed012c37e15607a328faf7"
+    },
+    {
+      "path": "src/hermes_runtime/registry.py",
+      "category": "adapt",
+      "reason": "接入原生技能加载、版本/摘要与执行轨迹，复用现有传输/上下文",
+      "total_lines": 202,
+      "nonblank_lines": 174,
+      "sha256": "64944f5caf05c39f8296e2b9c7fa9a9f6ec1f033e58b9354973f781d2294797e"
+    },
+    {
+      "path": "src/hermes_runtime/results.py",
+      "category": "adapt",
+      "reason": "接入原生技能加载、版本/摘要与执行轨迹，复用现有传输/上下文",
+      "total_lines": 182,
+      "nonblank_lines": 163,
+      "sha256": "132f2ffb81fb8e13d93636e463b58904b615bc954c14d5caf0c1632ec800397b"
+    },
+    {
+      "path": "src/hermes_runtime/task_bridge.py",
+      "category": "adapt",
+      "reason": "接入原生技能加载、版本/摘要与执行轨迹，复用现有传输/上下文",
+      "total_lines": 102,
+      "nonblank_lines": 91,
+      "sha256": "6587bb14cc29067079f1682ab88599c2a98260dfb038143f1c69378298832331"
+    },
+    {
+      "path": "src/memory/__init__.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 48,
+      "nonblank_lines": 36,
+      "sha256": "6bf0ef7507ae5a5f15e700c3684589ac39619c8c1e6cc4c799701fd086c50d27"
+    },
+    {
+      "path": "src/memory/mongodb.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 89,
+      "nonblank_lines": 70,
+      "sha256": "28226c15203eacee5b11e6103f68a7097bd34fbd55a30642ad73e6f1f740ca81"
+    },
+    {
+      "path": "src/memory/postgres.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 102,
+      "nonblank_lines": 85,
+      "sha256": "a250787fecf2c7f5daa4e792e8394d5166d974cd2319d5e539677a4370eaf87a"
+    },
+    {
+      "path": "src/memory/sqlite.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 40,
+      "nonblank_lines": 27,
+      "sha256": "d1ac051508cf24f6cf2b641357e4d424b2c064b12ccd867343093c04cd280a15"
+    },
+    {
+      "path": "src/rag_retrieval/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 19,
+      "nonblank_lines": 17,
+      "sha256": "d2fc28673dc0a5b9525d27351445a1b4c22572adb78c37b1d4cfdc00a41e640c"
+    },
+    {
+      "path": "src/rag_retrieval/baseline.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 257,
+      "nonblank_lines": 213,
+      "sha256": "3196124afd7c04b518da75564af71a7727880e8d3e92ce363b7f5e68dbfdf4c4"
+    },
+    {
+      "path": "src/rag_retrieval/chunk_rekey.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 153,
+      "nonblank_lines": 125,
+      "sha256": "f0c189daf9cbbd70ee57bcc4c1422bb5e563e892e179c94b84b1bfdafda00aa7"
+    },
+    {
+      "path": "src/rag_retrieval/claim_groups.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 266,
+      "nonblank_lines": 225,
+      "sha256": "140903335786b72d41e65978c0ce38f1afa22b874865067e8819bd4e739f891a"
+    },
+    {
+      "path": "src/rag_retrieval/enhancements.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 305,
+      "nonblank_lines": 265,
+      "sha256": "10000e6777d748211ed6b475116ac81f662894d1265fa9a338019bca8f292ed5"
+    },
+    {
+      "path": "src/rag_retrieval/runtime.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 261,
+      "nonblank_lines": 231,
+      "sha256": "ecd409bd148e6d048edfb12ae096dfa73349b0bb4ff1befcb1a3d8d953859b71"
+    },
+    {
+      "path": "src/rag_retrieval/training_audit.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 273,
+      "nonblank_lines": 230,
+      "sha256": "649638ec9cb35f8236e1302444a815fbee5091a2040c6382a71557ec4ebbc92c"
+    },
+    {
+      "path": "src/run_service.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 35,
+      "nonblank_lines": 31,
+      "sha256": "80c4bc03ac8578edec4302b0a44b3bcaf58dc870b3ec13e34b2e760d91b058c7"
+    },
+    {
+      "path": "src/scat/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 0,
+      "nonblank_lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/scat/experiments/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 71,
+      "nonblank_lines": 67,
+      "sha256": "2fc8b8cd3140f5e2bd23665eb06e68b0b5e633cd5e0ac2435665d1f4140eec00"
+    },
+    {
+      "path": "src/scat/experiments/artifacts.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 85,
+      "nonblank_lines": 71,
+      "sha256": "efce4ef386a647198bc6f5dc978b96345de194c03645d1c0ba3aac9b55aafe90"
+    },
+    {
+      "path": "src/scat/experiments/cli.py",
+      "category": "adapt",
+      "reason": "拆出旧业务调度，保留可复用计算和任务状态/仓储，增加受控技能步骤",
+      "total_lines": 382,
+      "nonblank_lines": 335,
+      "sha256": "63679b653e3d5bc25ef536a6d662efa4c2a64a266f5338ff1a956bcaf15c2317"
+    },
+    {
+      "path": "src/scat/experiments/contracts.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 124,
+      "nonblank_lines": 100,
+      "sha256": "8a9a5ef91ab08af350fb361f95a8d9325562335dc5b7faff583ebe4fc5ba2179"
+    },
+    {
+      "path": "src/scat/experiments/evaluation.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 215,
+      "nonblank_lines": 188,
+      "sha256": "9466670f5b1f18d0298c0252e3f78b54d133df02139b57a71946eddba630b00e"
+    },
+    {
+      "path": "src/scat/experiments/grouping.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 46,
+      "nonblank_lines": 37,
+      "sha256": "4718a902eb28f6befbff7aa6ce2c0a95e0d45bd4c50d8a033b79330caeaa4096"
+    },
+    {
+      "path": "src/scat/experiments/promotion.py",
+      "category": "adapt",
+      "reason": "拆出旧业务调度，保留可复用计算和任务状态/仓储，增加受控技能步骤",
+      "total_lines": 214,
+      "nonblank_lines": 185,
+      "sha256": "7060801e94ae14a15c2792e689c3f678deff3b12dd610e4c8a287443e2edb3be"
+    },
+    {
+      "path": "src/scat/experiments/repository.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 438,
+      "nonblank_lines": 409,
+      "sha256": "2157295743c30050666e54a14168d28f469fba5e90479ba92676ac48a3045e7b"
+    },
+    {
+      "path": "src/scat/experiments/runner.py",
+      "category": "workflow_replace",
+      "reason": "实验端到端调度迁为技能；纯函数、评估与存储可另行提取",
+      "total_lines": 787,
+      "nonblank_lines": 730,
+      "sha256": "63df68ae836e9de949cd508c5f5dcd74a5ebdb9f7b244af9214db499dda5c89c"
+    },
+    {
+      "path": "src/scat/infrastructure/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 0,
+      "nonblank_lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/scat/infrastructure/database.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 110,
+      "nonblank_lines": 89,
+      "sha256": "a72bff0e3b0e4d6aaf15735a53444970cfdf561f81f15d3758dcd9974372dc21"
+    },
+    {
+      "path": "src/scat/materialization/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 19,
+      "nonblank_lines": 17,
+      "sha256": "2fdddd96fb7fe7f8e7d7bb82507d4bccd2ee8313cfd5ae6acacd4f978f4fc67c"
+    },
+    {
+      "path": "src/scat/materialization/aggregates.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 177,
+      "nonblank_lines": 166,
+      "sha256": "99422191010022dff501c58ae6cfb4ab2ec20c2b0ed702e9ffeae2bd5a3ce6e0"
+    },
+    {
+      "path": "src/scat/materialization/cache.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 239,
+      "nonblank_lines": 213,
+      "sha256": "ec048dfcf9f9e86f1288d586dd6abf37439cd29d71c86222432b7192eae097cd"
+    },
+    {
+      "path": "src/scat/materialization/cli.py",
+      "category": "adapt",
+      "reason": "拆出旧业务调度，保留可复用计算和任务状态/仓储，增加受控技能步骤",
+      "total_lines": 392,
+      "nonblank_lines": 364,
+      "sha256": "3a2dd2e59a7c7365290cce299015eb10b0baab6c11f5201f4e7d493227a4ee5b"
+    },
+    {
+      "path": "src/scat/materialization/contracts.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 327,
+      "nonblank_lines": 274,
+      "sha256": "f88de98d0e78d69eeecc309bc86d60c1e946b9e5f4091c1eed9b10c63e491d92"
+    },
+    {
+      "path": "src/scat/materialization/jobs.py",
+      "category": "adapt",
+      "reason": "拆出旧业务调度，保留可复用计算和任务状态/仓储，增加受控技能步骤",
+      "total_lines": 634,
+      "nonblank_lines": 589,
+      "sha256": "a91f0800a5dde279730b717f62ecd0980219f7d66c56c2ee41cd3284f85364ba"
+    },
+    {
+      "path": "src/scat/materialization/maintenance.py",
+      "category": "adapt",
+      "reason": "拆出旧业务调度，保留可复用计算和任务状态/仓储，增加受控技能步骤",
+      "total_lines": 110,
+      "nonblank_lines": 96,
+      "sha256": "e85121fed334c22be95095e3a82e3ad90129ef69272782b4d9c8f572ed9d8f10"
+    },
+    {
+      "path": "src/scat/materialization/payloads.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 53,
+      "nonblank_lines": 42,
+      "sha256": "48d1150d2ac8bf6b83410c5a4b0416ce9fc963b80475cb0aa010dda73fdb7f25"
+    },
+    {
+      "path": "src/scat/materialization/repository.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 211,
+      "nonblank_lines": 186,
+      "sha256": "96917d97c14183a951b8d5ffb981b389d12689b2c526b9c15915b217244c9b3a"
+    },
+    {
+      "path": "src/scat/materialization/tasks.py",
+      "category": "adapt",
+      "reason": "拆出旧业务调度，保留可复用计算和任务状态/仓储，增加受控技能步骤",
+      "total_lines": 849,
+      "nonblank_lines": 790,
+      "sha256": "7b84f2b0dfd98d10d6d3a5591142fa6ae6f8ef30bf1a818264aad2bb8793474a"
+    },
+    {
+      "path": "src/scat/performance.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 209,
+      "nonblank_lines": 189,
+      "sha256": "0a4e7e26cb75335b344bea8e95df55a70d9290bfd42c52a783da71a6bc9a6d93"
+    },
+    {
+      "path": "src/scat/prediction/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 70,
+      "nonblank_lines": 66,
+      "sha256": "1a31cb80797428f29cdd53719d223a92a5ea0f7dc6eee70881e00006cc7894e6"
+    },
+    {
+      "path": "src/scat/prediction/alignment.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 535,
+      "nonblank_lines": 471,
+      "sha256": "4fd83b7ac352108c3c120c468475e9a6698d7d3f4188bb6bd60009c6895d676e"
+    },
+    {
+      "path": "src/scat/prediction/baselines.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 266,
+      "nonblank_lines": 230,
+      "sha256": "e05ae0c517202fa51451ef51e6f67c49f6a7b745c356d3b5f30bf5c5725eba70"
+    },
+    {
+      "path": "src/scat/prediction/datasets.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 97,
+      "nonblank_lines": 79,
+      "sha256": "a0e5eab3801a528e741507005f5b0f6516e3a71b0a42918b5b381eb0048ed401"
+    },
+    {
+      "path": "src/scat/prediction/defaults.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 13,
+      "nonblank_lines": 9,
+      "sha256": "39eae827d5dc30235db0787621782410ad20d34d41196690c00d659e0826ba4f"
+    },
+    {
+      "path": "src/scat/prediction/geo.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 97,
+      "nonblank_lines": 82,
+      "sha256": "bf9a9a33e9f412d16ff91daf5fa884a64ddb8ad6359797eaca2acb8daa7c21f0"
+    },
+    {
+      "path": "src/scat/prediction/interfaces.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 78,
+      "nonblank_lines": 58,
+      "sha256": "a553337a2af456b7561250f4dc7d53e9dc3316f4ab1b58b30adab1b0307e6080"
+    },
+    {
+      "path": "src/scat/prediction/registry.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 56,
+      "nonblank_lines": 42,
+      "sha256": "b357fac2f653392c21585312441ee598a20d928aab7da1c2d5dfb9b51ce2aa85"
+    },
+    {
+      "path": "src/scat/prediction/training.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 123,
+      "nonblank_lines": 99,
+      "sha256": "6a394faf33b9515c39c5c1abad125194ec403bc2fd8826503a66fad9a5538801"
+    },
+    {
+      "path": "src/scat/preprocessing/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 23,
+      "nonblank_lines": 21,
+      "sha256": "c3d677ebdec486338106727d6e3f5c0c3853444973981a356eddb5c57f619115"
+    },
+    {
+      "path": "src/scat/preprocessing/gbar_v35.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 150,
+      "nonblank_lines": 133,
+      "sha256": "6f0f8d52a5b1ae8f12383409f5904dce21639407dbbd9d442c5599eb065f3c4b"
+    },
+    {
+      "path": "src/scat/preprocessing/phases.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 488,
+      "nonblank_lines": 420,
+      "sha256": "fcde329eec18b5f44ce5915a215f7611838c2570f12db6b0b0cf9fbfa9b1b824"
+    },
+    {
+      "path": "src/scat/quality_cache.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 206,
+      "nonblank_lines": 186,
+      "sha256": "e7937ffb6d78e6647b3a8ae762eacfa0790e2916099c19d049f82be1d2ac8ecf"
+    },
+    {
+      "path": "src/scat/repositories/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 0,
+      "nonblank_lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/scat/repositories/flight_repository.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 3727,
+      "nonblank_lines": 3533,
+      "sha256": "aa4737e916ed9181f56e7927b18f45623a20f4c4c30966b8aad277bd710ae384"
+    },
+    {
+      "path": "src/scat/schemas/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 0,
+      "nonblank_lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/scat/schemas/api.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 507,
+      "nonblank_lines": 389,
+      "sha256": "1d2169083f51727f95d204b1976df4c006a83cd8d2c91c3b540d03399f71786a"
+    },
+    {
+      "path": "src/scat/schemas/tool_inputs.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 989,
+      "nonblank_lines": 841,
+      "sha256": "2acdfa362d5b7825ef189a6a8c973c296ddf4402b9b7e1d7e14749748782575d"
+    },
+    {
+      "path": "src/scat/services/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 6,
+      "nonblank_lines": 4,
+      "sha256": "41bf35ced93f58ed3da548585d2a925e47ebc95a67946fa97b0bffd4a62e6184"
+    },
+    {
+      "path": "src/scat/services/flight_service.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 2082,
+      "nonblank_lines": 1899,
+      "sha256": "a9f6c0545a2176120638b5e4cf6619c21a22f7f68c826f73008a5947503b1093"
+    },
+    {
+      "path": "src/scat/services/materialization_service.py",
+      "category": "adapt",
+      "reason": "拆出旧业务调度，保留可复用计算和任务状态/仓储，增加受控技能步骤",
+      "total_lines": 476,
+      "nonblank_lines": 444,
+      "sha256": "91b56dcb2f022a63d21acffa8bcf5430190fcf0175408fdc82619029d684ff57"
+    },
+    {
+      "path": "src/scat/services/prediction_service.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 206,
+      "nonblank_lines": 185,
+      "sha256": "ff3286c0fd79a28f119549e55bda6031b64e5726994b0e563801d275fdd2bac3"
+    },
+    {
+      "path": "src/scat/visualization/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 0,
+      "nonblank_lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/scat_mcp/__init__.py",
+      "category": "adapt",
+      "reason": "接入原生技能加载、版本/摘要与执行轨迹，复用现有传输/上下文",
+      "total_lines": 1,
+      "nonblank_lines": 1,
+      "sha256": "ea9bd7cb5b2618ee1cf658c55b402ba09a3758d83a835711e87eafc150765533"
+    },
+    {
+      "path": "src/scat_mcp/server.py",
+      "category": "adapt",
+      "reason": "接入原生技能加载、版本/摘要与执行轨迹，复用现有传输/上下文",
+      "total_lines": 53,
+      "nonblank_lines": 44,
+      "sha256": "28e36c3acfd0a16fd4f8cd9e87c3352247445537fbcf14fc7a77aecbb054dae6"
+    },
+    {
+      "path": "src/scat_model_runtime/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 159,
+      "nonblank_lines": 157,
+      "sha256": "cf9c2ee4ef2d0870143cf8887eb7d987a630eafafeb41f38e62072d91d78c464"
+    },
+    {
+      "path": "src/scat_model_runtime/adapters.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 44,
+      "nonblank_lines": 29,
+      "sha256": "da0b355b8d3ec10ed60daab8169652b87277e3818368f56f6382c3baf4793f5d"
+    },
+    {
+      "path": "src/scat_model_runtime/admission.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 78,
+      "nonblank_lines": 72,
+      "sha256": "b4f3f31376686596ba03296b47b0092780ed1fb88979db34f3b2a95f8b5c681a"
+    },
+    {
+      "path": "src/scat_model_runtime/alignment_core.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 146,
+      "nonblank_lines": 125,
+      "sha256": "80985a699adf0ba73d83d470c0a8c338da27aee00021990b85e6860c223be515"
+    },
+    {
+      "path": "src/scat_model_runtime/backends/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 1,
+      "nonblank_lines": 1,
+      "sha256": "59816fce08ea48b795b7ef3e66897ef07189388ca0995323129924b69f94a066"
+    },
+    {
+      "path": "src/scat_model_runtime/backends/base.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 78,
+      "nonblank_lines": 60,
+      "sha256": "5f6247cbce0eb99ad4fb3e229f914cccfeeabccafcca01ad2766788061068dca"
+    },
+    {
+      "path": "src/scat_model_runtime/backends/bento_http.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 214,
+      "nonblank_lines": 193,
+      "sha256": "659bb62fd24e72c023c3b13125d11e053d098d010bcab27e875b6037c05d3cb0"
+    },
+    {
+      "path": "src/scat_model_runtime/backends/gbar_codec.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 238,
+      "nonblank_lines": 223,
+      "sha256": "6c038f689409e785b6cc2845cbcf028796a8fe95d4b5549c55d108301c5774b0"
+    },
+    {
+      "path": "src/scat_model_runtime/backends/observed.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 85,
+      "nonblank_lines": 73,
+      "sha256": "728e6e9b076a47cd93eb90b0660a05a36ae03667f2ba8f0f9a88e6a364a13540"
+    },
+    {
+      "path": "src/scat_model_runtime/backends/package.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 72,
+      "nonblank_lines": 62,
+      "sha256": "9f892621fbfe2796638035167bdc3578df157a2aca037bf632bafc9201a70dbb"
+    },
+    {
+      "path": "src/scat_model_runtime/backends/registration.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 47,
+      "nonblank_lines": 38,
+      "sha256": "7469f76311a9f4b7f46dde433c42317ce7da85f696f3f8c943f516ac3aa02989"
+    },
+    {
+      "path": "src/scat_model_runtime/backends/registry.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 6,
+      "nonblank_lines": 4,
+      "sha256": "e572878d1c6249c87b7f5711e8cde558b5378eaa1373b3e2a802032622d6a77b"
+    },
+    {
+      "path": "src/scat_model_runtime/backends/shadow.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 177,
+      "nonblank_lines": 157,
+      "sha256": "b3bedda835d3d25bc0b4f7b27456fadf40295de1ebe7a806f9448d76fb9b5640"
+    },
+    {
+      "path": "src/scat_model_runtime/backends/subprocess.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 112,
+      "nonblank_lines": 103,
+      "sha256": "35b6780fa215a8653d4263e269c33021be2a300c36a4a53f472a09b67dcb3891"
+    },
+    {
+      "path": "src/scat_model_runtime/component_registry.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 107,
+      "nonblank_lines": 84,
+      "sha256": "125b22b1a20e5a0ae7f437d33bc7b014ecf16af87501af218013436e4ab7895b"
+    },
+    {
+      "path": "src/scat_model_runtime/contracts.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 305,
+      "nonblank_lines": 256,
+      "sha256": "d03cc4fd3f97a12f6c5964c57b2b855dcd08c060a6b94b9ecdac50b069d5c0f8"
+    },
+    {
+      "path": "src/scat_model_runtime/evaluators.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 47,
+      "nonblank_lines": 32,
+      "sha256": "55f5c6d0c903afc64f578779a72bf3a20245c35ca5751c95d1137353ed313cca"
+    },
+    {
+      "path": "src/scat_model_runtime/gbar_v23_adapter.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 295,
+      "nonblank_lines": 274,
+      "sha256": "3b7be0ae73e76071c287e7f27e9c5de41ecfc7477291cece5fe96cc63382b472"
+    },
+    {
+      "path": "src/scat_model_runtime/model_packages.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 83,
+      "nonblank_lines": 60,
+      "sha256": "faf0dba99b3c93858ff3fa5fc3d91e4dff8d473597a7907ce725e5dc0a4cafbd"
+    },
+    {
+      "path": "src/scat_model_runtime/packages/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 25,
+      "nonblank_lines": 23,
+      "sha256": "7a60ed1f683d08331c9da78c8eb606973f921c15b243dc37ee717fcc450166c5"
+    },
+    {
+      "path": "src/scat_model_runtime/packages/comparison_v1.py",
+      "category": "adapt",
+      "reason": "拆出旧业务调度，保留可复用计算和任务状态/仓储，增加受控技能步骤",
+      "total_lines": 409,
+      "nonblank_lines": 382,
+      "sha256": "15f12fb12af034d48acb3646a41cde9c8b11bbc5899d46319b501499f205f56c"
+    },
+    {
+      "path": "src/scat_model_runtime/packages/gbar_v23.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 202,
+      "nonblank_lines": 186,
+      "sha256": "61afceff2efc75e095b25a48d984e5a12962e8d47d0d6665d4ac4a83b1784f56"
+    },
+    {
+      "path": "src/scat_model_runtime/pipelines.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 71,
+      "nonblank_lines": 49,
+      "sha256": "9c466034b9d0266a3de6e7e7b239d9bf5f9e324227cf96a2199357facce9bb8c"
+    },
+    {
+      "path": "src/scat_model_runtime/production.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 318,
+      "nonblank_lines": 294,
+      "sha256": "56ec13eb32e21c42240944e9e2ca5cfbadaef2d072215c70ae80a44847791c57"
+    },
+    {
+      "path": "src/scat_model_runtime/registry.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 134,
+      "nonblank_lines": 108,
+      "sha256": "c6250f58126b2bf842bf21f6afde02e2e3cdf71d214b2d35266762807a28aef3"
+    },
+    {
+      "path": "src/scat_model_runtime/regression_evaluators.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 197,
+      "nonblank_lines": 168,
+      "sha256": "549845fb4df8b1860e871858e349b88f1870c268e618f6510e6d21fc6d031c6b"
+    },
+    {
+      "path": "src/scat_model_runtime/resolvers/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 6,
+      "nonblank_lines": 4,
+      "sha256": "2bb53b332b5cd4145b3f5bbb20a072175347fe5b76758ebe2c922c6e8d87a3dd"
+    },
+    {
+      "path": "src/scat_model_runtime/resolvers/scat_comparison.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 249,
+      "nonblank_lines": 228,
+      "sha256": "bed0aac5a9d9e91b0e36a8ef046bb06635891030dc7aa7b29c4d43954414d378"
+    },
+    {
+      "path": "src/scat_model_runtime/resolvers/scat_gbar.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 221,
+      "nonblank_lines": 202,
+      "sha256": "b8ae828dbc1c2500fe67d835db7a22c38fc247b32003ce6f851ba0e40d3ca4e5"
+    },
+    {
+      "path": "src/scat_model_runtime/task_io.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 529,
+      "nonblank_lines": 454,
+      "sha256": "f10fc25418f01515c136eb82740fa6fe9cc94470fd268a11e7109a22b41af4b1"
+    },
+    {
+      "path": "src/scat_model_runtime/workers/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 1,
+      "nonblank_lines": 1,
+      "sha256": "ce8892eef511fe992480503877d318eeef5e4fb7c968e4e7184c6ca2cb44c54b"
+    },
+    {
+      "path": "src/scat_model_runtime/workers/gbar_v23_worker.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 77,
+      "nonblank_lines": 66,
+      "sha256": "3872a6a429328fbd488a952920537cd31c1350c81d18d320de72b9f4977b3a15"
+    },
+    {
+      "path": "src/schema/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 27,
+      "nonblank_lines": 26,
+      "sha256": "d5f1d37a4654a22b7017df972a61dfd30997e2c41350be4f7883e319fa5d9c6a"
+    },
+    {
+      "path": "src/schema/analysis.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 379,
+      "nonblank_lines": 319,
+      "sha256": "43985c94de906333c1c7d6ac14aacc75243991d27e46437dd9e6349939a89938"
+    },
+    {
+      "path": "src/schema/models.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 124,
+      "nonblank_lines": 83,
+      "sha256": "a0916085af1cfafe18eb8939665aadf3eff70b3b53265ef74e458522c8ca4bb7"
+    },
+    {
+      "path": "src/schema/schema.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 181,
+      "nonblank_lines": 149,
+      "sha256": "d54762f8f304db78b5516efab985a062a02ee8b4971fa19dd4e190aaee39aa2c"
+    },
+    {
+      "path": "src/schema/task_data.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 74,
+      "nonblank_lines": 65,
+      "sha256": "5858d3338ec9e6de533669d27e768fd85d553961c224ca6d4e9a9c97c9f3694c"
+    },
+    {
+      "path": "src/service/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 13,
+      "nonblank_lines": 9,
+      "sha256": "e3609b333818dd6f886890ed1fafe2717fc706c819ce625bc12588266c559d4f"
+    },
+    {
+      "path": "src/service/agui.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 109,
+      "nonblank_lines": 90,
+      "sha256": "cdb7c4a0a0d5c6aced7e2de3bcdf3f4156035357aa6b6713907fc907ab5509c8"
+    },
+    {
+      "path": "src/service/analysis_api.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 122,
+      "nonblank_lines": 104,
+      "sha256": "08b7bdc7ccfa576bbe235371fc68cfb5125511e5a55473896a3f0accfbfbba07"
+    },
+    {
+      "path": "src/service/auth.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 25,
+      "nonblank_lines": 20,
+      "sha256": "e3ef558d8cdd1deb6b5f702ab263c6fe2ec2d9e2cf3c3f44bba1c92ec6933e5e"
+    },
+    {
+      "path": "src/service/errors.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 158,
+      "nonblank_lines": 131,
+      "sha256": "6d1d5e9c03c22785c0badeebe098580794515a6ca90ca385e91c59ce2bf99d59"
+    },
+    {
+      "path": "src/service/experiments_api.py",
+      "category": "adapt",
+      "reason": "复用身份/API；新分析动作从技能运行进入，历史读取保持独立",
+      "total_lines": 56,
+      "nonblank_lines": 44,
+      "sha256": "a089521633e8e57b5daf34de0ddf32f352dc9692a926eabc2e18e854faceb8aa"
+    },
+    {
+      "path": "src/service/hermes_api.py",
+      "category": "adapt",
+      "reason": "复用身份/API；新分析动作从技能运行进入，历史读取保持独立",
+      "total_lines": 324,
+      "nonblank_lines": 276,
+      "sha256": "c5c0f0cefdb0a78f18568876e335cab8b6fedd6a2cac60102850f551698f7cdf"
+    },
+    {
+      "path": "src/service/hermes_app.py",
+      "category": "adapt",
+      "reason": "复用身份/API；新分析动作从技能运行进入，历史读取保持独立",
+      "total_lines": 118,
+      "nonblank_lines": 101,
+      "sha256": "a827e9c1ffe6d45dbf98d84a979361c1dddf5cd033a76289623d8beb3db674af"
+    },
+    {
+      "path": "src/service/identity.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 56,
+      "nonblank_lines": 40,
+      "sha256": "2d5a1a6601149d9885f675dd7fcc2a1e0d2cec237aace36109bacaecf12b3c06"
+    },
+    {
+      "path": "src/service/materialization_api.py",
+      "category": "adapt",
+      "reason": "复用身份/API；新分析动作从技能运行进入，历史读取保持独立",
+      "total_lines": 154,
+      "nonblank_lines": 132,
+      "sha256": "3ea41f8b45fe6cf3ccbd16ca8a38750d624257bee6d2f0b62956f9289efb53d9"
+    },
+    {
+      "path": "src/service/model_task_api.py",
+      "category": "adapt",
+      "reason": "复用身份/API；新分析动作从技能运行进入，历史读取保持独立",
+      "total_lines": 132,
+      "nonblank_lines": 101,
+      "sha256": "dc20a28235f3fd1e1c697fc23b9dfca11d7ce84c39968e0fbd980a206c6a6dfd"
+    },
+    {
+      "path": "src/service/ownership.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 125,
+      "nonblank_lines": 99,
+      "sha256": "06b3f9440ae49b598d6d72e874d76972f6270ab7e2e27d06144c7c58c59565fe"
+    },
+    {
+      "path": "src/service/request_context.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 151,
+      "nonblank_lines": 133,
+      "sha256": "01f8892d2dd8167e9dc1f6be950d59126fe9429aaf674a0b888e0ef975fd9436"
+    },
+    {
+      "path": "src/service/request_limits.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 185,
+      "nonblank_lines": 166,
+      "sha256": "2cb1fc272459a48fff674c67b640e48692633f636116f54973a0c2d558910011"
+    },
+    {
+      "path": "src/service/runtime_validation.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 106,
+      "nonblank_lines": 86,
+      "sha256": "29db33e53976e6269393a8119f33381d19ebf9f527d8c8c9574e5799b53cd3d8"
+    },
+    {
+      "path": "src/service/scat_api.py",
+      "category": "adapt",
+      "reason": "复用身份/API；新分析动作从技能运行进入，历史读取保持独立",
+      "total_lines": 406,
+      "nonblank_lines": 365,
+      "sha256": "1bc025b7c7dde0e52c4e200e78cd632b869980b1a33b7938da2eab98ff7803fe"
+    },
+    {
+      "path": "src/service/scat_only.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 106,
+      "nonblank_lines": 91,
+      "sha256": "1cfa943b68ca9e567912dce6c416755c4a4e6c9507b1099dfd9902fe44efc478"
+    },
+    {
+      "path": "src/service/service.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 783,
+      "nonblank_lines": 701,
+      "sha256": "eaf2250249029717e0df36f1e64fb16932d12bc1bc00a8e6c52134002756e387"
+    },
+    {
+      "path": "src/service/uav_api.py",
+      "category": "adapt",
+      "reason": "复用身份/API；新分析动作从技能运行进入，历史读取保持独立",
+      "total_lines": 382,
+      "nonblank_lines": 347,
+      "sha256": "bf657dfac36886bf8c071425cee402d06d9a72bfb9b866c1fb35ffe0b4cea09a"
+    },
+    {
+      "path": "src/service/utils.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 93,
+      "nonblank_lines": 84,
+      "sha256": "b093f516d636191d57e4191cfbb0b848e11962507c54be90bbbb89a6ef4c4aca"
+    },
+    {
+      "path": "src/streamlit_app.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 357,
+      "nonblank_lines": 303,
+      "sha256": "52e098a05feb38f8a3016508b2f8219200876ed77969cb9924e27741f76a036d"
+    },
+    {
+      "path": "src/streamlit_ui/__init__.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 2,
+      "nonblank_lines": 1,
+      "sha256": "bba2ae6b6968d5edcecfea341ac16d69b56d6ab03af0f17076c58a4a0cdb2ba1"
+    },
+    {
+      "path": "src/streamlit_ui/analysis_renderer.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 424,
+      "nonblank_lines": 377,
+      "sha256": "52401ecdcd21093a22ded6965ecb08cab9bbb9c0c528b8f7b0c1041f36b74634"
+    },
+    {
+      "path": "src/streamlit_ui/chat.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 235,
+      "nonblank_lines": 196,
+      "sha256": "c965318c6763b647ee61dc765df5259bade5a14f501e7e39de954f655f713007"
+    },
+    {
+      "path": "src/streamlit_ui/error_renderer.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 75,
+      "nonblank_lines": 59,
+      "sha256": "326e92c25bf0cdb2515f7f2c41cbe44f2b2119a4a8c811c9c575180ea2223683"
+    },
+    {
+      "path": "src/streamlit_ui/feedback.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 41,
+      "nonblank_lines": 31,
+      "sha256": "46b1119048daa09ef5510586c3532e4bcf575c08a5b6ab73a207465a19be53b2"
+    },
+    {
+      "path": "src/streamlit_ui/settings.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 82,
+      "nonblank_lines": 68,
+      "sha256": "001efe27a04e6cd17ac455695f9bd335d7235b4c862c0ebc5705dd52c88f1589"
+    },
+    {
+      "path": "src/streamlit_ui/tool_status.py",
+      "category": "legacy_retire",
+      "reason": "旧会话/工作台/检查点入口，迁移期间保留对照，目标主链退役",
+      "total_lines": 52,
+      "nonblank_lines": 40,
+      "sha256": "7beb4a25848a034cb136673bbf32a6468c128cb701b944e4eddf383772f92a52"
+    },
+    {
+      "path": "src/uav/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 0,
+      "nonblank_lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/uav/repositories/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 0,
+      "nonblank_lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/uav/repositories/uav_repository.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 395,
+      "nonblank_lines": 368,
+      "sha256": "fe7411546acec256b80eef0a896b55c4e9f0337a038ccedf60459508ea82351c"
+    },
+    {
+      "path": "src/uav/schemas/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 0,
+      "nonblank_lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/uav/schemas/api.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 222,
+      "nonblank_lines": 174,
+      "sha256": "775612cc3c7e88e7aaae6e9f3bae2241554164706a4081decb3847aaf43bd03d"
+    },
+    {
+      "path": "src/uav/schemas/channels.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 89,
+      "nonblank_lines": 75,
+      "sha256": "653e80d6290539d5b0d2c3176eefc26673c60eecb65021bece7ca3b01129f0ad"
+    },
+    {
+      "path": "src/uav/schemas/tool_inputs.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 196,
+      "nonblank_lines": 162,
+      "sha256": "a171cf41c2be6b409a99d17054af5fbffd0e2d80524d5cf0d4b599de4b395cd6"
+    },
+    {
+      "path": "src/uav/services/__init__.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 0,
+      "nonblank_lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/uav/services/uav_service.py",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 539,
+      "nonblank_lines": 494,
+      "sha256": "a3a8f97070b7139d48ca60b25e8eb007c46bb3ba660bb192f90e91da1be041f2"
+    },
+    {
+      "path": "src/voice/__init__.py",
+      "category": "out_of_scope",
+      "reason": "语音能力不在当前核心迁移范围",
+      "total_lines": 37,
+      "nonblank_lines": 31,
+      "sha256": "edb83afdf78adfc5a28e26b6b113d5328c39f7e3229c6606b05d4db39a7e8c47"
+    },
+    {
+      "path": "src/voice/manager.py",
+      "category": "out_of_scope",
+      "reason": "语音能力不在当前核心迁移范围",
+      "total_lines": 195,
+      "nonblank_lines": 150,
+      "sha256": "4391f9e0a153eb23e2ba8ddeaf38523d14cd13327174e0725306229aa807c114"
+    },
+    {
+      "path": "src/voice/providers/__init__.py",
+      "category": "out_of_scope",
+      "reason": "语音能力不在当前核心迁移范围",
+      "total_lines": 10,
+      "nonblank_lines": 7,
+      "sha256": "562a7a901456e073e96a826ea0024ab73eda932cd63feea70e65d54a0deea183"
+    },
+    {
+      "path": "src/voice/providers/openai_stt.py",
+      "category": "out_of_scope",
+      "reason": "语音能力不在当前核心迁移范围",
+      "total_lines": 58,
+      "nonblank_lines": 43,
+      "sha256": "5237931e4c429f99d772215ad9242bde514ddef52d10c5aeb6fae231aed28949"
+    },
+    {
+      "path": "src/voice/providers/openai_tts.py",
+      "category": "out_of_scope",
+      "reason": "语音能力不在当前核心迁移范围",
+      "total_lines": 124,
+      "nonblank_lines": 95,
+      "sha256": "04d33e8e25643a3a82767b8f666ab4a3c2a82eddd8fa03a33619a8d0f617a53f"
+    },
+    {
+      "path": "src/voice/stt.py",
+      "category": "out_of_scope",
+      "reason": "语音能力不在当前核心迁移范围",
+      "total_lines": 158,
+      "nonblank_lines": 121,
+      "sha256": "7b9e46a704637125eae0213cbba25e33537476a1ab207b5016c5917c1e36bb99"
+    },
+    {
+      "path": "src/voice/tts.py",
+      "category": "out_of_scope",
+      "reason": "语音能力不在当前核心迁移范围",
+      "total_lines": 174,
+      "nonblank_lines": 134,
+      "sha256": "ef6efa2ce117ad3cc45443180fbcca83fe6438c01757c43b1eecd08a6394ccf9"
+    },
+    {
+      "path": "frontend/src/api/client.ts",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 443,
+      "nonblank_lines": 403,
+      "sha256": "21b537ef375867df17272d7a81d0e7eb3b3633022278009f7d83d008b78b7783"
+    },
+    {
+      "path": "frontend/src/api/errors.ts",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 84,
+      "nonblank_lines": 74,
+      "sha256": "713fba845d92089a14ada2f5cf67a72d2500f18b86b3856f363b0453335b3309"
+    },
+    {
+      "path": "frontend/src/api/hermes.ts",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 220,
+      "nonblank_lines": 212,
+      "sha256": "aeba7b27f16465a8ac7c66bed0f5aac0a34c82446e9a4640ac2c207f7cc9466d"
+    },
+    {
+      "path": "frontend/src/App.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 91,
+      "nonblank_lines": 81,
+      "sha256": "82d4ccfc5851d5eb2a4c9fe536a330299ca7bf61e02cc4fad39e9c8619cfd76b"
+    },
+    {
+      "path": "frontend/src/components/AsyncStatePanel.vue",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 52,
+      "nonblank_lines": 44,
+      "sha256": "bcedf7678e23c92e8fda0fd985202e45e6756b534f9d1b4a78a313fbce2fb3e1"
+    },
+    {
+      "path": "frontend/src/components/BaseChart.vue",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 59,
+      "nonblank_lines": 51,
+      "sha256": "75c2d543d9c8ec5493b54e5b82047315640b6539a829395843f3b78224ce3e68"
+    },
+    {
+      "path": "frontend/src/components/ModelTaskPanel.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 220,
+      "nonblank_lines": 217,
+      "sha256": "5d5759ce95f3ea1f199d27d5dd98c4ffa7d9dbd4ab8c65880e6a99a7332c35fe"
+    },
+    {
+      "path": "frontend/src/components/Trajectory2dPlayback.vue",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 171,
+      "nonblank_lines": 161,
+      "sha256": "3372f7f7ce26d23b3738f0fe68b7590755a6ba852595f5cac29bbaacfc1177d7"
+    },
+    {
+      "path": "frontend/src/components/Trajectory3dView.vue",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 375,
+      "nonblank_lines": 335,
+      "sha256": "e491239646db12459a5e7d4be0b9cce3cd7d9b71e6fa82edb1b8ec2cb2de0223"
+    },
+    {
+      "path": "frontend/src/components/TrajectoryPlaybackControls.vue",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 150,
+      "nonblank_lines": 131,
+      "sha256": "be462beaec43e70bd1fa85c3cdb84cf9cbe44e7bc05d1549db0204810f65ceba"
+    },
+    {
+      "path": "frontend/src/components/TrajectoryProfileCharts.vue",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 206,
+      "nonblank_lines": 188,
+      "sha256": "f20b386c543711a434b9e5cc1e065cc2a222fd0861759284959bf3987b4f5ce7"
+    },
+    {
+      "path": "frontend/src/components/TrajectoryWorstErrorPanel.vue",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 192,
+      "nonblank_lines": 172,
+      "sha256": "1bd5aade4232072e22cfa8b0c50fdbc3cc5eceff26ada0b48549fa7bbc30a70b"
+    },
+    {
+      "path": "frontend/src/composables/useFilterQuerySync.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 43,
+      "nonblank_lines": 37,
+      "sha256": "a53e663051b7f62d9029bdc6ca11fd6e372d1804e6ff6516200fa5aa39a63229"
+    },
+    {
+      "path": "frontend/src/main.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 39,
+      "nonblank_lines": 37,
+      "sha256": "89a7c93f5cec1425ebcfa7c7bf432a23ff310c8af2d5d2b0f45bfc2dfe65a0e6"
+    },
+    {
+      "path": "frontend/src/router/index.ts",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 71,
+      "nonblank_lines": 68,
+      "sha256": "16cb6ab7240add79990746e790989d405bd288a0a451911cf5461e0e3c17cd8b"
+    },
+    {
+      "path": "frontend/src/stores/filters.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 49,
+      "nonblank_lines": 44,
+      "sha256": "4e807e979e1d2f56425b4b08753fbd138ab1c21969f9e95b7b05734edfbe57d5"
+    },
+    {
+      "path": "frontend/src/stores/preferences.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 26,
+      "nonblank_lines": 23,
+      "sha256": "cc438a58204ff464f2f88569420074d6ad358e3d0935239e3a54c9164f5e3082"
+    },
+    {
+      "path": "frontend/src/stores/timeCursor.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 95,
+      "nonblank_lines": 89,
+      "sha256": "a54f2a9aa7b369332690fd845e501f8fcda1cf34df5b3763fd7f2317837e53cf"
+    },
+    {
+      "path": "frontend/src/utils/comparisonReport.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 132,
+      "nonblank_lines": 118,
+      "sha256": "824dd27fbf2460d2f812d1fb02611e2295ad63ecf8d26fa36aaf181ac33aea64"
+    },
+    {
+      "path": "frontend/src/utils/crossAppNavigation.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 43,
+      "nonblank_lines": 38,
+      "sha256": "fe756d2c6f0c48924c32392493ed63ab89780982b1e41ac612a8d96e72723872"
+    },
+    {
+      "path": "frontend/src/utils/evaluationExport.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 120,
+      "nonblank_lines": 109,
+      "sha256": "4e5b2ca4534f91b3d58135afa842a3c7e978f1b380607ef6d26f7e0eab89a089"
+    },
+    {
+      "path": "frontend/src/utils/overviewExport.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 49,
+      "nonblank_lines": 45,
+      "sha256": "51e4a0de29527ab70551d61ace519748ab2e039fa659cc7f0801ab2afcb2f562"
+    },
+    {
+      "path": "frontend/src/utils/trackNormalizer.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 483,
+      "nonblank_lines": 450,
+      "sha256": "75a22a5fa8b8ff34e30e74727db2031c658e2563710b70fc39b063d1db56ce09"
+    },
+    {
+      "path": "frontend/src/utils/trajectoryPlayback.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 191,
+      "nonblank_lines": 175,
+      "sha256": "4677a5159e9a4d3046a474faf9fbbd2ce2f08f627b1cb13a9899aee7615215f6"
+    },
+    {
+      "path": "frontend/src/views/ComingSoonView.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 17,
+      "nonblank_lines": 15,
+      "sha256": "fa729ca4aba4503a1f91628472b291020eb8e2d951b2ffeb7199a635a9ce858b"
+    },
+    {
+      "path": "frontend/src/views/EvaluationView.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 764,
+      "nonblank_lines": 714,
+      "sha256": "2681785c04edea6ea2e533cea5f2395bbb48dfd499009638f2cebe7a0a91b92d"
+    },
+    {
+      "path": "frontend/src/views/FlightDetailEntryView.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 31,
+      "nonblank_lines": 29,
+      "sha256": "54f7d9f907703e52dbedd125b1b2e5183c5dc286b47a5ef4596d692a48a8c894"
+    },
+    {
+      "path": "frontend/src/views/FlightSearchView.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 444,
+      "nonblank_lines": 411,
+      "sha256": "ef9f813aa5a71065c6ce79e8b580b5c40a1eb87d19bdbc4a34436d4875540b3b"
+    },
+    {
+      "path": "frontend/src/views/FoundationView.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 176,
+      "nonblank_lines": 161,
+      "sha256": "d2cbefc24b0e650289d7a9477006c6ea3f361bcf5672e89b02960fdffbc2e083"
+    },
+    {
+      "path": "frontend/src/views/HermesAssistantView.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 408,
+      "nonblank_lines": 404,
+      "sha256": "48d53f4488c65f60708e46bb34358d438f8f32d7149987dce4ad5cb11f049137"
+    },
+    {
+      "path": "frontend/src/views/NotFoundView.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 8,
+      "nonblank_lines": 8,
+      "sha256": "af8a39677e8626f45b9682cf84df59e49a2e50962f94a1db7ba28a26acf54658"
+    },
+    {
+      "path": "frontend/src/views/OverviewView.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 494,
+      "nonblank_lines": 457,
+      "sha256": "1650898702f95cc4bbc818ac73d3da8530dafb51bc3858e8e8f29703b7ee47e3"
+    },
+    {
+      "path": "frontend/src/views/PortalView.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 123,
+      "nonblank_lines": 115,
+      "sha256": "22d9affe8fbbf5fbb6c431cf21d69f2d55ca14e172f8842da96aa126ab2b2f6e"
+    },
+    {
+      "path": "frontend/src/views/VisualizationEntryView.vue",
+      "category": "adapt",
+      "reason": "复用页面结构，分析入口改为技能运行；展示、历史读取仍用协议和组件",
+      "total_lines": 256,
+      "nonblank_lines": 230,
+      "sha256": "fea68fce4eae2cca60b9aa8a912407457069efdf76ffa3fc128b0243741ce681"
+    },
+    {
+      "path": "frontend/src/visualization/CesiumTrajectoryVisualizer.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 455,
+      "nonblank_lines": 420,
+      "sha256": "2b434056bf4a834d089dad97c65ece930f161be1ca8b4ca050676b43f2b53e6b"
+    },
+    {
+      "path": "frontend/src/visualization/types.ts",
+      "category": "retain",
+      "reason": "保留契约、算法、仓储、身份基础、运行结果或可视化组件，按需移动/引用",
+      "total_lines": 150,
+      "nonblank_lines": 135,
+      "sha256": "7a82e831273b72481b1a3d4fd087342dc2bca6cdd9c5f1bed30de5db013926c6"
+    }
+  ],
+  "limitations": [
+    "Module-level classification is deliberately conservative for mixed files.",
+    "retain permits relocation/import changes and is a reuse candidate, not a byte-preservation guarantee.",
+    "adapt contains both reusable implementation and work to change. Do not report retain+adapt as a proven reuse percentage.",
+    "Tests and scripts are excluded from volume metrics but still require separate migration and validation."
+  ]
+}

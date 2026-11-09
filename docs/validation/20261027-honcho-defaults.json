@@ -1,0 +1,20 @@
+{
+  "status": "templates-prepared-not-enabled",
+  "sha256": {
+    "config/honcho/honcho.json.example": "4d4f44af3a1e84b62f6bb712f3ac6f65fa553d38dc238cdb7b3edfffce250fe9",
+    "config/honcho/server.env.example": "a31d6f170c064dc6bc189716327ed4b9bca0eda231468a2780f427559041d2e6",
+    "docs/HERMES_HONCHO_DEFAULTS.md": "d2eca853ec1f70598733cc7399e139343be5ea4c6565277a8f7a5b4fa9314758",
+    "docs/DEVELOPMENT_LOG.md": "8f877992e9ccff80d193d8599a4e662675c0634accc5e665a70bd22434257dbf"
+  },
+  "private_file_created": true,
+  "private_mode": "0o600",
+  "private_values_read_or_exported": false,
+  "user_key_variable": "LLM_OPENAI_API_KEY",
+  "planned_ports_listening": {
+    "18140": false,
+    "18141": false
+  },
+  "new_model_calls": 0,
+  "dependency_changes": 0,
+  "runtime_changes": 0
+}

@@ -1,0 +1,9 @@
+{
+  "removed_round_directory": "C:\\python\\scat-hermes-platform\\.tmp\\s2dev",
+  "temporary_round_directory_exists": false,
+  "project": "C:\\python\\scat-hermes-platform",
+  "date": "2026-10-23",
+  "transport": "retained in memory only until final synchronization",
+  "status": "passed",
+  "retained": "source, formal evidence, dependencies, private configuration and persistent state"
+}

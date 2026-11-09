@@ -1,0 +1,99 @@
+{
+  "status": "passed_for_workspace_v1",
+  "release": "20261028-workspace-v1",
+  "scope": "Conversation-first frontend, existing dependencies, no production gateway switch",
+  "checks": {
+    "unit": 126,
+    "browser_synthetic_desktop_mobile": 26,
+    "browser_live_readonly": 4,
+    "format": true,
+    "eslint": true,
+    "typecheck": true,
+    "build": true,
+    "new_dependencies": 0,
+    "initial_home_api_requests": 0,
+    "home_dataset_information": false
+  },
+  "sources": {
+    "frontend/src/components/WorkspaceIcon.vue": "c00eff0c7cb834c86afd932c0a4eae924636a12ffaf4f9f648653d2fbe10ac31",
+    "frontend/src/App.vue": "d48f114817dbc3182d4a2e763bea1ad04f24b667a20306a5aea4eb5051797f2a",
+    "frontend/src/views/PortalView.vue": "8c0ae430118ce227114baa606dc6f61bb20b03d4e1a2fc9a5d26d0c93dc067de",
+    "frontend/src/views/DataBrowserView.vue": "1bc01d85692db0b2d94b88df55aee38fe6c806e0cfd9e789e8bd2547cf3d1020",
+    "frontend/src/api/workspace.ts": "d36e641e30ff27e74ab481931e1ecbdc414b4cba333983115af925505c71b060",
+    "frontend/src/views/HistoryView.vue": "2b70cd79d08c2f6e700f8652201b1f54fc6725378b76156dba40c96046252253",
+    "frontend/src/components/RunEvidencePanel.vue": "63a6656351315e324994034d428400c4039e30e0ded34ca5c43549e1765d69bc",
+    "frontend/src/workspace.css": "0fb7a15493ab471b3213fcaad0b787052e2ee03ccad73f84522485e760ded0d3",
+    "frontend/src/main.ts": "5deba8a5defdfb15fa58a89b5a20878dfb0043642f05a8f5ec45841059818999",
+    "frontend/src/router/index.ts": "4a15ea3f95b29944ba2f7d031c49d25a3a354f5d01decc0d224d17bc4ed424f9",
+    "frontend/src/stores/preferences.ts": "1b27c1d230c9801e6e933f9fdf1a3a74936bd8cd20223a993bdd32a5230ab7ef",
+    "frontend/src/views/HermesAssistantView.vue": "f930db9fcef3ffea2e996acfc58682aaa01a977b9dea127766681b8e1593b036",
+    "frontend/src/views/HermesAssistantView.spec.ts": "0624543a0c26c6c151af8fcbee2b5bd6658496c8c33a1d2ec813109553e7e82f",
+    "frontend/src/api/hermes.ts": "e7bcf4ea6f37dbfbb32f1a8ad1b99e283eaafa76bfc22eee2f576e3572982fc9",
+    "frontend/src/components/ModelTaskPanel.vue": "081049f11ffec84b4db177c5bf6d2bb65b74877831d7ea7ccf3895b4c8e7b042",
+    "frontend/index.html": "1461a7d3a222d45f2f0c2bce9f4b56f9409caa00660b6b66a417f9f25d4a9b5d",
+    "frontend/src/views/PortalView.spec.ts": "d3d5c6824d9addb5974ab7b113ad0f3a0172f4553228688ceea1af1f10eef5de",
+    "frontend/src/views/DataBrowserView.spec.ts": "7e14c8baab2b454aa4734caf39082993a625ffd2d73aab382c3309cfca69b7f0",
+    "frontend/public/favicon.svg": "84e63df803ce57f7170da82a71e5ee33875ae15cfbdb9b067eb474cbd110182e",
+    "frontend/src/api/workspace.spec.ts": "fb67f4a0bc124289864e369fc248ac8a7c13a43de2245d1663f24e5bf1552a84",
+    "frontend/src/components/RunEvidencePanel.spec.ts": "7621ea22b133e76964268b9ba4ef96ae6e7760f7c8ff457716ec94352a6dacb7",
+    "frontend/playwright.workspace.config.ts": "67266b0daf83d4154ee3dfce24cb67b13601ae0fbc19fef6933d74c973efb4c0",
+    "frontend/e2e/workspace.spec.ts": "928e9d065c39543cc1c8a865b06144464c24939eb8c28aa098c4ec62d23e5c7e",
+    "frontend/e2e/hermes.spec.ts": "5f094b7c45d85169f431664b85371e48ec0b68c7c89ae97d6f8b8ccff091bdab",
+    "frontend/e2e/workflows.spec.ts": "e5f893560cac14f3efa63b1569752ecbde0f06f75fb9d7a2626313a991639183",
+    "frontend/e2e/h6-display.spec.ts": "156aa2d21e87406f1adaae8d46e5977237051d0949c16d75b73bd08b3d0f262a",
+    "frontend/e2e/model-tasks.spec.ts": "06bb0b38cf0e3f2da4251497fd7e34f20400c28e76dcfa188f9fd5dcfbfc80e5",
+    "frontend/src/views/NotFoundView.vue": "162b32e59920129b42b6e169e49d78c7a5001beb6b653a0b214614f239173826",
+    "frontend/playwright.readonly.config.ts": "e6f52c5d8ef18f90af73f6c8f40aadae024ffec73fef7ea14e32a0e196d1dc8d",
+    "frontend/e2e/readonly-live.spec.ts": "eaded5f10605227185012975984fb2f477a9e35ab10e5282845c2de74c5a38cb",
+    "scripts/preview_frontend_static.py": "dd8af7019aad688a6dce6770b50b3f14fe3a913cecafc5026b009de33883a529",
+    "scripts/preview_frontend_readonly.py": "2a84ee2943ec69de48e4cac7c62dbfaa0ea319141cdb9fc4fbf96e4da22b256c",
+    "docs/HERMES_FRONTEND_WORKSPACE.md": "9149c10631a711ba263e4373f33139d7dd0dee141002b3665fc42d10bc17e17d",
+    "docs/DEVELOPMENT_LOG.md": "9d410d6b1c5f613daeae7c1569348b6e49690b5e7ffd56889af0bb06213e760b",
+    "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md": "e761bd6eee3e9b3937d79b647879e8e8fa84eca1427f1c0cd8d426874d93069d"
+  },
+  "dependency_hashes": {
+    "frontend/package.json": "7ac9eed287c791b38d1ee16614c264be10188623e8e3cd7e87830f36bc2ee7b5",
+    "frontend/package-lock.json": "e0434b056f4173684e64742bbf73c3de48ffe5e1711827bf6a7f88b59c1b4e37"
+  },
+  "build": {
+    "files": 415,
+    "zip_bytes": 5845618,
+    "zip_sha256": "13e5dfae030f57a6c2c61856d23339e9c946497f2855486fdeb94fd3aa459949"
+  },
+  "preview": {
+    "url": "http://127.0.0.1:5174/",
+    "readonly": true,
+    "expires_at": 1793176418.8286636,
+    "allowed_methods": [
+      "GET",
+      "HEAD"
+    ],
+    "credential_storage": "process_memory_only",
+    "user_explicitly_authorized_readonly": true
+  },
+  "backend": {
+    "release_unchanged": "20261028-s7b-a8fc62d5d0d1",
+    "model_usage_before_and_after": [
+      70,
+      4520033
+    ],
+    "new_model_or_compute_calls": 0
+  },
+  "screenshots": [
+    "docs/validation/20261028-workspace-home-desktop.png",
+    "docs/validation/20261028-workspace-home-mobile.png",
+    "docs/validation/20261028-workspace-chat-desktop.png",
+    "docs/validation/20261028-workspace-chat-mobile.png"
+  ],
+  "retained_logs": "var/validation/20261028-frontend-workspace",
+  "limitations": [
+    "History APIs provide replies and timestamps; user prompts and custom titles are not reconstructed.",
+    "Preview intentionally disables message submission and task mutations.",
+    "H6-B natural-language layout editing and full management UI are separate remaining scope."
+  ],
+  "cleanup": {
+    "test_temp_pending_cleanup": false,
+    "active_preview_temp_retained_until_exit": true,
+    "test_temp_removed": true
+  }
+}

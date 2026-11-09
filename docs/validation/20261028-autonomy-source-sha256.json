@@ -1,0 +1,23 @@
+{
+  "src/hermes_runtime/autonomy_config.py": "7e0540bf0c0281de230bcf877e9890f53808d6c30b84a743cdd95dbcffd520b9",
+  "src/hermes_runtime/honcho_memory.py": "d43a235be7752bd77d9a76e55a360801daa695be4d79c2e80a9d9e0a3ff2ad59",
+  "src/hermes_runtime/experience_learning.py": "f41a2a35a16ade0fe76f5868a8180b60d3a2342e6e51cf36da67d7e758a3ec6b",
+  "src/hermes_runtime/daily_budget.py": "fcbdc5dc9e5ea197f7bc45a30214ef39172524bf4e21d74c0329f237a827caeb",
+  "src/service/memory_api.py": "39663c43e6026117e72e155762d8601a0c8b0157415579b5c5a75ed798917ccd",
+  "src/service/hermes_app.py": "f45ec9db614c24fe127d91ed59a35bda32dea9b094b872ac2f061d0231eb48bc",
+  "src/hermes_runtime/client.py": "f297c770a5dc5d5d86e2e0370229fd48da3a9b3f8d39bce93fd90a17142168c5",
+  "src/hermes_runtime/author_bridge.py": "2a6e5dc0435c12dae483a391a8fdb9933b87812b5be01996d99b089411d6e776",
+  "scripts/run_autonomy_proxy.py": "e6a6853741c31fdb28494e89354bbc4f9f46c5e517ae454bff0e2826c1f36d73",
+  "scripts/run_auto_skill_learning.py": "acd748f60d9d821e84c97b9070643a090b83aff8fdb6c397455dd4c35c73fb2d",
+  "scripts/run_hermes_api.py": "51b191d32802a1e15bd0d7ce372eaee03c8ed051aeaf8a5caa16e1632f0aad4a",
+  "scripts/serve_honcho_embeddings.py": "2e8aa442b36669be8ab0b83951f3ff459b32041a989ebcceb3fa0abe61cc5a5a",
+  "scripts/manage_honcho_test.py": "dc5d4df40ea9e1b0f479c301e3101151ea20d8bfd6e1f12531645c1e55279b9a",
+  "tests/hermes_runtime/test_autonomy.py": "7db98e9e63c7016011000750a064186d867a439799bb567013105758652fafc3",
+  "config/autonomy.example.json": "0981288e4d0a1f72ae2f5bc066fb8ea1246d2b175e7d7ee952656d2a4e8838aa",
+  "scripts/deploy_autonomy.py": "e72c240c7f40ed4f90b72113395f3af736f58c2751a683c9936cefb59f0c7fbe",
+  "scripts/probe_autonomy.py": "409697de8e2b2528fff06691e3b7cf5e7d33caca07f70c22bbecf92a356f4c21",
+  "scripts/manage_auto_skill_learning.py": "d82f5b490071feb2e70cc7e32c5a26b8b055579dc8a3417bff28dcd27c9f28d6",
+  "scripts/evaluate_skills_s6.py": "48ef3add49337f50ed83f43ae9bc97b4f3fa8aed77de0ba2892d8b1f7be85a4a",
+  "src/hermes_runtime/authoring_store.py": "20a7e9e301a4ae19c8bc635c7732731420afa0d13caa318b41136bdedd1c484f",
+  "config/hermes-profiles/scat-main/operations.md": "f83267d13290972c3ea2652d2f2b426ae6c565973ba1c7fa94de80832ed9459c"
+}

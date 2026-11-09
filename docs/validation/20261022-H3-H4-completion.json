@@ -1,0 +1,47 @@
+{
+  "recorded_at": "2026-10-22T11:10:50.005445+00:00",
+  "H3": "accepted_current_single_user_readonly_scope",
+  "H4": "accepted_current_single_user_readonly_scope",
+  "scope": "fixed single-user / DeepSeek / five read-only MCP tools; H5/H6 remain separate",
+  "local_python": {
+    "passed": 114,
+    "seconds": 10.62
+  },
+  "server_python": {
+    "passed": 788,
+    "seconds": 25.65,
+    "existing_warnings": 1
+  },
+  "frontend": {
+    "unit_passed": 92,
+    "unit_seconds": 7.08,
+    "browser_passed": 6,
+    "browser_seconds": 6.3,
+    "format_lint_typecheck_build": "passed"
+  },
+  "real_integration_report": "20261022-h34-completion-attempt2.json",
+  "final_regression_report": "20261022-h34-regression-attempt3.json",
+  "implementation_sha256": {
+    "scripts/run_hermes_api.py": "8dd7576f3c233674623ae82e3b17f4ad4713a64b71f334e579778d4bd528b383",
+    "src/hermes_runtime/results.py": "132f2ffb81fb8e13d93636e463b58904b615bc954c14d5caf0c1632ec800397b",
+    "src/application/readonly.py": "c41847e8c51a9e29b8917f768a548f3ff5fe4bedd5c376a757ce14755728184d",
+    "src/service/hermes_api.py": "c5c0f0cefdb0a78f18568876e335cab8b6fedd6a2cac60102850f551698f7cdf",
+    "src/scat_mcp/server.py": "28e36c3acfd0a16fd4f8cd9e87c3352247445537fbcf14fc7a77aecbb054dae6",
+    "src/hermes_runtime/client.py": "09b019dbd0bed774778bd0f04c7ed06d5b6c7308381735aab4d9c58789cb84f0",
+    "src/service/hermes_app.py": "a064f97eacaa99faf7dd8cfdc36728fbad91156bd792f207841eef142f9ade63",
+    "src/core/settings.py": "322bb56636818c8e101c46cb0babdf769fd260ea9017a6674e4c468f7bbc0965"
+  },
+  "pip_checks": {
+    "scat-agent": {
+      "returncode": 0,
+      "no_broken_requirements": true
+    },
+    "scat-hermes": {
+      "returncode": 0,
+      "no_broken_requirements": true
+    }
+  },
+  "previous_failures_preserved": true,
+  "cleanup": "20261022-H3-H4-cleanup-final.json",
+  "document_sync": "verified; per-file hashes in 20261022-H3-H4-completion-manifest.json"
+}

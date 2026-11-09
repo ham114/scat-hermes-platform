@@ -1,0 +1,22 @@
+ARG BASE_IMAGE=docker.1ms.run/library/ubuntu@sha256:68ee22004a9109b44973313b02ff7b1de250f1de0f5ecb628d73f579aaff33ac
+FROM ${BASE_IMAGE} AS environment
+ARG ENV_NAME
+ENV TMPDIR=/build/tmp TMP=/build/tmp TEMP=/build/tmp CONDA_PKGS_DIRS=/build/pkgs CONDA_NO_PLUGINS=true CONDA_SOLVER=classic
+COPY conda-bootstrap /build/conda-bootstrap
+COPY ${ENV_NAME}/ /build/${ENV_NAME}/
+RUN mkdir -p /build/tmp /build/pkgs && chmod 755 /build/conda-bootstrap && \
+    /build/conda-bootstrap create --yes --offline --no-default-packages --prefix /opt/conda/envs/${ENV_NAME} --file /build/${ENV_NAME}/explicit-local.txt && \
+    /opt/conda/envs/${ENV_NAME}/bin/python -B -m pip install --no-index --no-deps --require-hashes --find-links=/build/${ENV_NAME}/wheels -r /build/${ENV_NAME}/pip-hashed.txt && \
+    /opt/conda/envs/${ENV_NAME}/bin/python -B -m pip check
+
+FROM ${BASE_IMAGE}
+ARG ENV_NAME
+COPY --from=environment /opt/conda/envs/${ENV_NAME}/ /opt/conda/envs/${ENV_NAME}/
+ENV PYTHONNOUSERSITE=1 PYTHONDONTWRITEBYTECODE=1 HERMES_DISABLE_LAZY_INSTALLS=1 \
+    SCAT_AGENT_PYTHON=/opt/conda/envs/scat-agent/bin/python SCAT_HERMES_PYTHON=/opt/conda/envs/scat-hermes/bin/python \
+    PYTHONPATH=/home/h3c/project/python/scat-hermes-platform/src
+WORKDIR /home/h3c/project/python/scat-hermes-platform
+COPY app/ ./
+RUN ln -s /opt/conda/envs/${ENV_NAME}/bin/python /usr/local/bin/scat-python
+USER 1000:1000
+ENTRYPOINT ["/usr/local/bin/scat-python", "-B", "scripts/run_container_service.py"]

@@ -1,0 +1,140 @@
+{
+  "status": "passed",
+  "checks": {
+    "invalid_auth_rejected": true,
+    "workspace_token_cannot_read_other_workspace": true,
+    "embedding_requires_auth": true,
+    "local_cpu_embeddings_1024": true,
+    "plugin_resolves_correct_host_and_workspace": true,
+    "actual_model_derived_memory": true,
+    "distinct_thread_session_keys": true,
+    "cross_session_recall": true,
+    "preference_correction_recalled": true,
+    "synthetic_conclusion_deleted": true,
+    "hermes_scat-worker_inactive": true,
+    "hermes_scat-author_inactive": true,
+    "SDK_default_base64_decoded_1024": true,
+    "stored_memory_survives_database_and_api_restart": true,
+    "no_paid_model_replay": true,
+    "both_pgvector_columns_1024": true,
+    "provider_checks": true,
+    "targeted_tests": true,
+    "same_campaign_budget_including_failures": true,
+    "existing_conda_histories_unchanged": true,
+    "seven_formal_cpu_containers_preserved": true,
+    "existing_service_ports_preserved": true,
+    "formal_corpus_and_vectors_preserved": true,
+    "current_public_files_private_value_scan": true,
+    "finite_candidate_listeners_closed": true,
+    "finite_candidate_containers_stopped": true,
+    "temporary_files_and_test_profile_removed": true
+  },
+  "tests": {
+    "tests": 18,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "model_request_attempts_including_failures": 12,
+  "successful_model_responses": 10,
+  "conservative_reserved": 155514,
+  "provider_input_tokens": 25869,
+  "provider_output_tokens": 1141,
+  "provider_total_tokens": 27010,
+  "internal_attempts": [
+    {
+      "id": 1,
+      "reserved": 17236,
+      "status": "ok",
+      "input_tokens": 3878,
+      "output_tokens": 124
+    },
+    {
+      "id": 2,
+      "reserved": 19180,
+      "status": "ok",
+      "input_tokens": 4347,
+      "output_tokens": 124
+    },
+    {
+      "id": 3,
+      "reserved": 15862,
+      "status": "ok",
+      "input_tokens": 3431,
+      "output_tokens": 308
+    },
+    {
+      "id": 4,
+      "reserved": 6068,
+      "status": "ok",
+      "input_tokens": 851,
+      "output_tokens": 81
+    },
+    {
+      "id": 5,
+      "reserved": 17859,
+      "status": "ok",
+      "input_tokens": 4040,
+      "output_tokens": 280
+    },
+    {
+      "id": 6,
+      "reserved": 17827,
+      "status": "ok",
+      "input_tokens": 4033,
+      "output_tokens": 81
+    },
+    {
+      "id": 7,
+      "reserved": 6088,
+      "status": "ok",
+      "input_tokens": 849,
+      "output_tokens": 78
+    },
+    {
+      "id": 8,
+      "reserved": 18151,
+      "status": "ConnectError",
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "id": 9,
+      "reserved": 18151,
+      "status": "ConnectError",
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "id": 10,
+      "reserved": 18151,
+      "status": "ok",
+      "input_tokens": 4123,
+      "output_tokens": 8
+    }
+  ],
+  "image": {
+    "image": "scat-honcho-conda-test:20261027",
+    "image_id": "sha256:f251369c1c8c0db47e91bd68800e890330684188d38fb9cf53c1cd9524e823a9",
+    "wheels": 105,
+    "host_installs": 0,
+    "source": {
+      "commit": "e2d2aba182862deeb846e5cd4a30a41bce0ed82a",
+      "archive_sha256": "1cecbb91aa744dba501725bac7b65f0847d5d8752c5c85622d6f0bc35996e087",
+      "archive_bytes": 10247050,
+      "host_installs": 0
+    }
+  },
+  "credential_scan": {
+    "files": 234,
+    "exposure_files": []
+  },
+  "scope": "synthetic Honcho server/SDK/Hermes plugin lifecycle; formal platform integration not activated",
+  "initial_assertion_failure_retained": "memory/result.json; SDK uses status instead of status_code",
+  "auth_recheck_new_paid_calls": 0,
+  "formal_platform_memory_enabled": false,
+  "historical_import": false,
+  "new_host_environments": 0,
+  "host_dependency_installs": 0,
+  "earlier_credential_exposure": "public JSON field entered tool output; field cleared and server private provider file populated; rotation recommended"
+}

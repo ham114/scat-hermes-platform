@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "checks": {
+    "SDK_default_base64_decoded_1024": true,
+    "stored_memory_survives_database_and_api_restart": true,
+    "no_paid_model_replay": true,
+    "both_pgvector_columns_1024": true
+  },
+  "before_usage": [
+    10,
+    154573,
+    25552,
+    1084
+  ],
+  "after_usage": [
+    10,
+    154573,
+    25552,
+    1084
+  ],
+  "representation_sha256": "8baf9df62463626b5b507397c16e7fe7bf1a00877dd8c45e48ed444f8d3a83e2",
+  "deriver_left_stopped": true
+}

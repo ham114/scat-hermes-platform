@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-23",
+  "recorded_at": "2026-10-23T00:28:42.036338+08:00",
+  "status": "passed",
+  "verified_documents_including_manifest": 16,
+  "all_local_remote_sha256_equal": true,
+  "server": "authorized primary SSH only",
+  "runtime_changes": false,
+  "dependencies_installed": false,
+  "services_started": false,
+  "temporary_directories_created": false,
+  "local_tmp_exists": false,
+  "server_tmp_exists": false,
+  "upload_stages": [],
+  "manifest": "docs/validation/20261023-skills-planning-manifest.json"
+}

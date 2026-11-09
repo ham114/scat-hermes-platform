@@ -1,0 +1,570 @@
+{
+  "scope": "user-reviewed-development-not-independent-admission",
+  "corpus_sha256": "61788775e03c392b493a7835bba2e5d38d7f8721035b73ccbb1dda441eb53b86",
+  "external_llm_calls": 0,
+  "case_count": 40,
+  "groups": 116,
+  "by_category": {
+    "fact": 16,
+    "multi_source": 8,
+    "condition_workflow": 8,
+    "numeric_units": 8
+  },
+  "cases": [
+    {
+      "case_id": "DEV-20261025-dev40-001",
+      "input_claim_count": 9,
+      "scored_claim_count": 9,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_3124711fdbd0d74aaf9d9c44524ddadd"
+      ],
+      "possible_single_source_coverage": [
+        "agent-usage-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-002",
+      "input_claim_count": 1,
+      "scored_claim_count": 1,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_343aec7ef4dbcb429d2233969e7d087f"
+      ],
+      "possible_single_source_coverage": [
+        "agent-usage-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-003",
+      "input_claim_count": 1,
+      "scored_claim_count": 1,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_6b354adbd4824ebfa72c4d7b1c8a7550"
+      ],
+      "possible_single_source_coverage": [
+        "agent-usage-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-004",
+      "input_claim_count": 1,
+      "scored_claim_count": 1,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_f70c0561d982ccc3571c3422b1ee4e52"
+      ],
+      "possible_single_source_coverage": [
+        "agent-usage-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-005",
+      "input_claim_count": 3,
+      "scored_claim_count": 3,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_f6d53d317138eb7a806b3dee4d41efd5"
+      ],
+      "possible_single_source_coverage": [
+        "aviation-terms-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-006",
+      "input_claim_count": 1,
+      "scored_claim_count": 1,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_58f7aee1bf5ae7fa2c5aff86c234c123"
+      ],
+      "possible_single_source_coverage": [
+        "scat-research-guide"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-007",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_91ca0fb621c1396b6273cc9ee2e17e3c"
+      ],
+      "possible_single_source_coverage": [
+        "scat-research-guide"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-008",
+      "input_claim_count": 4,
+      "scored_claim_count": 4,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_5b739de3d1a75db1b6fa5f9f5c635d2b"
+      ],
+      "possible_single_source_coverage": [
+        "trajectory-evaluation-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-009",
+      "input_claim_count": 1,
+      "scored_claim_count": 1,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_71818fe4ca7237bf7c153b5dbf661159"
+      ],
+      "possible_single_source_coverage": [
+        "trajectory-evaluation-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-010",
+      "input_claim_count": 3,
+      "scored_claim_count": 3,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_ac479a14dc519cfd26172f92d0311bda"
+      ],
+      "possible_single_source_coverage": [
+        "trajectory-evaluation-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-011",
+      "input_claim_count": 1,
+      "scored_claim_count": 1,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_f9c3651a01970bb9f7591cf3c9db6489"
+      ],
+      "possible_single_source_coverage": [
+        "trajectory-evaluation-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-012",
+      "input_claim_count": 4,
+      "scored_claim_count": 3,
+      "excluded": [
+        {
+          "claim_number": 4,
+          "claim": "回答字段含义、单位和语义边界时引用 SCAT 科研解释指南或 `AVIATION_TERMS.md`。",
+          "reason": "该条额外涉及字段含义所引用文档，不在已审核参考答案内，也不是题干要求；前三组已完整覆盖来源优先级与不得平均化。"
+        }
+      ],
+      "single_chunk_can_cover_all": [
+        "kc1_f70c0561d982ccc3571c3422b1ee4e52"
+      ],
+      "possible_single_source_coverage": [
+        "agent-usage-curated"
+      ],
+      "authored_category": "multi_source",
+      "authored_multi_source_but_single_chunk_sufficient": true
+    },
+    {
+      "case_id": "DEV-20261025-dev40-013",
+      "input_claim_count": 5,
+      "scored_claim_count": 5,
+      "excluded": [],
+      "single_chunk_can_cover_all": [],
+      "possible_single_source_coverage": [],
+      "authored_category": "multi_source",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-014",
+      "input_claim_count": 5,
+      "scored_claim_count": 5,
+      "excluded": [],
+      "single_chunk_can_cover_all": [],
+      "possible_single_source_coverage": [],
+      "authored_category": "multi_source",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-015",
+      "input_claim_count": 5,
+      "scored_claim_count": 4,
+      "excluded": [
+        {
+          "claim_number": 5,
+          "claim": "当前航班数量不得由静态文档回答，Agent必须调用确定性工具。",
+          "reason": "与第4组当前数量应由确定性工具查询的规则重复；参考答案同义复述不再重复加权，保留完整第4组。"
+        }
+      ],
+      "single_chunk_can_cover_all": [
+        "kc1_344fa28e165cc15e077a9edbbaf0ae60"
+      ],
+      "possible_single_source_coverage": [
+        "scat-dataset-curated"
+      ],
+      "authored_category": "multi_source",
+      "authored_multi_source_but_single_chunk_sufficient": true
+    },
+    {
+      "case_id": "DEV-20261025-dev40-016",
+      "input_claim_count": 4,
+      "scored_claim_count": 4,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_f7c17361a3d0f8c73895a402d073cb6f"
+      ],
+      "possible_single_source_coverage": [
+        "system-user-guide-curated"
+      ],
+      "authored_category": "multi_source",
+      "authored_multi_source_but_single_chunk_sufficient": true
+    },
+    {
+      "case_id": "DEV-20261025-dev40-017",
+      "input_claim_count": 4,
+      "scored_claim_count": 4,
+      "excluded": [],
+      "single_chunk_can_cover_all": [],
+      "possible_single_source_coverage": [],
+      "authored_category": "multi_source",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-018",
+      "input_claim_count": 6,
+      "scored_claim_count": 6,
+      "excluded": [],
+      "single_chunk_can_cover_all": [],
+      "possible_single_source_coverage": [],
+      "authored_category": "multi_source",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-019",
+      "input_claim_count": 3,
+      "scored_claim_count": 3,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_3124711fdbd0d74aaf9d9c44524ddadd"
+      ],
+      "possible_single_source_coverage": [
+        "agent-usage-curated"
+      ],
+      "authored_category": "condition_workflow",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-020",
+      "input_claim_count": 3,
+      "scored_claim_count": 3,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_f6d53d317138eb7a806b3dee4d41efd5"
+      ],
+      "possible_single_source_coverage": [
+        "aviation-terms-curated"
+      ],
+      "authored_category": "condition_workflow",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-021",
+      "input_claim_count": 3,
+      "scored_claim_count": 3,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_16518f13ee64bc475f9c70aa3a70b893"
+      ],
+      "possible_single_source_coverage": [
+        "gbar-method-curated"
+      ],
+      "authored_category": "condition_workflow",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-022",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_58f7aee1bf5ae7fa2c5aff86c234c123"
+      ],
+      "possible_single_source_coverage": [
+        "scat-research-guide"
+      ],
+      "authored_category": "condition_workflow",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-023",
+      "input_claim_count": 5,
+      "scored_claim_count": 5,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_abcc86657ddd67b5dc6bd730e420b2a9"
+      ],
+      "possible_single_source_coverage": [
+        "system-user-guide-curated"
+      ],
+      "authored_category": "condition_workflow",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-024",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_f9c3651a01970bb9f7591cf3c9db6489"
+      ],
+      "possible_single_source_coverage": [
+        "trajectory-evaluation-curated"
+      ],
+      "authored_category": "condition_workflow",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-025",
+      "input_claim_count": 1,
+      "scored_claim_count": 1,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_1719967976c43ad57cc2f32660e7e26d"
+      ],
+      "possible_single_source_coverage": [
+        "uav-research-guide"
+      ],
+      "authored_category": "condition_workflow",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-026",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_53d9b0f8db060a7fe5149059b6d5bdea"
+      ],
+      "possible_single_source_coverage": [
+        "scat-dataset-curated"
+      ],
+      "authored_category": "numeric_units",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-027",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_e68282842131f4da6aa566ed5b9c3e07"
+      ],
+      "possible_single_source_coverage": [
+        "scat-dataset-curated"
+      ],
+      "authored_category": "numeric_units",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-028",
+      "input_claim_count": 4,
+      "scored_claim_count": 4,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_b17e55cf0882358b41a0e37f3793ec6f"
+      ],
+      "possible_single_source_coverage": [
+        "gbar-method-curated"
+      ],
+      "authored_category": "numeric_units",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-029",
+      "input_claim_count": 3,
+      "scored_claim_count": 3,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_d37b80bc1d12e4f061d266f3f75fab59"
+      ],
+      "possible_single_source_coverage": [
+        "gbar-method-curated"
+      ],
+      "authored_category": "numeric_units",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-030",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_f7c17361a3d0f8c73895a402d073cb6f"
+      ],
+      "possible_single_source_coverage": [
+        "system-user-guide-curated"
+      ],
+      "authored_category": "numeric_units",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-031",
+      "input_claim_count": 3,
+      "scored_claim_count": 3,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_f6d53d317138eb7a806b3dee4d41efd5"
+      ],
+      "possible_single_source_coverage": [
+        "aviation-terms-curated"
+      ],
+      "authored_category": "numeric_units",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-032",
+      "input_claim_count": 6,
+      "scored_claim_count": 6,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_8267fe52dff1712bf683ce09a0dda1a3"
+      ],
+      "possible_single_source_coverage": [
+        "trajectory-evaluation-curated"
+      ],
+      "authored_category": "numeric_units",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-033",
+      "input_claim_count": 1,
+      "scored_claim_count": 1,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_b5372ef7bfa59c868938d5e3101df70f"
+      ],
+      "possible_single_source_coverage": [
+        "agent-usage-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-034",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_40b2f51b4589e28d3a6726f9be08c64f"
+      ],
+      "possible_single_source_coverage": [
+        "gbar-method-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-035",
+      "input_claim_count": 3,
+      "scored_claim_count": 3,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_386ad96b9a6acb850d5d11da3e2ad307"
+      ],
+      "possible_single_source_coverage": [
+        "scat-dataset-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-036",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_e35a6e51c0e142b29935d27535853ac6"
+      ],
+      "possible_single_source_coverage": [
+        "scat-research-guide"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-037",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_c082613542e09ca94c4d6dd2325c59dd"
+      ],
+      "possible_single_source_coverage": [
+        "system-user-guide-curated"
+      ],
+      "authored_category": "fact",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-038",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [],
+      "possible_single_source_coverage": [],
+      "authored_category": "multi_source",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-039",
+      "input_claim_count": 3,
+      "scored_claim_count": 3,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_0d04d6aa2f86058a1a6ddc90e96f020a"
+      ],
+      "possible_single_source_coverage": [
+        "uav-research-guide"
+      ],
+      "authored_category": "condition_workflow",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    },
+    {
+      "case_id": "DEV-20261025-dev40-040",
+      "input_claim_count": 2,
+      "scored_claim_count": 2,
+      "excluded": [],
+      "single_chunk_can_cover_all": [
+        "kc1_53d9b0f8db060a7fe5149059b6d5bdea"
+      ],
+      "possible_single_source_coverage": [
+        "scat-dataset-curated"
+      ],
+      "authored_category": "numeric_units",
+      "authored_multi_source_but_single_chunk_sufficient": false
+    }
+  ],
+  "excluded_claims": 2,
+  "labels_frozen_before_rankings": true,
+  "alternative_coverage_exhaustive": false
+}

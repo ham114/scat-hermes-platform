@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "case": "uav",
+  "started_at": 1792702911.733044,
+  "terminal": "run.completed",
+  "run_status": "completed",
+  "completed_tools": [
+    "skills_list",
+    "skill_view",
+    "mcp__scat__list_uav_models",
+    "mcp__scat__get_uav_samples"
+  ],
+  "budget": {
+    "scope": "scat:005f7f7d156023c8faa325baeeab2990520823e351d7b5f98bbc25b044d2e803",
+    "run_id": "run_d924c80a434c448fbd7826f3ec7c91df",
+    "started_at": 1792702928.6065404,
+    "policy_sha256": "21281509759d9185621313110c66e997e222acc48911327b6de0e2e4ae38e7f1",
+    "limits_json": "{\"max_turns\": 16, \"max_llm_tokens\": 1000000, \"max_tool_calls\": 32, \"wall_seconds\": 240, \"max_cost\": null, \"currency\": \"CNY\"}",
+    "llm_calls": 5,
+    "tool_calls": 4,
+    "charged_tokens": 260835,
+    "provider_input_tokens": 55732,
+    "provider_output_tokens": 297,
+    "provider_cached_tokens": 43264,
+    "exhausted": null,
+    "finished_at": 1792702943.1022935
+  },
+  "loads": [
+    {
+      "skill_id": "uav-flight-analysis",
+      "file_path": "SKILL.md"
+    }
+  ],
+  "matching_operation_loads": 2,
+  "elapsed_seconds": 19.6,
+  "validated_readonly_references": 2,
+  "real_model": true,
+  "synthetic": true,
+  "real_database_query": false,
+  "gpu_executed": false,
+  "child_stopped": true,
+  "temporary_home_removed": true,
+  "log": "var/validation/hermes-s2c-60ff38cc485a.log",
+  "finished_at": 1792702943.9962513,
+  "evidence": "docs/validation/20261023-S2C-real-uav-91e80991.json"
+}

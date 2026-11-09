@@ -1,0 +1,60 @@
+{
+  "recorded_at": 1792673600.4798627,
+  "local": {
+    "owned_processes": [],
+    "test_port_4173_open": false,
+    "removed_owned_paths": [
+      "frontend/.h5-playwright.config.ts",
+      "frontend/node_modules/.vite",
+      "frontend/node_modules/.tmp",
+      "frontend/node_modules/.vite-temp",
+      ".tmp/h5"
+    ],
+    "tmp_parent_exists": false,
+    "actual_private_value_scan_files": 467,
+    "actual_private_values_found": false,
+    "project_venv": [
+      false,
+      false
+    ],
+    "retained": [
+      "frontend/node_modules",
+      "frontend/dist",
+      "private .env",
+      "persistent var",
+      "Conda environments",
+      "vendor"
+    ]
+  },
+  "server": {
+    "recorded_at": 1792673349.1425912,
+    "owned_processes": [],
+    "test_ports_open": {
+      "18086": false,
+      "18087": false
+    },
+    "pip_checks": {
+      "scat-agent": {
+        "returncode": 0,
+        "no_broken_requirements": true
+      },
+      "scat-hermes": {
+        "returncode": 0,
+        "no_broken_requirements": true
+      }
+    },
+    "actual_private_value_scan_files": 462,
+    "actual_private_values_found": false,
+    "isolated_mongo_collections_remaining": [],
+    "removed_owned_paths": [
+      ".tmp/h5",
+      ".tmp/mcp",
+      ".tmp/model-worker"
+    ],
+    "tmp_parent_exists": false,
+    "env_mode": "0o600",
+    "project_venv": [],
+    "upload_stages": []
+  },
+  "no_dependency_install_or_production_cutover": true
+}

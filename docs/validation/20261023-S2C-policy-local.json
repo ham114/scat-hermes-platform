@@ -1,0 +1,75 @@
+{
+  "policy_sha256": "21281509759d9185621313110c66e997e222acc48911327b6de0e2e4ae38e7f1",
+  "policy": {
+    "schema_version": 1,
+    "trace": {
+      "max_hot_records": 10000,
+      "hot_retention_days": 30,
+      "archive_retention_days": 180,
+      "archive_high_watermark": 0.8
+    },
+    "sessions": {
+      "max_active": 1000,
+      "idle_ttl_seconds": 3600
+    },
+    "cache": {
+      "max_entries": 128,
+      "ttl_seconds": 3600
+    },
+    "composition": {
+      "max_depth": 6
+    },
+    "budgets": {
+      "readonly": {
+        "max_turns": 16,
+        "max_llm_tokens": 1000000,
+        "max_tool_calls": 32,
+        "wall_seconds": 240,
+        "max_cost": null,
+        "currency": "CNY"
+      },
+      "background": {
+        "max_turns": 24,
+        "max_llm_tokens": 100000,
+        "max_tool_calls": 80,
+        "wall_seconds": 1800,
+        "max_cost": null,
+        "currency": "CNY"
+      }
+    },
+    "resources": {
+      "max_concurrent_jobs": 1
+    },
+    "readonly_ceiling": {
+      "max_turns": 16,
+      "max_llm_tokens": 1000000,
+      "max_tool_calls": 32,
+      "wall_seconds": 240,
+      "max_cost": null,
+      "currency": "CNY"
+    },
+    "category_overrides": {},
+    "user_preferences": {}
+  },
+  "effective_readonly": {
+    "max_turns": 16,
+    "max_llm_tokens": 1000000,
+    "max_tool_calls": 32,
+    "wall_seconds": 240,
+    "max_cost": null,
+    "currency": "CNY"
+  },
+  "enforced_in_s2": [
+    "trace.max_hot_records (loads and operations combined)",
+    "sessions.max_active",
+    "sessions.idle_ttl_seconds (finished only)",
+    "composition.max_depth",
+    "budgets.readonly"
+  ],
+  "reserved_for_later_stages": [
+    "trace retention/archive (S6)",
+    "cache (disabled in S2)",
+    "budgets.background and resources (S4)"
+  ],
+  "token_accounting": "conservative UTF-8 request byte reservation plus output cap; provider usage recorded separately"
+}

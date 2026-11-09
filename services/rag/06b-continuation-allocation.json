@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "source_runtime": {
+    "src/hermes_runtime/real_rag.py": "0eb8ff88fd5ffe240b35dd6a421bc6b548797b6acd872bf754c8a369bf3aff4c",
+    "src/hermes_runtime/real_rag_native.py": "20d91e5a5f3e211b9aaf8e4f6ea8e87f5e69919cf97f2f580e1fd9cd315a570c",
+    "scripts/run_real_agent_rag.py": "62e9359d469b85799a5c7f0409bf1a818953860f9b8b82e5ca2908d306a46246"
+  },
+  "prior_calls": 881,
+  "prior_tokens": 27780431,
+  "completed_primary_cases": [
+    "001",
+    "002",
+    "003",
+    "004",
+    "005",
+    "011",
+    "012",
+    "013",
+    "014"
+  ],
+  "pending": [
+    "006",
+    "007",
+    "008",
+    "009",
+    "010",
+    "015",
+    "016",
+    "017",
+    "018",
+    "019",
+    "020",
+    "021",
+    "022",
+    "023",
+    "024",
+    "025",
+    "026",
+    "027",
+    "028",
+    "029",
+    "030",
+    "031",
+    "032",
+    "033",
+    "034",
+    "035",
+    "036",
+    "037",
+    "038",
+    "039",
+    "040"
+  ],
+  "jobs": [
+    {
+      "id": 1,
+      "config": "services/rag/real-agent-06b-continuation-1.json",
+      "output": "var/validation/20261026-rag06b-v3-continuation-1",
+      "cases": [
+        "006",
+        "007",
+        "008",
+        "009",
+        "010",
+        "015",
+        "016",
+        "017",
+        "018",
+        "019",
+        "020"
+      ],
+      "max_calls": 217,
+      "max_conservative_tokens": 8000000
+    },
+    {
+      "id": 2,
+      "config": "services/rag/real-agent-06b-continuation-2.json",
+      "output": "var/validation/20261026-rag06b-v3-continuation-2",
+      "cases": [
+        "021",
+        "022",
+        "023",
+        "024",
+        "025",
+        "026",
+        "027",
+        "028",
+        "029",
+        "030"
+      ],
+      "max_calls": 197,
+      "max_conservative_tokens": 8000000
+    },
+    {
+      "id": 3,
+      "config": "services/rag/real-agent-06b-continuation-3.json",
+      "output": "var/validation/20261026-rag06b-v3-continuation-3",
+      "cases": [
+        "031",
+        "032",
+        "033",
+        "034",
+        "035",
+        "036",
+        "037",
+        "038",
+        "039",
+        "040"
+      ],
+      "max_calls": 197,
+      "max_conservative_tokens": 8000000
+    }
+  ],
+  "negative": {
+    "max_calls": 80,
+    "max_conservative_tokens": 1500000
+  },
+  "integration": {
+    "max_calls": 28,
+    "max_conservative_tokens": 700000
+  },
+  "maximum_total_calls": 1600,
+  "maximum_total_conservative_tokens": 53980431,
+  "corrected_conservative_ceiling": 55000000,
+  "explanation": "Original byte-based conservative reserve underestimated native base contexts; retain original request cap, no ledger reset. Continue only cases without a complete same-runtime pair; prior quota-interrupted pairs retained separately."
+}

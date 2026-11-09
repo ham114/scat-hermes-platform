@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "scope": "S1-owned files and processes only",
+  "active_test_pids": [],
+  "test_port_18088_closed": true,
+  "private_value_leaks": [],
+  "scanned_files": 14,
+  "env_mode": "0o600",
+  "project_venv_exists": false,
+  "temporary_s1_removed": true,
+  "upload_stages": []
+}

@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-22",
+  "files": {
+    ".env.example": "4516b2390c893ba9d5ff2dc3c5120f2a7b089798ab1315e6b62d2057c03e03b5",
+    "frontend/e2e/hermes.spec.ts": "477d228c73d1620525f7dca8fc7783fc7ebafcb3b8ca6204df5b79cae8708f5f",
+    "frontend/playwright.hermes.config.ts": "5faa336be359d4dcaaa05cdff98b01c1f090b27cc323d696b05d16e090d5b751",
+    "frontend/src/App.vue": "82d4ccfc5851d5eb2a4c9fe536a330299ca7bf61e02cc4fad39e9c8619cfd76b",
+    "frontend/src/api/hermes.spec.ts": "7f9b2ee8a4c0817c720a8517913d2ebe2437c713bb3443c212aafdf06a36e1d8",
+    "frontend/src/api/hermes.ts": "52b3394383a37bbd3fc63e1e12ae039fb03a905b331d7846596397a1e93c423e",
+    "frontend/src/router/index.ts": "16cb6ab7240add79990746e790989d405bd288a0a451911cf5461e0e3c17cd8b",
+    "frontend/src/views/HermesAssistantView.spec.ts": "7c31eada12aa9d168b9b79c1fb39030730f6fc50e6fdb44c4fd38dc459cafc65",
+    "frontend/src/views/HermesAssistantView.vue": "2a50b7c7a54a21b2adac23cfb3b68d673a457492d246ab3280eca749bc18fb09",
+    "infra/nginx/hermes-platform.locations.conf.example": "954e855605467e08593e0e7a876cdb5c6a9d17af52e49e5d8202ea4ae1d0edbe",
+    "scripts/probe_nginx_sse.py": "a51569aa0469194988f1623b86d069e30129e8ccfabfe1c00337b7a50539e9ac",
+    "scripts/probe_platform_api.py": "763b25987addb85720c56bd4489582f03104a1fa831f26510533d33522611ba3",
+    "scripts/probe_readonly_business.py": "f60da225c31badd1fe29ed164ff31ec349ab857145a0bc29736af344c7b3dfe4",
+    "scripts/run_hermes_api.py": "947e528f0c49e9762691a478473f17a2a2315953b6318811860408aa42a0b357",
+    "scripts/run_platform_api.py": "5c6a1f16d0d7dfe7e16d3a6cd5a612c8f2cc6acb3a4a76f3d54fb97fbc8135fe",
+    "src/core/settings.py": "6dbb34e5c3cffbc5aab74407c37687b6191e245538c936c07e8e0c9de45863b3",
+    "src/hermes_runtime/client.py": "80c32efe4a61885c6c698b0854f39fda634eaf0917f6e5e539c7abca88867fdb",
+    "src/hermes_runtime/registry.py": "ab7c2093e5836260eae270878594adcdaf7339d46a3983fec7d2878e394c8fd7",
+    "src/service/hermes_api.py": "13fbaf0b4488736e34abcef7ef0381c794becfa8fac3b8e42c3eec9ba157afcf",
+    "src/service/hermes_app.py": "f41c47a5e98efd04cf640a6a7230d3fb80ab3bc282fed0f454f9f5da13edae4c",
+    "tests/hermes_runtime/test_platform_api.py": "8518d238c270ad334ce4049f0de8357ab1abd3372084c0b1809812687c4a4362"
+  }
+}

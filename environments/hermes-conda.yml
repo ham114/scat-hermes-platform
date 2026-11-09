@@ -1,0 +1,9 @@
+# The only host-level write requested is this named Anaconda environment.
+# Source, downloads, caches, logs and state stay in the project workspace.
+name: scat-hermes
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.14
+  - pip

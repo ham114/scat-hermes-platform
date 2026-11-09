@@ -1,0 +1,10 @@
+{
+  "status": "valid_offline_candidate",
+  "published": false,
+  "executed": false,
+  "bundle_sha256": "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+  "files": {
+    "draft.json": "d2305493f30f0c51cfb265ee8e4e135490de896a76713ab3d38edac67edb3896",
+    "SKILL.md": "5d23092b61d7a24bd6578b47afe2e7c75f09810649317f037cb806edb44bce43"
+  }
+}

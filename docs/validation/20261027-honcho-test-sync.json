@@ -1,0 +1,30 @@
+{
+  "scope": "Honcho isolated synthetic server/SDK/plugin tests",
+  "formal_memory_enabled": false,
+  "sha256": {
+    "scripts/probe_honcho_provider.py": "3dec82d100cd32dba69525d7812334fe7a3800e494a46228f41c587c53e48445",
+    "scripts/prepare_honcho_test_source.py": "6d32a5da2ab386bb6010961d7a0dfca3b7e921c1bfb51dc30f7af628df63cee9",
+    "scripts/build_honcho_test_image.py": "f74d4439685adb9a5f5a2ba0aecd15b4887a8bbf36b88cdf28b586cb636ddb39",
+    "scripts/run_honcho_test_proxy.py": "3ad2dc5b397d57268888dd484a1d70a48d4442f82745e869fa69b1c67b4d898d",
+    "scripts/serve_honcho_embeddings.py": "ede0c3158f9c114375974e02a44caa19cf37c4dbbd7078f8884406a2e4082f7d",
+    "scripts/manage_honcho_test.py": "4e9e1b2a826003fc0d4efe4d5ce09937d27badb234176439d73d82722c192a17",
+    "scripts/probe_honcho_memory.py": "2f4184ce070f9ea2adec48d9d87fa0fad1d1691d56d4c86f797b89e2289963f1",
+    "scripts/verify_honcho_test_lifecycle.py": "3426341cac7a07e7b4873184ea147847d8009c06e751f28f1424cf47718a8b46",
+    "scripts/audit_honcho_test.py": "9073fa7ba69f6680a9603a802725192b87666234a00f3f5a60752ece092526f6",
+    "scripts/prepare_container_context.py": "d0bb773374a071d311c972695aeadd4bbcd0dee58871ed50af1d907cc4d69d01",
+    "tests/hermes_runtime/test_honcho_template_credentials.py": "4e4a7480d667df50d432bd68d0354e9ae564853a2df2532286355f9632128673",
+    "config/honcho/honcho.json.example": "b9e80ec25230575506ed1019cc4c25f18c01bba85c202b183f9cfd1ef29870dd",
+    "config/honcho/server.env.example": "a31d6f170c064dc6bc189716327ed4b9bca0eda231468a2780f427559041d2e6",
+    "docs/HERMES_HONCHO_TESTING.md": "fc840d64e0d8be0ba9109043b0b5b5d337bcaf1fde9836a0d8f3bbd92c2d5bd1",
+    "docs/HERMES_HONCHO_DEFAULTS.md": "a5c37920f442d95ac8df41324765a07002da106361d1248dfe20ff71815824f8",
+    "docs/DEVELOPMENT_LOG.md": "8efbce9c3d9410898e904faec1f63e003b9e03a016b8d5cc646dc1a4d25a1b6b",
+    "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md": "3050fe4515e141fcd95a9465e69818ee7d47d1d14e6064e19145b90c6f533050",
+    "docs/validation/20261027-honcho-acceptance.json": "e212fe3b230be483efa954b6e8dd807fb49e1bd68315a5b4bcc0c8ce5736a7d7",
+    "docs/validation/20261027-honcho-provider.json": "0c4501ac3450fed726be12ab4fb6deb574c0b61f7db66acf99c54bae2894d522",
+    "docs/validation/20261027-honcho-memory-first.json": "1eca93d3eb675bd4984fe96159b3f94a9e4742e6e9ecda386bb949c799f18b74",
+    "docs/validation/20261027-honcho-auth-recheck.json": "0c6a54e3462e9a210328f2150e40f931bbe0b3e682368b6096e616a9d53e65a7",
+    "docs/validation/20261027-honcho-lifecycle.json": "b5aab82e5c00293a67f9a8482f6e9398cf3f79c689ce3f2e7642290b11d08927"
+  },
+  "private_files_included": false,
+  "local_private_import_should_exist": false
+}

@@ -1,0 +1,171 @@
+{
+  "status": "selected_closeout_completed_full_platform_acceptance_remaining",
+  "date": "2026-11-08",
+  "core_release": "20261108-management-3f6ee1370128",
+  "portal": {
+    "release": "20261108-portal-a3e9aa99bdf5",
+    "files": 431,
+    "zip_sha256": "a3e9aa99bdf5a9c74eabb91bad5c0754ab2e0e8e1d1dd5f57d88549b1191d436",
+    "old_site_sha256": "f688c6834ba7e818fcef997dc64c4accb33e3acc8f0faa0caec62269ad73eab4",
+    "candidate_site_sha256": "bd591a6a87daaf238d0d9e97ee65fd31e368ec0e0436720a8e3b3bfca5c8302a",
+    "url": "https://172.26.67.148:8444/",
+    "auth": "existing_basic_auth_file",
+    "old_site_preserved": true,
+    "applied": true,
+    "nginx_master_pid_unchanged": true,
+    "server_rebooted": false,
+    "allowed_user": "HYN",
+    "previous_frontend_release": "20261108-portal-a66588b9d03d",
+    "frontend_upgrade_nginx_changed": false
+  },
+  "natural_prediction": {
+    "status": "passed",
+    "thread_id": "42297b89-54c3-469d-94c0-13bccae5b9e2",
+    "task_id": "7b0dbcfd9cf846898ed3183b44a13e18",
+    "planning_run_id": "run_faca41f09b064803bf7a0d5a25b9c9da",
+    "ordinary_natural_language_submissions": 1,
+    "page_confirmations": 1,
+    "actual_gpu_posts": 1,
+    "native_worker_sessions": 1,
+    "maintenance_recovery_used": false,
+    "raw_points": 200,
+    "model_steps": 36,
+    "future_predictions": 3,
+    "error_samples_without_truth": 0,
+    "prior_gpu_receipts_unchanged": 8,
+    "phases_returned": [
+      "scat_evaluation_diagnose",
+      "scat_evaluation_summarize",
+      "scat_report_build",
+      "scat_report_read",
+      "scat_sample_prepare",
+      "scat_trial_run"
+    ],
+    "budget_includes_parent_planning": true,
+    "usage": {
+      "llm_calls": 14,
+      "tool_calls": 16,
+      "charged_tokens": 782842,
+      "provider_input_tokens": 205829,
+      "provider_output_tokens": 2623
+    }
+  },
+  "memory": {
+    "status": "passed",
+    "checks": {
+      "b_initial_empty": true,
+      "a_recall_kilometres": true,
+      "b_recall_nautical_miles": true,
+      "a_not_contaminated_by_b": true,
+      "correction_visible": true,
+      "adapter_reopen_preserves_recall": true
+    },
+    "real_honcho": true,
+    "native_agent_adoption_evaluated": false,
+    "http_auth": "in_process_trusted_synthetic_owner_override",
+    "campaign": {
+      "id": "20261108-management-3f6ee1370128",
+      "max_requests": 24,
+      "max_units": 750000,
+      "expires_at": 1794131549.1060083
+    },
+    "correction_measure": "expected unit visible in real Honcho summary; historical negative mentions and general semantic accuracy require separate review",
+    "cleanup": {
+      "0": {
+        "deletion": "completed",
+        "enabled": false,
+        "corrections_empty": true
+      },
+      "1": {
+        "deletion": "completed",
+        "enabled": false,
+        "corrections_empty": true
+      }
+    },
+    "usage": {
+      "requests": 3,
+      "reserved_units": 17898
+    }
+  },
+  "public_browser": {
+    "status": "passed",
+    "url": "https://172.26.67.148:8444",
+    "authenticated_public_gateway": true,
+    "cases": [
+      {
+        "name": "desktop",
+        "graph_points": 40,
+        "layout_refresh": true,
+        "three_dimensional": true,
+        "settings": 200,
+        "skills": 12,
+        "page_errors": [],
+        "secrets_in_storage": false
+      },
+      {
+        "name": "mobile",
+        "graph_points": 40,
+        "layout_refresh": true,
+        "three_dimensional": true,
+        "settings": 200,
+        "skills": 12,
+        "page_errors": [],
+        "secrets_in_storage": false
+      }
+    ],
+    "writes": 0,
+    "bearer_headers_in_browser": 0
+  },
+  "final_server_audit": {
+    "status": "passed",
+    "release": "20261108-management-3f6ee1370128",
+    "server_not_rebooted": true,
+    "gpu_container_unchanged": true,
+    "native_containers_unchanged": true,
+    "core_health": {
+      "platform": "healthy",
+      "actions": "healthy",
+      "worker": "healthy",
+      "hermes-main": "healthy",
+      "hermes-worker": "healthy",
+      "author-api": "healthy",
+      "hermes-author": "healthy"
+    },
+    "units": {
+      "scat-auto-skill-learning.service": "active",
+      "scat-memory-model-proxy.service": "active",
+      "scat-hermes-portal.service": "active"
+    },
+    "old_gpu_receipts_unchanged": 8,
+    "new_gpu_receipts": 1,
+    "private_backup_databases": 12,
+    "backup_quick_check": "ok",
+    "backup_permissions": "0600",
+    "docker_runtimes": [
+      "io.containerd.runc.v2",
+      "runc"
+    ],
+    "standard_gpu_runtime_migration": "not_performed",
+    "cdi_spec_files": [],
+    "http_get_samples": 20,
+    "model_calls_in_final_audit": 0
+  },
+  "tests": {
+    "backend_full_passed": 1498,
+    "backend_full_skipped": 2,
+    "additional_portal_tests_passed": 3,
+    "frontend_unit_passed": 166,
+    "ordinary_browser_passed": 36,
+    "natural_gpu_browser_passed": 1,
+    "management_browser_get_only_passed": 2,
+    "chat_display_get_only_passed": 2,
+    "public_https_browser_get_only_passed": 2
+  },
+  "remaining": [
+    "旧项目全域自然语言与七类真实同数据交互对等验收",
+    "标准NVIDIA运行时/CDI及GPU Conda镜像迁移",
+    "RAG/记忆独立语义质量与模型科学精度准入",
+    "并发负载、GPU冷暖启动及长期SLA",
+    "最终第三方分发许可人工审查、多用户身份部署"
+  ]
+}

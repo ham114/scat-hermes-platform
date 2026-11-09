@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "stage": "auth-verified",
+  "checks": {
+    "invalid_auth_rejected": true,
+    "workspace_token_cannot_read_other_workspace": true
+  },
+  "responses": {},
+  "new_model_calls": 0
+}

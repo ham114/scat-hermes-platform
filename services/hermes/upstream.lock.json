@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/NousResearch/hermes-agent",
+  "tag": "v0.22.3",
+  "commit": "5b147ab036d6d19131bff8d20701b5001eab844a",
+  "license": "MIT",
+  "runtime_python": "3.14",
+  "declared_python_range": ">=3.11,<3.15",
+  "platform_python": "3.12",
+  "source_directory": "vendor/hermes-agent",
+  "isolation": "separate Anaconda environment; do not run automatic managed installer",
+  "status": "installed on server; real FastAPI/DeepSeek/business MCP, history, reconnect and cancellation probes passed"
+}

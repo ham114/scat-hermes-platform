@@ -1,0 +1,117 @@
+{
+  "status": "passed",
+  "date": "2026-10-24",
+  "stage": "H7-A",
+  "checks_report": "docs/validation/20261024-H7A-e2664d1dad-checks.json",
+  "lifecycle_report": "docs/validation/20261024-H7A-24383a1d-lifecycle.json",
+  "pytest": {
+    "tests": 1148,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "passed_tests": 1147,
+  "checks": [
+    {
+      "name": "lint",
+      "exit": 0,
+      "seconds": 0.11,
+      "log": "var/validation/20261024-H7A-e2664d1dad-lint.log"
+    },
+    {
+      "name": "format",
+      "exit": 0,
+      "seconds": 0.06,
+      "log": "var/validation/20261024-H7A-e2664d1dad-format.log"
+    },
+    {
+      "name": "pytest",
+      "exit": 0,
+      "seconds": 237.69,
+      "log": "var/validation/20261024-H7A-e2664d1dad-pytest.log"
+    },
+    {
+      "name": "environment-verify",
+      "exit": 0,
+      "seconds": 0.62,
+      "log": "var/validation/20261024-H7A-e2664d1dad-environment-verify.log"
+    },
+    {
+      "name": "app-pip-check",
+      "exit": 0,
+      "seconds": 0.57,
+      "log": "var/validation/20261024-H7A-e2664d1dad-app-pip-check.log"
+    },
+    {
+      "name": "native-pip-check",
+      "exit": 0,
+      "seconds": 0.36,
+      "log": "var/validation/20261024-H7A-e2664d1dad-native-pip-check.log"
+    }
+  ],
+  "lifecycle_checks": {
+    "actual_three_service_start": true,
+    "duplicate_start_refused": true,
+    "synthetic_receipt_before_restart": true,
+    "cross_thread_read_refused": true,
+    "unhealthy_is_degraded_without_restart": true,
+    "dependency_recovery_ready": true,
+    "stop_preserves_databases": true,
+    "authenticated_thread_restored": true,
+    "synthetic_receipt_restored": true,
+    "wrong_key_refused": true,
+    "child_exit_stops_stack": true,
+    "controller_death_detected": true,
+    "orphan_restart_refused": true,
+    "verified_orphan_stop": true,
+    "candidate_key_private": true
+  },
+  "llm_calls": 0,
+  "installs": 0,
+  "new_environments": 0,
+  "production_gpu": false,
+  "business_execution_sources_unchanged": 55,
+  "frontend_files_unchanged": 8,
+  "production_bundle_version": "s5.0.0",
+  "production_bundle_sha256": "f713ad1f165cb7ffeb0a324503a35697e643fa51e707d8f194ebd343e10c1d95",
+  "ports_listening": {
+    "80": true,
+    "443": true,
+    "8080": true,
+    "8501": true,
+    "8091": true,
+    "27017": true,
+    "18120": false,
+    "18121": false,
+    "18122": false
+  },
+  "owned_processes_remaining": 0,
+  "temporary_removed": true,
+  "temporary_links_unlinked": 13,
+  "text_files_scanned": 1463,
+  "private_value_findings": 0,
+  "source_sha256": {
+    "src/backend_ops/__init__.py": "6aedc5f00948794a119b9add23c5156c9765d51d0b63bb8a5bedda13aae00608",
+    "src/backend_ops/environment.py": "9044f14d59418e5af7a01287e500b5e0b356b8206920f8214ee05a6f490716f3",
+    "src/backend_ops/runtime.py": "5c24af8d7f76a45bdeac5fd50c18184851b3a4a538d5930aa23adbfe00735c45",
+    "scripts/manage_backend.py": "b8bf62f0ea9bbd4414e303461a1410d3105425733d5fbb4cfe2f990a22c66950",
+    "scripts/manage_backend_environment.py": "c57887b52f25c3f63bc872d22aac6e62253f5eeace304af0555a7d52e7ffed70",
+    "scripts/probe_backend_operations.py": "cc5f452db8f690da28a187a859e1db77bd4cad6c07a6e85a6836e294cdb4e650",
+    "scripts/validate_backend_operations.py": "409e616574ec42257abac4852999637ae28c44cbdafc5173f10331844c47b5f9",
+    "scripts/finalize_backend_operations.py": "ea6c9b442c0ca25a456a9267fb4a19f988c92f087277dd447b67c1a6f7405080",
+    "tests/hermes_runtime/test_backend_operations.py": "5e9819e789981902e7417c44b77139b0d4dc9e86d2ab241665c0a503dfd9a00d",
+    "config/backend-h7a.json": "927f946c80e0b33f1cd72c5d37406d21081bb8fe5419058821da1e7ff1d4e2fe"
+  },
+  "dependency_inputs_sha256": {
+    "environments/backend-h7a/manifest.json": "a5dadf4961b3e9f3c45ba670be245df021c2d4875976cf54f1537941e8f7c20f",
+    "environments/backend-h7a/scat-agent/conda-explicit.txt": "6884de8ee808d049325e0dc8ca8e00c07c1537bf14fe9499eace076a8d81141a",
+    "environments/backend-h7a/scat-agent/inventory.json": "d6aa8c5fb74e032aa5b0a7b076ac6d0611b6c1376331440571d965e8658511e3",
+    "environments/backend-h7a/scat-agent/pip-requirements.txt": "80f2e4e5dc4391c3f524eb9e9e79d5d9c5b0858346ba7be65161698a503e3575",
+    "environments/backend-h7a/scat-hermes/conda-explicit.txt": "93f7d46dfe4c6f846a1bab76f65b474e4aa69beb95ba6056c4fa03d09632f28e",
+    "environments/backend-h7a/scat-hermes/inventory.json": "4d5c18d5701c221141e917482d2271692bafc8f72caa16d57410621764537eb4",
+    "environments/backend-h7a/scat-hermes/pip-requirements.txt": "c20f8fee616e13892af8cb1792fbc3e097de7b711e810cc69690e92f12620968"
+  },
+  "fresh_environment_rebuild": false,
+  "compose_deployed": false,
+  "raw_logs_remain_on_server": true
+}

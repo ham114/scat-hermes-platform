@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "database_total_matches": true,
+  "one_flight_read": true,
+  "one_track_point_read": true,
+  "llm_calls": 0,
+  "external_data_transfer": false,
+  "raw_business_data_in_report": false
+}

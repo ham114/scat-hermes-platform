@@ -1,0 +1,187 @@
+{
+  "status": "passed_and_deployed",
+  "release": "20261107-forecast-contract-2efaab19633e",
+  "contract": "point-exact-prediction/v1",
+  "features": {
+    "exact_last_n_points_independent_of_seconds": true,
+    "future_origin_equals_final_frozen_observation": true,
+    "historical_backtest_separate_and_no_truth_leakage": true,
+    "no_error_metrics_without_verified_truth": true,
+    "approval_input_references_include_exact_range": true,
+    "run_bound_skill_guard_preserved_with_shared_kind_mapping": true,
+    "restart_uses_versioned_skill_directories": true
+  },
+  "tests": {
+    "backend_full_passed": 1486,
+    "backend_full_skipped": 2,
+    "final_candidate_image_passed": 105,
+    "frontend_units": 153,
+    "ordinary_browser_tests": 38,
+    "final_synthetic_forecast_browser_tests": 2,
+    "real_get_only_readbacks": 2,
+    "frontend_quality_and_build": "passed"
+  },
+  "natural_acceptance": {
+    "status": "passed",
+    "new_questions": 1,
+    "confirmations": 1,
+    "thread_id": "73cd1953-587d-4cd4-8106-a7bd8de66149",
+    "planning_run_id": "run_78f78033137f4c988f6a989e7bb7966c",
+    "planning_status": "completed",
+    "task_id": "f1d867ad59894bd1b4e1b894c55e49c3",
+    "execution_run_id": "2330d40b7d114588bfb3c4214afbe366",
+    "final_state": "succeeded",
+    "backend_executions": [
+      {
+        "id": "3387d112bd1a261e4a4f306ec92719d76ad430d242fea313e0a9ee4ddb6ec00d",
+        "state": "succeeded",
+        "calls": 1
+      }
+    ],
+    "artifact_ids": [
+      "skill-result-f1d867ad59894bd1b4e1b894c55e49c3",
+      "skill-result-f1d867ad59894bd1b4e1b894c55e49c3-p001"
+    ],
+    "exact_observed_and_future_axis_verified": true,
+    "no_error_metrics": true,
+    "original_task_publication_restored_without_reexecution": true,
+    "initial_live_browser_status": "failed_on_mongo_input_time_projection_and_legacy_index",
+    "graph_points": 204,
+    "page_errors": []
+  },
+  "backend_audit": {
+    "status": "passed",
+    "release": "20261107-forecast-contract-2efaab19633e",
+    "new_natural_requests": 2,
+    "failed_planning_only_request": {
+      "run_id": "run_ada76b4de7624f509cdff4e0097db305",
+      "task_created": false,
+      "prediction_calls": 0,
+      "budget": {
+        "llm_calls": 17,
+        "tool_calls": 18,
+        "charged_tokens": 1673510,
+        "provider_input_tokens": 441763,
+        "provider_output_tokens": 2072,
+        "exhausted": null
+      }
+    },
+    "new_prediction_tasks": 1,
+    "real_cpu_execution_calls": 1,
+    "gpu_calls": 0,
+    "exact_observation_points": 200,
+    "span_s": 995.804687,
+    "forecast_origin_equals_final_frozen_observation": true,
+    "requested_future_horizons_s": [
+      10.0,
+      30.0,
+      60.0
+    ],
+    "target_axis_match": true,
+    "error_samples": 0,
+    "no_error_metrics_in_evaluation_and_report": true,
+    "verified_artifacts": 5,
+    "independent_native_worker": [
+      {
+        "native_run": "run_0011d39a67c64e5780b12ac27df2dd19",
+        "generation": 1,
+        "revision": 0
+      }
+    ],
+    "parent_budget_bound_and_imported": true,
+    "family_budget_including_imported_parent": {
+      "llm_calls": 14,
+      "tool_calls": 17,
+      "charged_tokens": 770463,
+      "provider_input_tokens": 201766,
+      "provider_output_tokens": 2396,
+      "exhausted": null
+    },
+    "parent_diagnostic_already_in_family_budget_do_not_add": {
+      "llm_calls": 5,
+      "tool_calls": 7,
+      "charged_tokens": 419176,
+      "provider_input_tokens": 111940,
+      "provider_output_tokens": 839,
+      "exhausted": null
+    },
+    "total_usage_family_plus_failed_planning": {
+      "llm_calls": 31,
+      "tool_calls": 35,
+      "charged_tokens": 2443973,
+      "provider_input_tokens": 643529,
+      "provider_output_tokens": 4468
+    },
+    "usage_semantics": "charged_tokens are conservative reservation units, not monetary fees or additive to provider tokens",
+    "raw_trajectory_or_reply_saved_in_report": false
+  },
+  "cutover": {
+    "release": "20261107-forecast-contract-2efaab19633e",
+    "server_not_rebooted": true,
+    "health": {
+      "platform": "healthy",
+      "actions": "healthy",
+      "worker": "healthy",
+      "hermes-main": "healthy",
+      "hermes-worker": "healthy",
+      "author-api": "healthy",
+      "hermes-author": "healthy"
+    },
+    "author_containers_unchanged": true,
+    "skill": [
+      "b67aebb3de18b91d8e1d90a1f88fa66819bc8dddd28c3fb1e35bc5cc3d8cf834",
+      3
+    ],
+    "source_files_matched_per_image": 16,
+    "private_backups": 10,
+    "backup_quick_checks": "ok",
+    "scheduler": "active"
+  },
+  "candidate_verification": {
+    "status": "passed",
+    "release": "20261107-forecast-contract-2efaab19633e",
+    "role_fingerprint_match": true,
+    "role_fingerprint_files": 81,
+    "schema_match_both_roles": true,
+    "native_restart": {
+      "status": "passed",
+      "old_home_retained": true,
+      "new_version_loaded": "0.3.0",
+      "versioned_folder": true,
+      "forecast_guard_recovery_and_dispatch": true,
+      "llm_calls": 0,
+      "business_queries": 0,
+      "prediction_calls": 0
+    },
+    "candidate_real_tail": {
+      "real_database": true,
+      "exact_points": 200,
+      "independent_201_point_tail_match": true,
+      "origin_equals_final_tail_point": true,
+      "span_s": 995.804687,
+      "llm_calls": 0,
+      "prediction_calls": 0,
+      "raw_data_saved": false
+    },
+    "production_changed": false
+  },
+  "initial_failures_preserved": [
+    "Frozen after-validator default assignment corrected before validation",
+    "Snapshot plot page schema corrected from 1.4 to 1.6",
+    "Native/APP probe separation and writable candidate log tmpfs corrected",
+    "First production switch failed health and rolled back; immutable old-home startup fixed",
+    "First natural planning run failed guard admission with zero tasks/compute; shared kind mapping corrected",
+    "Second natural run computed once but publication failed on BSON time projection and a legacy unique run/kind index; original result restored without recomputation",
+    "Frontend sandbox temporary-file failure and missing local log directory corrected"
+  ],
+  "limitations": [
+    "Production GPU remains disabled; GPU contract test uses synthetic transport",
+    "No scientific error/accuracy claim is made for future forecasts without truth",
+    "Historical comparison defaults retain original M6 cutoff semantics"
+  ],
+  "raw_business_data_exported": false,
+  "private_database_backups_downloaded": false,
+  "handoff": "docs/HERMES_FORECAST_CONTRACT_20261107.md",
+  "source_sync": "var/validation/20261107-forecast-contract/source-sync.json",
+  "frontend_artifact": "var/deploy/frontend/20261107-forecast-contract/manifest.json"
+}

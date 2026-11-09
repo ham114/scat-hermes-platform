@@ -1,0 +1,51 @@
+{
+  "status": "failed",
+  "synthetic_business": true,
+  "prediction_calls": 0,
+  "global_budget_proxy": "existing_trial_role",
+  "attempts": [
+    {
+      "index": 1,
+      "prompt": "你目前可以检索哪些数据库？",
+      "status": "failed",
+      "run_id": "run_3a4da44e861b405282a56daa23b297ee",
+      "completed_tools": [
+        "skills_list",
+        "skill_view",
+        "mcp__scat__get_scat_database_overview",
+        "mcp__scat__list_scat_batches",
+        "mcp__scat__list_uav_models"
+      ],
+      "output": null,
+      "successful_receipt_operations": [
+        "get_scat_database_overview",
+        "list_scat_batches"
+      ],
+      "skill_loads": [
+        "scat-flight-query"
+      ],
+      "operations": [
+        "mcp__scat__get_scat_database_overview",
+        "mcp__scat__list_scat_batches"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 5,
+        "conservative_units": 198418
+      },
+      "trajectory_display": false
+    }
+  ],
+  "max_runs": 4,
+  "temporary_home": ".tmp/s7a/query-display-12b6f2c5345c",
+  "limits_per_run": {
+    "max_turns": 8,
+    "max_llm_tokens": 200000,
+    "max_tool_calls": 24,
+    "wall_seconds": 240
+  },
+  "log": "var/validation/20261107-query-display-repair/natural-12b6f2c5345c.log",
+  "child_stopped": true,
+  "temporary_home_removed": true,
+  "error_type": "RuntimeError"
+}

@@ -1,0 +1,11 @@
+{
+  "status": "failed",
+  "probe_id": "99536501ee",
+  "stage": "startup",
+  "cleanup_jobs": [],
+  "cleanup_backends": [],
+  "owned_processes_remaining": 0,
+  "temporary_home_removed": true,
+  "isolated_collections_removed": true,
+  "error_type": "AssertionError"
+}

@@ -1,0 +1,4 @@
+# Keep repository text consistent across Windows development and Linux deployment.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf

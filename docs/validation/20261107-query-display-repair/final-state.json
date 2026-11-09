@@ -1,0 +1,31 @@
+{
+  "active_release": "20261028-s7b-3ad5eac48b08",
+  "health": {
+    "platform": "healthy",
+    "actions": "healthy",
+    "worker": "healthy",
+    "hermes-main": "healthy",
+    "hermes-worker": "healthy",
+    "author-api": "healthy",
+    "hermes-author": "healthy"
+  },
+  "proxy_total_requests": 110,
+  "proxy_total_reserved": 6304902,
+  "new_proxy_calls_by_role_state": [
+    [
+      "trial",
+      "ok",
+      22,
+      1677931,
+      426061,
+      2903
+    ]
+  ],
+  "proxy_policy_unchanged": true,
+  "policy": {
+    "daily_requests": 240,
+    "daily_units": 8000000,
+    "lifetime_requests": 240,
+    "lifetime_units": 8000000
+  }
+}

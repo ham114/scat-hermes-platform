@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "synthetic_only": true,
+  "production_gpu": false,
+  "profile_cases": {
+    "main": {
+      "passed": true,
+      "operations": 3
+    },
+    "worker": {
+      "passed": true,
+      "actual_backend_calls": 1
+    },
+    "author": {
+      "passed": true,
+      "draft_created": true,
+      "profile_manage_called": true,
+      "tool_policy": [
+        "profile_manage",
+        "skill_draft"
+      ],
+      "temperature": 0.4,
+      "provider_key_exposed": false,
+      "publication_events": 0,
+      "llm_calls": 4,
+      "tool_calls": 4,
+      "conservative_tokens": 96744
+    }
+  },
+  "flow_report": "docs/validation/20261024-profiles-flow-30f6678d07.json",
+  "flow_usage": {
+    "llm_calls": 20,
+    "tool_calls": 19,
+    "conservative_tokens": 1071449,
+    "provider_input_tokens": 280970,
+    "provider_output_tokens": 2980,
+    "provider_cached_tokens": 248576
+  },
+  "temporary_removed": true
+}

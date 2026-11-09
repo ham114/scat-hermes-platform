@@ -1,0 +1,25 @@
+[Unit]
+Description=SCAT Hermes pinned Qwen3 0.6B knowledge retrieval
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+WorkingDirectory=/home/h3c/project/python/scat-hermes-platform
+ExecStart=/home/h3c/anaconda3/envs/scat-rag-train/bin/python -B scripts/serve_rag_production.py
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONNOUSERSITE=1
+UMask=0077
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+KillMode=mixed
+NoNewPrivileges=true
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=scat-hermes-rag
+
+[Install]
+WantedBy=default.target

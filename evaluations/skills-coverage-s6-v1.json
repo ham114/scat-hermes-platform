@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "scope": "S6 bounded CPU backend acceptance; GPU excluded",
+  "legacy_baseline": "evaluations/hermes_h2_v1.json",
+  "legacy_tool_mapping": "services/hermes/legacy-tool-mapping.v1.json",
+  "shared_engine_faults": "S4/S5 shared executor failure and permission tests apply across effect domains; they are not separate real-model fault attempts for each business.",
+  "rows": [
+    {
+      "domain": "query",
+      "representative_case": "investigation-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "missing_or_invalid": "evaluations/hermes_s2_v1.json",
+      "empty_or_not_applicable": "evaluations/hermes_s2_v1.json",
+      "fault": "evaluations/hermes_s2_v1.json",
+      "forbidden": "tests/hermes_runtime/test_skill_guard.py",
+      "numerical_or_reference": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "recovery": "not_applicable_to_non_effect_read"
+    },
+    {
+      "domain": "trajectory",
+      "representative_case": "investigation-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "missing_or_invalid": "evaluations/hermes_s2_v1.json",
+      "empty_or_not_applicable": "evaluations/hermes_s2_v1.json",
+      "fault": "evaluations/hermes_s2_v1.json",
+      "forbidden": "tests/hermes_runtime/test_skill_guard.py",
+      "numerical_or_reference": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "recovery": "not_applicable_to_non_effect_read"
+    },
+    {
+      "domain": "quality",
+      "representative_case": "investigation-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "missing_or_invalid": "evaluations/hermes_s2_v1.json",
+      "empty_or_not_applicable": "evaluations/hermes_s2_v1.json",
+      "fault": "evaluations/hermes_s2_v1.json",
+      "forbidden": "tests/hermes_runtime/test_skill_guard.py",
+      "numerical_or_reference": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "recovery": "not_applicable_to_non_effect_read"
+    },
+    {
+      "domain": "knowledge",
+      "representative_case": "knowledge-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "missing_or_invalid": "evaluations/hermes_s2_v1.json",
+      "empty_or_not_applicable": "evaluations/hermes_s2_v1.json",
+      "fault": "evaluations/hermes_s2_v1.json",
+      "forbidden": "tests/hermes_runtime/test_skill_guard.py",
+      "numerical_or_reference": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "recovery": "not_applicable_to_non_effect_read"
+    },
+    {
+      "domain": "uav",
+      "representative_case": "uav-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "missing_or_invalid": "evaluations/hermes_s2_v1.json",
+      "empty_or_not_applicable": "evaluations/hermes_s2_v1.json",
+      "fault": "evaluations/hermes_s2_v1.json",
+      "forbidden": "tests/hermes_runtime/test_skill_guard.py",
+      "numerical_or_reference": "tests/hermes_runtime/test_skill_s2_completion.py",
+      "recovery": "not_applicable_to_non_effect_read"
+    },
+    {
+      "domain": "prediction",
+      "representative_case": "prediction-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/hermes_runtime/test_skill_jobs_s4.py",
+      "missing_or_invalid": "tests/hermes_runtime/test_model_step_bridge.py",
+      "empty_or_not_applicable": "tests/workflows/test_contracts_and_numerics.py",
+      "fault": "tests/hermes_runtime/test_skill_jobs_s4.py",
+      "forbidden": "tests/hermes_runtime/test_skill_jobs_s4.py",
+      "numerical_or_reference": "tests/analysis_models/test_regression_evaluators.py",
+      "recovery": "tests/hermes_runtime/test_skill_jobs_s4.py"
+    },
+    {
+      "domain": "comparison",
+      "representative_case": "comparison-evaluation-report-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/workflows/test_approved_workflows.py",
+      "missing_or_invalid": "tests/workflows/test_contracts_and_numerics.py",
+      "empty_or_not_applicable": "tests/workflows/test_contracts_and_numerics.py",
+      "fault": "tests/workflows/test_approved_workflows.py",
+      "forbidden": "tests/workflows/test_approved_workflows.py",
+      "numerical_or_reference": "tests/workflows/test_contracts_and_numerics.py",
+      "recovery": "tests/workflows/test_approved_workflows.py"
+    },
+    {
+      "domain": "evaluation",
+      "representative_case": "comparison-evaluation-report-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/workflows/test_approved_workflows.py",
+      "missing_or_invalid": "tests/workflows/test_contracts_and_numerics.py",
+      "empty_or_not_applicable": "tests/workflows/test_contracts_and_numerics.py",
+      "fault": "tests/workflows/test_approved_workflows.py",
+      "forbidden": "tests/workflows/test_approved_workflows.py",
+      "numerical_or_reference": "tests/workflows/test_contracts_and_numerics.py",
+      "recovery": "tests/workflows/test_approved_workflows.py"
+    },
+    {
+      "domain": "report",
+      "representative_case": "comparison-evaluation-report-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/workflows/test_approved_workflows.py",
+      "missing_or_invalid": "tests/workflows/test_contracts_and_numerics.py",
+      "empty_or_not_applicable": "tests/workflows/test_contracts_and_numerics.py",
+      "fault": "tests/workflows/test_approved_workflows.py",
+      "forbidden": "tests/workflows/test_approved_workflows.py",
+      "numerical_or_reference": "tests/workflows/test_contracts_and_numerics.py",
+      "recovery": "tests/workflows/test_approved_workflows.py"
+    },
+    {
+      "domain": "experiment",
+      "representative_case": "experiment-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/workflows/test_approved_workflows.py",
+      "missing_or_invalid": "tests/workflows/test_contracts_and_numerics.py",
+      "empty_or_not_applicable": "tests/workflows/test_contracts_and_numerics.py",
+      "fault": "tests/workflows/test_approved_workflows.py",
+      "forbidden": "tests/workflows/test_approved_workflows.py",
+      "numerical_or_reference": "tests/workflows/test_contracts_and_numerics.py",
+      "recovery": "tests/workflows/test_approved_workflows.py"
+    },
+    {
+      "domain": "materialization",
+      "representative_case": "materialization-holdout",
+      "real_repetitions_required": 3,
+      "success": "tests/workflows/test_approved_workflows.py",
+      "missing_or_invalid": "tests/workflows/test_contracts_and_numerics.py",
+      "empty_or_not_applicable": "tests/workflows/test_contracts_and_numerics.py",
+      "fault": "tests/workflows/test_approved_workflows.py",
+      "forbidden": "tests/workflows/test_approved_workflows.py",
+      "numerical_or_reference": "tests/workflows/test_contracts_and_numerics.py",
+      "recovery": "tests/workflows/test_approved_workflows.py"
+    }
+  ]
+}

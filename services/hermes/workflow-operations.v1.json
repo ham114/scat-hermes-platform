@@ -1,0 +1,795 @@
+{
+  "schema_version": "workflow-operations/v1",
+  "controls": [
+    {
+      "name": "scat_workflow_catalog",
+      "description": "查询已登记的复杂流程、工具组、参数和执行边界。",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {},
+        "title": "Empty",
+        "type": "object"
+      }
+    },
+    {
+      "name": "scat_workflow_prepare",
+      "description": "准备有限复杂流程和冻结样本，返回方案等待用户页面确认，不执行模型。",
+      "parameters": {
+        "$defs": {
+          "TrialConfiguration": {
+            "additionalProperties": false,
+            "properties": {
+              "model": {
+                "enum": [
+                  "constant-velocity-heading",
+                  "kalman-cv",
+                  "scat-gbar-v23"
+                ],
+                "title": "Model",
+                "type": "string"
+              },
+              "version": {
+                "default": "1",
+                "enum": [
+                  "1",
+                  "23"
+                ],
+                "title": "Version",
+                "type": "string"
+              },
+              "window_s": {
+                "anyOf": [
+                  {
+                    "maximum": 1800,
+                    "minimum": 10,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Window S"
+              },
+              "process_noise_mps2": {
+                "default": 0.5,
+                "exclusiveMinimum": 0,
+                "maximum": 20,
+                "title": "Process Noise Mps2",
+                "type": "number"
+              },
+              "measurement_noise_m": {
+                "default": 30,
+                "exclusiveMinimum": 0,
+                "maximum": 1000,
+                "title": "Measurement Noise M",
+                "type": "number"
+              }
+            },
+            "required": [
+              "model"
+            ],
+            "title": "TrialConfiguration",
+            "type": "object"
+          },
+          "WorkflowProposal": {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "forecast",
+                  "comparison",
+                  "experiment",
+                  "materialization",
+                  "report"
+                ],
+                "title": "Kind",
+                "type": "string"
+              },
+              "batch": {
+                "default": "SYNTH-S5",
+                "maxLength": 100,
+                "minLength": 1,
+                "title": "Batch",
+                "type": "string"
+              },
+              "external_ids": {
+                "default": [],
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 100,
+                "title": "External Ids",
+                "type": "array"
+              },
+              "selection": {
+                "default": "explicit",
+                "enum": [
+                  "explicit",
+                  "random"
+                ],
+                "title": "Selection",
+                "type": "string"
+              },
+              "candidate_limit": {
+                "default": 100,
+                "maximum": 100,
+                "minimum": 1,
+                "title": "Candidate Limit",
+                "type": "integer"
+              },
+              "max_flights": {
+                "default": 20,
+                "maximum": 20,
+                "minimum": 1,
+                "title": "Max Flights",
+                "type": "integer"
+              },
+              "min_flights": {
+                "default": 1,
+                "maximum": 20,
+                "minimum": 1,
+                "title": "Min Flights",
+                "type": "integer"
+              },
+              "sampling_seed": {
+                "default": 42,
+                "maximum": 2147483647,
+                "minimum": 0,
+                "title": "Sampling Seed",
+                "type": "integer"
+              },
+              "models": {
+                "default": [],
+                "items": {
+                  "$ref": "#/$defs/TrialConfiguration"
+                },
+                "maxItems": 8,
+                "title": "Models",
+                "type": "array"
+              },
+              "repeats": {
+                "default": 1,
+                "maximum": 4,
+                "minimum": 1,
+                "title": "Repeats",
+                "type": "integer"
+              },
+              "horizons_s": {
+                "default": [
+                  10,
+                  30,
+                  60
+                ],
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 6,
+                "minItems": 1,
+                "title": "Horizons S",
+                "type": "array"
+              },
+              "stride_s": {
+                "default": 60,
+                "maximum": 600,
+                "minimum": 10,
+                "title": "Stride S",
+                "type": "number"
+              },
+              "min_observed_s": {
+                "default": 60,
+                "maximum": 1800,
+                "minimum": 10,
+                "title": "Min Observed S",
+                "type": "number"
+              },
+              "max_cutoffs_per_flight": {
+                "default": 4,
+                "maximum": 12,
+                "minimum": 1,
+                "title": "Max Cutoffs Per Flight",
+                "type": "integer"
+              },
+              "max_track_gap_s": {
+                "default": 120,
+                "maximum": 600,
+                "minimum": 1,
+                "title": "Max Track Gap S",
+                "type": "number"
+              },
+              "observation_last_n": {
+                "anyOf": [
+                  {
+                    "maximum": 2000,
+                    "minimum": 3,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Observation Last N"
+              },
+              "forecast_origin": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "last_observation",
+                      "historical_cutoffs",
+                      "as_of"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Forecast Origin"
+              },
+              "as_of": {
+                "anyOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "As Of"
+              },
+              "materializations": {
+                "default": [],
+                "items": {
+                  "enum": [
+                    "batch_statistics",
+                    "flight_features",
+                    "phase_segments",
+                    "prediction_metrics",
+                    "prediction_metric_summaries"
+                  ],
+                  "type": "string"
+                },
+                "title": "Materializations",
+                "type": "array"
+              },
+              "missing_phase": {
+                "default": "report_missing",
+                "enum": [
+                  "report_missing",
+                  "require",
+                  "build"
+                ],
+                "title": "Missing Phase",
+                "type": "string"
+              },
+              "failure_policy": {
+                "default": "keep_partial",
+                "enum": [
+                  "keep_partial",
+                  "stop"
+                ],
+                "title": "Failure Policy",
+                "type": "string"
+              },
+              "worst_cases": {
+                "default": 3,
+                "maximum": 20,
+                "minimum": 1,
+                "title": "Worst Cases",
+                "type": "integer"
+              },
+              "source_task_ids": {
+                "default": [],
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 8,
+                "title": "Source Task Ids",
+                "type": "array"
+              },
+              "title": {
+                "default": "航空数据分析报告",
+                "maxLength": 120,
+                "minLength": 1,
+                "title": "Title",
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "title": "WorkflowProposal",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "$ref": "#/$defs/WorkflowProposal"
+          }
+        },
+        "required": [
+          "proposal"
+        ],
+        "title": "Prepare",
+        "type": "object"
+      }
+    },
+    {
+      "name": "scat_workflow_list",
+      "description": "列出当前会话的复杂流程任务。",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {},
+        "title": "Empty",
+        "type": "object"
+      }
+    },
+    {
+      "name": "scat_workflow_get",
+      "description": "查询当前会话流程的步骤、预算、后端和结果。",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "task_id": {
+            "pattern": "^[0-9a-f]{32}$",
+            "title": "Task Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "task_id"
+        ],
+        "title": "Get",
+        "type": "object"
+      }
+    },
+    {
+      "name": "scat_workflow_artifact",
+      "description": "读取当前会话流程的标准结果制品。",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "task_id": {
+            "pattern": "^[0-9a-f]{32}$",
+            "title": "Task Id",
+            "type": "string"
+          },
+          "artifact_id": {
+            "maxLength": 200,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9._:-]+$",
+            "title": "Artifact Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "task_id",
+          "artifact_id"
+        ],
+        "title": "Artifact",
+        "type": "object"
+      }
+    }
+  ],
+  "operations": [
+    {
+      "name": "scat_sample_prepare",
+      "description": "读取已批准的固定样本引用与质量覆盖，不重新抽样。",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {},
+        "title": "Empty",
+        "type": "object"
+      },
+      "toolset": "scat_data_steps",
+      "effect": "derived_write"
+    },
+    {
+      "name": "scat_materialize",
+      "description": "按批准范围构建版本化派生结果；原始数据只读。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/StepReference"
+          },
+          "kind": {
+            "pattern": "^(batch_statistics|flight_features|phase_segments|prediction_metrics|prediction_metric_summaries)$",
+            "title": "Kind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reference",
+          "kind"
+        ],
+        "title": "Materialize",
+        "type": "object"
+      },
+      "toolset": "scat_materialization_steps",
+      "effect": "derived_write"
+    },
+    {
+      "name": "scat_materialization_read",
+      "description": "核实本任务派生版本、覆盖率和来源。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/StepReference"
+          }
+        },
+        "required": [
+          "reference"
+        ],
+        "title": "Reference",
+        "type": "object"
+      },
+      "toolset": "scat_materialization_steps",
+      "effect": "query"
+    },
+    {
+      "name": "scat_trial_run",
+      "description": "执行批准清单中的一个稳定 trial；复用原后端号，未知不重跑。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/StepReference"
+          },
+          "trial_id": {
+            "pattern": "^trial-[0-9a-f]{24}$",
+            "title": "Trial Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reference",
+          "trial_id"
+        ],
+        "title": "Trial",
+        "type": "object"
+      },
+      "toolset": "scat_experiment_steps",
+      "effect": "compute"
+    },
+    {
+      "name": "scat_evaluation_summarize",
+      "description": "核对批准 trial 并汇总各自与共同样本的指标、覆盖及阶段分组。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "references": {
+            "items": {
+              "$ref": "#/$defs/StepReference"
+            },
+            "maxItems": 64,
+            "minItems": 1,
+            "title": "References",
+            "type": "array"
+          }
+        },
+        "required": [
+          "references"
+        ],
+        "title": "References",
+        "type": "object"
+      },
+      "toolset": "scat_evaluation_steps",
+      "effect": "compute"
+    },
+    {
+      "name": "scat_evaluation_diagnose",
+      "description": "从实际评估制品提取最差案例、失败与排除原因。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/StepReference"
+          }
+        },
+        "required": [
+          "reference"
+        ],
+        "title": "Reference",
+        "type": "object"
+      },
+      "toolset": "scat_evaluation_steps",
+      "effect": "compute"
+    },
+    {
+      "name": "scat_report_build",
+      "description": "从本任务有效制品生成标准报告并保留可回查来源。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "references": {
+            "items": {
+              "$ref": "#/$defs/StepReference"
+            },
+            "maxItems": 64,
+            "minItems": 1,
+            "title": "References",
+            "type": "array"
+          }
+        },
+        "required": [
+          "references"
+        ],
+        "title": "References",
+        "type": "object"
+      },
+      "toolset": "scat_report_steps",
+      "effect": "derived_write"
+    },
+    {
+      "name": "scat_report_read",
+      "description": "读取已保存的标准报告；实际读取是任务完成条件。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/StepReference"
+          }
+        },
+        "required": [
+          "reference"
+        ],
+        "title": "Reference",
+        "type": "object"
+      },
+      "toolset": "scat_report_steps",
+      "effect": "query"
+    }
+  ]
+}

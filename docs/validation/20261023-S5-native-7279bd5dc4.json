@@ -1,0 +1,613 @@
+{
+  "status": "passed",
+  "probe_id": "40cee714af",
+  "stage": "verified",
+  "python": "/home/h3c/anaconda3/envs/scat-agent/bin/python",
+  "native_python": "/home/h3c/anaconda3/envs/scat-hermes/bin/python",
+  "synthetic": true,
+  "parent_run_id": "run_40e78d18070a447a8c447cbc483cb1fd",
+  "task_id": "0e0e57a8ff5b4a61968a8054f3e4cf54",
+  "backend_executions": [
+    {
+      "id": "8d31017919efa8b17b69702fb054ceb43d50c47c81fd783914d317cc376a5b86",
+      "state": "succeeded",
+      "output_sha": "ff1ecd35e37bb6d4f5960307292deda7662ceb2be7090710e427262818b04819",
+      "error": null,
+      "calls": 1
+    },
+    {
+      "id": "bcfd99ccfdd8ac9e6e3228553406652d79cbbb086e67d21d1c29e06db0b6d42e",
+      "state": "succeeded",
+      "output_sha": "01e8ccd16f752f676efed9e98eb055006825bd28f0980346d7476d732c285174",
+      "error": null,
+      "calls": 1
+    },
+    {
+      "id": "22266d273cc940388b294d4069774ce349a6eebb8a8929fd11e66f2edb6f7f27",
+      "state": "succeeded",
+      "output_sha": "4964dc4290fffaa6f2dc4c8b7f53f4b3d078bcf75cf0190bf49c9d3a23ca9500",
+      "error": null,
+      "calls": 1
+    }
+  ],
+  "groups": {
+    "scat_data_steps": [
+      "scat_sample_prepare"
+    ],
+    "scat_evaluation_steps": [
+      "scat_evaluation_summarize",
+      "scat_evaluation_diagnose"
+    ],
+    "scat_experiment_steps": [
+      "scat_trial_run"
+    ],
+    "scat_materialization_steps": [
+      "scat_materialize",
+      "scat_materialization_read"
+    ],
+    "scat_report_steps": [
+      "scat_report_build",
+      "scat_report_read"
+    ]
+  },
+  "result_artifact_id": "skill-result-0e0e57a8ff5b4a61968a8054f3e4cf54",
+  "result_payload_sha256": "7646e33131048d029f24a096cecc0d3821e5ed6396373d0f8b055c0664e3ebe5",
+  "analysis_result": {
+    "schema_version": "1.4",
+    "dataset": "scat",
+    "operation": "skill_workflow_comparison",
+    "title": "合成双模型对比",
+    "start_time": null,
+    "context": {
+      "metrics_total_rows": 6,
+      "outcome": "succeeded",
+      "phase_total_rows": 12,
+      "protocol": "m6-eval-v1",
+      "source_count": 3,
+      "synthetic": true,
+      "table_row_limit": 100,
+      "workflow_kind": "comparison",
+      "worst_total_rows": 6
+    },
+    "blocks": [
+      {
+        "type": "metrics",
+        "title": "执行覆盖与口径",
+        "items": [
+          {
+            "key": "selected_flights",
+            "label": "固定样本航班",
+            "value": 2,
+            "unit": null
+          },
+          {
+            "key": "trials",
+            "label": "批准试验数",
+            "value": 2,
+            "unit": null
+          },
+          {
+            "key": "common_samples",
+            "label": "共同可比样本",
+            "value": 18,
+            "unit": null
+          },
+          {
+            "key": "outcome",
+            "label": "结果状态",
+            "value": "succeeded",
+            "unit": null
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "title": "模型与共同样本对比",
+        "columns": [
+          {
+            "key": "trial_id",
+            "label": "试验",
+            "unit": null
+          },
+          {
+            "key": "model",
+            "label": "模型",
+            "unit": null
+          },
+          {
+            "key": "horizon_s",
+            "label": "时域",
+            "unit": "s"
+          },
+          {
+            "key": "sample_count",
+            "label": "本模型样本",
+            "unit": null
+          },
+          {
+            "key": "mae_m",
+            "label": "MAE",
+            "unit": "m"
+          },
+          {
+            "key": "rmse_m",
+            "label": "RMSE",
+            "unit": "m"
+          },
+          {
+            "key": "common_count",
+            "label": "共同样本",
+            "unit": null
+          },
+          {
+            "key": "common_mae_m",
+            "label": "共同 MAE",
+            "unit": "m"
+          },
+          {
+            "key": "status",
+            "label": "状态",
+            "unit": null
+          },
+          {
+            "key": "ungrouped",
+            "label": "未归组样本",
+            "unit": null
+          }
+        ],
+        "rows": [
+          {
+            "common_count": 6,
+            "common_mae_m": 10.578245249436387,
+            "horizon_s": 10.0,
+            "mae_m": 10.578245249436387,
+            "model": "constant-velocity-heading",
+            "rmse_m": 10.921890016841973,
+            "sample_count": 6,
+            "status": "succeeded",
+            "trial_id": "trial-3e72784c3ac6c6f151d23057",
+            "ungrouped": 0
+          },
+          {
+            "common_count": 6,
+            "common_mae_m": 37.50426872371327,
+            "horizon_s": 30.0,
+            "mae_m": 37.50426872371327,
+            "model": "constant-velocity-heading",
+            "rmse_m": 38.38022477107764,
+            "sample_count": 6,
+            "status": "succeeded",
+            "trial_id": "trial-3e72784c3ac6c6f151d23057",
+            "ungrouped": 0
+          },
+          {
+            "common_count": 6,
+            "common_mae_m": 92.31626134982724,
+            "horizon_s": 60.0,
+            "mae_m": 92.31626134982724,
+            "model": "constant-velocity-heading",
+            "rmse_m": 93.74450848210226,
+            "sample_count": 6,
+            "status": "succeeded",
+            "trial_id": "trial-3e72784c3ac6c6f151d23057",
+            "ungrouped": 0
+          },
+          {
+            "common_count": 6,
+            "common_mae_m": 6.15419061278076,
+            "horizon_s": 10.0,
+            "mae_m": 6.15419061278076,
+            "model": "kalman-cv",
+            "rmse_m": 6.154745670166827,
+            "sample_count": 6,
+            "status": "succeeded",
+            "trial_id": "trial-e13850ba3ac8e127976e76dc",
+            "ungrouped": 0
+          },
+          {
+            "common_count": 6,
+            "common_mae_m": 19.969125118918118,
+            "horizon_s": 30.0,
+            "mae_m": 19.969125118918118,
+            "model": "kalman-cv",
+            "rmse_m": 19.973055636904824,
+            "sample_count": 6,
+            "status": "succeeded",
+            "trial_id": "trial-e13850ba3ac8e127976e76dc",
+            "ungrouped": 0
+          },
+          {
+            "common_count": 6,
+            "common_mae_m": 55.114567944293704,
+            "horizon_s": 60.0,
+            "mae_m": 55.114567944293704,
+            "model": "kalman-cv",
+            "rmse_m": 55.12143835094279,
+            "sample_count": 6,
+            "status": "succeeded",
+            "trial_id": "trial-e13850ba3ac8e127976e76dc",
+            "ungrouped": 0
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "title": "阶段分组",
+        "columns": [
+          {
+            "key": "trial_id",
+            "label": "试验",
+            "unit": null
+          },
+          {
+            "key": "phase",
+            "label": "阶段",
+            "unit": null
+          },
+          {
+            "key": "horizon_s",
+            "label": "时域",
+            "unit": "s"
+          },
+          {
+            "key": "sample_count",
+            "label": "样本数",
+            "unit": null
+          },
+          {
+            "key": "flight_count",
+            "label": "航班数",
+            "unit": null
+          },
+          {
+            "key": "mae_m",
+            "label": "MAE",
+            "unit": "m"
+          },
+          {
+            "key": "median_m",
+            "label": "中位数",
+            "unit": "m"
+          },
+          {
+            "key": "p90_m",
+            "label": "P90",
+            "unit": "m"
+          }
+        ],
+        "rows": [
+          {
+            "flight_count": 2,
+            "horizon_s": 10.0,
+            "mae_m": 6.734183536435202,
+            "median_m": 6.734183536435202,
+            "p90_m": 6.734456041372296,
+            "phase": "climb",
+            "sample_count": 2,
+            "trial_id": "trial-3e72784c3ac6c6f151d23057"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 30.0,
+            "mae_m": 25.974183220359926,
+            "median_m": 25.974183220359926,
+            "p90_m": 25.97523437465886,
+            "phase": "climb",
+            "sample_count": 2,
+            "trial_id": "trial-3e72784c3ac6c6f151d23057"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 60.0,
+            "mae_m": 69.26238964679499,
+            "median_m": 69.26238964679499,
+            "p90_m": 69.2651929835623,
+            "phase": "climb",
+            "sample_count": 2,
+            "trial_id": "trial-3e72784c3ac6c6f151d23057"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 10.0,
+            "mae_m": 12.50027610593698,
+            "median_m": 12.500276446880504,
+            "p90_m": 12.50280418899313,
+            "phase": "midlow_level",
+            "sample_count": 4,
+            "trial_id": "trial-3e72784c3ac6c6f151d23057"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 30.0,
+            "mae_m": 43.269311475389934,
+            "median_m": 43.26931266036565,
+            "p90_m": 43.27806275534128,
+            "phase": "midlow_level",
+            "sample_count": 4,
+            "trial_id": "trial-3e72784c3ac6c6f151d23057"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 60.0,
+            "mae_m": 103.84319720134337,
+            "median_m": 103.8432000494675,
+            "p90_m": 103.86420105683558,
+            "phase": "midlow_level",
+            "sample_count": 4,
+            "trial_id": "trial-3e72784c3ac6c6f151d23057"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 10.0,
+            "mae_m": 6.271080521365277,
+            "median_m": 6.271080521365277,
+            "p90_m": 6.271334297443458,
+            "phase": "climb",
+            "sample_count": 2,
+            "trial_id": "trial-e13850ba3ac8e127976e76dc"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 30.0,
+            "mae_m": 20.529453627386232,
+            "median_m": 20.529453627386232,
+            "p90_m": 20.53028449841329,
+            "phase": "climb",
+            "sample_count": 2,
+            "trial_id": "trial-e13850ba3ac8e127976e76dc"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 60.0,
+            "mae_m": 56.34524915945656,
+            "median_m": 56.34524915945656,
+            "p90_m": 56.34752987414273,
+            "phase": "climb",
+            "sample_count": 2,
+            "trial_id": "trial-e13850ba3ac8e127976e76dc"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 10.0,
+            "mae_m": 6.095745658488502,
+            "median_m": 6.095745841880369,
+            "p90_m": 6.09668475654078,
+            "phase": "midlow_level",
+            "sample_count": 4,
+            "trial_id": "trial-e13850ba3ac8e127976e76dc"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 30.0,
+            "mae_m": 19.68896086468406,
+            "median_m": 19.688961407538585,
+            "p90_m": 19.692913249441702,
+            "phase": "midlow_level",
+            "sample_count": 4,
+            "trial_id": "trial-e13850ba3ac8e127976e76dc"
+          },
+          {
+            "flight_count": 2,
+            "horizon_s": 60.0,
+            "mae_m": 54.49922733671228,
+            "median_m": 54.49922881678643,
+            "p90_m": 54.51059836649282,
+            "phase": "midlow_level",
+            "sample_count": 4,
+            "trial_id": "trial-e13850ba3ac8e127976e76dc"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "title": "最差案例",
+        "columns": [
+          {
+            "key": "trial_id",
+            "label": "试验",
+            "unit": null
+          },
+          {
+            "key": "external_id",
+            "label": "航班",
+            "unit": null
+          },
+          {
+            "key": "cutoff_time",
+            "label": "观测截止时刻",
+            "unit": null
+          },
+          {
+            "key": "horizon_s",
+            "label": "时域",
+            "unit": "s"
+          },
+          {
+            "key": "error_m",
+            "label": "误差",
+            "unit": "m"
+          }
+        ],
+        "rows": [
+          {
+            "cutoff_time": "2020-01-01T00:03:00Z",
+            "error_m": 103.86735766043937,
+            "external_id": "SYNTH-S5-001",
+            "horizon_s": 60.0,
+            "trial_id": "trial-3e72784c3ac6c6f151d23057"
+          },
+          {
+            "cutoff_time": "2020-01-01T00:03:00Z",
+            "error_m": 103.85683564842678,
+            "external_id": "SYNTH-S5-002",
+            "horizon_s": 60.0,
+            "trial_id": "trial-3e72784c3ac6c6f151d23057"
+          },
+          {
+            "cutoff_time": "2020-01-01T00:05:00Z",
+            "error_m": 103.82956445050822,
+            "external_id": "SYNTH-S5-001",
+            "horizon_s": 60.0,
+            "trial_id": "trial-3e72784c3ac6c6f151d23057"
+          },
+          {
+            "cutoff_time": "2020-01-01T00:01:00Z",
+            "error_m": 56.34810005281427,
+            "external_id": "SYNTH-S5-001",
+            "horizon_s": 60.0,
+            "trial_id": "trial-e13850ba3ac8e127976e76dc"
+          },
+          {
+            "cutoff_time": "2020-01-01T00:01:00Z",
+            "error_m": 56.342398266098854,
+            "external_id": "SYNTH-S5-002",
+            "horizon_s": 60.0,
+            "trial_id": "trial-e13850ba3ac8e127976e76dc"
+          },
+          {
+            "cutoff_time": "2020-01-01T00:03:00Z",
+            "error_m": 54.51225560700855,
+            "external_id": "SYNTH-S5-001",
+            "horizon_s": 60.0,
+            "trial_id": "trial-e13850ba3ac8e127976e76dc"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "title": "派生数据构建",
+        "columns": [
+          {
+            "key": "kind",
+            "label": "派生类型",
+            "unit": null
+          },
+          {
+            "key": "records",
+            "label": "记录数",
+            "unit": null
+          },
+          {
+            "key": "status",
+            "label": "状态",
+            "unit": null
+          }
+        ],
+        "rows": [
+          {
+            "kind": "phase_segments",
+            "records": 2,
+            "status": "succeeded"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "title": "结果来源",
+        "columns": [
+          {
+            "key": "artifact_id",
+            "label": "制品",
+            "unit": null
+          },
+          {
+            "key": "content_sha256",
+            "label": "摘要",
+            "unit": null
+          }
+        ],
+        "rows": [
+          {
+            "artifact_id": "3c26f67c2f514616965209db6d6fc504",
+            "content_sha256": "d06919c6d2d59bb77441d1e61d12d2d7049355cb0a065ae508f0373eb72b98e8"
+          },
+          {
+            "artifact_id": "fe286aaf07f044c68c58f8582c63d6fd",
+            "content_sha256": "2ffcd3fcc30ab838e828182bbbebde42d913925f664731c5d89221dae8ea16b1"
+          },
+          {
+            "artifact_id": "b0f7a1f162d64dda9b45c665a1782485",
+            "content_sha256": "623be490fc7eca957616c3c909cc4ecb6be9d393ad161d55cb96918848cde3fc"
+          }
+        ]
+      }
+    ]
+  },
+  "budget": {
+    "policy_sha256": "539915fea79c7c2e4cfd655e9afc0627ba4a01cf3a79fb67da33a9cac011a3d0",
+    "limits_json": "{\"max_turns\": 24, \"max_llm_tokens\": 1000000, \"max_tool_calls\": 80, \"wall_seconds\": 1800, \"max_cost\": null, \"currency\": \"CNY\"}",
+    "llm_calls": 15,
+    "tool_calls": 18,
+    "charged_tokens": 739855,
+    "provider_input_tokens": 192697,
+    "provider_output_tokens": 3277,
+    "provider_cached_tokens": 158848,
+    "exhausted": null,
+    "finished_at": 1792740339.5353696,
+    "started_at": 1792740162.8237622
+  },
+  "admissions": [
+    {
+      "skill": "scat-model-comparison",
+      "operation": "scat_workflow_prepare",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-report",
+      "operation": "scat_sample_prepare",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-data-materialization",
+      "operation": "scat_materialize",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-data-materialization",
+      "operation": "scat_materialization_read",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-model-comparison",
+      "operation": "scat_trial_run",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-model-comparison",
+      "operation": "scat_trial_run",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-evaluation",
+      "operation": "scat_evaluation_summarize",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-evaluation",
+      "operation": "scat_evaluation_diagnose",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-report",
+      "operation": "scat_report_build",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-report",
+      "operation": "scat_report_read",
+      "outcome": "returned"
+    }
+  ],
+  "confirmation_replay_single_job": true,
+  "scope_isolation": true,
+  "cleanup_jobs": [
+    {
+      "task_id": "0e0e57a8ff5b4a61968a8054f3e4cf54",
+      "state": "succeeded",
+      "error": null
+    }
+  ],
+  "owned_processes_remaining": 0,
+  "temporary_home_removed": true,
+  "isolated_collections_removed": true
+}

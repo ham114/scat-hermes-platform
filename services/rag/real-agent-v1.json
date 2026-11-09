@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "scope": "reviewed-development-not-production",
+  "corpus": "/mnt/h3c/scat-rag/corpora/normalized/kg_20260926_research_v3/rag_chunks.v1.jsonl",
+  "corpus_sha256": "61788775e03c392b493a7835bba2e5d38d7f8721035b73ccbb1dda441eb53b86",
+  "corpus_count": 149,
+  "generation_id": "kg_20260926_research_v3",
+  "retrieval_url": "http://127.0.0.1:8091",
+  "retrieval_limit": 5,
+  "mode": "auto",
+  "auto_min_characters": 100,
+  "auto_keywords": ["冲突", "分别依据", "同时", "比较", "综合"],
+  "cases": ["004", "005", "018", "023", "029", "030", "038", "039"],
+  "run_budget": {"max_turns": 28, "max_llm_tokens": 1000000, "max_tool_calls": 60, "wall_seconds": 360},
+  "batch_budget": {"max_turns": 126, "max_llm_tokens": 2439450, "max_tool_calls": 868, "wall_seconds": 600},
+  "model": "deepseek-flash",
+  "max_output_tokens": 2400,
+  "max_searches_per_session": 2,
+  "max_reads_per_session": 10
+}

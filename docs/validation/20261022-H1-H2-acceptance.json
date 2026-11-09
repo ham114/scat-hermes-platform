@@ -1,0 +1,47 @@
+{
+  "recorded_at": "2026-10-22T16:46:38.189077+08:00",
+  "H1": "accepted",
+  "H2": "accepted",
+  "scope": "single-user / DeepSeek non-thinking / five read-only MCP tools",
+  "corpus_sha256": "1bae33c13b3d4ed18c87898c09ae9faef8e30e5745106e08be616664f87a5f2f",
+  "full_case_report": "20261022-h12-evaluation-attempt2.json",
+  "boundary_report": "20261022-h12-boundaries-attempt3.json",
+  "final_regression_report": "20261022-h12-regression-v3.json",
+  "local_tests": {
+    "passed": 95,
+    "seconds": 8.81
+  },
+  "server_tests": {
+    "passed": 765,
+    "seconds": 24.78,
+    "existing_warnings": 1
+  },
+  "metrics": {
+    "cases": 20,
+    "passed": 20,
+    "tool_selection_accuracy": 1.0,
+    "tool_cases": 16,
+    "positive_tool_selection_accuracy": 1.0,
+    "parameter_accuracy": 1.0,
+    "first_text_observations": 20,
+    "error_rate": 0.0,
+    "refusal_cases_with_tool_execution": 0,
+    "median_first_text_seconds": 2.1761,
+    "median_completion_seconds": 3.5629999999999997
+  },
+  "boundary_checks": {
+    "scoped_history": true,
+    "bounded_retry": true,
+    "model_unavailable": true,
+    "compression": true,
+    "native_approval_fixture": true
+  },
+  "runtime_consistency": {
+    "scripts/run_hermes_api.py": "ab237e16e51743c92cc1cb061b89d3828a95ba359bebef0f2b39c083f4a68360",
+    "src/application/readonly.py": "c8a655d47d9201afd2e40833d350086524c42279a30b3c830c84c71415543d93"
+  },
+  "previous_failures_preserved": true,
+  "cleanup": "20261022-H1-H2-final-cleanup.json",
+  "document_sync": "verified by remote SHA256; final manifest records per-file hashes",
+  "closeout_at": "2026-10-22T10:00:06.538935+00:00"
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "reviewer": "assistant-source-review-before-retrieval-results",
+  "authorize_use_of_presented_revision": true,
+  "authorization": "2026-10-26 用户在展示005修订后授权推进到问答验证之前；不回写前轮人工审核记录。",
+  "cases": {
+    "DEV-20261025-dev40-005": {
+      "extra_alternatives": {
+        "2": [{
+          "chunk_ids": ["kc1_f6d53d317138eb7a806b3dee4d41efd5"],
+          "quotes": [{"chunk_id": "kc1_f6d53d317138eb7a806b3dee4d41efd5", "quote": "`FL250` 表示标准气压表指示 25,000 ft，不等于几何高度 25,000 ft。"}],
+          "rationale": "该块先定义标准气压基准的flight level，再明确FL250与几何高度不能等同；可与SCAT指南的非等同规则相互替代，不要求两个来源共同出现。"
+        }]
+      }
+    },
+    "DEV-20261025-dev40-012": {
+      "exclude_claims": {"4": "该条额外涉及字段含义所引用文档，不在已审核参考答案内，也不是题干要求；前三组已完整覆盖来源优先级与不得平均化。"}
+    },
+    "DEV-20261025-dev40-015": {
+      "exclude_claims": {"5": "与第4组当前数量应由确定性工具查询的规则重复；参考答案同义复述不再重复加权，保留完整第4组。"}
+    },
+    "DEV-20261025-dev40-016": {
+      "claim_modes": {"1": "any-witness"},
+      "rationale": "两份文档的引文各自完整列出同一六档时域，任一份足以支持本组，不是必须联合的事实。"
+    },
+    "DEV-20261025-dev40-034": {
+      "extra_alternatives": {
+        "1": [{
+          "chunk_ids": ["kc1_a9a3ae270a4c3a32b3dedfd511b23955"],
+          "quotes": [{"chunk_id": "kc1_a9a3ae270a4c3a32b3dedfd511b23955", "quote": "D[1:T-1] ∈ R^((T-1)×C)"}],
+          "rationale": "同一GBAR方法的区间距离差分章节明确给出同一张量及维度，可替代模块连接章节支持该维度组；不能替代下一组CGDF输入关系。"
+        }]
+      }
+    }
+  }
+}

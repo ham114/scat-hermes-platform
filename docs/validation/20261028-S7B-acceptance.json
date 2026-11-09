@@ -1,0 +1,379 @@
+{
+  "status": "passed",
+  "runtime": "scat-thin-python-json-v1",
+  "release": "20261028-s7b-a8fc62d5d0d1",
+  "previous_release": "20261028-1276159c1aac",
+  "regression": {
+    "passed": 1399,
+    "skipped": 1,
+    "seconds": 258.2,
+    "log": "var/validation/20261028-s7b/full-regression-final.log"
+  },
+  "targeted": {
+    "passed": 26,
+    "ruff_files": 19
+  },
+  "native_trial": {
+    "id": "051e7327506f4574af626933f02e88cf",
+    "identity": "ce6ad56035",
+    "state": "passed",
+    "source": "6c28c99833ba2d192638684e5226bf5699cddc209eb40605a7fa31f74f969b7e",
+    "candidate": "7af41e5e9a1ddd2b60c30e81ab9eef3fd8c9bdd14dadccea18411ad5ead07a06",
+    "script_cases": {
+      "bundle_sha256": "7af41e5e9a1ddd2b60c30e81ab9eef3fd8c9bdd14dadccea18411ad5ead07a06",
+      "cases": [
+        {
+          "calls": 3,
+          "case": 0,
+          "passed": true,
+          "script": "scripts/investigate.py",
+          "script_sha256": "7a69b5e6b29b56a823574c3df43b046492ce603cc6e8d98ac800bcaa28e39cf1",
+          "skill": "s7b-flight-investigation"
+        },
+        {
+          "calls": 1,
+          "case": 1,
+          "passed": true,
+          "script": "scripts/investigate.py",
+          "script_sha256": "7a69b5e6b29b56a823574c3df43b046492ce603cc6e8d98ac800bcaa28e39cf1",
+          "skill": "s7b-flight-investigation"
+        },
+        {
+          "calls": 1,
+          "case": 2,
+          "passed": true,
+          "script": "scripts/investigate.py",
+          "script_sha256": "7a69b5e6b29b56a823574c3df43b046492ce603cc6e8d98ac800bcaa28e39cf1",
+          "skill": "s7b-flight-investigation"
+        }
+      ],
+      "runtime": "scat-thin-python-json-v1",
+      "scripts": [
+        {
+          "path": "scripts/investigate.py",
+          "sha256": "7a69b5e6b29b56a823574c3df43b046492ce603cc6e8d98ac800bcaa28e39cf1",
+          "skill": "s7b-flight-investigation"
+        }
+      ],
+      "status": "passed",
+      "synthetic_only": true
+    },
+    "script_native_runs": {
+      "s7b-flight-investigation/scripts/investigate.py": 3
+    },
+    "summary": {
+      "all_failures_retained": true,
+      "conservative_tokens": 893624,
+      "cost_estimate": null,
+      "cost_reason": "No verified price table; provider usage and conservative admission units are reported separately.",
+      "domains": {
+        "quality": {
+          "completion_rate": 1.0,
+          "elapsed_distribution_seconds": [
+            5.9,
+            9.47,
+            13.6
+          ],
+          "gate_passed": true,
+          "p50_seconds": 9.47,
+          "p95_seconds": 13.6,
+          "passed": 3,
+          "selection_parameter_passed": 3,
+          "small_sample_no_sla": true,
+          "total": 3
+        },
+        "query": {
+          "completion_rate": 1.0,
+          "elapsed_distribution_seconds": [
+            5.9,
+            9.47,
+            13.6
+          ],
+          "gate_passed": true,
+          "p50_seconds": 9.47,
+          "p95_seconds": 13.6,
+          "passed": 3,
+          "selection_parameter_passed": 3,
+          "small_sample_no_sla": true,
+          "total": 3
+        },
+        "trajectory": {
+          "completion_rate": 1.0,
+          "elapsed_distribution_seconds": [
+            5.9,
+            9.47,
+            13.6
+          ],
+          "gate_passed": true,
+          "p50_seconds": 9.47,
+          "p95_seconds": 13.6,
+          "passed": 3,
+          "selection_parameter_passed": 3,
+          "small_sample_no_sla": true,
+          "total": 3
+        }
+      },
+      "independent_attempts": 3,
+      "llm_calls": 12,
+      "passed_attempts": 3,
+      "provider_cached_tokens": 211072,
+      "provider_input_tokens": 240329,
+      "provider_output_tokens": 2277,
+      "status": "passed",
+      "tool_calls": 30
+    },
+    "temporary_home_removed": true,
+    "owned_processes_remaining": 0
+  },
+  "earlier_native_trial": {
+    "id": "f122e0ac57134551918f9580f919c6ad",
+    "identity": "6d991ba96b",
+    "status": "passed",
+    "summary": {
+      "all_failures_retained": true,
+      "conservative_tokens": 927372,
+      "cost_estimate": null,
+      "cost_reason": "No verified price table; provider usage and conservative admission units are reported separately.",
+      "domains": {
+        "quality": {
+          "completion_rate": 1.0,
+          "elapsed_distribution_seconds": [
+            7.61,
+            10.77,
+            16.34
+          ],
+          "gate_passed": true,
+          "p50_seconds": 10.77,
+          "p95_seconds": 16.34,
+          "passed": 3,
+          "selection_parameter_passed": 3,
+          "small_sample_no_sla": true,
+          "total": 3
+        },
+        "query": {
+          "completion_rate": 1.0,
+          "elapsed_distribution_seconds": [
+            7.61,
+            10.77,
+            16.34
+          ],
+          "gate_passed": true,
+          "p50_seconds": 10.77,
+          "p95_seconds": 16.34,
+          "passed": 3,
+          "selection_parameter_passed": 3,
+          "small_sample_no_sla": true,
+          "total": 3
+        },
+        "trajectory": {
+          "completion_rate": 1.0,
+          "elapsed_distribution_seconds": [
+            7.61,
+            10.77,
+            16.34
+          ],
+          "gate_passed": true,
+          "p50_seconds": 10.77,
+          "p95_seconds": 16.34,
+          "passed": 3,
+          "selection_parameter_passed": 3,
+          "small_sample_no_sla": true,
+          "total": 3
+        }
+      },
+      "independent_attempts": 3,
+      "llm_calls": 13,
+      "passed_attempts": 3,
+      "provider_cached_tokens": 219520,
+      "provider_input_tokens": 249471,
+      "provider_output_tokens": 2119,
+      "status": "passed",
+      "tool_calls": 28
+    }
+  },
+  "author_api": {
+    "synthetic_only": true,
+    "trial": "051e7327506f4574af626933f02e88cf",
+    "source": "6c28c99833ba2d192638684e5226bf5699cddc209eb40605a7fa31f74f969b7e",
+    "formal_bundle_before": "f713ad1f165cb7ffeb0a324503a35697e643fa51e707d8f194ebd343e10c1d95",
+    "http_paired_script_create_validate": true,
+    "author_only_publish_status": 403,
+    "isolated_publish": {
+      "applied": true,
+      "target": "7af41e5e9a1ddd2b60c30e81ab9eef3fd8c9bdd14dadccea18411ad5ead07a06",
+      "replayed": false
+    },
+    "isolated_rollback": {
+      "applied": true,
+      "target": "a05647ab0a64e13b3b693ecacbd23c9b37a87979d46431124db873d1e553e601",
+      "replayed": false
+    },
+    "formal_bundle_after": "f713ad1f165cb7ffeb0a324503a35697e643fa51e707d8f194ebd343e10c1d95",
+    "status": "passed"
+  },
+  "deployment": {
+    "release": "20261028-s7b-a8fc62d5d0d1",
+    "previous": "20261028-1276159c1aac",
+    "containers": {
+      "actions": {
+        "id": "1710bc7a32325741e481050a8c6226c4bbcb9526ca2726a5bef2304e769a0470",
+        "image": "sha256:be31c77e72ba161a701e2c71dcb31330a480ab2f75e1777e755f8543258ae8af",
+        "running": true,
+        "health": "healthy",
+        "scripts_enabled": false
+      },
+      "platform": {
+        "id": "fdab3dc28fd41a5813359ad08e597431036644807365b27a52ddab9c43463dc6",
+        "image": "sha256:be31c77e72ba161a701e2c71dcb31330a480ab2f75e1777e755f8543258ae8af",
+        "running": true,
+        "health": "healthy",
+        "scripts_enabled": false
+      },
+      "hermes-main": {
+        "id": "be25e073e720b51f1f13d0a80e63c5c410b59aeeed451af8d10b72e1a1d80081",
+        "image": "sha256:449fd139673cf0342d3f13426f5728b25e2d221fd5b24ef8a0bc703e9c88fc35",
+        "running": true,
+        "health": "healthy",
+        "scripts_enabled": true
+      },
+      "hermes-worker": {
+        "id": "4241f19fa9b3e361c0eb3b0898c3375e674b8d0fe64a19ddcb6b75ba1a2ec7b7",
+        "image": "sha256:449fd139673cf0342d3f13426f5728b25e2d221fd5b24ef8a0bc703e9c88fc35",
+        "running": true,
+        "health": "healthy",
+        "scripts_enabled": true
+      },
+      "worker": {
+        "id": "98ff2e2492a939165efaf4876c96d76ac1138191ff8ba458d4a37850b4a0d34e",
+        "image": "sha256:be31c77e72ba161a701e2c71dcb31330a480ab2f75e1777e755f8543258ae8af",
+        "running": true,
+        "health": "healthy",
+        "scripts_enabled": false
+      },
+      "author-api": {
+        "id": "94216ac2bb2900e151f2076a6b306bd0075ff49421d346653b3e3c200c16e590",
+        "image": "sha256:46093f0f40c99b8168fdf26ec989eb02f05d2391a7ca1897a29c8ce1ae9303de",
+        "running": true,
+        "health": "healthy",
+        "scripts_enabled": false
+      },
+      "hermes-author": {
+        "id": "64b62f2467e0a5e6f8530430de5f52abb4c3f6b58b9b02bcb5590075e754f09b",
+        "image": "sha256:449fd139673cf0342d3f13426f5728b25e2d221fd5b24ef8a0bc703e9c88fc35",
+        "running": true,
+        "health": "healthy",
+        "scripts_enabled": false
+      }
+    },
+    "health": {
+      "18120": 200,
+      "18121": 200,
+      "18122": 200,
+      "18123": 200,
+      "18124": 200,
+      "18125": 200,
+      "18126": 200,
+      "18133": 200,
+      "18140": 200,
+      "18141": 200,
+      "18142": 200
+    },
+    "conda": {
+      "scat-agent": "6ffa3197a23e4299c0d84399d6b6616b356501e3954211fc7ce3fc939d6223b7",
+      "scat-hermes": "810010c9045f9d27676c12752a504132b9cf349f86fc2871b785aad4fcd8ab04",
+      "scat-rag-train": "6d4b40993b670f7eb9cb4ae9490f6b24fd927229b417e0287a7461b14345b922"
+    },
+    "checks": {
+      "source_actions": {
+        "source": "6c28c99833ba2d192638684e5226bf5699cddc209eb40605a7fa31f74f969b7e",
+        "files": 95,
+        "conda": true
+      },
+      "source_hermes-main": {
+        "source": "6c28c99833ba2d192638684e5226bf5699cddc209eb40605a7fa31f74f969b7e",
+        "files": 95,
+        "conda": true
+      },
+      "source_author-api": {
+        "source": "6c28c99833ba2d192638684e5226bf5699cddc209eb40605a7fa31f74f969b7e",
+        "files": 95,
+        "conda": true
+      }
+    },
+    "retained_containers": {
+      "scat-gbar-production-gbar-1": {
+        "id": "e491f23a9d5905829279225cb61634c86295a2c50c6c49866aaf67dbc9242a1b",
+        "image": "sha256:0bbae03be3d2c1340350d7eca6c9168b8735be57adfb61883fda8bad914d7bf4"
+      },
+      "scat-honcho-production-api": {
+        "id": "fb3001a394acbf75753f43f1b741f156fe20223887d9ff932e3dbb7b03dd7ab8",
+        "image": "sha256:f251369c1c8c0db47e91bd68800e890330684188d38fb9cf53c1cd9524e823a9"
+      },
+      "scat-honcho-production-deriver": {
+        "id": "8778c7cf640d6142e235e1812f48c0ec11540dc613dd006fb4cbf88768d70465",
+        "image": "sha256:f251369c1c8c0db47e91bd68800e890330684188d38fb9cf53c1cd9524e823a9"
+      },
+      "scat-honcho-production-db": {
+        "id": "0bf44e184489a7b3de4180bf10f399627b0a141479d8687447a9f7150f22fa7e",
+        "image": "sha256:7b822b0aac60967beb1ea5e576b8602c94c300a157d187f385ae3e0da199b90a"
+      }
+    },
+    "model_usage": {
+      "attempts": 70,
+      "conservative_units": 4520033,
+      "provider_input": 1121768,
+      "provider_output": 11144
+    },
+    "budget_limits": {
+      "daily_requests": 240,
+      "daily_units": 8000000,
+      "lifetime_requests": 240,
+      "lifetime_units": 8000000
+    },
+    "learning_scheduler": "active",
+    "test_ports": {
+      "18105": false,
+      "18106": false,
+      "18107": false,
+      "18148": false,
+      "18149": false,
+      "18150": false
+    },
+    "status": "passed"
+  },
+  "model_usage_delta": {
+    "attempts": 25,
+    "conservative_units": 1917325,
+    "provider_tokens": 494196
+  },
+  "feature": {
+    "main": true,
+    "approved_worker": true,
+    "author_execution": false,
+    "automatic_script_authoring": false,
+    "new_listener": false,
+    "new_dependencies": false,
+    "engineering_demo_published_to_formal": false
+  },
+  "cleanup": {
+    "server_task_temp_removed": true,
+    "local_task_temp_created": false,
+    "child_temp_empty_removed": true,
+    "test_symlinks_unlinked_without_following": 644,
+    "active_test_processes": []
+  },
+  "retained_failures": [
+    "var/validation/20261028-s7b/targeted.log",
+    "var/validation/20261028-s7b/full-regression.log",
+    "var/validation/workflow-backend-72c35867fbd23cb0561e3fa1ea1fbc7422ebbe43dc68801b51e4c78bfbc1b497.log",
+    "var/validation/20261028-s7b/author-api-gate.log",
+    "var/validation/20261028-s7b/image-preflight.json"
+  ],
+  "notes": [
+    "The original full regression was invalidated by source updates; the backend explicitly rejected Approved implementation changed. The frozen final rerun passed.",
+    "Image source auditing uses standard-library hashes because the native image deliberately has no numpy.",
+    "The demo was written by engineering, not automatically authored from memory.",
+    "Old review-ready learning drafts require a new trial after this source change; no historical evidence was rewritten.",
+    "No cumulative budget caps were removed; no old Honcho canary or live profile AGENTS was modified."
+  ]
+}

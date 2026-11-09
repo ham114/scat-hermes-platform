@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "files": [
+    "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md",
+    "docs/DEVELOPMENT_LOG.md",
+    "README.md",
+    "docs/HERMES_API_AND_PORTAL.md",
+    "docs/HERMES_SKILLS_LIFECYCLE_AND_TOOL_MAPPING.md",
+    "docs/HERMES_SKILLS_ARCHITECTURE_AND_REUSE_20261023.md",
+    "docs/HERMES_S2_READONLY_COMPOSITION.md"
+  ],
+  "checked_local_links": 94,
+  "errors": [],
+  "mermaid": "source structure only; renderer not invoked"
+}

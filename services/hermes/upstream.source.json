@@ -1,0 +1,39 @@
+{
+  "commit": "5b147ab036d6d19131bff8d20701b5001eab844a",
+  "archive_url": "https://codeload.github.com/NousResearch/hermes-agent/tar.gz/5b147ab036d6d19131bff8d20701b5001eab844a",
+  "archive_sha256": "dddad7ee750fc9426477acb1580491b91ee04bf951e46818f2f07921ace0b16e",
+  "runtime_archive_sha256": "a2367de40d478e2ab52ae6ac004c2c657fbf243744386d9fc1131d28d4d98502",
+  "validated_regular_files": 7641,
+  "excluded_top_directories": [
+    ".github",
+    "apps",
+    "docs",
+    "tests",
+    "ui-tui",
+    "website"
+  ],
+  "canonical_lf_files": [
+    "activate.ps1",
+    "evals/update_streaming/watchdog.ps1",
+    "optional-skills/software-development/ast-grep/install.ps1",
+    "optional-skills/software-development/ast-grep/tests/smoke.ps1",
+    "scripts/build-bundle.ps1",
+    "scripts/build/windows-deps.ps1",
+    "scripts/desktop-update.ps1",
+    "scripts/desktop-update/marker-claim.ps1",
+    "scripts/desktop-update/marker.ps1",
+    "scripts/desktop-update/runtime.ps1",
+    "scripts/desktop-update/update-job.ps1",
+    "scripts/desktop-update/windows.ps1",
+    "scripts/install.ps1",
+    "scripts/tests/test-install-ps1-longpath.ps1",
+    "scripts/tests/test-install-ps1-node-compatibility.ps1",
+    "scripts/tests/test-install-ps1-store-guard.ps1",
+    "scripts/tests/test-install-ps1-utf8.ps1",
+    "scripts/update-test/hermes-update-rehearsal.ps1",
+    "scripts/update-test/smoke-test.ps1",
+    "scripts/windows-build-deps.ps1",
+    "scripts/windows_e2e_harness.ps1",
+    "setup-hermes.ps1"
+  ]
+}

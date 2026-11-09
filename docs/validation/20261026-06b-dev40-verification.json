@@ -1,0 +1,25 @@
+{
+  "state": "passed",
+  "run_id": "20261026-06b-dev40-compare-fdbdc0e16f",
+  "independently_recomputed_queries": 40,
+  "candidate_pools_and_tie_order_checked": 40,
+  "all_fixed_inputs_and_sources_unchanged": true,
+  "labels_frozen_before_retrieval": true,
+  "labels_modified_after_results": false,
+  "dataset_version": "ragas-user-reviewed-dev40-v1",
+  "dataset_groups": 116,
+  "r5_improved_case_ids": [
+    "DEV-20261025-dev40-004",
+    "DEV-20261025-dev40-018",
+    "DEV-20261025-dev40-030",
+    "DEV-20261025-dev40-038"
+  ],
+  "r5_regressed_case_ids": [],
+  "candidate_incomplete_at_10_case_ids": [],
+  "report_sha256": "d2042027ed884e2a6683f73b2e9e126632d365ea0711a578ab67c9d5ba4aa8d0",
+  "private_rows_sha256": "ea155da10d5556f8085507764df2a83739ec7a7c9cd9e2aceb20252015ec5c7b",
+  "external_api_calls": 0,
+  "qa_started": false,
+  "stop_point": "independent-saved-retrieval-recalculation",
+  "user_latency_acceptance": "2026-10-26: median approximately 1.38 seconds accepted for development; original strict gates retained"
+}

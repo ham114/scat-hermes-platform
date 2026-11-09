@@ -1,0 +1,27 @@
+# Include within the intended server{} only after deployment review.
+# Build frontend first. This file does not change the running Nginx configuration.
+location /api/v1/hermes/ {
+    proxy_pass http://127.0.0.1:18080;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header Connection "";
+    proxy_set_header Last-Event-ID $http_last_event_id;
+    proxy_set_header X-Authenticated-User "";
+    proxy_buffering off;
+    proxy_cache off;
+    proxy_read_timeout 180s;
+    proxy_send_timeout 30s;
+    proxy_pass_header X-Accel-Buffering;
+}
+location /api/ {
+    proxy_pass http://127.0.0.1:18080;
+    proxy_set_header Host $host;
+    proxy_set_header X-Authenticated-User "";
+}
+location /health/ {
+    proxy_pass http://127.0.0.1:18080;
+}
+location / {
+    root /home/h3c/project/python/scat-hermes-platform/frontend/dist;
+    try_files $uri $uri/ /index.html;
+}

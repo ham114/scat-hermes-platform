@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "forced_ssh_disconnect": true,
+  "vite_pid_retained": 23372,
+  "reconnects": 2,
+  "live_api_after_reconnect": {
+    "status": "ok",
+    "profile": "scat-hermes",
+    "checks": {
+      "mongodb": true,
+      "hermes": true,
+      "configuration": true
+    }
+  },
+  "credentials_persisted": false,
+  "expires_at": 1792758703.1853528
+}

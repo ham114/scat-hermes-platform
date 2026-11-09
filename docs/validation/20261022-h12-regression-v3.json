@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "started_at": 1792658561.8910697,
+  "pytest_returncode": 0,
+  "pip_checks": {
+    "scat-agent": {
+      "returncode": 0,
+      "no_broken_requirements": true
+    },
+    "scat-hermes": {
+      "returncode": 0,
+      "no_broken_requirements": true
+    }
+  },
+  "finished_at": 1792658590.9234354
+}

@@ -1,0 +1,15 @@
+{
+  "status": "failed",
+  "pid": 3635880,
+  "python": "/home/h3c/anaconda3/envs/scat-agent/bin/python3.12",
+  "started_at": 1792740120.6402826,
+  "phases": [
+    {
+      "name": "ruff",
+      "returncode": 1,
+      "seconds": 0.11,
+      "log": "docs/validation/20261023-S5-5b5a80930a-ruff.log"
+    }
+  ],
+  "finished_at": 1792740120.7551486
+}

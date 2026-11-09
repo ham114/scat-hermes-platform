@@ -1,0 +1,7 @@
+# Model configuration reference only, not a complete restricted business profile.
+# Load DEEPSEEK_API_KEY from the service environment; never put the key in YAML.
+# Verify against the pinned Hermes version in H1 before activating this profile.
+model:
+  provider: deepseek
+  default: deepseek-flash
+  base_url: https://api.deepseek.com

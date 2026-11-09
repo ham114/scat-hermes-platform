@@ -1,0 +1,19 @@
+{
+  "status": "failed",
+  "checks": {
+    "actual_three_service_start": true,
+    "duplicate_start_refused": true,
+    "synthetic_receipt_before_restart": true,
+    "cross_thread_read_refused": true,
+    "unhealthy_is_degraded_without_restart": true,
+    "dependency_recovery_ready": true,
+    "stop_preserves_databases": true
+  },
+  "llm_calls": 0,
+  "production_gpu": false,
+  "error_type": "AssertionError",
+  "error_code": "operation_start_failed",
+  "ports_closed": true,
+  "isolated_collections_removed": true,
+  "owned_state_removed": true
+}

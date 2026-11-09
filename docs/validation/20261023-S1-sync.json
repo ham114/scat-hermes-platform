@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "verified_files_including_manifest": 46,
+  "local_remote_sha256_equal": true,
+  "manifest_sha256": "7fff54bd0c46175df0a9786999042edbaa9468aea64cea3534c6c8827eee3433",
+  "server_cleanup": "passed",
+  "local_cleanup": "passed",
+  "runtime_default_unchanged": true,
+  "resident_test_services": false,
+  "acceptance_scope": "native + real DeepSeek synthetic MCP; real data tested server-local"
+}

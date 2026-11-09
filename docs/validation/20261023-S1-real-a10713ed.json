@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "started_at": 1792689170.9832356,
+  "run_id": "run_847bc3a71fa741d4af540ca5ffb19026",
+  "terminal": "run.completed",
+  "run_status": "completed",
+  "completed_tools": [
+    "skills_list",
+    "skill_view",
+    "skill_view",
+    "mcp__scat__search_scat_flights"
+  ],
+  "elapsed_seconds": 12.95,
+  "skill_load_receipts": [
+    {
+      "skill_id": "scat-flight-query",
+      "version": "0.1.0",
+      "bundle_sha256": "1d060ba39f4f1bb0fa0a86992c153e29f501b25b8073fdca4c7996da1988e81c",
+      "file": "SKILL.md",
+      "file_sha256": "cc1f3aeb0d2ee6441e2bd77c84c89190d02f39dd2273d8278bdaad98f58fd4b0"
+    },
+    {
+      "skill_id": "scat-flight-query",
+      "version": "0.1.0",
+      "bundle_sha256": "1d060ba39f4f1bb0fa0a86992c153e29f501b25b8073fdca4c7996da1988e81c",
+      "file": "references/query-contract.md",
+      "file_sha256": "8f9c31e8cf19816304faae59d86d2484092cca1ad8c4df8bfafaefcf61bea1fe"
+    }
+  ],
+  "successful_business_receipts": 1,
+  "exact_runtime_tools": "5 readonly MCP + 5 H5 task reads/prepare + 2 skill reads",
+  "real_database_query": false,
+  "synthetic": true,
+  "real_model": true,
+  "turn_budget": 8,
+  "budget_note": "single bounded real-model run; no GPU execution",
+  "child_stopped": true,
+  "temporary_home_removed": true,
+  "log": "var/validation/hermes-s1-6ec8e656d90e.log",
+  "finished_at": 1792689196.4633052,
+  "evidence": "docs/validation/20261023-S1-real-a10713ed.json"
+}

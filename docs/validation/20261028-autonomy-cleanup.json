@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "task_temp_removed": true,
+  "test_ports_closed": {
+    "18144": true,
+    "18145": true,
+    "18146": true,
+    "18105": true,
+    "18106": true,
+    "18107": true
+  },
+  "source_files_match_host": 21,
+  "runtime_source_files_match_images": 20,
+  "project_tests_not_in_runtime_images": true,
+  "lifetime_budget_caps_retained": true,
+  "old_synthetic_workspace_preserved_pending_explicit_approval": true,
+  "runtime_profile_AGENTS_modified": false
+}

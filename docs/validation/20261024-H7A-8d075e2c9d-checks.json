@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "name": "lint",
+      "exit": 0,
+      "seconds": 0.06,
+      "log": "var/validation/20261024-H7A-8d075e2c9d-lint.log"
+    },
+    {
+      "name": "format",
+      "exit": 0,
+      "seconds": 0.06,
+      "log": "var/validation/20261024-H7A-8d075e2c9d-format.log"
+    },
+    {
+      "name": "pytest",
+      "exit": 0,
+      "seconds": 238.81,
+      "log": "var/validation/20261024-H7A-8d075e2c9d-pytest.log"
+    },
+    {
+      "name": "environment-verify",
+      "exit": 0,
+      "seconds": 0.62,
+      "log": "var/validation/20261024-H7A-8d075e2c9d-environment-verify.log"
+    },
+    {
+      "name": "app-pip-check",
+      "exit": 0,
+      "seconds": 0.57,
+      "log": "var/validation/20261024-H7A-8d075e2c9d-app-pip-check.log"
+    },
+    {
+      "name": "native-pip-check",
+      "exit": 0,
+      "seconds": 0.37,
+      "log": "var/validation/20261024-H7A-8d075e2c9d-native-pip-check.log"
+    }
+  ],
+  "frontend_modified": false,
+  "installs": 0,
+  "pytest": {
+    "tests": 1147,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "temporary_removed": true
+}

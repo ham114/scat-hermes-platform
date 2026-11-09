@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "job": "9d6e6bd650d14aa5b964852f2f7769ae",
+  "native_calls": [
+    {
+      "tool": "skill_draft",
+      "operation": "learning_read",
+      "outcome": "returned"
+    },
+    {
+      "tool": "skill_draft",
+      "operation": "catalog",
+      "outcome": "returned"
+    },
+    {
+      "tool": "skill_draft",
+      "operation": "published",
+      "outcome": "returned"
+    },
+    {
+      "tool": "skill_draft",
+      "operation": "list",
+      "outcome": "denied"
+    },
+    {
+      "tool": "skill_draft",
+      "operation": "learning_draft",
+      "outcome": "returned"
+    },
+    {
+      "tool": "skill_draft",
+      "operation": "validate",
+      "outcome": "denied"
+    },
+    {
+      "tool": "skill_draft",
+      "operation": "validate",
+      "outcome": "returned"
+    }
+  ],
+  "model_content_matches_saved_draft_sha": true,
+  "budget": {
+    "llm_attempts": 8,
+    "tool_calls": 7,
+    "reserved_units": 265953,
+    "exhausted": null
+  },
+  "secrets_or_personal_memories_exported": false,
+  "actual_unrelated_list_denied": true
+}

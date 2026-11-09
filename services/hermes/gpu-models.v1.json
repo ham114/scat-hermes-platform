@@ -1,0 +1,17 @@
+{
+  "schema_version": "production-gpu-models/v1",
+  "model_key": "scat-gbar-v23",
+  "model_version": "23",
+  "container_name": "scat-gbar-conda-production-1",
+  "image_id": "sha256:8607065d54ceeb5f8ba4be0757095b68f19cc2fbfe007bf17a1feaa487d365ea",
+  "release_id": "scat-gbar-conda:20261109-8607065d54ce",
+  "provenance": {
+    "checkpoint_sha256": "7c2f4dfc152286f11344a4c05b02d751818d296bd13517f39befaa19032fb4af",
+    "config_sha256": "5032c7156fd4fdfdb8b9a931f0cf08b3f89d0ea3b63da145e22ae62c07e9485d",
+    "source_tree_sha256": "14e42d4f28fa971f7f46bda45a6dd06a396d528ddcef59c3d36c6d9d47f1bf7d",
+    "schema_sha256": "bf136c98b36a08cb503093c93e71a48e6bf18d021ee5fff149fedb9c1afa7c60",
+    "runtime_sha256": "485de79476784d9316460135bc6e4092f2b9a1ee077926f422bb3e022ffdec66",
+    "service_version": "gbar-v23-service/0.1.0",
+    "source_uri": "project-internal://flightgpt-gbar-v23-reviewed"
+  }
+}

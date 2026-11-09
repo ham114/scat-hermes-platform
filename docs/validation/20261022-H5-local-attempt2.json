@@ -1,0 +1,17 @@
+{
+  "started_at": 1792672568.6203303,
+  "steps": [
+    {
+      "name": "python",
+      "returncode": 0,
+      "seconds": 1.78
+    },
+    {
+      "name": "frontend-check",
+      "returncode": 0,
+      "seconds": 17.36
+    }
+  ],
+  "finished_at": 1792672587.7594628,
+  "status": "passed"
+}

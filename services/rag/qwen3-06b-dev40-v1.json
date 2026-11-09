@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "scope": "user-reviewed-development-06b-not-production-admission",
+  "dataset_version": "ragas-user-reviewed-dev40-v1",
+  "claim_group_version": "ragas-user-reviewed-dev40-v1-claim-groups-v1",
+  "case_count": 40,
+  "chunk_count": 149,
+  "candidate_limit": 100,
+  "query_order": "sorted_case_id",
+  "batch_size": 4,
+  "max_input_tokens": 2048,
+  "dtype": "float16",
+  "attention": "sdpa",
+  "score_policy": "official_yes_no_probability_only_stable_ties",
+  "timing_policy": "one_shared_measured_retrieval_plus_full_rerank_per_query_40_pairs_no_http_queue",
+  "maximum_successful_comparisons": 1,
+  "max_wall_seconds": 1800,
+  "inputs": {
+    "chunks": {
+      "path": "/mnt/h3c/scat-rag/corpora/normalized/kg_20260926_research_v3/rag_chunks.v1.jsonl",
+      "sha256": "61788775e03c392b493a7835bba2e5d38d7f8721035b73ccbb1dda441eb53b86"
+    },
+    "generation": {
+      "path": "/mnt/h3c/scat-rag/corpora/normalized/kg_20260926_research_v3/rag_generation.v1.json",
+      "sha256": "0016c3e2a3da5bb80f77c7eea329aa6296d161a0ce06c63afe2f03422667092d"
+    },
+    "evaluation": {
+      "path": "/home/h3c/project/python/scat-hermes-platform/evaluations/rag_dev40_userreview_v1/evaluation.json",
+      "sha256": "7f3833c3c3610965802c9e409acfd0e3ee7e74e9441a0330eac0a0db674ef185"
+    },
+    "claim_groups": {
+      "path": "/home/h3c/project/python/scat-hermes-platform/evaluations/rag_dev40_userreview_v1/claim_groups.json",
+      "sha256": "9670fbea05e13476be51189b3bfb5a1c16b675ec02ff047dd69d30dc21653695"
+    },
+    "embedding_cache": {
+      "path": "/home/h3c/project/python/agent-service-toolkit-main/var/rag-baseline/research-v3-base-bge-m3.npy",
+      "sha256": "897848e305f24984b5255cd1ca8a73715f7232366bd5ef29b28849df5d1ca9c3"
+    },
+    "embedding_cache_metadata": {
+      "path": "/home/h3c/project/python/agent-service-toolkit-main/var/rag-baseline/research-v3-base-bge-m3.npy.json",
+      "sha256": "902580463b8110d577c1e95cbfb1902b85b82f20b74c219d1dccbd066503d0b3"
+    },
+    "reviewed_source": {
+      "path": "/home/h3c/project/python/ragas-evaluation/reports/batch-20261025-dev40/user-review-20261026/candidates.jsonl",
+      "sha256": "f24561457bd8876d0e8e65a0adb6962306fd048bad5ae8d4df3461bf0be4add9"
+    },
+    "label_rules": {
+      "path": "/home/h3c/project/python/scat-hermes-platform/services/rag/reviewed-dev40-label-rules-v1.json",
+      "sha256": "3fef59e67ee7feeb17f20735f58f6db218d59a31e616a5ab97816766f5c21d78"
+    },
+    "label_audit": {
+      "path": "/home/h3c/project/python/scat-hermes-platform/evaluations/rag_dev40_userreview_v1/label-audit.json",
+      "sha256": "e7d0bdc913978d0c7766d8a09feac48b845a33c34655024adfd3f90a29ae4416"
+    }
+  },
+  "retriever_sources": {
+    "src/rag_retrieval/runtime.py": "ecd409bd148e6d048edfb12ae096dfa73349b0bb4ff1befcb1a3d8d953859b71",
+    "src/rag_retrieval/baseline.py": "3196124afd7c04b518da75564af71a7727880e8d3e92ce363b7f5e68dbfdf4c4",
+    "src/rag_retrieval/enhancements.py": "10000e6777d748211ed6b475116ac81f662894d1265fa9a338019bca8f292ed5",
+    "src/rag_retrieval/claim_groups.py": "140903335786b72d41e65978c0ce38f1afa22b874865067e8819bd4e739f891a",
+    "src/rag_retrieval/rerank_comparison.py": "6632fba2c19243003d882386e9a6a662edf02db2fb442465e44bdfce06c3ca76",
+    "scripts/prepare_reviewed_rag_dataset.py": "27d9a04bf1ebf5315372790aadb4fb121a379e49f4c5ddc38e5225960dbd770a",
+    "src/rag_retrieval/reviewed_dataset.py": "08c56bc00277d5e7531c346024447245f03c0541506a0df6acfc1f3a82a6ebbb"
+  },
+  "gate_reference_only": {
+    "group_recall_at_5": 0.9,
+    "group_recall_at_10": 0.95,
+    "candidate_group_recall_at_100": 0.98,
+    "minimum_r5_gain": 0.03,
+    "maximum_r5_regressions": 2,
+    "minimum_category_r5": 0.8,
+    "p50_ms": 75,
+    "p95_ms": 200,
+    "maximum_p50_increase_ms": 20
+  },
+  "restrictions": [
+    "No consumed validation, test or holdout cases",
+    "No label edits or model tuning after results",
+    "No external LLM calls or corpus uploads",
+    "No new index or Embedding model",
+    "No production service switch",
+    "No production admission claim",
+    "Preserve user-approved question and answer text; no post-result label edits"
+  ]
+}

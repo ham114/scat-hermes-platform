@@ -1,0 +1,8 @@
+{
+  "source_candidates_sha256": "9f78f8d7bbec08bbe1db7afb4f86d7390352fc1eac90e1f62164c087e2ff3239",
+  "evaluation_sha256": "80a1355ab0e087d072192ef51cbe32d0900b8e64398c54b5fa5271eff5e62922",
+  "cases": 40,
+  "human_approved": 0,
+  "generator": "native-Ragas-0.4.3",
+  "generation_requests": 597
+}

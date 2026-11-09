@@ -1,0 +1,208 @@
+{
+  "review_date": "2026-10-26",
+  "origin": "explicit-user-message",
+  "original_candidates_sha256": "7fbe96cfcfdbe3406b7338e724c404552bdd14c4e6c1987969589ef394671561",
+  "user_message": "审核完毕，只有一项需要修改。DEV-20261025-dev40-005最好还应当找出flight level的定义。",
+  "items": [
+    {
+      "qid": "DEV-20261025-dev40-001",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-002",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-003",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-004",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-005",
+      "decision": "revise",
+      "notes": "补充flight level定义"
+    },
+    {
+      "qid": "DEV-20261025-dev40-006",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-007",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-008",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-009",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-010",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-011",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-012",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-013",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-014",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-015",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-016",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-017",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-018",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-019",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-020",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-021",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-022",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-023",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-024",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-025",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-026",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-027",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-028",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-029",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-030",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-031",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-032",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-033",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-034",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-035",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-036",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-037",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-038",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-039",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    },
+    {
+      "qid": "DEV-20261025-dev40-040",
+      "decision": "approve",
+      "notes": "用户明确表示只有005需修改"
+    }
+  ]
+}

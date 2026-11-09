@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "native_profiles": 3,
+  "native_state_schema": true,
+  "credential_isolation": true,
+  "standard_layout": true,
+  "duplicate_runtime_rejected": true,
+  "configuration_update": true,
+  "model_calls": 0,
+  "temporary_removed": true
+}

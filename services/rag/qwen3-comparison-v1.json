@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "scope": "development-diagnostic-not-independent-admission",
+  "dataset_version": "research-v3-diagnostic-v1",
+  "claim_group_version": "research-v3-diagnostic-v1.1-claim-groups",
+  "case_count": 40,
+  "chunk_count": 149,
+  "candidate_limit": 100,
+  "query_order": "sorted_case_id",
+  "batch_size": 4,
+  "max_input_tokens": 2048,
+  "dtype": "float16",
+  "attention": "sdpa",
+  "score_policy": "official_yes_no_probability_only_stable_ties",
+  "timing_policy": "one_shared_measured_retrieval_plus_full_rerank_per_query_40_pairs_no_http_queue",
+  "maximum_successful_comparisons": 1,
+  "max_wall_seconds": 1800,
+  "inputs": {
+    "chunks": {"path": "/mnt/h3c/scat-rag/corpora/normalized/kg_20260926_research_v3/rag_chunks.v1.jsonl", "sha256": "61788775e03c392b493a7835bba2e5d38d7f8721035b73ccbb1dda441eb53b86"},
+    "generation": {"path": "/mnt/h3c/scat-rag/corpora/normalized/kg_20260926_research_v3/rag_generation.v1.json", "sha256": "0016c3e2a3da5bb80f77c7eea329aa6296d161a0ce06c63afe2f03422667092d"},
+    "evaluation": {"path": "/home/h3c/project/python/agent-service-toolkit-main/knowledge_base/eval/research_v3_diagnostic_v1/evaluation.json", "sha256": "4f7c3eef41644812aaedab6ecdd4ce3685db6314d2a3620c114a32a762c2c172"},
+    "claim_groups": {"path": "/home/h3c/project/python/agent-service-toolkit-main/knowledge_base/eval/research_v3_diagnostic_v1/claim_groups.json", "sha256": "4778cd226fa85d0d688a2740cbde7bd7000ac46fd4488edcc7a29c5fea1efec7"},
+    "embedding_cache": {"path": "/home/h3c/project/python/agent-service-toolkit-main/var/rag-baseline/research-v3-base-bge-m3.npy", "sha256": "897848e305f24984b5255cd1ca8a73715f7232366bd5ef29b28849df5d1ca9c3"},
+    "embedding_cache_metadata": {"path": "/home/h3c/project/python/agent-service-toolkit-main/var/rag-baseline/research-v3-base-bge-m3.npy.json", "sha256": "902580463b8110d577c1e95cbfb1902b85b82f20b74c219d1dccbd066503d0b3"}
+  },
+  "retriever_sources": {
+    "src/rag_retrieval/runtime.py": "ecd409bd148e6d048edfb12ae096dfa73349b0bb4ff1befcb1a3d8d953859b71",
+    "src/rag_retrieval/baseline.py": "3196124afd7c04b518da75564af71a7727880e8d3e92ce363b7f5e68dbfdf4c4",
+    "src/rag_retrieval/enhancements.py": "10000e6777d748211ed6b475116ac81f662894d1265fa9a338019bca8f292ed5",
+    "src/rag_retrieval/claim_groups.py": "140903335786b72d41e65978c0ce38f1afa22b874865067e8819bd4e739f891a"
+  },
+  "gate_reference_only": {"group_recall_at_5": 0.90, "group_recall_at_10": 0.95, "candidate_group_recall_at_100": 0.98, "minimum_r5_gain": 0.03, "maximum_r5_regressions": 2, "minimum_category_r5": 0.80, "p50_ms": 75, "p95_ms": 200, "maximum_p50_increase_ms": 20},
+  "restrictions": ["No consumed validation, test or holdout cases", "No label edits or model tuning after results", "No external LLM calls or corpus uploads", "No new index or Embedding model", "No production service switch", "No production admission claim"]
+}

@@ -1,0 +1,7 @@
+{
+  "external_real_business_probe": "not executed; automatic approval rejected due to missing explicit authorization for internal flight data sent to DeepSeek",
+  "safe_alternative": "real DeepSeek with synthetic MCP only; real Mongo/MCP checked on-server without LLM",
+  "dependencies_installed": false,
+  "network": "two bounded authorized-main-address timeouts; recovered on retry",
+  "real_model_report": "20261023-S1-real-a10713ed.json"
+}

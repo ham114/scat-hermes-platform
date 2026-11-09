@@ -1,0 +1,121 @@
+{
+  "status": "passed",
+  "started_at": 1792699075.0698097,
+  "skill_operation_receipts": [
+    [
+      "mcp__scat__search_scat_flights",
+      "scat-flight-query",
+      "0.2.0",
+      "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+      "returned",
+      "431f7562add4c2e9948d4437a2ad0931e85190d844f24b42269dfc0912e16334",
+      "c340a3d7211976cfab93eaa07f1f93bc0842126dc74af878496e463c7dbfcaf0",
+      2
+    ],
+    [
+      "mcp__scat__inspect_scat_collection_data_quality",
+      "scat-data-quality",
+      "0.2.0",
+      "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+      "returned",
+      "86f349f51203b0b5b252ff6a74f5f1063a51e9c4f9aa8ccc9cc1866472ea6183",
+      "b596c210dbeee64dee555947bd81e8ca9a61cdafd029a746a535198f7ff5a950",
+      4
+    ],
+    [
+      "mcp__scat__search_scat_knowledge",
+      "aviation-knowledge",
+      "0.2.0",
+      "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+      "returned",
+      "e2f0697db2178a21d749d8df3503cbae87ba6360b7ae9bc9d031a102713711c9",
+      "a27685ff3cceb375bb9878dabf43576b5e0264fed0c64221fdf0b93d186e9200",
+      6
+    ],
+    [
+      "mcp__scat__get_scat_track_points",
+      "scat-trajectory-analysis",
+      "0.2.0",
+      "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+      "returned",
+      "0f45cea626aeaaafbbe33a3df15a79eaeb76811223d6b735583566b48e9279e1",
+      "2e8d3ce41b1d67103de226f7508e151ab35532b0164c16bf3573577c8c6507ae",
+      5
+    ]
+  ],
+  "matching_load_operation_links": 4,
+  "run_id": "run_b6970ff8f8a347fb8a9221a47e6ebe33",
+  "terminal": "run.completed",
+  "run_status": "completed",
+  "completed_tools": [
+    "skills_list",
+    "skill_view",
+    "skill_view",
+    "skill_view",
+    "skill_view",
+    "skill_view",
+    "skill_view",
+    "mcp__scat__search_scat_flights",
+    "mcp__scat__inspect_scat_collection_data_quality",
+    "mcp__scat__search_scat_knowledge",
+    "mcp__scat__get_scat_track_points"
+  ],
+  "elapsed_seconds": 18.07,
+  "skill_load_receipts": [
+    {
+      "skill_id": "scat-investigation",
+      "version": "0.2.0",
+      "bundle_sha256": "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+      "file": "SKILL.md",
+      "file_sha256": "1e86e6e232824702d9861e29d2f0e2bc02564ed08e028308a37f632acd798122"
+    },
+    {
+      "skill_id": "scat-flight-query",
+      "version": "0.2.0",
+      "bundle_sha256": "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+      "file": "SKILL.md",
+      "file_sha256": "f771a94edd3085d3c8ed2d0bad9a63f8d75ce95ada485e0797899940980ab15c"
+    },
+    {
+      "skill_id": "scat-flight-query",
+      "version": "0.2.0",
+      "bundle_sha256": "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+      "file": "references/query-contract.md",
+      "file_sha256": "8f9c31e8cf19816304faae59d86d2484092cca1ad8c4df8bfafaefcf61bea1fe"
+    },
+    {
+      "skill_id": "scat-data-quality",
+      "version": "0.2.0",
+      "bundle_sha256": "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+      "file": "SKILL.md",
+      "file_sha256": "9e29536b8475d31e7ba998cc939ff2b9812c67036f144ca53960c0436f870933"
+    },
+    {
+      "skill_id": "scat-trajectory-analysis",
+      "version": "0.2.0",
+      "bundle_sha256": "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+      "file": "SKILL.md",
+      "file_sha256": "87b739a4f984048d18aa8aa0a985473dffb64545b17ac599c3aa117e1489a561"
+    },
+    {
+      "skill_id": "aviation-knowledge",
+      "version": "0.2.0",
+      "bundle_sha256": "0ee2974434eb455bc876fc03e753149901593cab9fb538664b4e19dab960efec",
+      "file": "SKILL.md",
+      "file_sha256": "3d5baac0b8673f00858eecccf94b35483dd792209751e5b61684260510f8f082"
+    }
+  ],
+  "successful_business_receipts": 4,
+  "exact_runtime_tools": "26 readonly MCP + 5 H5 task reads/prepare + 2 skill reads",
+  "synthetic_scope_and_evidence_checks": "passed",
+  "real_database_query": false,
+  "synthetic": true,
+  "real_model": true,
+  "turn_budget": 16,
+  "budget_note": "single bounded real-model run; no GPU execution",
+  "child_stopped": true,
+  "temporary_home_removed": true,
+  "log": "var/validation/hermes-s2b-088be8d8cfae.log",
+  "finished_at": 1792699105.7624056,
+  "evidence": "docs/validation/20261023-S2B-real-87551c70.json"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "783ea9477d11d5876be2326292fc5aaf51543020c4164cfb069bd503237a43dd",
+  "state": "succeeded",
+  "started": 1792720272.5592957,
+  "finished": 1792720272.5610464,
+  "calls": 1,
+  "cold_start_seconds": 6.179446220397949,
+  "status": "diagnostic",
+  "finding": "S3 five-second in-process timeout excludes neither Conda child cold start nor backend process admission; S4 needs a separately frozen durable backend timeout"
+}

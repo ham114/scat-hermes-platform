@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "source_files": 35,
+  "build_files_verified": 415,
+  "dependency_hashes_unchanged": true,
+  "backend_release_unchanged": "20261028-s7b-a8fc62d5d0d1",
+  "production_gateway_changed": false,
+  "source_sha256": "52b602b26a210ab0ecd6e9671941d364f962fc461242ede0338ab740c0d19bc5"
+}

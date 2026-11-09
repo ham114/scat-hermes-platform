@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "release": "20261108-gbar-production-31196184dfd4",
+  "thread_id": "871d7df4-9e1e-4d93-abc5-807089943808",
+  "task_id": "fde01f0767bc4fd38932a7b688c958f9",
+  "natural_requests": 1,
+  "natural_request_status": "failed_validation_before_fix",
+  "direct_browser_submissions": 1,
+  "page_confirmations": 1,
+  "queue_confirmed": true,
+  "actual_gpu_posts": 1,
+  "gpu_calls": 1,
+  "native_worker_sessions": 1,
+  "maintenance_recovery_used": false,
+  "approved_raw_points": 200,
+  "model_input_steps": 36,
+  "future_predictions": 3,
+  "error_samples_without_truth": 0,
+  "verified_step_artifacts": 5,
+  "actual_phases_returned": [
+    "scat_evaluation_diagnose",
+    "scat_evaluation_summarize",
+    "scat_report_build",
+    "scat_report_read",
+    "scat_sample_prepare",
+    "scat_trial_run"
+  ],
+  "server_not_rebooted": true,
+  "gpu_and_author_containers_unchanged": true,
+  "implementation_fingerprints": {
+    "platform": 81,
+    "hermes-main": 81
+  },
+  "total_budget_including_failed_planning": {
+    "llm_calls": 26,
+    "tool_calls": 27,
+    "charged_tokens": 1921671,
+    "provider_input_tokens": 507114,
+    "provider_output_tokens": 4325
+  },
+  "failed_planning_usage_separate_from_direct_task": {
+    "llm_calls": 17,
+    "tool_calls": 17,
+    "charged_tokens": 1569959
+  },
+  "artifacts": 2,
+  "browser_graph_points": 40,
+  "browser_auth_headers": 0,
+  "browser_refresh_without_resubmit": true,
+  "tests": {
+    "backend_passed": 1495,
+    "backend_skipped": 2,
+    "frontend_passed": 162,
+    "ordinary_browser_passed": 36,
+    "old_get_only_passed": 4,
+    "direct_gpu_browser_passed": 1,
+    "new_get_only_passed": 2
+  },
+  "natural_language_fix_validation": {
+    "original_proposals": 14,
+    "all_validate": true,
+    "new_llm_calls": 0,
+    "full_natural_language_case_rerun": false
+  }
+}

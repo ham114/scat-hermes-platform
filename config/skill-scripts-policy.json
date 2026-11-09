@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "enabled": true,
+  "max_runs_per_run": 4,
+  "max_steps": 2000,
+  "max_iterations": 64,
+  "max_tool_calls": 12,
+  "wall_seconds": 120,
+  "cpu_seconds": 2,
+  "memory_mb": 256,
+  "max_input_bytes": 32768,
+  "max_output_bytes": 65536,
+  "max_frame_bytes": 262144,
+  "max_records": 10000
+}

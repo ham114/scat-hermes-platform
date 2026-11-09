@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "synthetic_business": true,
+  "prediction_calls": 0,
+  "global_budget_proxy": "existing_trial_role",
+  "attempts": [
+    {
+      "index": 1,
+      "prompt": "你目前支持哪些预测模型？",
+      "status": "completed",
+      "run_id": "run_728f43707f6645dcaa8ee77f1dfeb3ea",
+      "completed_tools": [
+        "skills_list",
+        "scat_workflow_catalog"
+      ],
+      "output": "目前 workflow 目录中实际登记的预测模型只有两个，并且都运行在 CPU 上：\n\n1. constant-velocity-heading，版本 1。参数只有一个：window_s，单位为秒，取值范围 10 到 1800。\n2. kalman-cv，版本 1。参数有两个：process_noise_mps2，默认 0.5，范围大于 0、小于等于 20；measurement_noise_m，默认 30，范围大于 0、小于等于 1000。\n\n另外两点需要说明：在准备方案的结构里，模型字段还列有 scat-gbar-v23，但它没有登记在本次目录的 models/model_ids 中，因此不能当作可用模型使用；那个联合枚举只表示语法上允许，不表示该模型已可用。每个模型的参数也只能按目录中它们各自对应的定义填写，不能把其中一个模型的参数套用到另一个模型上。GPU 侧没有登记的生产配置。\n\n如果你需要做单模型预测或模型比较，我可以先进行准备，在向你展示冻结的方案参数和版本之后，需要你在页面上点击确认才会执行。",
+      "successful_receipt_operations": [],
+      "skill_loads": [],
+      "operations": [],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "conservative_units": 135528,
+        "exhausted": null,
+        "provider_input_tokens": 36512,
+        "provider_output_tokens": 271
+      },
+      "trajectory_display": false
+    }
+  ],
+  "max_runs": 1,
+  "catalog_only": true,
+  "temporary_home": ".tmp/s7a/query-display-432d79f33d46",
+  "limits_per_run": {
+    "max_turns": 8,
+    "max_llm_tokens": 500000,
+    "max_tool_calls": 24,
+    "wall_seconds": 240
+  },
+  "log": "var/validation/20261107-query-display-repair/natural-432d79f33d46.log",
+  "child_stopped": true,
+  "server_private_traces": "var/validation/20261107-query-display-repair/natural-432d79f33d46-traces.sqlite",
+  "temporary_home_removed": true
+}

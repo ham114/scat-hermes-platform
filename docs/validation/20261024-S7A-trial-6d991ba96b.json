@@ -1,0 +1,418 @@
+{
+  "status": "passed",
+  "identity": "6d991ba96b",
+  "suite": "s6-holdout-v1",
+  "suite_sha256": "87d394e30e1c257eb8c72add4009c49dc2a307fec673e4b646919216116254e6",
+  "bundle_sha256": "7af41e5e9a1ddd2b60c30e81ab9eef3fd8c9bdd14dadccea18411ad5ead07a06",
+  "bundle_version": "author-a356cc007a3ff9955752a39d",
+  "model": "deepseek-flash",
+  "hermes_commit": "5b147ab036d6d19131bff8d20701b5001eab844a",
+  "synthetic_only": true,
+  "production_gpu": false,
+  "default_profile_exercised": true,
+  "limits": {
+    "llm_calls": 400,
+    "conservative_tokens": 25000000,
+    "wall_seconds": 10800
+  },
+  "required_domains": [
+    "quality",
+    "query",
+    "trajectory"
+  ],
+  "trial_id": "f122e0ac57134551918f9580f919c6ad",
+  "profile_acceptance": false,
+  "required_repetitions": 3,
+  "accounting": "Composite cases contribute to each listed domain; domain denominators are shown separately, never summed as independent runs.",
+  "attempts": [
+    {
+      "case": "investigation-holdout",
+      "repetition": 1,
+      "domains": [
+        "query",
+        "trajectory",
+        "quality"
+      ],
+      "passed": true,
+      "selection_parameters_passed": true,
+      "stage": "verified",
+      "parent_run_id": "run_329709a219e24b2d8a70cc04aad6b2a5",
+      "output": "脚本已实际执行（execution_id 55d154758d544a5bac614f8412911f5c，replayed=false，status=ok）。\n\n结果（合成数据 SYNTH-S6-HOLDOUT，呼号 QA601，范围：search_limit=1、track_limit=2）：\n- 航班数：1，真实标识 SYNTH-S6-HOLDOUT-001\n- 轨迹点数：2（按该标识读取，最多 2 点）\n- 米制高度：1000 m（取首个返回点的 position.altitude_m）\n- 质量缺失点数：0（同批次 inspect_scat_collection_data_quality）\n\n回执出处：三次工具回执 result_id 分别为 a8507c9948b449cd9f0e6c623265806f（search_scat_flights）、f03f8f2eceef4dd6993669b13c67fd86（批次质量）、e355c22e14254ac9b56c45121f62a397（轨迹点）。\n\n需说明：以上均为合成留出测试数据，不是真实 SCAT 业务批次；只做了查询、批次质量、有界轨迹这三项只读操作，未执行预测、写入或其他分析。",
+      "actual_result_references": [
+        {
+          "result_id": "a8507c9948b449cd9f0e6c623265806f",
+          "operation": "search_scat_flights",
+          "payload_sha256": "9e0a1838f8b59ed90be02a83e3071db06f9c774b5647e9f0f72cef4513008b84",
+          "created_at": 1793139014.5545113,
+          "expires_at": 1793225414.5545113,
+          "kind": "readonly_tool_result"
+        },
+        {
+          "result_id": "f03f8f2eceef4dd6993669b13c67fd86",
+          "operation": "inspect_scat_collection_data_quality",
+          "payload_sha256": "00b1c8249fb3c5f598c0b29f59f9bb58aa6dfa6bb96a22e1e9bcf5f13459f9fe",
+          "created_at": 1793139014.584772,
+          "expires_at": 1793225414.584772,
+          "kind": "readonly_tool_result"
+        },
+        {
+          "result_id": "e355c22e14254ac9b56c45121f62a397",
+          "operation": "get_scat_track_points",
+          "payload_sha256": "a9fe8e353c73585843660e9b0281f0d24677fa62e1098733d2c96f09414d5cd6",
+          "created_at": 1793139014.6144638,
+          "expires_at": 1793225414.6144638,
+          "kind": "readonly_tool_result"
+        }
+      ],
+      "loads": [
+        {
+          "skill_id": "s7b-flight-investigation",
+          "file_path": "SKILL.md"
+        },
+        {
+          "skill_id": "s7b-flight-investigation",
+          "file_path": "scripts/investigate.json"
+        },
+        {
+          "skill_id": "scat-flight-query",
+          "file_path": "SKILL.md"
+        },
+        {
+          "skill_id": "scat-data-quality",
+          "file_path": "SKILL.md"
+        },
+        {
+          "skill_id": "scat-trajectory-analysis",
+          "file_path": "SKILL.md"
+        }
+      ],
+      "operations": [
+        {
+          "operation": "mcp__scat__search_scat_flights",
+          "skill_id": "scat-flight-query",
+          "outcome": "returned",
+          "arguments_sha256": "5f44728cbbae1020b4bbd756e8827e17a9defdfd7a2ea8d1c138e55c9a59b41f",
+          "result_sha256": "9b2c4c1f600d6d6d831a1e8c1edb5d9f3b9d0939b88e833b0c5c1e7531d0cced",
+          "load_id": 3
+        },
+        {
+          "operation": "mcp__scat__inspect_scat_collection_data_quality",
+          "skill_id": "scat-data-quality",
+          "outcome": "returned",
+          "arguments_sha256": "1f360ebcadcd5d61863831a278c74dbdbddda0e20945f80bf56aae3a0b692e1d",
+          "result_sha256": "e8f5c51e4604576121d5a65489ba097650c604d0b013a4541773188a39e280fe",
+          "load_id": 4
+        },
+        {
+          "operation": "mcp__scat__get_scat_track_points",
+          "skill_id": "scat-trajectory-analysis",
+          "outcome": "returned",
+          "arguments_sha256": "9080834b583712b78424477e4c60d3f37e630f913e1c5d259327ea5697c3f644",
+          "result_sha256": "fe456b28420cf9945690cb24b59ca924a0467efcd9fdcfe30748b644549fba4e",
+          "load_id": 5
+        }
+      ],
+      "scripts_executed": [
+        "s7b-flight-investigation/scripts/investigate.py"
+      ],
+      "usage": {
+        "scope": "scat:2694075c596296e965ab571c4555b719f9c30de4bba1ae38cf35cabb6d60f5a2",
+        "run_id": "run_329709a219e24b2d8a70cc04aad6b2a5",
+        "started_at": 1793139007.689674,
+        "policy_sha256": "539915fea79c7c2e4cfd655e9afc0627ba4a01cf3a79fb67da33a9cac011a3d0",
+        "limits_json": "{\"max_turns\": 16, \"max_llm_tokens\": 1000000, \"max_tool_calls\": 32, \"wall_seconds\": 240, \"max_cost\": null, \"currency\": \"CNY\"}",
+        "llm_calls": 4,
+        "tool_calls": 9,
+        "charged_tokens": 279688,
+        "provider_input_tokens": 75276,
+        "provider_output_tokens": 640,
+        "provider_cached_tokens": 56320,
+        "exhausted": null,
+        "finished_at": 1793139016.6740005
+      },
+      "elapsed_seconds": 16.34
+    },
+    {
+      "case": "investigation-holdout",
+      "repetition": 2,
+      "domains": [
+        "query",
+        "trajectory",
+        "quality"
+      ],
+      "passed": true,
+      "selection_parameters_passed": true,
+      "stage": "verified",
+      "parent_run_id": "run_3b49195623d647c6b6082759589a4b1e",
+      "output": "脚本已实际执行，状态为 ok，并返回三条只读回执。\n\n结果（合成测试数据，批次 SYNTH-S6-HOLDOUT，呼号 QA601）：\n- 返回轨迹点数：2（track_limit=2，属于分页读取，不代表该航班的全部轨迹）\n- 米制高度：1000 m（第一个返回点的 position.altitude_m）\n- 质量缺失点数：0（同批次 inspect_scat_collection_data_quality 的缺失点计数）\n- 匹配航班数：1，真实 external_id：SYNTH-S6-HOLDOUT-001（用于轨迹读取的标识即来自查询返回）\n\n范围为只读三项目标：查询最多 1 个航班、检查同批次质量、读取最多 2 个轨迹点。合成标志为 true，说明这是合成数据，不代表真实业务结论。\n\n执行证据：skill=s7b-flight-investigation，script=scripts/investigate.py，request_id 7c3f2a14-8b5e-4d61-9a0c-2e5d84f1b937（未重放），execution_id 5aa9ea0d6ed04eabac0f7042f3c00c0a，tool_calls=3。三条 business_result_references：search_scat_flights a0ea944215574d4daae9647765096aa8、inspect_scat_collection_data_quality 8081500834764d1db3e42ab98daf331b、get_scat_track_points 813737478d674a01b5b4adc22d9755fe。\n\n未执行任何预测、写入或额外目标；空值和错误分支均未触发。",
+      "actual_result_references": [
+        {
+          "result_id": "a0ea944215574d4daae9647765096aa8",
+          "operation": "search_scat_flights",
+          "payload_sha256": "9e0a1838f8b59ed90be02a83e3071db06f9c774b5647e9f0f72cef4513008b84",
+          "created_at": 1793139021.3377728,
+          "expires_at": 1793225421.3377728,
+          "kind": "readonly_tool_result"
+        },
+        {
+          "result_id": "8081500834764d1db3e42ab98daf331b",
+          "operation": "inspect_scat_collection_data_quality",
+          "payload_sha256": "00b1c8249fb3c5f598c0b29f59f9bb58aa6dfa6bb96a22e1e9bcf5f13459f9fe",
+          "created_at": 1793139021.3676193,
+          "expires_at": 1793225421.3676193,
+          "kind": "readonly_tool_result"
+        },
+        {
+          "result_id": "813737478d674a01b5b4adc22d9755fe",
+          "operation": "get_scat_track_points",
+          "payload_sha256": "a9fe8e353c73585843660e9b0281f0d24677fa62e1098733d2c96f09414d5cd6",
+          "created_at": 1793139021.3970554,
+          "expires_at": 1793225421.3970554,
+          "kind": "readonly_tool_result"
+        }
+      ],
+      "loads": [
+        {
+          "skill_id": "s7b-flight-investigation",
+          "file_path": "SKILL.md"
+        },
+        {
+          "skill_id": "s7b-flight-investigation",
+          "file_path": "scripts/investigate.json"
+        },
+        {
+          "skill_id": "scat-data-quality",
+          "file_path": "SKILL.md"
+        },
+        {
+          "skill_id": "scat-flight-query",
+          "file_path": "SKILL.md"
+        },
+        {
+          "skill_id": "scat-trajectory-analysis",
+          "file_path": "SKILL.md"
+        }
+      ],
+      "operations": [
+        {
+          "operation": "mcp__scat__search_scat_flights",
+          "skill_id": "scat-flight-query",
+          "outcome": "returned",
+          "arguments_sha256": "5f44728cbbae1020b4bbd756e8827e17a9defdfd7a2ea8d1c138e55c9a59b41f",
+          "result_sha256": "9b2c4c1f600d6d6d831a1e8c1edb5d9f3b9d0939b88e833b0c5c1e7531d0cced",
+          "load_id": 9
+        },
+        {
+          "operation": "mcp__scat__inspect_scat_collection_data_quality",
+          "skill_id": "scat-data-quality",
+          "outcome": "returned",
+          "arguments_sha256": "1f360ebcadcd5d61863831a278c74dbdbddda0e20945f80bf56aae3a0b692e1d",
+          "result_sha256": "e8f5c51e4604576121d5a65489ba097650c604d0b013a4541773188a39e280fe",
+          "load_id": 8
+        },
+        {
+          "operation": "mcp__scat__get_scat_track_points",
+          "skill_id": "scat-trajectory-analysis",
+          "outcome": "returned",
+          "arguments_sha256": "9080834b583712b78424477e4c60d3f37e630f913e1c5d259327ea5697c3f644",
+          "result_sha256": "fe456b28420cf9945690cb24b59ca924a0467efcd9fdcfe30748b644549fba4e",
+          "load_id": 10
+        }
+      ],
+      "scripts_executed": [
+        "s7b-flight-investigation/scripts/investigate.py"
+      ],
+      "usage": {
+        "scope": "scat:f793168b71e2eedada41055119f941504fbda8af9645bc2d9bcbd213d67beab4",
+        "run_id": "run_3b49195623d647c6b6082759589a4b1e",
+        "started_at": 1793139016.8103044,
+        "policy_sha256": "539915fea79c7c2e4cfd655e9afc0627ba4a01cf3a79fb67da33a9cac011a3d0",
+        "limits_json": "{\"max_turns\": 16, \"max_llm_tokens\": 1000000, \"max_tool_calls\": 32, \"wall_seconds\": 240, \"max_cost\": null, \"currency\": \"CNY\"}",
+        "llm_calls": 5,
+        "tool_calls": 9,
+        "charged_tokens": 349972,
+        "provider_input_tokens": 94096,
+        "provider_output_tokens": 783,
+        "provider_cached_tokens": 89344,
+        "exhausted": null,
+        "finished_at": 1793139024.2851083
+      },
+      "elapsed_seconds": 7.61
+    },
+    {
+      "case": "investigation-holdout",
+      "repetition": 3,
+      "domains": [
+        "query",
+        "trajectory",
+        "quality"
+      ],
+      "passed": true,
+      "selection_parameters_passed": true,
+      "stage": "verified",
+      "parent_run_id": "run_10ac48fc408d4795b6366f69d22faf32",
+      "output": "脚本已实际执行（execution_id d750212502c34a5a831832ec4675b00f，非重放），状态为 ok。\n\n合成测试结果（批次 SYNTH-S6-HOLDOUT，呼号 QA601）：\n\n- 航班数：1，真实标识 SYNTH-S6-HOLDOUT-001\n- 返回点数：2（track_limit=2，已受限）\n- 米制高度：1000 m（首个轨迹点位置高度）\n- 质量缺失点数：0（同批次 inspect_scat_collection_data_quality）\n\n范围和限制：只查询了 1 个航班；只读取了前 2 个轨迹点，不能代表整条航迹；质量缺失点为批次级统计，不针对该航班单独检查；数据为合成测试数据（synthetic=true）。\n\n共运行 3 次只读工具调用，并都有可回查引用：search_scat_flights 5d388f97bb8946329d382f8954aac73b、inspect_scat_collection_data_quality 24d666b9ca3948008ecc0094fb0ead8e、get_scat_track_points 0c13b65df2ab4000bfafe504707173f7。\n\n本次执行仅涉及这三个只读目标，未执行任何模型推理或写入。",
+      "actual_result_references": [
+        {
+          "result_id": "5d388f97bb8946329d382f8954aac73b",
+          "operation": "search_scat_flights",
+          "payload_sha256": "9e0a1838f8b59ed90be02a83e3071db06f9c774b5647e9f0f72cef4513008b84",
+          "created_at": 1793139031.2508981,
+          "expires_at": 1793225431.2508981,
+          "kind": "readonly_tool_result"
+        },
+        {
+          "result_id": "24d666b9ca3948008ecc0094fb0ead8e",
+          "operation": "inspect_scat_collection_data_quality",
+          "payload_sha256": "00b1c8249fb3c5f598c0b29f59f9bb58aa6dfa6bb96a22e1e9bcf5f13459f9fe",
+          "created_at": 1793139031.2810118,
+          "expires_at": 1793225431.2810118,
+          "kind": "readonly_tool_result"
+        },
+        {
+          "result_id": "0c13b65df2ab4000bfafe504707173f7",
+          "operation": "get_scat_track_points",
+          "payload_sha256": "a9fe8e353c73585843660e9b0281f0d24677fa62e1098733d2c96f09414d5cd6",
+          "created_at": 1793139031.3109531,
+          "expires_at": 1793225431.3109531,
+          "kind": "readonly_tool_result"
+        }
+      ],
+      "loads": [
+        {
+          "skill_id": "s7b-flight-investigation",
+          "file_path": "SKILL.md"
+        },
+        {
+          "skill_id": "s7b-flight-investigation",
+          "file_path": "scripts/investigate.json"
+        },
+        {
+          "skill_id": "scat-flight-query",
+          "file_path": "SKILL.md"
+        },
+        {
+          "skill_id": "scat-data-quality",
+          "file_path": "SKILL.md"
+        },
+        {
+          "skill_id": "scat-trajectory-analysis",
+          "file_path": "SKILL.md"
+        }
+      ],
+      "operations": [
+        {
+          "operation": "mcp__scat__search_scat_flights",
+          "skill_id": "scat-flight-query",
+          "outcome": "returned",
+          "arguments_sha256": "5f44728cbbae1020b4bbd756e8827e17a9defdfd7a2ea8d1c138e55c9a59b41f",
+          "result_sha256": "9b2c4c1f600d6d6d831a1e8c1edb5d9f3b9d0939b88e833b0c5c1e7531d0cced",
+          "load_id": 13
+        },
+        {
+          "operation": "mcp__scat__inspect_scat_collection_data_quality",
+          "skill_id": "scat-data-quality",
+          "outcome": "returned",
+          "arguments_sha256": "1f360ebcadcd5d61863831a278c74dbdbddda0e20945f80bf56aae3a0b692e1d",
+          "result_sha256": "e8f5c51e4604576121d5a65489ba097650c604d0b013a4541773188a39e280fe",
+          "load_id": 14
+        },
+        {
+          "operation": "mcp__scat__get_scat_track_points",
+          "skill_id": "scat-trajectory-analysis",
+          "outcome": "returned",
+          "arguments_sha256": "9080834b583712b78424477e4c60d3f37e630f913e1c5d259327ea5697c3f644",
+          "result_sha256": "fe456b28420cf9945690cb24b59ca924a0467efcd9fdcfe30748b644549fba4e",
+          "load_id": 15
+        }
+      ],
+      "scripts_executed": [
+        "s7b-flight-investigation/scripts/investigate.py"
+      ],
+      "usage": {
+        "scope": "scat:e9e64e21558437c0b989494076f91d807cf939006129292fd99a8871b32bdd89",
+        "run_id": "run_10ac48fc408d4795b6366f69d22faf32",
+        "started_at": 1793139024.4199984,
+        "policy_sha256": "539915fea79c7c2e4cfd655e9afc0627ba4a01cf3a79fb67da33a9cac011a3d0",
+        "limits_json": "{\"max_turns\": 16, \"max_llm_tokens\": 1000000, \"max_tool_calls\": 32, \"wall_seconds\": 240, \"max_cost\": null, \"currency\": \"CNY\"}",
+        "llm_calls": 4,
+        "tool_calls": 10,
+        "charged_tokens": 297712,
+        "provider_input_tokens": 80099,
+        "provider_output_tokens": 696,
+        "provider_cached_tokens": 73856,
+        "exhausted": null,
+        "finished_at": 1793139035.069234
+      },
+      "elapsed_seconds": 10.77
+    }
+  ],
+  "summary": {
+    "domains": {
+      "quality": {
+        "passed": 3,
+        "total": 3,
+        "completion_rate": 1.0,
+        "selection_parameter_passed": 3,
+        "p50_seconds": 10.77,
+        "p95_seconds": 16.34,
+        "elapsed_distribution_seconds": [
+          7.61,
+          10.77,
+          16.34
+        ],
+        "small_sample_no_sla": true,
+        "gate_passed": true
+      },
+      "query": {
+        "passed": 3,
+        "total": 3,
+        "completion_rate": 1.0,
+        "selection_parameter_passed": 3,
+        "p50_seconds": 10.77,
+        "p95_seconds": 16.34,
+        "elapsed_distribution_seconds": [
+          7.61,
+          10.77,
+          16.34
+        ],
+        "small_sample_no_sla": true,
+        "gate_passed": true
+      },
+      "trajectory": {
+        "passed": 3,
+        "total": 3,
+        "completion_rate": 1.0,
+        "selection_parameter_passed": 3,
+        "p50_seconds": 10.77,
+        "p95_seconds": 16.34,
+        "elapsed_distribution_seconds": [
+          7.61,
+          10.77,
+          16.34
+        ],
+        "small_sample_no_sla": true,
+        "gate_passed": true
+      }
+    },
+    "independent_attempts": 3,
+    "passed_attempts": 3,
+    "all_failures_retained": true,
+    "status": "passed",
+    "provider_input_tokens": 249471,
+    "provider_output_tokens": 2119,
+    "provider_cached_tokens": 219520,
+    "conservative_tokens": 927372,
+    "llm_calls": 13,
+    "tool_calls": 28,
+    "cost_estimate": null,
+    "cost_reason": "No verified price table; provider usage and conservative admission units are reported separately."
+  },
+  "elapsed_seconds": 70.19,
+  "script_native_runs": {
+    "s7b-flight-investigation/scripts/investigate.py": 3
+  },
+  "owned_processes_remaining": 0,
+  "isolated_collections_removed": true,
+  "temporary_home_removed": true
+}

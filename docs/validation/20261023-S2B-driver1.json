@@ -1,0 +1,73 @@
+{
+  "status": "failed",
+  "pid": 3380908,
+  "phases": [
+    {
+      "name": "prepare",
+      "returncode": 0,
+      "seconds": 0.06,
+      "log": "docs/validation/20261023-S2B-prepare1.log"
+    },
+    {
+      "name": "format",
+      "returncode": 0,
+      "seconds": 0.06,
+      "log": "docs/validation/20261023-S2B-format1.log"
+    },
+    {
+      "name": "ruff",
+      "returncode": 1,
+      "seconds": 0.06,
+      "log": "docs/validation/20261023-S2B-ruff1.log"
+    },
+    {
+      "name": "full",
+      "returncode": 0,
+      "seconds": 30.97,
+      "log": "docs/validation/20261023-S2B-full1.log"
+    },
+    {
+      "name": "native",
+      "returncode": 0,
+      "seconds": 3.67,
+      "log": "docs/validation/20261023-S2B-native1.log"
+    },
+    {
+      "name": "business",
+      "returncode": 0,
+      "seconds": 8.68,
+      "log": "docs/validation/20261023-S2B-business1.log"
+    },
+    {
+      "name": "app-deps",
+      "returncode": 0,
+      "seconds": 0.56,
+      "log": "docs/validation/20261023-S2B-app-deps1.log"
+    },
+    {
+      "name": "hermes-deps",
+      "returncode": 0,
+      "seconds": 0.36,
+      "log": "docs/validation/20261023-S2B-hermes-deps1.log"
+    }
+  ],
+  "started_at": 1792698503.985347,
+  "source_sha256": {
+    "src/application/readonly.py": "ef88618ca372e3e2b87df090ac3c2255fb0cc51ff49ede1ad1e827c0431c07c4",
+    "src/application/readonly_extensions.py": "11ae228e8d723268c96028f473ac61aae5f774b44605fc1bd4b98b497e67eb22",
+    "src/application/skill_synthetic.py": "e4af3fb6fa60063036af896d817bb16d754e772a0e9ed7e002bbbc050283e4b6",
+    "src/scat_mcp/server.py": "729ddc106c1bf9fff1f5e52db66d2156f8d21e4b6abb7dbb62426ac4428cd844",
+    "src/hermes_runtime/results.py": "3e384ae4a284cd2e11c86e05072b991e082950262908e50146239a501492adc3",
+    "src/hermes_runtime/skills.py": "9ccb70a9f7a5e56030befa7a2014a0f27997524ddf1feb68d01657d662898101",
+    "src/hermes_runtime/skill_contracts.py": "c68438255184ceba06f2110c982bf4cb0a859a45c412960a17680246c9b2dab6",
+    "scripts/run_scat_mcp.py": "dd38f61f9b481aae87f8992e279614d335af64cd99b3ac9d3fb38bfe7a638f27",
+    "scripts/run_hermes_api.py": "e60fa8728020d02b3c6e170ad2084930c0e978a4c5f1d0238210565a9197fc9a",
+    "tests/hermes_runtime/test_skills.py": "30caa6e821437e6843522ba7d6f1854c1cac9e40d77e2d1e306abb53d30efcc6",
+    "tests/scat_mcp/test_skill_extensions.py": "e52dd1a183fb0b12836e2265e91878911334d122c557c226ad1f93278be592ac",
+    "tests/hermes_runtime/test_skill_composition.py": "48a3fcec2609f4dbe53cfbcbefc345bfd9a8db72f10dd3c2f0628d421930e46e",
+    "scripts/probe_hermes_composition.py": "618447df172b7d89b0a624824f9325f16a8e306004c3896f1ea567ba4f830ce6",
+    "scripts/probe_skill_composition_native.py": "c24e7932e1702a4e51381bd8c16d7703e94db62fce98ccc9142c34079ee70e5e",
+    "scripts/probe_skill_business_readonly.py": "08d9dc2b4d9d1cae8ea4cebe70a840347fa3a5b4ffd146a425377c3532cbb3bc"
+  },
+  "finished_at": 1792698548.4373598
+}

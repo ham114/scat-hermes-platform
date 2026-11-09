@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "checks": {
+    "owned_units_stopped_and_disabled": true,
+    "previous_rag_options_restored": true,
+    "old_8091_survived_rollback": true,
+    "owned_units_active_and_enabled": true,
+    "pinned_rag_ready": true,
+    "old_8091_unchanged": true,
+    "completed_run_survives_full_rollback_restart": true,
+    "restored_run_remains_scope_isolated": true,
+    "retry_actual_receipts_independently_validated": true,
+    "no_model_requests_or_tokens_replayed": true
+  },
+  "final_units": {
+    "scat-hermes-rag.service": {
+      "active": "active",
+      "enabled": "enabled"
+    },
+    "scat-hermes-api.service": {
+      "active": "active",
+      "enabled": "enabled"
+    }
+  },
+  "corpus_sha256": "208c2322f951ac53028dcb999b75222d4ed4cac945d4122c76dd9544f9d38c96",
+  "external_model_requests": 0
+}

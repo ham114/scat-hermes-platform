@@ -1,0 +1,172 @@
+{
+  "date": "2026-11-07",
+  "status": "four_targeted_fixes_passed_and_deployed",
+  "release": "20261107-query-display-96d80a6a76af",
+  "fixes": {
+    "skill_recovery_and_allowed_operations": "passed",
+    "receipt_based_analysis_coverage_and_historical_reply_correction": "passed",
+    "automatic_main_plot_with_verified_atomic_page_publication": "passed",
+    "bounded_full_extent_view_and_persisted_refresh_cache": "passed"
+  },
+  "tests": {
+    "frontend_units": 151,
+    "frontend_quality_and_build": "passed",
+    "ordinary_desktop_mobile_browser_tests": 42,
+    "final_auto_plot_browser_tests": 2,
+    "backend_focused_host": 131,
+    "same_final_business_image_tests": 131,
+    "real_native_recovery_dispatch_without_llm": "passed",
+    "real_candidate_524_point_view_coordinate_match": true,
+    "candidate_cache_refresh_database_calls": 0,
+    "unique_paid_natural_requests": 5,
+    "completed_paid_natural_requests": 5,
+    "final_real_get_only_readbacks_desktop_mobile": 6,
+    "synthetic_large_path_boundaries": [
+      1,
+      393,
+      524,
+      2000,
+      2001,
+      10001,
+      50001
+    ]
+  },
+  "natural_runs": [
+    {
+      "case": "database",
+      "thread_id": "56f86948-596f-476e-9925-3e67ae0e5427",
+      "run_id": "run_a68df4d1c86643ee8178f401110f6da5",
+      "status": "completed"
+    },
+    {
+      "case": "trend",
+      "thread_id": "56f86948-596f-476e-9925-3e67ae0e5427",
+      "run_id": "run_9831813fd9324daf9cf46fefaaaf8258",
+      "status": "completed"
+    },
+    {
+      "case": "plot",
+      "thread_id": "56f86948-596f-476e-9925-3e67ae0e5427",
+      "run_id": "run_8c791f26c2454c2baa3d759f81045eeb",
+      "status": "completed"
+    },
+    {
+      "case": "models",
+      "thread_id": "56f86948-596f-476e-9925-3e67ae0e5427",
+      "run_id": "run_44722e21af20441bb67486842288af8c",
+      "status": "completed"
+    },
+    {
+      "case": "fresh_plot",
+      "thread_id": "d37e8636-b2a3-4300-9acc-c25f28cc4c8f",
+      "run_id": "run_f0c2c1c4af304fef9e78d95ddb3beea5",
+      "status": "completed"
+    }
+  ],
+  "verified_analysis_and_display": [
+    {
+      "case": "database",
+      "unique_loaded_track_points": 0,
+      "display_points": 0,
+      "source_totals": [],
+      "system_coverage_matches": true,
+      "source_hashes_match": true,
+      "analysis_coordinates_match": true
+    },
+    {
+      "case": "trend",
+      "unique_loaded_track_points": 88,
+      "display_points": 0,
+      "source_totals": [
+        524
+      ],
+      "system_coverage_matches": true,
+      "source_hashes_match": true,
+      "analysis_coordinates_match": true
+    },
+    {
+      "case": "plot",
+      "unique_loaded_track_points": 100,
+      "display_points": 524,
+      "source_totals": [
+        524
+      ],
+      "system_coverage_matches": true,
+      "source_hashes_match": true,
+      "analysis_coordinates_match": true
+    },
+    {
+      "case": "models",
+      "unique_loaded_track_points": 0,
+      "display_points": 0,
+      "source_totals": [],
+      "system_coverage_matches": true,
+      "source_hashes_match": true,
+      "analysis_coordinates_match": true
+    },
+    {
+      "case": "fresh_plot",
+      "unique_loaded_track_points": 100,
+      "display_points": 393,
+      "source_totals": [
+        393
+      ],
+      "system_coverage_matches": true,
+      "source_hashes_match": true,
+      "analysis_coordinates_match": true
+    }
+  ],
+  "new_prediction_tasks": 0,
+  "usage_for_five_requests_only": {
+    "llm_calls": 22,
+    "tool_calls": 20,
+    "charged_tokens": 2294750,
+    "provider_input_tokens": 646923,
+    "provider_output_tokens": 3133
+  },
+  "usage_semantics": "charged_tokens are conservative reservation units, not monetary fees or additive to provider token counts",
+  "cutover": {
+    "release": "20261107-query-display-96d80a6a76af",
+    "all_health": {
+      "platform": "healthy",
+      "actions": "healthy",
+      "worker": "healthy",
+      "hermes-main": "healthy",
+      "hermes-worker": "healthy",
+      "author-api": "healthy",
+      "hermes-author": "healthy"
+    },
+    "server_not_rebooted": true,
+    "author_containers_unchanged": true,
+    "source_files_matched_per_image": 8,
+    "active_skill_unchanged": true,
+    "private_backups": 10,
+    "backup_quick_checks": "ok",
+    "scheduler": "active"
+  },
+  "retained_failures": [
+    "Docker ENTRYPOINT role mismatch fixed with explicit Python entrypoint",
+    "126 passed / 2 fixture-mount failures corrected, then 131 passed",
+    "multi-flight default selection and partial-page metadata publication corrected",
+    "GBK readback retried with UTF-8; upload review timeout retried successfully"
+  ],
+  "remaining": {
+    "landing_wording_requires_review": true,
+    "explanation": "One trend reply says landing; returned evidence supports descent/approach but does not establish touchdown.",
+    "large_paths": "At most 2000 displayed points, labelled uniform/segmented sampling when incomplete.",
+    "outside_this_acceptance": [
+      "GPU production readiness",
+      "exact final-window prediction contract",
+      "other management API publication",
+      "all scientific inference correctness"
+    ]
+  },
+  "evidence_limitations": [
+    "Public SSE readback has no tool history; legacy catalogue invocation is unknown, not inferred false."
+  ],
+  "raw_business_data_saved_in_report": false,
+  "server_private_backups_downloaded": false,
+  "artifacts": "var/deploy/frontend/20261107-query-display-completion/manifest.json",
+  "source_sync": "var/validation/20261107-query-display-completion/source-sync.json",
+  "handoff": "docs/HERMES_QUERY_DISPLAY_COMPLETION_20261107.md"
+}

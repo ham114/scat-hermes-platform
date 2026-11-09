@@ -1,0 +1,150 @@
+{
+  "date": "2026-11-04",
+  "feature": "Complete owner-scoped conversation history",
+  "status": "backend_deployed_frontend_archive_synced",
+  "authorization": "User explicitly approved deployment of this version after initial automatic review rejection; rejected command did not execute.",
+  "tests": {
+    "server_full": {
+      "passed": 1406,
+      "skipped": 1,
+      "seconds": 258.9
+    },
+    "server_targeted": {
+      "passed": 29,
+      "seconds": 7.77
+    },
+    "local_targeted": {
+      "passed": 29,
+      "seconds": 9.8
+    },
+    "frontend_unit": {
+      "passed": 130
+    },
+    "frontend_format_lint_type_build": "passed",
+    "browser_desktop_mobile": {
+      "passed": 28,
+      "seconds": 20.4
+    },
+    "screenshots_reviewed": [
+      "20261104-history-desktop.png",
+      "20261104-history-mobile.png"
+    ],
+    "new_dependencies": 0
+  },
+  "deployment": {
+    "date": "2026-11-04T09:26:50.156736+00:00",
+    "release": "20261028-s7b-3ad5eac48b08",
+    "previous_release": "20261028-s7b-a8fc62d5d0d1",
+    "containers": {
+      "actions": {
+        "healthy": true,
+        "image": "sha256:b7c5ea8c7ab461d9fd62159cd124a4f3732cbfabba01c1518853e037c887c76a"
+      },
+      "platform": {
+        "healthy": true,
+        "image": "sha256:b7c5ea8c7ab461d9fd62159cd124a4f3732cbfabba01c1518853e037c887c76a"
+      },
+      "hermes-main": {
+        "healthy": true,
+        "image": "sha256:6a9280295fc0de0ba99fda6a06002ae863cfc9479838239723c1c5cda815eec1"
+      },
+      "hermes-worker": {
+        "healthy": true,
+        "image": "sha256:6a9280295fc0de0ba99fda6a06002ae863cfc9479838239723c1c5cda815eec1"
+      },
+      "worker": {
+        "healthy": true,
+        "image": "sha256:b7c5ea8c7ab461d9fd62159cd124a4f3732cbfabba01c1518853e037c887c76a"
+      },
+      "author-api": {
+        "healthy": true,
+        "image": "sha256:f9805ed5337851c5ca58d1d218367d171f7019da5c3f9a0acc7aeb1b0016dc45"
+      },
+      "hermes-author": {
+        "healthy": true,
+        "image": "sha256:6a9280295fc0de0ba99fda6a06002ae863cfc9479838239723c1c5cda815eec1"
+      }
+    },
+    "health": {
+      "18120": 200,
+      "18121": 200,
+      "18122": 200,
+      "18123": 200,
+      "18124": 200,
+      "18125": 200,
+      "18126": 200,
+      "18133": 200,
+      "18140": 200,
+      "18141": 200,
+      "18142": 200
+    },
+    "api": {
+      "threads": {
+        "status": 200,
+        "items_count": 1,
+        "fields": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "messages": {
+        "status": 200,
+        "items_count": 0,
+        "fields": [
+          "items",
+          "next_cursor"
+        ],
+        "turn_fields": []
+      },
+      "invalid_cursor": 422,
+      "unowned_thread": 404
+    },
+    "container_source_sha256": {
+      "src/hermes_runtime/conversation_history.py": "94d86aec383e152cc88fbdb6da4c993b702a598e401210e32cbe6a1c812ee8de",
+      "src/hermes_runtime/registry.py": "349a47d986a556e4859556c2004cc8c4c7dd1ff88e51fcbfd5cea31f4cf1924f",
+      "src/service/hermes_api.py": "bae4cd09e0354285114ac10f8e2d2fbec9d918a60f635842c9588be7e64b86ee"
+    },
+    "scheduler": "active",
+    "state_integrity": "ok",
+    "bindings_count": 2,
+    "history_tables_present": true,
+    "private_backup": {
+      "location": "server_only",
+      "mode": "0600",
+      "integrity": "ok"
+    },
+    "model_usage": [
+      70,
+      4520033
+    ],
+    "additional_model_calls": 0
+  },
+  "frontend": {
+    "frontend_files": 416,
+    "frontend_zip_bytes": 5847369,
+    "frontend_zip_sha256": "d805dca07d36b7d8ac0dc554940586fb7f948c8c59952a9a6f8c93b0a4707c81",
+    "dependencies_unchanged": true,
+    "frontend_gateway_switched": false
+  },
+  "interfaces": [
+    "GET /api/v1/hermes/threads",
+    "GET /api/v1/hermes/threads/{thread_id}/messages",
+    "PATCH /api/v1/hermes/threads/{thread_id}"
+  ],
+  "documentation": [
+    "docs/HERMES_CONVERSATION_HISTORY_API.md",
+    "docs/api/hermes-conversations.openapi.json",
+    "docs/DEVELOPMENT_LOG.md"
+  ],
+  "limitations": [
+    "Old bindings without original question text remain explicitly unavailable.",
+    "Final reply storage maximum is 2 MiB; oversize final text is not saved as a complete answer.",
+    "Formal frontend gateway has not been switched; production build archive and source are synced."
+  ],
+  "cleanup": {
+    "local_task_temp_removed": true,
+    "server_record": "docs/validation/20261104-conversation-history-cleanup.json"
+  },
+  "evidence_directory": "var/validation/20261104-conversation-history",
+  "network": "Intermittent ping/SSH timeouts retained; bounded retry completed deployment audit and file verification."
+}

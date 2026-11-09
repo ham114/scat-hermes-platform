@@ -1,0 +1,8 @@
+dist
+node_modules
+.npm-cache
+coverage
+playwright-report
+test-results
+src/api/openapi.json
+src/api/schema.d.ts

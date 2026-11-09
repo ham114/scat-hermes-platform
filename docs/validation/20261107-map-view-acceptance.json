@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-07",
+  "status": "passed",
+  "frontend_unit_tests": 142,
+  "browser_regression": 40,
+  "live_get_only": 2,
+  "synthetic_online_tile_visual_checks": 2,
+  "format_lint_typecheck_build": "passed",
+  "live_desktop": {
+    "status": "passed",
+    "writes": 0,
+    "auth": 0,
+    "successful_street_tiles": 46,
+    "displayed_points": 100,
+    "default_streets": true,
+    "actual_camera_centered_2d_3d": true,
+    "fullscreen_2d_3d": true,
+    "raw_data_saved": false,
+    "model_calls": 0,
+    "screenshots": false
+  },
+  "live_mobile": {
+    "status": "passed",
+    "writes": 0,
+    "auth": 0,
+    "successful_street_tiles": 45,
+    "displayed_points": 100,
+    "default_streets": true,
+    "actual_camera_centered_2d_3d": true,
+    "fullscreen_2d_3d": true,
+    "raw_data_saved": false,
+    "model_calls": 0,
+    "screenshots": false
+  },
+  "server_or_container_restarts": 0,
+  "new_model_calls": 0,
+  "new_prediction_jobs": 0,
+  "dependency_installations": 0,
+  "package_lock_sha256": "e0434b056f4173684e64742bbf73c3de48ffe5e1711827bf6a7f88b59c1b4e37",
+  "preview_url": "http://127.0.0.1:5175/",
+  "source_sync_receipt": "docs/validation/20261107-map-view-sync.json",
+  "scope": "frontend only; static geometry when observation time is unavailable; fetched page only",
+  "nonblocking_notices": [
+    "existing large chunk warning",
+    "intermittent development ResizeObserver notification delay; final desktop/mobile layout checked"
+  ]
+}

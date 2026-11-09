@@ -1,0 +1,154 @@
+{
+  "status": "passed",
+  "scope": "production_gpu_backend_development",
+  "checks": {
+    "targeted_27_passed": true,
+    "full_1349_passed_one_skip": true,
+    "real_batch_passed": true,
+    "real_single_passed": true,
+    "native_worker_passed": true,
+    "failed_report_and_recovery_preserved": true,
+    "four_gpu_requests_once": true,
+    "gpu_response_integrity": true,
+    "three_conda_histories_preserved": true,
+    "eight_original_containers_preserved": true,
+    "formal_ports_preserved": true,
+    "test_gpu_and_honcho_ports_closed": true,
+    "new_core_sources_bound_to_approved_tasks": true,
+    "native_budget_within_registered_limits": true,
+    "native_three_skills_actually_used": true,
+    "native_operations_all_returned": true,
+    "owned_test_processes_exited": true,
+    "temporary_directory_removed": true
+  },
+  "targeted": {
+    "tests": 27,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 27
+  },
+  "full": {
+    "tests": 1350,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 1349
+  },
+  "gpu_post_attempts": 4,
+  "gpu_post_successes": 4,
+  "gpu_calls_all_one": true,
+  "native_budget": {
+    "llm_calls": 10,
+    "tool_calls": 11,
+    "charged_tokens": 386926,
+    "provider_input_tokens": 97591,
+    "provider_output_tokens": 1923,
+    "provider_cached_tokens": 85888,
+    "finished_at": 1793099167.9661396,
+    "exhausted": null
+  },
+  "native_trace": [
+    {
+      "skill": "scat-report",
+      "operation": "scat_sample_prepare",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-model-comparison",
+      "operation": "scat_trial_run",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-model-comparison",
+      "operation": "scat_trial_run",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-evaluation",
+      "operation": "scat_evaluation_summarize",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-evaluation",
+      "operation": "scat_evaluation_diagnose",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-report",
+      "operation": "scat_report_build",
+      "outcome": "returned"
+    },
+    {
+      "skill": "scat-report",
+      "operation": "scat_report_read",
+      "outcome": "returned"
+    }
+  ],
+  "sources": {
+    "src/workflow_runtime/gpu.py": "0f8a7024baeb1e80bc597e46ededf7aff2f652a69d86c984e9b9b0fd7edde888",
+    "src/workflow_runtime/contracts.py": "3507cda564cf2daa34a3d3445ddbf62a8f80e1c97ba2a81c1effd7dcbeab5d3f",
+    "src/workflow_runtime/data.py": "1d7b71250d36274a4401c9ca38db03cfd0de19762989428805dd9bfcbfafc6bc",
+    "src/workflow_runtime/backend.py": "5c226db5a08e45abcd4d10dff223d309977a06334fa0c5e91dfe8b292c1b6d28",
+    "src/workflow_runtime/numerics.py": "06bca6888e2928a836041f546fe000bc8932e72994839ea0f19f6e069ea6897f",
+    "src/workflow_runtime/catalog.py": "5518e8a3828bc1b3079398f3f189d87ec3110546e9ce79357cba10dd4917667e",
+    "src/workflow_runtime/report.py": "8967fed212b51959611cc9bcf1638a2a722ca265811d274afa3d3e16dd3e42ae",
+    "src/application/workflow_tasks.py": "4e26715c9bb6f20045f18de68727d23c80a6d77504f68b2c655baa2be74186db",
+    "src/application/workflow_operations.py": "d96ef8fb954d2fe3a915785d5474763eda6d64085ae69100a82fb4b3ea58b652",
+    "src/application/skill_jobs.py": "f882d5a6aaef1038fe288c7cb02e9b79d949169960d22c7834048c6df13a5df1",
+    "src/scat_model_runtime/backends/gbar_codec.py": "40e0e56c54bb107bd9a58435cb693069234927e2292bbd364f4646237b889805",
+    "scripts/manage_gpu_tasks.py": "f4ecca1a2489a7eb8b78dbf500a817e464c9eadca97f87075c8fae9b93374c38",
+    "tests/workflows/test_gpu_tasks.py": "58bc769146d321f35088eb3f58e0b8fa7bbe784f6114fa21f1883ae2fa4fddf9",
+    "skills/scat-model-comparison/SKILL.md": "ac4428507589211eb3fb1ee86c09e5908ef83d680430e8756470f9bf4fcbb8cc",
+    "skills/scat-experiment/SKILL.md": "2062e5f77e080b2c850363276fdc4f4eb623c56234e11a9c37276552b1d2d6ea",
+    "services/hermes/skills.lock.json": "f9755217340b6a4572569c7d6fba254ac5bfaea3f7ebc887c8e48cf9e9e3d7cb",
+    "services/hermes/workflow-operations.v1.json": "a7f96ce27b655b6f3434ff66c243e8ee86f65ed48f701a527c935527fef46f0a",
+    "services/hermes/legacy-tool-mapping.v1.json": "032c4809b59e7daa07bd76af9629f6cfe7fbc11f4650254e73679169be94c231",
+    "config/production-gpu.example.json": "4a30c9be3f878a9b2ecf59f5e0ada934c9d7e390f09c232597a46d5b4e929a50",
+    "docs/HERMES_PRODUCTION_GPU_TASKS.md": "e4a6d6d7aa02d629d51f9530eb8566d20870567c102b0c058b849919d0f4b455",
+    "docs/DEVELOPMENT_LOG.md": "9e70eea5f28d74b82faa3e4d91e7d33aa8a34aec2b48eeb91f0b286c75984566",
+    "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md": "7d6ef1191e9ede1ff911d04d6902e2fa1d7b586105eab16f14fb4f84d6a6c006",
+    "services/hermes/gpu-models.v1.json": "6fd2fa21f5d23338d6e331c5ca0214ae461961166b57b1d5cf859b3210761787",
+    "scripts/prepare_gpu_registration.py": "f6a36afdf0def285f802e9230749ed90fccf4fafa543aa242618bc04adf0195a",
+    "scripts/probe_production_gpu.py": "022a4c4b873b952118d8a8317a0650246a91f9670e566a08724cd3099cdf09b6",
+    "src/analysis_runs/artifact_repository.py": "30d1de25c989665ebbafbf006441a01a67f504dc39a73933d0c65464c37256db",
+    "src/application/skill_worker.py": "3f9e3db93714fe20c2a6b3984ba41e1d5f8bfb12a505709f080896c17de29362",
+    "tests/analysis_runs/test_artifact_repository.py": "407a0bc9b2fe837b19cdb4b24484836483bc02ed3334d1471db8d7374b6951b2",
+    "tests/hermes_runtime/test_skill_jobs_s4.py": "2276e5059c2580d5e56caea7fe72e4f532a1e081f4b8031b5e1f3b01541f10ed",
+    "config/gpu-runtime.env.example": "0800461ae5a01877bb5fdfde9530c0a01e0e6a884b8fd96666e94530a1486ff8"
+  },
+  "ports": {
+    "80": true,
+    "443": true,
+    "8080": true,
+    "8501": true,
+    "8091": true,
+    "27017": true,
+    "18081": true,
+    "18133": true,
+    "18120": true,
+    "18121": true,
+    "18122": true,
+    "18123": true,
+    "18124": true,
+    "18125": true,
+    "18126": true,
+    "18127": false,
+    "18134": false,
+    "18135": false,
+    "18136": false,
+    "18137": false,
+    "18138": false,
+    "18140": false,
+    "18141": false,
+    "18142": false
+  },
+  "additional_api_keys_required": 0,
+  "existing_bentoml_cuda_reused": true,
+  "core_container_images_updated": false,
+  "standard_gpu_container_migration_completed": false,
+  "formal_gateway_switched": false,
+  "raw_real_data_exported": false,
+  "old_production_artifact_indexes_changed": false,
+  "failed_evidence_preserved": true
+}

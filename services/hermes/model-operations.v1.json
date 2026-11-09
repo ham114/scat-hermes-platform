@@ -1,0 +1,415 @@
+{
+  "schema_version": 1,
+  "release": "s4.0.0",
+  "artifact_schema": "model-step-artifact/v1",
+  "reference_schema": "model-step-reference/v1",
+  "maximum_artifact_bytes": 16777216,
+  "operations": [
+    {
+      "name": "scat_model_prepare_input",
+      "version": "1.0.0",
+      "description": "准备可信任务已固定的模型输入；不接受模型、数据或 confirmed 等聊天授权参数。",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {},
+        "title": "Empty",
+        "type": "object"
+      },
+      "input_kind": null,
+      "output_kind": "input",
+      "effect_kind": "derived_write",
+      "environment_alias": "scat-agent",
+      "supervisor_timeout_seconds": 20,
+      "native_timeout_seconds": 25,
+      "model_timeout": "ModelSpec.resource_limits.timeout_seconds",
+      "idempotency": "scope + run + sha256(operation, canonical arguments); success reuses receipt; running/unknown/failed never auto-reexecutes",
+      "evidence_fields": [
+        "scope",
+        "run",
+        "operation",
+        "step_key",
+        "state",
+        "reference",
+        "error",
+        "job_id",
+        "lease_generation",
+        "delegation_id",
+        "budget_revision",
+        "backend_execution_id"
+      ],
+      "output_contract": "model-step-reference/v1",
+      "authorization": "S4 approved job + current lease generation + explicit delegated native session + shared job budget; S3 isolated compatibility fixture remains explicit",
+      "approved_job_supervisor_timeout_seconds": 45,
+      "approved_job_native_timeout_seconds": 50
+    },
+    {
+      "name": "scat_model_run",
+      "version": "1.0.0",
+      "description": "用 input 引用执行可信任务已批准的注册模型；unknown 不得自动重试。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/StepReference"
+          }
+        },
+        "required": [
+          "reference"
+        ],
+        "title": "Referenced",
+        "type": "object"
+      },
+      "input_kind": "input",
+      "output_kind": "prediction",
+      "effect_kind": "compute",
+      "environment_alias": "scat-agent",
+      "supervisor_timeout_seconds": 20,
+      "native_timeout_seconds": 25,
+      "model_timeout": "ModelSpec.resource_limits.timeout_seconds",
+      "idempotency": "scope + run + sha256(operation, canonical arguments); success reuses receipt; running/unknown/failed never auto-reexecutes",
+      "evidence_fields": [
+        "scope",
+        "run",
+        "operation",
+        "step_key",
+        "state",
+        "reference",
+        "error",
+        "job_id",
+        "lease_generation",
+        "delegation_id",
+        "budget_revision",
+        "backend_execution_id"
+      ],
+      "output_contract": "model-step-reference/v1",
+      "authorization": "S4 approved job + current lease generation + explicit delegated native session + shared job budget; S3 isolated compatibility fixture remains explicit",
+      "approved_job_supervisor_timeout_seconds": 45,
+      "approved_job_native_timeout_seconds": 50
+    },
+    {
+      "name": "scat_model_evaluate",
+      "version": "1.0.0",
+      "description": "用 prediction 引用及固定版本评估器计算误差。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/StepReference"
+          }
+        },
+        "required": [
+          "reference"
+        ],
+        "title": "Referenced",
+        "type": "object"
+      },
+      "input_kind": "prediction",
+      "output_kind": "evaluation",
+      "effect_kind": "compute",
+      "environment_alias": "scat-agent",
+      "supervisor_timeout_seconds": 20,
+      "native_timeout_seconds": 25,
+      "model_timeout": "ModelSpec.resource_limits.timeout_seconds",
+      "idempotency": "scope + run + sha256(operation, canonical arguments); success reuses receipt; running/unknown/failed never auto-reexecutes",
+      "evidence_fields": [
+        "scope",
+        "run",
+        "operation",
+        "step_key",
+        "state",
+        "reference",
+        "error",
+        "job_id",
+        "lease_generation",
+        "delegation_id",
+        "budget_revision",
+        "backend_execution_id"
+      ],
+      "output_contract": "model-step-reference/v1",
+      "authorization": "S4 approved job + current lease generation + explicit delegated native session + shared job budget; S3 isolated compatibility fixture remains explicit",
+      "approved_job_supervisor_timeout_seconds": 45,
+      "approved_job_native_timeout_seconds": 50
+    },
+    {
+      "name": "scat_model_save_result",
+      "version": "1.0.0",
+      "description": "用 evaluation 引用保存标准 AnalysisResult。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/StepReference"
+          }
+        },
+        "required": [
+          "reference"
+        ],
+        "title": "Referenced",
+        "type": "object"
+      },
+      "input_kind": "evaluation",
+      "output_kind": "result",
+      "effect_kind": "derived_write",
+      "environment_alias": "scat-agent",
+      "supervisor_timeout_seconds": 20,
+      "native_timeout_seconds": 25,
+      "model_timeout": "ModelSpec.resource_limits.timeout_seconds",
+      "idempotency": "scope + run + sha256(operation, canonical arguments); success reuses receipt; running/unknown/failed never auto-reexecutes",
+      "evidence_fields": [
+        "scope",
+        "run",
+        "operation",
+        "step_key",
+        "state",
+        "reference",
+        "error",
+        "job_id",
+        "lease_generation",
+        "delegation_id",
+        "budget_revision",
+        "backend_execution_id"
+      ],
+      "output_contract": "model-step-reference/v1",
+      "authorization": "S4 approved job + current lease generation + explicit delegated native session + shared job budget; S3 isolated compatibility fixture remains explicit",
+      "approved_job_supervisor_timeout_seconds": 45,
+      "approved_job_native_timeout_seconds": 50
+    },
+    {
+      "name": "scat_model_read_result",
+      "version": "1.0.0",
+      "description": "用 result 引用读取当前可信运行的分析结果、单位与时间轴。",
+      "parameters": {
+        "$defs": {
+          "StepReference": {
+            "additionalProperties": false,
+            "properties": {
+              "schema_version": {
+                "default": "model-step-reference/v1",
+                "pattern": "^model-step-reference/v1$",
+                "title": "Schema Version",
+                "type": "string"
+              },
+              "artifact_id": {
+                "pattern": "^[0-9a-f]{32}$",
+                "title": "Artifact Id",
+                "type": "string"
+              },
+              "kind": {
+                "pattern": "^(input|prediction|evaluation|result)$",
+                "title": "Kind",
+                "type": "string"
+              },
+              "content_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "title": "Content Sha256",
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "kind",
+              "content_sha256"
+            ],
+            "title": "StepReference",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/StepReference"
+          }
+        },
+        "required": [
+          "reference"
+        ],
+        "title": "Referenced",
+        "type": "object"
+      },
+      "input_kind": "result",
+      "output_kind": null,
+      "effect_kind": "query",
+      "environment_alias": "scat-agent",
+      "supervisor_timeout_seconds": 20,
+      "native_timeout_seconds": 25,
+      "model_timeout": "ModelSpec.resource_limits.timeout_seconds",
+      "idempotency": "query; immutable reference",
+      "evidence_fields": [
+        "scope",
+        "run",
+        "operation",
+        "step_key",
+        "state",
+        "reference",
+        "error",
+        "job_id",
+        "lease_generation",
+        "delegation_id",
+        "budget_revision",
+        "backend_execution_id"
+      ],
+      "output_contract": "AnalysisResult",
+      "authorization": "S4 approved job + current lease generation + explicit delegated native session + shared job budget; S3 isolated compatibility fixture remains explicit",
+      "approved_job_supervisor_timeout_seconds": 45,
+      "approved_job_native_timeout_seconds": 50
+    }
+  ],
+  "control_operations": [
+    "scat_task_prepare",
+    "HTTP task confirm/cancel/reconcile"
+  ],
+  "errors": [
+    "approved_cpu_job_required",
+    "approved_job_required_s4",
+    "backend_cancelled",
+    "backend_execution_identity_conflict",
+    "backend_failed",
+    "backend_outcome_unknown",
+    "backend_output_integrity_failed",
+    "backend_unknown",
+    "comparison_protocol_mismatch",
+    "component_implementation_changed",
+    "component_source_not_versioned",
+    "component_unavailable",
+    "cpu_step_receipt_required",
+    "evaluator_not_allowed",
+    "feature_preparation_failed",
+    "input_resolution_failed",
+    "invalid_model_step_arguments",
+    "invalid_model_task",
+    "invalid_step_grant",
+    "job_budget_exhausted",
+    "legacy_graph_import_in_step_backend",
+    "model_configuration_incomplete",
+    "model_evaluation_failed",
+    "model_execution_failed",
+    "model_not_runnable",
+    "model_output_identity_mismatch",
+    "model_output_time_or_reference_mismatch",
+    "model_output_unit_mismatch",
+    "model_registration_changed",
+    "step_artifact_expired",
+    "step_artifact_integrity_failed",
+    "step_artifact_kind_mismatch",
+    "step_artifact_lineage_mismatch",
+    "step_artifact_not_found",
+    "step_artifact_protocol_mismatch",
+    "step_artifact_too_large",
+    "step_failed",
+    "step_grant_expired",
+    "step_receipt_not_running",
+    "step_store_link_rejected",
+    "step_store_outside_project",
+    "step_unknown",
+    "synthetic_profile_outside_s3_project_directory",
+    "trusted_job_fence_required",
+    "trusted_step_context_required",
+    "unknown_model_operation",
+    "unsupported_cpu_parameters"
+  ]
+}

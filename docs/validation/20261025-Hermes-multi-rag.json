@@ -1,0 +1,322 @@
+{
+  "status": "passed",
+  "synthetic_only": true,
+  "run_id": "20261025-multi-rag-df453576d6",
+  "real_corpus_used": false,
+  "production_tools_enabled": false,
+  "retrieval_quality_admitted": false,
+  "production_rag_switched": false,
+  "checks": {
+    "four_distinct_native_sessions": true,
+    "native_two_then_one_delegation": true,
+    "parallel_research_intervals_overlap": true,
+    "all_children_called_model": true,
+    "children_bound_to_main": true,
+    "verified_answer_receipt": true,
+    "independent_verifier_read_originals": true,
+    "budget_not_exhausted": true
+  },
+  "actual_answer": {
+    "answer": "不满足。DEMO-A/SYNTH-001 当前有效观测点有 18 个，按[DEMO-POLICY@2]要求 SHYNTH-CV 至少要有 20 个有效观测点，因此还缺 2 个有效点；按[DEMO-QUALITY@1]，该批次的缺失率是 5%，超过[DEMO-POLICY@2]规定的 2% 上限。这两项条件必须同时满足，因此该批次当前不能执行预测，缺失率不合格。",
+    "eligible": false,
+    "missing_points": 2,
+    "evidence_ids": [
+      "DEMO-POLICY",
+      "DEMO-QUALITY"
+    ],
+    "verification_id": "verification-a748915a101a"
+  },
+  "elapsed_seconds": 28.385847829282284,
+  "native_sessions": {
+    "demo-main-df453576d6": {
+      "ordinal": 0,
+      "child": false,
+      "parent_session": null,
+      "tools": [
+        "delegate_task",
+        "demo_read",
+        "demo_search",
+        "demo_verify"
+      ]
+    },
+    "20261025_024538_de783c": {
+      "ordinal": 1,
+      "child": true,
+      "parent_session": "demo-main-df453576d6",
+      "tools": [
+        "demo_read",
+        "demo_search",
+        "demo_verify"
+      ]
+    },
+    "20261025_024538_c57369": {
+      "ordinal": 2,
+      "child": true,
+      "parent_session": "demo-main-df453576d6",
+      "tools": [
+        "demo_read",
+        "demo_search",
+        "demo_verify"
+      ]
+    },
+    "20261025_024553_0d0fc5": {
+      "ordinal": 3,
+      "child": true,
+      "parent_session": "demo-main-df453576d6",
+      "tools": [
+        "demo_read",
+        "demo_search",
+        "demo_verify"
+      ]
+    }
+  },
+  "delegation_calls": [
+    {
+      "task_count": 2,
+      "parent": "demo-main-df453576d6"
+    },
+    {
+      "task_count": 1,
+      "parent": "demo-main-df453576d6"
+    }
+  ],
+  "shared_budget": {
+    "policy_sha256": "59413f4212733d0e80992864522e5ce8d76e9f45738e168ee18e873ea96acda1",
+    "limits_json": "{\"max_turns\": 20, \"max_llm_tokens\": 1000000, \"max_tool_calls\": 32, \"wall_seconds\": 300, \"max_cost\": null, \"currency\": \"CNY\"}",
+    "llm_calls": 14,
+    "tool_calls": 14,
+    "charged_tokens": 283924,
+    "provider_input_tokens": 65241,
+    "provider_output_tokens": 5302,
+    "provider_cached_tokens": 49792,
+    "exhausted": null,
+    "finished_at": 1792867560.9514346,
+    "started_at": 1792867531.6181374
+  },
+  "evidence_operations": [
+    {
+      "session": "20261025_024538_c57369",
+      "tool": "demo_search",
+      "source_ids": [
+        "DEMO-QUALITY",
+        "DEMO-POLICY"
+      ]
+    },
+    {
+      "session": "20261025_024538_de783c",
+      "tool": "demo_search",
+      "source_ids": [
+        "DEMO-POLICY",
+        "DEMO-QUALITY"
+      ]
+    },
+    {
+      "session": "20261025_024538_de783c",
+      "tool": "demo_search",
+      "source_ids": [
+        "DEMO-POLICY",
+        "DEMO-QUALITY"
+      ]
+    },
+    {
+      "session": "20261025_024538_de783c",
+      "tool": "demo_read",
+      "source_ids": [
+        "DEMO-POLICY"
+      ]
+    },
+    {
+      "session": "20261025_024538_c57369",
+      "tool": "demo_read",
+      "source_ids": [
+        "DEMO-QUALITY"
+      ]
+    },
+    {
+      "session": "20261025_024538_c57369",
+      "tool": "demo_read",
+      "source_ids": [
+        "DEMO-POLICY"
+      ]
+    },
+    {
+      "session": "20261025_024538_de783c",
+      "tool": "demo_search",
+      "source_ids": [
+        "DEMO-POLICY",
+        "DEMO-QUALITY"
+      ]
+    },
+    {
+      "session": "20261025_024538_de783c",
+      "tool": "demo_search",
+      "source_ids": [
+        "DEMO-QUALITY",
+        "DEMO-POLICY"
+      ]
+    },
+    {
+      "session": "20261025_024538_de783c",
+      "tool": "demo_read",
+      "source_ids": [
+        "DEMO-QUALITY"
+      ]
+    },
+    {
+      "session": "20261025_024553_0d0fc5",
+      "tool": "demo_read",
+      "source_ids": [
+        "DEMO-POLICY"
+      ]
+    },
+    {
+      "session": "20261025_024553_0d0fc5",
+      "tool": "demo_read",
+      "source_ids": [
+        "DEMO-QUALITY"
+      ]
+    },
+    {
+      "session": "20261025_024553_0d0fc5",
+      "tool": "demo_verify",
+      "verification_id": "verification-a748915a101a"
+    }
+  ],
+  "events": [
+    {
+      "event": "agent_start",
+      "time": 7843343.239835023,
+      "session": "demo-main-df453576d6"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843343.937401334,
+      "session": "demo-main-df453576d6"
+    },
+    {
+      "event": "native_delegate_start",
+      "time": 7843348.729931863,
+      "task_count": 2,
+      "session": "demo-main-df453576d6"
+    },
+    {
+      "event": "agent_start",
+      "time": 7843348.785838386,
+      "session": "20261025_024538_de783c"
+    },
+    {
+      "event": "agent_start",
+      "time": 7843348.787534071,
+      "session": "20261025_024538_c57369"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843348.83473483,
+      "session": "20261025_024538_de783c"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843348.836844966,
+      "session": "20261025_024538_c57369"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843350.012986718,
+      "session": "20261025_024538_c57369"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843350.18958987,
+      "session": "20261025_024538_de783c"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843351.339893478,
+      "session": "20261025_024538_de783c"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843351.432331353,
+      "session": "20261025_024538_c57369"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843353.149205953,
+      "session": "20261025_024538_de783c"
+    },
+    {
+      "event": "agent_end",
+      "time": 7843354.116473868,
+      "session": "20261025_024538_c57369"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843355.728770059,
+      "session": "20261025_024538_de783c"
+    },
+    {
+      "event": "agent_end",
+      "time": 7843359.430953184,
+      "session": "20261025_024538_de783c"
+    },
+    {
+      "event": "native_delegate_end",
+      "time": 7843359.642911295,
+      "task_count": 2,
+      "session": "demo-main-df453576d6"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843359.65998205,
+      "session": "demo-main-df453576d6"
+    },
+    {
+      "event": "native_delegate_start",
+      "time": 7843364.150971135,
+      "task_count": 1,
+      "session": "demo-main-df453576d6"
+    },
+    {
+      "event": "agent_start",
+      "time": 7843364.185202999,
+      "session": "20261025_024553_0d0fc5"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843364.20913351,
+      "session": "20261025_024553_0d0fc5"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843365.183178819,
+      "session": "20261025_024553_0d0fc5"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843366.663573655,
+      "session": "20261025_024553_0d0fc5"
+    },
+    {
+      "event": "agent_end",
+      "time": 7843369.740761928,
+      "session": "20261025_024553_0d0fc5"
+    },
+    {
+      "event": "native_delegate_end",
+      "time": 7843369.919603936,
+      "task_count": 1,
+      "session": "demo-main-df453576d6"
+    },
+    {
+      "event": "llm_request",
+      "time": 7843369.934562502,
+      "session": "demo-main-df453576d6"
+    },
+    {
+      "event": "agent_end",
+      "time": 7843371.624273938,
+      "session": "demo-main-df453576d6"
+    }
+  ],
+  "temporary_profile_removed": true
+}

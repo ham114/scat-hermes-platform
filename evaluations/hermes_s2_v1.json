@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "kind": "deterministic synthetic contract scenarios; real model acceptance separate",
+  "cases": [
+    {
+      "id": "query-success",
+      "domain": "query",
+      "skill": "scat-flight-query",
+      "operation": "search_scat_flights",
+      "arguments": {
+        "batch": "SYNTH",
+        "callsign": "TEST123",
+        "limit": 1
+      },
+      "mode": "success",
+      "expected": "ok",
+      "expected_backend_calls": 1,
+      "prompt": "合成query场景：success。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "query-invalid",
+      "domain": "query",
+      "skill": "scat-flight-query",
+      "operation": "search_scat_flights",
+      "arguments": {
+        "batch": "../invalid"
+      },
+      "mode": "invalid",
+      "expected": "invalid_request",
+      "expected_backend_calls": 0,
+      "prompt": "合成query场景：invalid。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "query-empty",
+      "domain": "query",
+      "skill": "scat-flight-query",
+      "operation": "search_scat_flights",
+      "arguments": {
+        "batch": "SYNTH",
+        "callsign": "TEST123",
+        "limit": 1
+      },
+      "mode": "empty",
+      "expected": "not_found",
+      "expected_backend_calls": 1,
+      "prompt": "合成query场景：empty。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "query-fault",
+      "domain": "query",
+      "skill": "scat-flight-query",
+      "operation": "search_scat_flights",
+      "arguments": {
+        "batch": "SYNTH",
+        "callsign": "TEST123",
+        "limit": 1
+      },
+      "mode": "fault",
+      "expected": "internal_error",
+      "expected_backend_calls": 1,
+      "prompt": "合成query场景：fault。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "query-forbidden",
+      "domain": "query",
+      "skill": "scat-flight-query",
+      "operation": "search_scat_flights",
+      "arguments": {
+        "batch": "SYNTH",
+        "callsign": "TEST123",
+        "limit": 1
+      },
+      "mode": "forbidden",
+      "expected": "skill_required",
+      "expected_backend_calls": 0,
+      "prompt": "合成query场景：forbidden。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "quality-success",
+      "domain": "quality",
+      "skill": "scat-data-quality",
+      "operation": "inspect_scat_collection_data_quality",
+      "arguments": {
+        "batch": "SYNTH"
+      },
+      "mode": "success",
+      "expected": "ok",
+      "expected_backend_calls": 1,
+      "prompt": "合成quality场景：success。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "quality-invalid",
+      "domain": "quality",
+      "skill": "scat-data-quality",
+      "operation": "inspect_scat_collection_data_quality",
+      "arguments": {
+        "batch": null
+      },
+      "mode": "invalid",
+      "expected": "invalid_request",
+      "expected_backend_calls": 0,
+      "prompt": "合成quality场景：invalid。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "quality-empty",
+      "domain": "quality",
+      "skill": "scat-data-quality",
+      "operation": "inspect_scat_collection_data_quality",
+      "arguments": {
+        "batch": "SYNTH"
+      },
+      "mode": "empty",
+      "expected": "not_found",
+      "expected_backend_calls": 1,
+      "prompt": "合成quality场景：empty。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "quality-fault",
+      "domain": "quality",
+      "skill": "scat-data-quality",
+      "operation": "inspect_scat_collection_data_quality",
+      "arguments": {
+        "batch": "SYNTH"
+      },
+      "mode": "fault",
+      "expected": "internal_error",
+      "expected_backend_calls": 1,
+      "prompt": "合成quality场景：fault。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "quality-forbidden",
+      "domain": "quality",
+      "skill": "scat-data-quality",
+      "operation": "inspect_scat_collection_data_quality",
+      "arguments": {
+        "batch": "SYNTH"
+      },
+      "mode": "forbidden",
+      "expected": "skill_required",
+      "expected_backend_calls": 0,
+      "prompt": "合成quality场景：forbidden。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "trajectory-success",
+      "domain": "trajectory",
+      "skill": "scat-trajectory-analysis",
+      "operation": "get_scat_track_points",
+      "arguments": {
+        "batch": "SYNTH",
+        "external_id": "SYNTH-001",
+        "limit": 3
+      },
+      "mode": "success",
+      "expected": "ok",
+      "expected_backend_calls": 1,
+      "prompt": "合成trajectory场景：success。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "trajectory-invalid",
+      "domain": "trajectory",
+      "skill": "scat-trajectory-analysis",
+      "operation": "get_scat_track_points",
+      "arguments": {},
+      "mode": "invalid",
+      "expected": "invalid_request",
+      "expected_backend_calls": 0,
+      "prompt": "合成trajectory场景：invalid。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "trajectory-empty",
+      "domain": "trajectory",
+      "skill": "scat-trajectory-analysis",
+      "operation": "get_scat_track_points",
+      "arguments": {
+        "batch": "SYNTH",
+        "external_id": "SYNTH-001",
+        "limit": 3
+      },
+      "mode": "empty",
+      "expected": "not_found",
+      "expected_backend_calls": 1,
+      "prompt": "合成trajectory场景：empty。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "trajectory-fault",
+      "domain": "trajectory",
+      "skill": "scat-trajectory-analysis",
+      "operation": "get_scat_track_points",
+      "arguments": {
+        "batch": "SYNTH",
+        "external_id": "SYNTH-001",
+        "limit": 3
+      },
+      "mode": "fault",
+      "expected": "internal_error",
+      "expected_backend_calls": 1,
+      "prompt": "合成trajectory场景：fault。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "trajectory-forbidden",
+      "domain": "trajectory",
+      "skill": "scat-trajectory-analysis",
+      "operation": "get_scat_track_points",
+      "arguments": {
+        "batch": "SYNTH",
+        "external_id": "SYNTH-001",
+        "limit": 3
+      },
+      "mode": "forbidden",
+      "expected": "skill_required",
+      "expected_backend_calls": 0,
+      "prompt": "合成trajectory场景：forbidden。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "knowledge-success",
+      "domain": "knowledge",
+      "skill": "aviation-knowledge",
+      "operation": "search_scat_knowledge",
+      "arguments": {
+        "query": "缺失率"
+      },
+      "mode": "success",
+      "expected": "ok",
+      "expected_backend_calls": 1,
+      "prompt": "合成knowledge场景：success。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "knowledge-invalid",
+      "domain": "knowledge",
+      "skill": "aviation-knowledge",
+      "operation": "search_scat_knowledge",
+      "arguments": {
+        "query": ""
+      },
+      "mode": "invalid",
+      "expected": "invalid_request",
+      "expected_backend_calls": 0,
+      "prompt": "合成knowledge场景：invalid。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "knowledge-empty",
+      "domain": "knowledge",
+      "skill": "aviation-knowledge",
+      "operation": "search_scat_knowledge",
+      "arguments": {
+        "query": "缺失率"
+      },
+      "mode": "empty",
+      "expected": "not_found",
+      "expected_backend_calls": 1,
+      "prompt": "合成knowledge场景：empty。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "knowledge-fault",
+      "domain": "knowledge",
+      "skill": "aviation-knowledge",
+      "operation": "search_scat_knowledge",
+      "arguments": {
+        "query": "缺失率"
+      },
+      "mode": "fault",
+      "expected": "internal_error",
+      "expected_backend_calls": 1,
+      "prompt": "合成knowledge场景：fault。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "knowledge-forbidden",
+      "domain": "knowledge",
+      "skill": "aviation-knowledge",
+      "operation": "search_scat_knowledge",
+      "arguments": {
+        "query": "缺失率"
+      },
+      "mode": "forbidden",
+      "expected": "skill_required",
+      "expected_backend_calls": 0,
+      "prompt": "合成knowledge场景：forbidden。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "uav-success",
+      "domain": "uav",
+      "skill": "uav-flight-analysis",
+      "operation": "get_uav_samples",
+      "arguments": {
+        "external_id": "SYNTH-UAV-001",
+        "limit": 2
+      },
+      "mode": "success",
+      "expected": "ok",
+      "expected_backend_calls": 1,
+      "prompt": "合成uav场景：success。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "uav-invalid",
+      "domain": "uav",
+      "skill": "uav-flight-analysis",
+      "operation": "get_uav_samples",
+      "arguments": {},
+      "mode": "invalid",
+      "expected": "invalid_request",
+      "expected_backend_calls": 0,
+      "prompt": "合成uav场景：invalid。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "uav-empty",
+      "domain": "uav",
+      "skill": "uav-flight-analysis",
+      "operation": "get_uav_samples",
+      "arguments": {
+        "external_id": "SYNTH-UAV-001",
+        "limit": 2
+      },
+      "mode": "empty",
+      "expected": "not_found",
+      "expected_backend_calls": 1,
+      "prompt": "合成uav场景：empty。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "uav-fault",
+      "domain": "uav",
+      "skill": "uav-flight-analysis",
+      "operation": "get_uav_samples",
+      "arguments": {
+        "external_id": "SYNTH-UAV-001",
+        "limit": 2
+      },
+      "mode": "fault",
+      "expected": "internal_error",
+      "expected_backend_calls": 1,
+      "prompt": "合成uav场景：fault。检查范围、实际返回和失败分支，不编造结果。"
+    },
+    {
+      "id": "uav-forbidden",
+      "domain": "uav",
+      "skill": "uav-flight-analysis",
+      "operation": "get_uav_samples",
+      "arguments": {
+        "external_id": "SYNTH-UAV-001",
+        "limit": 2
+      },
+      "mode": "forbidden",
+      "expected": "skill_required",
+      "expected_backend_calls": 0,
+      "prompt": "合成uav场景：forbidden。检查范围、实际返回和失败分支，不编造结果。"
+    }
+  ],
+  "deferred_domains": {
+    "prediction": "S3/S4",
+    "comparison": "S3-S5",
+    "evaluation": "S3-S5",
+    "materialization": "S5",
+    "experiment": "S5",
+    "report": "computed artifact report S5; readonly narrative combination tested in S2"
+  }
+}

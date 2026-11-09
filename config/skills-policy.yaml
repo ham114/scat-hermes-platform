@@ -1,0 +1,48 @@
+# Deployment owner edits defaults/ceilings; request overrides can only reduce them.
+schema_version: 1
+trace:
+  max_hot_records: 10000
+  hot_retention_days: 30
+  archive_retention_days: 180
+  archive_high_watermark: 0.8
+sessions:
+  max_active: 1000
+  idle_ttl_seconds: 3600
+cache:
+  max_entries: 128
+  ttl_seconds: 3600
+composition:
+  max_depth: 6
+budgets:
+  readonly:
+    max_turns: 16
+    max_llm_tokens: 1000000
+    max_tool_calls: 32
+    wall_seconds: 240
+    max_cost: null
+    currency: CNY
+  background:
+    max_turns: 24
+    max_llm_tokens: 1000000
+    max_tool_calls: 80
+    wall_seconds: 1800
+    max_cost: null
+    currency: CNY
+readonly_ceiling:
+  max_turns: 16
+  max_llm_tokens: 1000000
+  max_tool_calls: 32
+  wall_seconds: 240
+  max_cost: null
+  currency: CNY
+background_ceiling:
+  max_turns: 48
+  max_llm_tokens: 2000000
+  max_tool_calls: 160
+  wall_seconds: 3600
+  max_cost: null
+  currency: CNY
+resources:
+  max_concurrent_jobs: 1
+category_overrides: {}
+user_preferences: {}

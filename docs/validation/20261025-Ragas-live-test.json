@@ -1,0 +1,239 @@
+{
+  "summary": {
+    "state": "functional-test-passed-with-quality-revisions",
+    "date": "2026-10-25",
+    "project": "/home/h3c/project/python/ragas-evaluation",
+    "run_id": "20261025-184341-04969beb",
+    "model": "deepseek-flash",
+    "corpus_sha256": "61788775e03c392b493a7835bba2e5d38d7f8721035b73ccbb1dda441eb53b86",
+    "selected_chunks": 6,
+    "selected_sources": 6,
+    "generated_questions": 4,
+    "exact_evidence_matches": 4,
+    "exact_review_quotes": 4,
+    "chinese_questions": 4,
+    "exact_duplicate_questions": 0,
+    "model_review_accepted": 4,
+    "assistant_usable_candidates": 2,
+    "assistant_wording_revisions": 2,
+    "generation_success_run": {
+      "run_id": "20261025-184341-04969beb",
+      "state": "generated-needs-review",
+      "scope": "development-candidate-not-independent-holdout",
+      "llm_requests": 26,
+      "max_llm_requests": 80,
+      "model": "deepseek-flash",
+      "questions_requested": 4,
+      "corpus_sha256": "61788775e03c392b493a7835bba2e5d38d7f8721035b73ccbb1dda441eb53b86",
+      "llm_responses": 26,
+      "llm_errors": 0,
+      "provider_input_tokens": 12102,
+      "provider_output_tokens": 1971,
+      "provider_total_tokens": 14073,
+      "stage": "exported",
+      "knowledge_graph_cache_hit": false,
+      "selected_chunks": 6,
+      "eligible_chunks": 6,
+      "questions_generated": 4,
+      "seconds": 44.887
+    },
+    "generation_failures": [
+      {
+        "run_id": "20261025-183041-8b636ded",
+        "state": "failed",
+        "scope": "development-candidate-not-independent-holdout",
+        "llm_requests": 21,
+        "max_llm_requests": 80,
+        "model": "deepseek-flash",
+        "questions_requested": 4,
+        "corpus_sha256": "61788775e03c392b493a7835bba2e5d38d7f8721035b73ccbb1dda441eb53b86",
+        "llm_responses": 18,
+        "llm_errors": 3,
+        "provider_input_tokens": 7518,
+        "provider_output_tokens": 1517,
+        "provider_total_tokens": 9035,
+        "stage": "ragas-pre-chunked-generation",
+        "last_llm_error_type": "APIConnectionError",
+        "last_llm_http_status": null,
+        "error_type": "APIConnectionError",
+        "seconds": 29.94,
+        "failure_frames": [
+          {
+            "file": "base.py",
+            "function": "_agenerate",
+            "line": 1962
+          },
+          {
+            "file": "base.py",
+            "function": "_agenerate",
+            "line": 1955
+          },
+          {
+            "file": "_legacy_response.py",
+            "function": "wrapped",
+            "line": 386
+          },
+          {
+            "file": "completions.py",
+            "function": "create",
+            "line": 2907
+          },
+          {
+            "file": "_base_client.py",
+            "function": "post",
+            "line": 1992
+          },
+          {
+            "file": "_base_client.py",
+            "function": "request",
+            "line": 1744
+          }
+        ]
+      }
+    ],
+    "all_attempts_including_probes_and_review": {
+      "request_attempts": 56,
+      "successful_responses": 52,
+      "failed_attempts": 4,
+      "observed_usage_total_tokens": 25548
+    },
+    "async_root_cause": "reusing_idle_http_connections_across_closed_event_loops",
+    "two_loop_live_regression": "passed",
+    "prepared_graph_integrity": [
+      {
+        "identity_matches_current_source": true,
+        "graph_sha_valid": true
+      }
+    ],
+    "raw_testset_sha256": "1995565a443a74637d43a4c695a3d5d7e1ea3283a9d7312e0f00b0b44393fa83",
+    "raw_testset_unchanged": true,
+    "key_scan": {
+      "files": 83,
+      "actual_key_exposures": 0
+    },
+    "env_file_mode": "0o600",
+    "unit_tests_passed": 7,
+    "independent_admission": false,
+    "quality_review_caveat": "same provider/model in separate requests; assistant added wording review",
+    "dataset_content_caveat": "generation/answerability test, not retriever or multi-agent quality evaluation"
+  },
+  "assessment": {
+    "scope": "assistant-evidence-review-development-only",
+    "raw_testset_sha256": "1995565a443a74637d43a4c695a3d5d7e1ea3283a9d7312e0f00b0b44393fa83",
+    "raw_testset_unchanged": true,
+    "model_initial_acceptance": 4,
+    "usable_without_wording_revision": 2,
+    "wording_revision_recommended": 2,
+    "items": [
+      {
+        "index": 0,
+        "question": "运行记录能帮助确认异常根因吗？",
+        "reference": "仅凭轨迹或传感器数据通常不能确认根因，因果结论需要设备手册、运行记录、维护记录或实验设计等额外证据。",
+        "evidence_chunk_ids": [
+          "kc1_02ac2804e83057347ec44acab83c417f"
+        ],
+        "model_review": "pass",
+        "evidence_exact": true,
+        "disposition": "revise-wording",
+        "reason": "原答案事实有据，但应先明确回应运行记录可作为额外证据，再说明单靠轨迹/传感器数据的限制。",
+        "suggested_question": "在航空科研系统中，运行记录可作为确认异常根因的额外证据吗？仅凭轨迹或传感器数据是否足够？",
+        "suggested_reference": "运行记录可作为额外证据；仅凭轨迹或传感器数据通常不能确认根因，还需要设备手册、运行记录、维护记录或实验设计等额外证据。"
+      },
+      {
+        "index": 1,
+        "question": "SCAT数据集中arrival_runway字段的定义是什么？",
+        "reference": "arrival_runway字段的类型为string，定义是计划着陆跑道名称。",
+        "evidence_chunk_ids": [
+          "kc1_0804c526d698f4a1680c714994caaa9c"
+        ],
+        "model_review": "pass",
+        "evidence_exact": true,
+        "disposition": "usable-development-candidate",
+        "reason": "问题范围与参考答案明确，字段、单位及限制均有原文支持。"
+      },
+      {
+        "index": 2,
+        "question": "cmp_ssa 字段代表什么？单位是什么？正负号是否已知？",
+        "reference": "`cmp_ssa` 字段代表侧滑角，单位为 degree，正号未知。",
+        "evidence_chunk_ids": [
+          "kc1_0d04d6aa2f86058a1a6ddc90e96f020a"
+        ],
+        "model_review": "pass",
+        "evidence_exact": true,
+        "disposition": "usable-development-candidate",
+        "reason": "问题范围与参考答案明确，字段、单位及限制均有原文支持。"
+      },
+      {
+        "index": 3,
+        "question": "批大小为1024时，验证集如何产生？",
+        "reference": "验证集只从训练分区产生。",
+        "evidence_chunk_ids": [
+          "kc1_16518f13ee64bc475f9c70aa3a70b893"
+        ],
+        "model_review": "pass",
+        "evidence_exact": true,
+        "disposition": "revise-wording",
+        "reason": "题目未注明GBAR方法范围；批大小1024不是验证集产生规则的条件，建议删除。",
+        "suggested_question": "在GBAR轨迹预测方法的数据划分中，验证集应从哪个分区产生？",
+        "suggested_reference": "验证集只从训练分区产生。"
+      }
+    ],
+    "proposals_are_not_raw_ragas_outputs": true,
+    "proposals_not_rejudged": true,
+    "independent_admission": false
+  },
+  "acceptance": {
+    "state": "passed",
+    "date": "2026-10-25",
+    "project": "/home/h3c/project/python/ragas-evaluation",
+    "run_id": "20261025-184341-04969beb",
+    "live_functional_test": "passed",
+    "quality_disposition": "two_usable_two_wording_revisions",
+    "attempts": {
+      "request_attempts": 56,
+      "successful_responses": 52,
+      "failed_attempts": 4,
+      "observed_usage_total_tokens": 25548
+    },
+    "generated_questions": 4,
+    "exact_evidence_mapping": 4,
+    "model_review_passed": 4,
+    "assistant_usable": 2,
+    "assistant_revisions": 2,
+    "raw_testset_unchanged": true,
+    "raw_testset_sha256": "1995565a443a74637d43a4c695a3d5d7e1ea3283a9d7312e0f00b0b44393fa83",
+    "key_scan": {
+      "files": 85,
+      "actual_key_exposures": 0
+    },
+    "env_file_mode": "0o600",
+    "old_environment_histories_unchanged": true,
+    "source_corpus_unchanged": true,
+    "existing_ports_present": [
+      80,
+      443,
+      8080,
+      8501,
+      8091,
+      27017
+    ],
+    "reserved_ports_closed": [
+      18130,
+      18131,
+      18132,
+      18133
+    ],
+    "workspace_processes": [],
+    "temporary_directory_empty": true,
+    "prepared_graph_retained": true,
+    "source_sha256": {
+      "scripts/ragas_workbench.py": "db193c0dbfeb8b9a3dd296475f52a634a03fbeb41130525f403ddea5ca89c824",
+      "scripts/review_live_smoke.py": "c7b1bee9b094b63748ae768344db138cf3b21ccfce1c193789363ad27a041123",
+      "tests/test_corpus_integrity.py": "9c29d709aba57d4349fd74389b913f06977d7a91cfd6aac7dcb7bb3846243c92",
+      "README.md": "a54f7ffb10036339ba7420409c42625d7ed33e4979a9da12a73a292d98c3b9b2",
+      "logs/DEVELOPMENT_LOG.md": "6147fede74eafc93a15a15d843bac75fec42734f702f969c7ffe82efd0cc9855"
+    },
+    "review_markdown_sha256": "c7496cb186fb07c03ff4c03d4908c1a1804e9f24746b097a4e120e49aa26ea9a",
+    "independent_admission": false
+  }
+}

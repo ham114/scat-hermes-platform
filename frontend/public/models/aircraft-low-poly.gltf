@@ -1,0 +1,68 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "SCAT trajectory visualizer low-poly aircraft"
+  },
+  "extensionsUsed": ["KHR_materials_unlit"],
+  "scene": 0,
+  "scenes": [{ "nodes": [0] }],
+  "nodes": [
+    {
+      "mesh": 0,
+      "rotation": [-0.70710678, 0, 0, 0.70710678]
+    }
+  ],
+  "meshes": [
+    {
+      "name": "LowPolyPassengerAircraft",
+      "primitives": [
+        {
+          "attributes": { "POSITION": 0 },
+          "indices": 1,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "TintableAircraft",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [0.92, 0.95, 1.0, 1.0],
+        "metallicFactor": 0.05,
+        "roughnessFactor": 0.72
+      },
+      "extensions": { "KHR_materials_unlit": {} }
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 1536,
+      "uri": "data:application/octet-stream;base64,AABAwZqZmT4AAAAAAABAwSQ5WT4hbyk+AABAwTxuqSOynW8+AABAwSQ5Wb4hbyk+AABAwZqZmb7nJwQkAABAwSQ5Wb4hbym+AABAwVklfqSynW++AABAwSQ5WT4hbym+AADAwAAAgD8AAAAAAADAwPMENT/xMQ0/AADAwDIxjSQUrkc/AADAwPMENb/xMQ0/AADAwAAAgL+BQtwkAADAwPMENb/xMQ2/AADAwMrJU6UUrke/AADAwPMENT/xMQ2/AAAAQQAAoD8AAAAAAAAAQTBGYj9tfjA/AAAAQX59sCSamXk/AAAAQTBGYr9tfjA/AAAAQQAAoL+QqQklAAAAQTBGYr9tfjC/AAAAQR5ehKWamXm/AAAAQTBGYj9tfjC/AABQQQrXoz0AAAAAAABQQWq0Zz3OujQ9AABQQdm5tCIkl389AABQQWq0Z73OujQ9AABQQQrXo71d9wwjAABQQWq0Z73OujS9AABQQWOLh6Mkl3+9AABQQWq0Zz3OujS9AACAQDMzMz+PwvW9AACAwM3MTD+PwvW9AAAAwAAAYEGPwvW9AACAPwAAYEGPwvW9AACAQDMzMz+PwvU9AACAwM3MTD+PwvU9AAAAwAAAYEGPwvU9AACAPwAAYEGPwvU9AACAQDMzM7+PwvW9AACAPwAAYMGPwvW9AAAAwAAAYMGPwvW9AACAwM3MTL+PwvW9AACAQDMzM7+PwvU9AACAPwAAYMGPwvU9AAAAwAAAYMGPwvU9AACAwM3MTL+PwvU9AADAwGZm5j4K16O9AAAwwc3MzD4K16O9AAAQwQAAoEAK16O9AADgwAAAoEAK16O9AADAwGZm5j4K16M9AAAwwc3MzD4K16M9AAAQwQAAoEAK16M9AADgwAAAoEAK16M9AADAwGZm5r4K16O9AADgwAAAoMAK16O9AAAQwQAAoMAK16O9AAAwwc3MzL4K16O9AADAwGZm5r4K16M9AADgwAAAoMAK16M9AAAQwQAAoMAK16M9AAAwwc3MzL4K16M9AAAgwY/C9b0zM7M+AAAQwY/C9b2amZlAAACwwI/C9b1mZiY/AAAgwY/C9T0zM7M+AAAQwY/C9T2amZlAAACwwI/C9T1mZiY/AAABAAkAAAAJAAgAAQACAAoAAQAKAAkAAgADAAsAAgALAAoAAwAEAAwAAwAMAAsABAAFAA0ABAANAAwABQAGAA4ABQAOAA0ABgAHAA8ABgAPAA4ABwAAAAgABwAIAA8ACAAJABEACAARABAACQAKABIACQASABEACgALABMACgATABIACwAMABQACwAUABMADAANABUADAAVABQADQAOABYADQAWABUADgAPABcADgAXABYADwAIABAADwAQABcAEAARABkAEAAZABgAEQASABoAEQAaABkAEgATABsAEgAbABoAEwAUABwAEwAcABsAFAAVAB0AFAAdABwAFQAWAB4AFQAeAB0AFgAXAB8AFgAfAB4AFwAQABgAFwAYAB8AAAABAAIAGAAaABkAAAACAAMAGAAbABoAAAADAAQAGAAcABsAAAAEAAUAGAAdABwAAAAFAAYAGAAeAB0AAAAGAAcAGAAfAB4AIAAiACEAJAAlACYAIAAjACIAJAAmACcAIAAhACUAIAAlACQAIQAiACYAIQAmACUAIgAjACcAIgAnACYAIwAgACQAIwAkACcAKAAqACkALAAtAC4AKAArACoALAAuAC8AKAApAC0AKAAtACwAKQAqAC4AKQAuAC0AKgArAC8AKgAvAC4AKwAoACwAKwAsAC8AMAAyADEANAA1ADYAMAAzADIANAA2ADcAMAAxADUAMAA1ADQAMQAyADYAMQA2ADUAMgAzADcAMgA3ADYAMwAwADQAMwA0ADcAOAA6ADkAPAA9AD4AOAA7ADoAPAA+AD8AOAA5AD0AOAA9ADwAOQA6AD4AOQA+AD0AOgA7AD8AOgA/AD4AOwA4ADwAOwA8AD8AQABBAEIAQwBFAEQAQABDAEQAQABEAEEAQQBEAEUAQQBFAEIAQgBFAEMAQgBDAEAA"
+    }
+  ],
+  "bufferViews": [
+    { "buffer": 0, "byteOffset": 0, "byteLength": 840, "target": 34962 },
+    { "buffer": 0, "byteOffset": 840, "byteLength": 696, "target": 34963 }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 70,
+      "type": "VEC3",
+      "min": [-12, -14, -0.975],
+      "max": [13, 14, 4.8]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5123,
+      "count": 348,
+      "type": "SCALAR"
+    }
+  ]
+}

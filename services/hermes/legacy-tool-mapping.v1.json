@@ -1,0 +1,431 @@
+{
+  "schema_version": "s5-legacy-tool-map/v1",
+  "legacy_tool_count": 52,
+  "skills_business_classes": 11,
+  "released_skills_including_composition": 12,
+  "native_readonly_tools": 28,
+  "workflow_controls": 5,
+  "workflow_operations": 8,
+  "production_gpu": true,
+  "scope": "每项有明确迁移、合并、控制面、保留或未开放说明；不表示52个旧函数原样开放。",
+  "items": [
+    {
+      "legacy_module": "src/agents/eval_tools.py",
+      "legacy_tool": "get_scat_flight_phase_segments",
+      "skill": "scat-evaluation",
+      "status": "scoped_merge",
+      "target": "scat_materialization_read(phase_segments)",
+      "scope_note": "S5 读取已批准固定样本制品；M6 模型指标与 M5 CFPL 指标分别标注协议。预览有界、总数和截断明确。既有全批次 CFPL 汇总/最差样本 HTTP 页面保留；不把局部结果冒充全库。"
+    },
+    {
+      "legacy_module": "src/agents/eval_tools.py",
+      "legacy_tool": "get_worst_prediction_cases",
+      "skill": "scat-trajectory-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_worst_prediction_cases",
+      "scope_note": "有界分页读取指定批次已有CFPL物化指标，非GBAR；拒绝过期结果，缺失时先准备明确批准的物化任务。覆盖以真实样本/航班数为准。"
+    },
+    {
+      "legacy_module": "src/agents/eval_tools.py",
+      "legacy_tool": "get_prediction_metric_summaries",
+      "skill": "scat-trajectory-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_prediction_metric_summaries",
+      "scope_note": "有界分页读取指定批次已有CFPL物化指标，非GBAR；拒绝过期结果，缺失时先准备明确批准的物化任务。覆盖以真实样本/航班数为准。"
+    },
+    {
+      "legacy_module": "src/agents/experiment_tools.py",
+      "legacy_tool": "prepare_prediction_experiment",
+      "skill": "scat-experiment",
+      "status": "scoped_merge",
+      "target": "scat_workflow_prepare(kind=experiment)",
+      "scope_note": "冻结有限配置/样本/版本/预算，不计算；等待页面确认。"
+    },
+    {
+      "legacy_module": "src/agents/experiment_tools.py",
+      "legacy_tool": "submit_prediction_experiment",
+      "skill": "scat-experiment",
+      "status": "http_control",
+      "target": "POST /api/v1/hermes/threads/{thread}/model-tasks/{task}/confirm",
+      "scope_note": "可信用户控制面；confirmed=true+精确快照摘要；未注册为 LLM 工具。"
+    },
+    {
+      "legacy_module": "src/agents/experiment_tools.py",
+      "legacy_tool": "cancel_prediction_experiment_submission",
+      "skill": "scat-experiment",
+      "status": "http_control",
+      "target": "POST /api/v1/hermes/threads/{thread}/model-tasks/{task}/revoke or /cancel",
+      "scope_note": "撤销未执行方案，或请求取消并核实实际后台；不能把文字当终态。"
+    },
+    {
+      "legacy_module": "src/agents/experiment_tools.py",
+      "legacy_tool": "get_experiment_run",
+      "skill": "scat-experiment",
+      "status": "scoped_merge",
+      "target": "scat_workflow_list / scat_workflow_get",
+      "scope_note": "同用户同会话；状态、步骤、累计预算、后端和结果来源可查。"
+    },
+    {
+      "legacy_module": "src/agents/experiment_tools.py",
+      "legacy_tool": "list_prediction_experiments",
+      "skill": "scat-experiment",
+      "status": "scoped_merge",
+      "target": "scat_workflow_list / scat_workflow_get",
+      "scope_note": "同用户同会话；状态、步骤、累计预算、后端和结果来源可查。"
+    },
+    {
+      "legacy_module": "src/agents/materialization_tools.py",
+      "legacy_tool": "prepare_materialization_job",
+      "skill": "scat-data-materialization",
+      "status": "scoped_merge",
+      "target": "scat_workflow_prepare(kind=materialization)",
+      "scope_note": "冻结有限配置/样本/版本/预算，不计算；等待页面确认。"
+    },
+    {
+      "legacy_module": "src/agents/materialization_tools.py",
+      "legacy_tool": "submit_materialization_job",
+      "skill": "scat-data-materialization",
+      "status": "http_control",
+      "target": "POST /api/v1/hermes/threads/{thread}/model-tasks/{task}/confirm",
+      "scope_note": "可信用户控制面；confirmed=true+精确快照摘要；未注册为 LLM 工具。"
+    },
+    {
+      "legacy_module": "src/agents/materialization_tools.py",
+      "legacy_tool": "cancel_materialization_job_submission",
+      "skill": "scat-data-materialization",
+      "status": "http_control",
+      "target": "POST /api/v1/hermes/threads/{thread}/model-tasks/{task}/revoke or /cancel",
+      "scope_note": "撤销未执行方案，或请求取消并核实实际后台；不能把文字当终态。"
+    },
+    {
+      "legacy_module": "src/agents/materialization_tools.py",
+      "legacy_tool": "get_materialization_job",
+      "skill": "scat-data-materialization",
+      "status": "scoped_merge",
+      "target": "scat_workflow_list / scat_workflow_get",
+      "scope_note": "同用户同会话；状态、步骤、累计预算、后端和结果来源可查。"
+    },
+    {
+      "legacy_module": "src/agents/materialization_tools.py",
+      "legacy_tool": "list_materialization_jobs",
+      "skill": "scat-data-materialization",
+      "status": "scoped_merge",
+      "target": "scat_workflow_list / scat_workflow_get",
+      "scope_note": "同用户同会话；状态、步骤、累计预算、后端和结果来源可查。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "list_task_models",
+      "skill": "scat-model-analysis",
+      "status": "native_control",
+      "target": "scat_task_catalog",
+      "scope_note": "范围和归属由服务端校验。S4 固定合成单模型兼容；S5 有限业务工作流另有冻结契约；生产 GPU 仅在显式登记与独立回执路径中准入，默认关闭。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "prepare_model_task",
+      "skill": "scat-model-analysis",
+      "status": "scoped_merge",
+      "target": "scat_task_prepare / scat_workflow_prepare",
+      "scope_note": "范围和归属由服务端校验。S4 固定合成单模型兼容；S5 有限业务工作流另有冻结契约；生产 GPU 仅在显式登记与独立回执路径中准入，默认关闭。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "prepare_random_gbar_batch",
+      "skill": "scat-model-comparison",
+      "status": "scoped_merge",
+      "target": "scat_workflow_prepare (selection=random, model=scat-gbar-v23:23)",
+      "scope_note": "显式服务器CUDA登记、冻结随机样本、可信确认与持久GPU回执；默认未启用GPU。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "prepare_random_comparison_batch",
+      "skill": "scat-model-comparison",
+      "status": "scoped_merge",
+      "target": "scat_workflow_prepare(kind=comparison)",
+      "scope_note": "用户先限定候选航班；固定 seed、质量下限/上限和快照；CPU 两注册基线。禁止隐式扩大全库。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "prepare_comparison_batch",
+      "skill": "scat-model-comparison",
+      "status": "scoped_merge",
+      "target": "scat_workflow_prepare(kind=comparison)",
+      "scope_note": "用户先限定候选航班；固定 seed、质量下限/上限和快照；CPU 两注册基线。禁止隐式扩大全库。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "submit_model_task",
+      "skill": "scat-model-analysis",
+      "status": "http_control",
+      "target": "POST /api/v1/hermes/threads/{thread}/model-tasks/{task}/confirm",
+      "scope_note": "范围和归属由服务端校验。S4 固定合成单模型兼容；S5 有限业务工作流另有冻结契约；生产 GPU 仅在显式登记与独立回执路径中准入，默认关闭。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "get_analysis_artifact",
+      "skill": "scat-model-analysis",
+      "status": "native_control",
+      "target": "scat_task_artifact / scat_workflow_artifact",
+      "scope_note": "范围和归属由服务端校验。S4 固定合成单模型兼容；S5 有限业务工作流另有冻结契约；生产 GPU 仅在显式登记与独立回执路径中准入，默认关闭。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "get_model_run",
+      "skill": "scat-model-analysis",
+      "status": "native_control",
+      "target": "scat_task_get / scat_workflow_get",
+      "scope_note": "范围和归属由服务端校验。S4 固定合成单模型兼容；S5 有限业务工作流另有冻结契约；生产 GPU 仅在显式登记与独立回执路径中准入，默认关闭。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "list_model_runs",
+      "skill": "scat-model-analysis",
+      "status": "native_control",
+      "target": "scat_task_list / scat_workflow_list",
+      "scope_note": "范围和归属由服务端校验。S4 固定合成单模型兼容；S5 有限业务工作流另有冻结契约；生产 GPU 仅在显式登记与独立回执路径中准入，默认关闭。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "list_analysis_artifacts",
+      "skill": "scat-model-analysis",
+      "status": "retained_http",
+      "target": "GET /api/v1/analysis/artifacts",
+      "scope_note": "范围和归属由服务端校验。S4 固定合成单模型兼容；S5 有限业务工作流另有冻结契约；生产 GPU 仅在显式登记与独立回执路径中准入，默认关闭。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "cancel_model_task",
+      "skill": "scat-model-analysis",
+      "status": "http_control",
+      "target": "POST /api/v1/hermes/threads/{thread}/model-tasks/{task}/revoke",
+      "scope_note": "范围和归属由服务端校验。S4 固定合成单模型兼容；S5 有限业务工作流另有冻结契约；生产 GPU 仅在显式登记与独立回执路径中准入，默认关闭。"
+    },
+    {
+      "legacy_module": "src/agents/model_tools.py",
+      "legacy_tool": "cancel_model_run",
+      "skill": "scat-model-analysis",
+      "status": "http_control",
+      "target": "POST /api/v1/hermes/threads/{thread}/model-tasks/{task}/cancel",
+      "scope_note": "范围和归属由服务端校验。S4 固定合成单模型兼容；S5 有限业务工作流另有冻结契约；生产 GPU 仅在显式登记与独立回执路径中准入，默认关闭。"
+    },
+    {
+      "legacy_module": "src/agents/prediction_tools.py",
+      "legacy_tool": "list_prediction_models",
+      "skill": "scat-model-comparison",
+      "status": "scoped_merge",
+      "target": "scat_workflow_catalog",
+      "scope_note": "S5 显式注册 CPU 基线；单模型也可准备比较方案。旧 GPU 模型不借此获得授权。"
+    },
+    {
+      "legacy_module": "src/agents/prediction_tools.py",
+      "legacy_tool": "predict_scat_flight_trajectory",
+      "skill": "scat-model-comparison",
+      "status": "scoped_merge",
+      "target": "scat_workflow_prepare + scat_trial_run",
+      "scope_note": "S5 显式注册 CPU 基线；单模型也可准备比较方案。旧 GPU 模型不借此获得授权。"
+    },
+    {
+      "legacy_module": "src/agents/rag_tools.py",
+      "legacy_tool": "search_scat_knowledge",
+      "skill": "aviation-knowledge",
+      "status": "native_readonly",
+      "target": "mcp__scat__search_scat_knowledge",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "get_scat_database_overview",
+      "skill": "scat-flight-query",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_scat_database_overview",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "list_scat_batches",
+      "skill": "scat-flight-query",
+      "status": "native_readonly",
+      "target": "mcp__scat__list_scat_batches",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "inspect_scat_collection_data_quality",
+      "skill": "scat-data-quality",
+      "status": "native_readonly",
+      "target": "mcp__scat__inspect_scat_collection_data_quality",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "list_scat_quality_problem_flights",
+      "skill": "scat-data-quality",
+      "status": "native_readonly",
+      "target": "mcp__scat__list_scat_quality_problem_flights",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "list_scat_quality_clean_flights",
+      "skill": "scat-data-quality",
+      "status": "native_readonly",
+      "target": "mcp__scat__list_scat_quality_clean_flights",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "get_scat_batch_overview",
+      "skill": "scat-flight-query",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_scat_batch_overview",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "search_scat_flights",
+      "skill": "scat-flight-query",
+      "status": "native_readonly",
+      "target": "mcp__scat__search_scat_flights",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "get_scat_flight_overview",
+      "skill": "scat-flight-query",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_scat_flight_overview",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "get_scat_track_points",
+      "skill": "scat-trajectory-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_scat_track_points",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "inspect_scat_model_data_quality",
+      "skill": "scat-data-quality",
+      "status": "native_readonly",
+      "target": "mcp__scat__inspect_scat_model_data_quality",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "get_scat_fpl_overview",
+      "skill": "scat-trajectory-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_scat_fpl_overview",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "get_scat_prediction_overview",
+      "skill": "scat-trajectory-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_scat_prediction_overview",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "get_scat_prediction_snapshot",
+      "skill": "scat-trajectory-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_scat_prediction_snapshot",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "get_scat_airport_stats",
+      "skill": "scat-flight-query",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_scat_airport_stats",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "get_scat_flight_phase_stats",
+      "skill": "scat-trajectory-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_scat_flight_phase_stats",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/scat_tools.py",
+      "legacy_tool": "get_scat_prediction_error_stats",
+      "skill": "scat-trajectory-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_scat_prediction_error_stats",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/uav_tools.py",
+      "legacy_tool": "list_uav_models",
+      "skill": "uav-flight-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__list_uav_models",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/uav_tools.py",
+      "legacy_tool": "search_uav_flights",
+      "skill": "uav-flight-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__search_uav_flights",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/uav_tools.py",
+      "legacy_tool": "get_uav_flight_overview",
+      "skill": "uav-flight-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_uav_flight_overview",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/uav_tools.py",
+      "legacy_tool": "list_uav_channels",
+      "skill": "uav-flight-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__list_uav_channels",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/uav_tools.py",
+      "legacy_tool": "get_uav_samples",
+      "skill": "uav-flight-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_uav_samples",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/uav_tools.py",
+      "legacy_tool": "get_uav_channel_stats",
+      "skill": "uav-flight-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_uav_channel_stats",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/uav_tools.py",
+      "legacy_tool": "get_uav_normal_vs_anomaly_stats",
+      "skill": "uav-flight-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_uav_normal_vs_anomaly_stats",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    },
+    {
+      "legacy_module": "src/agents/uav_tools.py",
+      "legacy_tool": "get_uav_phase_stats",
+      "skill": "uav-flight-analysis",
+      "status": "native_readonly",
+      "target": "mcp__scat__get_uav_phase_stats",
+      "scope_note": "S2 只读 MCP；保留原业务服务/数值协议，明确技能加载。"
+    }
+  ],
+  "production_gpu_supported": true,
+  "production_gpu_scope": "既有GBAR有限批准任务可用；不代表科学质量准入或标准CDI迁移已通过。"
+}

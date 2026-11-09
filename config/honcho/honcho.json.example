@@ -1,0 +1,40 @@
+{
+  "baseUrl": "http://127.0.0.1:18140",
+  "apiKey": "",
+  "enabled": false,
+  "hosts": {
+    "hermes_scat-main": {
+      "enabled": true,
+      "peerName": "scat-researcher",
+      "aiPeer": "scat-main",
+      "workspace": "scat-hermes-main",
+      "pinUserPeer": false,
+      "userPeerAliases": {},
+      "observationMode": "unified",
+      "writeFrequency": "async",
+      "recallMode": "hybrid",
+      "contextTokens": 1500,
+      "contextCadence": 2,
+      "dialecticCadence": 5,
+      "dialecticDepth": 1,
+      "dialecticReasoningLevel": "low",
+      "dialecticDynamic": false,
+      "reasoningHeuristic": false,
+      "reasoningLevelCap": "low",
+      "dialecticMaxChars": 400,
+      "queryRewrite": false,
+      "sessionStrategy": "per-session",
+      "sessionPeerPrefix": true,
+      "sessionAiPeerPrefix": true,
+      "a2aSessions": false,
+      "saveMessages": true,
+      "logging": false
+    },
+    "hermes_scat-worker": {
+      "enabled": false
+    },
+    "hermes_scat-author": {
+      "enabled": false
+    }
+  }
+}

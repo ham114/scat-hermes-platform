@@ -1,0 +1,89 @@
+{
+  "status": "passed",
+  "checks": {
+    "historical_completed_run_readable": true,
+    "historical_run_scope_isolated": true,
+    "activation_no_model_replay": true,
+    "formal_services_active_enabled": true,
+    "rag_identity_unchanged": true,
+    "new_question_policy_active": true,
+    "native_and_budget_pins_intact": true,
+    "conda_histories_unchanged": true,
+    "original_frozen_inputs_unchanged": true,
+    "new_ragas40_and_historical_scores_unchanged": true,
+    "production_corpus_pinned": true,
+    "real_deep_evidence_independently_verified": true,
+    "old_six_ports_intact": true,
+    "isolated_ports_closed": true,
+    "same_total_model_budget": true,
+    "actual_private_value_scan_clean": true,
+    "task_scratch_removed": true
+  },
+  "test_summary": {
+    "tests": 1290,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "real_regression": {
+    "status": "passed",
+    "cases": [
+      {
+        "id": "filename-deep",
+        "checks": {
+          "completed": true,
+          "actual_evidence": true,
+          "direct_answer": true,
+          "actual_source_cited": true,
+          "skill_body_loaded": true,
+          "budget_not_exhausted": true,
+          "actual_deep_receipt": true
+        },
+        "seconds": 51.78544764406979,
+        "model_calls": 14,
+        "conservative_tokens": 512477
+      }
+    ],
+    "model_requests": 14,
+    "conservative_tokens": 512477,
+    "historical_scores_unchanged": true,
+    "independent_admission": false,
+    "all_phases_model_requests": 38,
+    "all_phases_conservative_tokens": 1543990
+  },
+  "deep_provenance": [
+    {
+      "phase": "live",
+      "execution_passed": true,
+      "citations_verified": 9,
+      "real_native_sessions": 4,
+      "tool_rejections": 0
+    },
+    {
+      "phase": "live-intent-v2",
+      "execution_passed": true,
+      "citations_verified": 8,
+      "real_native_sessions": 4,
+      "tool_rejections": 0
+    }
+  ],
+  "ports": {
+    "80": true,
+    "443": true,
+    "8080": true,
+    "8501": true,
+    "8091": true,
+    "27017": true,
+    "18081": true,
+    "18133": true,
+    "18135": false,
+    "18136": false
+  },
+  "credential_scan": {
+    "files": 625,
+    "exposure_files": []
+  },
+  "whole_h6_frontend_complete": false,
+  "h7b_h8_complete": false,
+  "human_rag_admission": false
+}

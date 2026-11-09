@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "stage": "verified",
+  "thread_id": "a08e3b76-8df7-4e94-96af-ce5973140ec5",
+  "parent_run_id": "run_2fc94ef8426d4f90acc89db4d1823e11",
+  "task_id": "4fa7d000ebe94f03ac50cf382790ba99",
+  "duplicate_confirmation_single_job": true,
+  "result_artifact_id": "skill-result-4fa7d000ebe94f03ac50cf382790ba99",
+  "backends": [
+    {
+      "id": "0288e751d7b56d154925ea75f1c8b5b4496068755780591ae11cc216d1adb4a9",
+      "state": "succeeded",
+      "output_sha": "ff1ecd35e37bb6d4f5960307292deda7662ceb2be7090710e427262818b04819",
+      "error": null,
+      "calls": 1
+    },
+    {
+      "id": "d31f49b8c3c45508406b936a54f6d58fe608f05a3d86e8096b86464f09d40e6d",
+      "state": "succeeded",
+      "output_sha": "1d8d3c4b4fa54d7590cff70cdc07a18e17d31ac9fb05b08b259ec3c426e2c8e9",
+      "error": null,
+      "calls": 1
+    },
+    {
+      "id": "8a75c8d8842bb60f7d4daf3651237106f64dcb154feae6a72e5650765ae761fc",
+      "state": "succeeded",
+      "output_sha": "01e8ccd16f752f676efed9e98eb055006825bd28f0980346d7476d732c285174",
+      "error": null,
+      "calls": 1
+    }
+  ],
+  "main_budgets": [
+    {
+      "run_id": "run_07957ba603914434b8689692a0231f90",
+      "llm_calls": 3,
+      "charged_tokens": 218982,
+      "exhausted": null
+    },
+    {
+      "run_id": "run_2fc94ef8426d4f90acc89db4d1823e11",
+      "llm_calls": 4,
+      "charged_tokens": 288574,
+      "exhausted": null
+    }
+  ]
+}

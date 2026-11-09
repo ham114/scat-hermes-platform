@@ -1,0 +1,238 @@
+{
+  "$defs": {
+    "Budget": {
+      "additionalProperties": false,
+      "properties": {
+        "max_turns": {
+          "default": 16,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Max Turns",
+          "type": "integer"
+        },
+        "max_llm_tokens": {
+          "default": 1000000,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Max Llm Tokens",
+          "type": "integer"
+        },
+        "max_tool_calls": {
+          "default": 32,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Max Tool Calls",
+          "type": "integer"
+        },
+        "wall_seconds": {
+          "default": 240,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Wall Seconds",
+          "type": "integer"
+        },
+        "max_cost": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Cost"
+        },
+        "currency": {
+          "default": "CNY",
+          "enum": [
+            "CNY",
+            "USD"
+          ],
+          "title": "Currency",
+          "type": "string"
+        }
+      },
+      "title": "Budget",
+      "type": "object"
+    },
+    "Budgets": {
+      "additionalProperties": false,
+      "properties": {
+        "readonly": {
+          "$ref": "#/$defs/Budget"
+        },
+        "background": {
+          "$ref": "#/$defs/Budget"
+        }
+      },
+      "title": "Budgets",
+      "type": "object"
+    },
+    "CachePolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "max_entries": {
+          "default": 128,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Max Entries",
+          "type": "integer"
+        },
+        "ttl_seconds": {
+          "default": 3600,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Ttl Seconds",
+          "type": "integer"
+        }
+      },
+      "title": "CachePolicy",
+      "type": "object"
+    },
+    "CompositionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "max_depth": {
+          "default": 6,
+          "exclusiveMinimum": 0,
+          "maximum": 16,
+          "title": "Max Depth",
+          "type": "integer"
+        }
+      },
+      "title": "CompositionPolicy",
+      "type": "object"
+    },
+    "ResourcesPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "max_concurrent_jobs": {
+          "default": 1,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Max Concurrent Jobs",
+          "type": "integer"
+        }
+      },
+      "title": "ResourcesPolicy",
+      "type": "object"
+    },
+    "SessionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "max_active": {
+          "default": 1000,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Max Active",
+          "type": "integer"
+        },
+        "idle_ttl_seconds": {
+          "default": 3600,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Idle Ttl Seconds",
+          "type": "integer"
+        }
+      },
+      "title": "SessionPolicy",
+      "type": "object"
+    },
+    "TracePolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "max_hot_records": {
+          "default": 10000,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Max Hot Records",
+          "type": "integer"
+        },
+        "hot_retention_days": {
+          "default": 30,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Hot Retention Days",
+          "type": "integer"
+        },
+        "archive_retention_days": {
+          "default": 180,
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "title": "Archive Retention Days",
+          "type": "integer"
+        },
+        "archive_high_watermark": {
+          "default": 0.8,
+          "exclusiveMaximum": 1,
+          "exclusiveMinimum": 0,
+          "title": "Archive High Watermark",
+          "type": "number"
+        }
+      },
+      "title": "TracePolicy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "trace": {
+      "$ref": "#/$defs/TracePolicy"
+    },
+    "sessions": {
+      "$ref": "#/$defs/SessionPolicy"
+    },
+    "cache": {
+      "$ref": "#/$defs/CachePolicy"
+    },
+    "composition": {
+      "$ref": "#/$defs/CompositionPolicy"
+    },
+    "budgets": {
+      "$ref": "#/$defs/Budgets"
+    },
+    "resources": {
+      "$ref": "#/$defs/ResourcesPolicy"
+    },
+    "readonly_ceiling": {
+      "$ref": "#/$defs/Budget"
+    },
+    "background_ceiling": {
+      "$ref": "#/$defs/Budget"
+    },
+    "category_overrides": {
+      "additionalProperties": {
+        "additionalProperties": {
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "type": "integer"
+        },
+        "type": "object"
+      },
+      "title": "Category Overrides",
+      "type": "object"
+    },
+    "user_preferences": {
+      "additionalProperties": {
+        "additionalProperties": {
+          "exclusiveMinimum": 0,
+          "maximum": 10000000,
+          "type": "integer"
+        },
+        "type": "object"
+      },
+      "title": "User Preferences",
+      "type": "object"
+    }
+  },
+  "title": "SkillPolicy",
+  "type": "object"
+}

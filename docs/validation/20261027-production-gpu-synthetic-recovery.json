@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "scope": "synthetic_gpu_result_publication_recovery",
+  "original_case": "synthetic-v3",
+  "original_failed_report_preserved": true,
+  "approved_source_hashes_unchanged_before_repair": true,
+  "only_owned_test_collection_index_changed": true,
+  "new_gpu_http_requests": 0,
+  "original_gpu_receipts": 1,
+  "all_gpu_calls_one": true,
+  "artifacts": 2,
+  "gpu_graph_pages": 1,
+  "state": "succeeded",
+  "raw_data_exported": false
+}

@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "identity": "e13ea932e1",
+  "llm_calls": 0,
+  "business_effects": 0,
+  "production_ports_changed": false,
+  "profiles": [
+    {
+      "profile": "skills-default",
+      "health": "passed",
+      "toolsets": [
+        "scat",
+        "scat_tasks",
+        "scat_skills",
+        "scat_model_steps",
+        "scat_workflows"
+      ],
+      "explicit_legacy": false,
+      "new_runtime_state": true
+    },
+    {
+      "profile": "historical-h5",
+      "health": "passed",
+      "toolsets": [
+        "scat",
+        "scat_tasks"
+      ],
+      "explicit_legacy": true,
+      "new_runtime_state": true
+    }
+  ],
+  "temporary_workspace_removed": true
+}

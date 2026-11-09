@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "checks": {
+    "cached_actual_receipt_after_reopen": true,
+    "cross_scope_status_denied": true,
+    "cross_scope_cancel_denied": true,
+    "terminal_success_not_cancelled": true,
+    "orphan_reconciled_unknown_without_replay": true,
+    "unknown_cancel_does_not_restart": true,
+    "api_terminal_state_survives_restart": true,
+    "api_restart_cross_scope_denied": true,
+    "no_model_or_tool_replay": true,
+    "receipt_unchanged": true
+  },
+  "model_requests": 0,
+  "orphan_case": "synthetic-control-state-only",
+  "actual_receipt_reused": true,
+  "api_stopped": true
+}

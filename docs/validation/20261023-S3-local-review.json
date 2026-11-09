@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "documents": 6,
+  "local_links": 84,
+  "text_files_scanned": 650,
+  "private_value_findings": [],
+  "python": "existing scat-frontend Conda",
+  "local_round_temp_removed": true
+}

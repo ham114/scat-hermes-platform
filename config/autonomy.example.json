@@ -1,0 +1,31 @@
+{
+  "memory": {
+    "enabled": true,
+    "state": "var/autonomy/memory/state.sqlite",
+    "identity_key": "var/deploy/autonomy/secrets/identity.key",
+    "signing_key": "var/deploy/honcho-production/secrets/auth-signing.key",
+    "base_url": "http://127.0.0.1:18140",
+    "context_chars": 4000,
+    "max_pending": 1000,
+    "inactivity_days": 180
+  },
+  "learning": {
+    "enabled": true,
+    "min_successes": 3,
+    "min_distinct_inputs": 2,
+    "cooldown_hours": 24,
+    "max_drafts_per_day": 3,
+    "state": "var/autonomy/learning/state.sqlite",
+    "author_url": "http://127.0.0.1:18124",
+    "author_key": "var/deploy/h7b/secrets/author.key",
+    "author_state": "var/deploy/h7b/shared/skills/catalog.sqlite",
+    "registry": "var/deploy/h7b/shared/state/bindings.sqlite",
+    "results": "var/deploy/h7b/shared/state/results.sqlite",
+    "traces": "var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
+    "tasks": "var/deploy/h7b/shared/state/tasks.sqlite",
+    "native_url": "http://127.0.0.1:18121",
+    "native_key": "var/deploy/h7b/secrets/hermes.key",
+    "owner": "scat-researcher",
+    "auto_trials": true
+  }
+}

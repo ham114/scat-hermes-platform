@@ -1,0 +1,467 @@
+{
+  "status": "passed",
+  "date": "2026-10-23",
+  "remote_project": "/home/h3c/project/python/scat-hermes-platform",
+  "local_project": "C:/python/scat-hermes-platform",
+  "file_count": 109,
+  "self_manifest_excluded": true,
+  "source_and_evidence_files": [
+    {
+      "path": "README.md",
+      "sha256": "ed5de42c2d8fc89cf12c62b700c27057edbfee611321d3bae48b3b7891b2d733"
+    },
+    {
+      "path": "SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md",
+      "sha256": "bd72f5e92987cbefae3a769ee4a0d56d18f0dc1c8d089ec59f1f1b10d2c4bb2b"
+    },
+    {
+      "path": "config/skills-policy.schema.json",
+      "sha256": "3667da6be0d797170d240d5503435d37f707049fc5734b8d80294519505af578"
+    },
+    {
+      "path": "config/skills-policy.yaml",
+      "sha256": "589a8730deb382c78649b13a3b1b285f4e7a97c187343213b56091e100b4a42d"
+    },
+    {
+      "path": "docs/DEVELOPMENT_LOG.md",
+      "sha256": "9c97d15c3757c0c61d1463157879a992b08c2675407194a6360a59a9de11908d"
+    },
+    {
+      "path": "docs/HERMES_S3_MODEL_STEPS.md",
+      "sha256": "610d39d4dc63615323c4b59d54c3fe89e12c2b220fed9dc5fa4c7e56a152acfb"
+    },
+    {
+      "path": "docs/HERMES_S4_BACKGROUND_JOBS.md",
+      "sha256": "424c48bfbf6d28fcc43f45f3073f1115327bdacdce3171ce1b4d13a78e992f40"
+    },
+    {
+      "path": "docs/validation/20261023-S4-0a30282534-driver.json",
+      "sha256": "f979dcc4c121efb6fa10aa4111df9282525b2ddd4e5b47969402e67951537214"
+    },
+    {
+      "path": "docs/validation/20261023-S4-0a30282534-format.log",
+      "sha256": "dde85ab0ab657507e2a1c53a7cfe26e5ab8acfd4abe3547bac113731d2477097"
+    },
+    {
+      "path": "docs/validation/20261023-S4-0a30282534-full.log",
+      "sha256": "e675b893cbd20019370f91d13c298326168370b0482c9032a390528a8279fff5"
+    },
+    {
+      "path": "docs/validation/20261023-S4-0a30282534-native-job-import.log",
+      "sha256": "a27fe0a6a6bad4b65679f7c42dec8eb77ad9032284dba07be73f8a11060424f7"
+    },
+    {
+      "path": "docs/validation/20261023-S4-0a30282534-pip-app.log",
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+    },
+    {
+      "path": "docs/validation/20261023-S4-0a30282534-pip-hermes.log",
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+    },
+    {
+      "path": "docs/validation/20261023-S4-0a30282534-ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "docs/validation/20261023-S4-cf912d0384-driver.json",
+      "sha256": "998a5855c3abdac3764d6a5154b92ec6250b4970b3d147859251e7f87283d039"
+    },
+    {
+      "path": "docs/validation/20261023-S4-cf912d0384-format.log",
+      "sha256": "dde85ab0ab657507e2a1c53a7cfe26e5ab8acfd4abe3547bac113731d2477097"
+    },
+    {
+      "path": "docs/validation/20261023-S4-cf912d0384-full.log",
+      "sha256": "1322362177e0970a37828d4ce4f3089269853405e689d0908166cf3a6a77d1a2"
+    },
+    {
+      "path": "docs/validation/20261023-S4-cf912d0384-native-job-import.log",
+      "sha256": "a27fe0a6a6bad4b65679f7c42dec8eb77ad9032284dba07be73f8a11060424f7"
+    },
+    {
+      "path": "docs/validation/20261023-S4-cf912d0384-pip-app.log",
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+    },
+    {
+      "path": "docs/validation/20261023-S4-cf912d0384-pip-hermes.log",
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+    },
+    {
+      "path": "docs/validation/20261023-S4-cf912d0384-ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "docs/validation/20261023-S4-cpu-cold-start.json",
+      "sha256": "411080512978e7275d1eac61aeb32dbcee38c2eb577240e22dfc175337ee0015"
+    },
+    {
+      "path": "docs/validation/20261023-S4-dns-helper-source.txt",
+      "sha256": "a399ac4888979a49e67705ad9b599f72154c66d0d666809c002be2eb45350b7b"
+    },
+    {
+      "path": "docs/validation/20261023-S4-dns-method.json",
+      "sha256": "f0f85837f6fa8dad97293b8d47cdb49fec37ff2d28ef24e53328d629f2e7efa2"
+    },
+    {
+      "path": "docs/validation/20261023-S4-f4f3d7b76d-driver.json",
+      "sha256": "4cf769ed808a0fdb4fb8b172f11b41a29f9a0b8b3fd58c04022f080f7409c528"
+    },
+    {
+      "path": "docs/validation/20261023-S4-f4f3d7b76d-ruff.log",
+      "sha256": "c568de7b6158d43bd6159103f4ed2b78566985c466f22e39c8e33f0a86031f8a"
+    },
+    {
+      "path": "docs/validation/20261023-S4-faults-0be43e20f2.json",
+      "sha256": "e50ec160c65a1ef4b13c2ca1964cb71bd2cfe7a9b544c7be9457b536f8fdedaf"
+    },
+    {
+      "path": "docs/validation/20261023-S4-faults-56176ca2a5.json",
+      "sha256": "357aa39aac3ec82798ddbaefe49102de18ef1d9836f63032e53f7776f17d65b4"
+    },
+    {
+      "path": "docs/validation/20261023-S4-faults-62911dce56.json",
+      "sha256": "fae477f9b4996ce8da2e25c55b703f32f1af697de46df8177c47c9e4ad986cc9"
+    },
+    {
+      "path": "docs/validation/20261023-S4-fb7b529f1e-driver.json",
+      "sha256": "0ee1f66deb98681875d70225995647171004cbedddb621a6a67775d9c12259f8"
+    },
+    {
+      "path": "docs/validation/20261023-S4-fb7b529f1e-format.log",
+      "sha256": "edc30689f9fd3dc494be14b82b3b560778897cff7435d2cc81d54f1829d5038d"
+    },
+    {
+      "path": "docs/validation/20261023-S4-fb7b529f1e-full.log",
+      "sha256": "24fa59e2130cb915427e77ac7726d4893b273535e4d329c2b163b0334593d49c"
+    },
+    {
+      "path": "docs/validation/20261023-S4-fb7b529f1e-pip-app.log",
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+    },
+    {
+      "path": "docs/validation/20261023-S4-fb7b529f1e-pip-hermes.log",
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+    },
+    {
+      "path": "docs/validation/20261023-S4-fb7b529f1e-ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "docs/validation/20261023-S4-final-scripts.log",
+      "sha256": "c6486b51f483249343d4a4bdb91c41be31f0bdc28887b2f4cd4800e174f8bd6b"
+    },
+    {
+      "path": "docs/validation/20261023-S4-hermes-076822f122.json",
+      "sha256": "7f9023cd6876deb05611ee34bf193390d88a9643e51d9a68c09d7697e4c41d88"
+    },
+    {
+      "path": "docs/validation/20261023-S4-hermes-4d9bfefcc8.json",
+      "sha256": "98b60e667f94a128c3bf8b29c990a2ca4aaaeae4a97bce0ba80779fac8a1c018"
+    },
+    {
+      "path": "docs/validation/20261023-S4-hermes-5081b0331b.json",
+      "sha256": "b5684e13421d8698e1e2ac3f26f7e9bb806e3e4b70d8b4b8c87ee87422d33484"
+    },
+    {
+      "path": "docs/validation/20261023-S4-hermes-5172466890.json",
+      "sha256": "04baa5dfa61e0acf921da20acdbf737b5dfda35aea34489f60bd3f6fc00e8620"
+    },
+    {
+      "path": "docs/validation/20261023-S4-hermes-72c8feed4f.json",
+      "sha256": "e1330c5c973e1ce66a3ae9b883b3cce300347154269e6f9addf018f2f46f302e"
+    },
+    {
+      "path": "docs/validation/20261023-S4-hermes-879c6909ff.json",
+      "sha256": "a5b3da6367c4072aef3948fd90c272247a67d47d655384db4cff23442a07d287"
+    },
+    {
+      "path": "docs/validation/20261023-S4-hermes-88a2a44bcf.json",
+      "sha256": "ff40e3ba49af038be1d2eeaec554d55269ead7d93389d703f2534efedaab288f"
+    },
+    {
+      "path": "docs/validation/20261023-S4-hermes-9822af059c.json",
+      "sha256": "ef8531f74f3d1ac2f67b1c6761b2efa33b528690a240a864dc8f13c69355dd90"
+    },
+    {
+      "path": "docs/validation/20261023-S4-hermes-d8322a1af2.json",
+      "sha256": "8a7a46a2827994049da4c8bcc109098a31aed41392c1f2e44bda198991ac915f"
+    },
+    {
+      "path": "docs/validation/20261023-S4-local-audit.json",
+      "sha256": "fa2993597b24c59767e7c7381395f35369c07d299721716da69be2700ae1740d"
+    },
+    {
+      "path": "docs/validation/20261023-S4-local-final.log",
+      "sha256": "53511e0125d6905d6de8829568649def15fdedbfedecf81f9e2b2ce758045402"
+    },
+    {
+      "path": "docs/validation/20261023-S4-local-first-failed.log",
+      "sha256": "58888046feea00c96f209c49d3aee06975231579a58a51bf0b86445fbb692e4a"
+    },
+    {
+      "path": "docs/validation/20261023-S4-local.log",
+      "sha256": "bcc22cfa9be80b6c2f0abd55aa5291f4fd1548e97e8abc32bef4126a613c6954"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-debug-first.log",
+      "sha256": "e1ee67a283f0041fb8a7cd26cc3e14401641672ac27ef55047c325e8830567ce"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-driver-1.log",
+      "sha256": "2c242c91739254d7b2a6da7fdd6dd1417163334a2f72e4fac417897420945a69"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-driver-2.log",
+      "sha256": "69ced85ef4ee9db01e11f198254e51b62338e11b3164c1a192035e0307a8b607"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-driver-3.log",
+      "sha256": "1895f31152c5e42d413be9268e57350bd2eecac6a5bbf2b310727ec77cf522a4"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-driver-4.log",
+      "sha256": "cd9454e861277ef05edeafabdddfe390415ebf63c52c1a0e91bc5921cc604e1e"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-fault-driver-1.log",
+      "sha256": "e5307b52a241c0bfec5e3036906c7f8835163f0a544c3257e0cf3c22f01d75c1"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-fault-driver-2.log",
+      "sha256": "8fb6a64f520c2589f09719e34038ebeb84f0cd8beb42241b53023dffee003c00"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-fault-driver-3.log",
+      "sha256": "167807fc7df48c1dd8967cbc726902564f735e9e9c7649211e82e6e77943b6c3"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-provider-ready.log",
+      "sha256": "e4bf996aec3f0d13921323f9ab7e0bc59e70047f017ce77558c0ea7020c0fe36"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-real-driver-1.log",
+      "sha256": "109f067d04e9c93c3638bf15abde127341ac46f4b18fbaa2d4c8a92e54f51000"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-real-driver-2.log",
+      "sha256": "081031ea9b7cb5c2b5c354279e8a96843e61e79847e8ffa157b11730850903b4"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-real-driver-3.log",
+      "sha256": "e986519881a94b34af9702b7323c49760d3200011c31d9093839d20093b15930"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-real-driver-4.log",
+      "sha256": "e9a49984b5cca497d46e58fdd0178f1d5a81a10306da5f880c779e055d2b43b9"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-real-driver-5.log",
+      "sha256": "dc0eeb74c665fd4bed43293971e713c775b71bee3c1795badc42d8fb5125f4be"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-real-driver-6.log",
+      "sha256": "c88aedc78140bb60623bcd58f87c087966d776b006152cf4ba711960aff2abac"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-real-driver-7.log",
+      "sha256": "b81efabdc9c66dec2cc1b9e5180fccccd6cb45a462e80b1b9612b1ba7a5a8951"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-signal-probe-46cbdef7.log",
+      "sha256": "46fbb29eb0b546298143348b54f3c9dcb76830527e7f0fabe5dba6bbb60dd534"
+    },
+    {
+      "path": "docs/validation/20261023-S4-raw-signal-probe.log",
+      "sha256": "9a0b9407b0761c7e280ae732bf94ce3533c2e168889e13c16b6ae2bc95fbb8ba"
+    },
+    {
+      "path": "docs/validation/20261023-S4-server-cleanup.json",
+      "sha256": "f77df657aa585d7513276bd2ffb2d546082db75373cfb3170bdcdf158178bccf"
+    },
+    {
+      "path": "docs/validation/20261023-S4-signal-cleanup.json",
+      "sha256": "8d8634e35fbfaf281f0cf2f3016164ec001f1a22c9c3adc5871e19afc7c561bc"
+    },
+    {
+      "path": "docs/validation/20261023-S4-target-first.log",
+      "sha256": "2bd5faedb2a77dcb5ffea66f348ec9f1e2961c68dc08831333691f12a69469ae"
+    },
+    {
+      "path": "scripts/audit_skill_jobs_s4.py",
+      "sha256": "54736372a200c564722d384f3f75f0ca856a94749fd6a79c3423344765bec475"
+    },
+    {
+      "path": "scripts/probe_skill_jobs_s4.py",
+      "sha256": "f76812d83f83a8566dbbb33bfe4a8cf5a81bd6418192ff31812eb6fab66bda59"
+    },
+    {
+      "path": "scripts/probe_skill_jobs_s4_faults.py",
+      "sha256": "c1e087ceebde0ec503f5fd69cd7ab4c97ca41dbbcc9d196a0e6bcaea884ad1f7"
+    },
+    {
+      "path": "scripts/run_hermes_api.py",
+      "sha256": "31146aa9c834b566c8eaebed932901b8c85b34276db36470a87839e5e3a763bc"
+    },
+    {
+      "path": "scripts/run_model_step_tool.py",
+      "sha256": "d192d048e593687b17774904220315baaf4f3363f4b1bf2438e06c7e2d949bb8"
+    },
+    {
+      "path": "scripts/run_model_task_tool.py",
+      "sha256": "58bba0bafce84aeefd82ebdd78fb60dcf6b01cc775c5194e1c87af4cc5c57828"
+    },
+    {
+      "path": "scripts/run_model_worker.py",
+      "sha256": "05ccda26ce830f154a7ad037d4e5b5fed2518e5985c25db6a7e5bc483c32bd9a"
+    },
+    {
+      "path": "scripts/run_skill_cpu_backend.py",
+      "sha256": "ffb57100f8f80c721ad604273d42a4b3623849b4607c13f9d152ce46b2474415"
+    },
+    {
+      "path": "scripts/validate_skill_jobs_s4.py",
+      "sha256": "f71d394141eff18db58a809ccd9fea6537c760649511fd4d49a7a4f9a58caf41"
+    },
+    {
+      "path": "services/hermes/model-operations.v1.json",
+      "sha256": "ef88ed7e29e200c4ed6632a905e97ad73156f8267900c2d006cf79954e91ea6c"
+    },
+    {
+      "path": "services/hermes/skills.lock.json",
+      "sha256": "65d9a3ed6a0a96dc5609623c6e43988043e29aa394e8b449987f6a03a468c33d"
+    },
+    {
+      "path": "skills/scat-model-analysis/SKILL.md",
+      "sha256": "7dfce3c7dff8b54c0a2274af7eeb2fc895901c6d490c08d9811b32087043640f"
+    },
+    {
+      "path": "src/agents/model_agent/graph.py",
+      "sha256": "5696f5a9d2f0adfe9b024b1b17e6e60a99aefa7ae02367713a46cb140b0f43e1"
+    },
+    {
+      "path": "src/agents/model_tools.py",
+      "sha256": "fddbfd93603f1194600ad5d404d6194ae0e37d2e48e8da2d16c098c84d1cdb31"
+    },
+    {
+      "path": "src/application/model_step_store.py",
+      "sha256": "37e03ae07fefa0401ff8db398d25bfff99a38a6c81ed350099a8858821c88bc1"
+    },
+    {
+      "path": "src/application/model_steps.py",
+      "sha256": "e8c19d499fc3c1fcaa5a744e76231f352fb41cea02be8ccb7f4ecb98dbea5ba5"
+    },
+    {
+      "path": "src/application/model_tasks.py",
+      "sha256": "64c521ee45456e01893306b9a53366225ef534869c461a1c9b1aa8f1fe00ff2a"
+    },
+    {
+      "path": "src/application/model_worker.py",
+      "sha256": "7a887f35dbc73ca99d2193406d3e0e6e1c6ac0c79095f00eaa479dd2d93fe0d8"
+    },
+    {
+      "path": "src/application/skill_cpu_backend.py",
+      "sha256": "3594ab63ab82f3c2ea03466628a9ae0f326cb335e9142bea6a32c88c28750113"
+    },
+    {
+      "path": "src/application/skill_job_factory.py",
+      "sha256": "20f671e9f36751f815983cc78bfb917f5981abb358de48502d2ba7fc51bae4e2"
+    },
+    {
+      "path": "src/application/skill_job_store.py",
+      "sha256": "331f75e402336b45f397dcf40e403e6104ca08bea566a5f5a3655a42b72b58a3"
+    },
+    {
+      "path": "src/application/skill_jobs.py",
+      "sha256": "28df390ba21fea3debd63041b8c3d856c13af949bfd03bb3907130ef30fbf417"
+    },
+    {
+      "path": "src/application/skill_worker.py",
+      "sha256": "8e20b6e5fa44ba5c862f8fa51fb1b119519fee3fa84e1a67908cb71b9a1b2547"
+    },
+    {
+      "path": "src/application/task_store.py",
+      "sha256": "f1bad17e0208a8e41eeaf6b1b41b929d735e4e46af596973d3ce27b1e1373974"
+    },
+    {
+      "path": "src/core/settings.py",
+      "sha256": "a0abf15227277e3fede30ac64e8a16d08a8e8b917fba61f133135579b31cd007"
+    },
+    {
+      "path": "src/hermes_runtime/job_budget.py",
+      "sha256": "f1aa2bd3526282f85920b690c588556b45b60b10dbd42e993eca916ebd2db92e"
+    },
+    {
+      "path": "src/hermes_runtime/job_context.py",
+      "sha256": "ddf39c14134a7fee954bdb65c0539fd8433f215beb80c0d0bc5edbc9f158ddeb"
+    },
+    {
+      "path": "src/hermes_runtime/model_step_bridge.py",
+      "sha256": "60b3b2873760c090eed6a884328b9ae1593f9085e29ea5d09064ca6fa1093d6b"
+    },
+    {
+      "path": "src/hermes_runtime/native_budget.py",
+      "sha256": "b5998b91c112218e745d1f6899d85866234df70e081bc3319403eaf5d4337f39"
+    },
+    {
+      "path": "src/hermes_runtime/skill_guard.py",
+      "sha256": "2700c28bf763104cff1345fc0481d2a8d918b5b067100053e2d2a4488c4561eb"
+    },
+    {
+      "path": "src/hermes_runtime/skill_policy.py",
+      "sha256": "c536d987eae0e22476185c9e8c2cc9e7126318bd7deacf960d07deb152e055fe"
+    },
+    {
+      "path": "src/scat_model_runtime/cpu_fixture.py",
+      "sha256": "53186f0cc1542dd81c96ed4abdcdf8b831ec04402de4f23d4d02e10cc02bcf79"
+    },
+    {
+      "path": "src/scat_model_runtime/step_codec.py",
+      "sha256": "51e5ddee1d56d90c402e09b9b221215a10e1b93957c3f170bf720bcf91a1be8f"
+    },
+    {
+      "path": "src/scat_model_runtime/steps.py",
+      "sha256": "e86c90955189dc8b8074be2e61a52a896b66665a34bfc50d0ca2673490595bf2"
+    },
+    {
+      "path": "src/service/hermes_app.py",
+      "sha256": "7b33e47f5b280e4f23aa8510cce96dadb2abbf4c1a55c76249c2f953292a45d8"
+    },
+    {
+      "path": "src/service/model_task_api.py",
+      "sha256": "06315a40d0d5e902a41b4d020c37c58700f7c4947f7f71ee95c0979a211e545f"
+    },
+    {
+      "path": "tests/hermes_runtime/test_skill_composition.py",
+      "sha256": "5f381407e509fb003826eff3381dd4a75c3cf06095dfaa3b39119129b7206a28"
+    },
+    {
+      "path": "tests/hermes_runtime/test_skill_job_api_s4.py",
+      "sha256": "be95a29204e1ab781c781302d372723d823cf3d57d475b7c0b6458d2dec5bb78"
+    },
+    {
+      "path": "tests/hermes_runtime/test_skill_jobs_s4.py",
+      "sha256": "9130ddca8bc1d6f3de522bcdafb053667d1513a47b7722eb991c0b91786ffcb2"
+    }
+  ],
+  "passed_full_backend": 1005,
+  "skipped": 1,
+  "local_s4_tests": 21,
+  "process_fault_cases": 7,
+  "real_hermes_probe": "docs/validation/20261023-S4-hermes-5081b0331b.json",
+  "real_probe_cpu_calls": 1,
+  "server_cleanup": "docs/validation/20261023-S4-server-cleanup.json",
+  "local_audit": "docs/validation/20261023-S4-local-audit.json",
+  "production_gpu": false,
+  "new_environments_or_dependencies_installed": false,
+  "file_set_sha256": "f70076bbb7682ef1280812a1f4dde8c21b000fa19b2024b1acf321fcbcdba962",
+  "verification_proof": "docs/validation/20261023-S4-sync-verification.json",
+  "verification_proof_sha256": "76fd5889689f2c0f18c47d79bef990a36406e97a3c29cd347debe084eb73757c",
+  "verification_sidecars_excluded": [
+    "docs/validation/20261023-S4-sync.json",
+    "docs/validation/20261023-S4-sync-verification.json"
+  ],
+  "local_temporary_s4_removed": true,
+  "remote_temporary_s4_removed": true,
+  "test_ports_closed": true,
+  "original_services_listening": true
+}

@@ -1,0 +1,10 @@
+model:
+  provider: deepseek
+  default: deepseek-flash
+  base_url: https://api.deepseek.com
+agent:
+  temperature: 0.2
+  max_turns: 16
+memory:
+  memory_enabled: false
+  user_profile_enabled: false

@@ -1,0 +1,20 @@
+{
+  "name": "scat-investigation-candidate",
+  "version": "0.1.0-draft",
+  "allowed_operations": [],
+  "requires_skills": {
+    "scat-flight-query": "0.2.0",
+    "scat-data-quality": "0.2.0",
+    "scat-trajectory-analysis": "0.3.1",
+    "aviation-knowledge": "0.2.0"
+  },
+  "contract": {
+    "version": 1,
+    "inputs": [
+      "scat.request.v1"
+    ],
+    "outputs": [
+      "scat.evidence-report.v1"
+    ]
+  }
+}

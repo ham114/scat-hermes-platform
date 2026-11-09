@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "scope": "reviewed-development-06b-v3",
+  "corpus": "/mnt/h3c/scat-rag/corpora/normalized/kg_20260926_research_v3/rag_chunks.v1.jsonl",
+  "corpus_sha256": "61788775e03c392b493a7835bba2e5d38d7f8721035b73ccbb1dda441eb53b86",
+  "corpus_count": 149,
+  "generation_id": "kg_20260926_research_v3",
+  "retrieval_url": "http://127.0.0.1:18133",
+  "retrieval_limit": 5,
+  "mode": "auto",
+  "auto_min_characters": 100,
+  "auto_keywords": [
+    "鍐茬獊",
+    "鍒嗗埆渚濇嵁",
+    "鍚屾椂",
+    "姣旇緝",
+    "缁煎悎"
+  ],
+  "cases": [
+    "011",
+    "012",
+    "013",
+    "014",
+    "015",
+    "016",
+    "017",
+    "018",
+    "019",
+    "020"
+  ],
+  "run_budget": {
+    "max_turns": 28,
+    "max_llm_tokens": 1000000,
+    "max_tool_calls": 60,
+    "wall_seconds": 360
+  },
+  "batch_budget": {
+    "max_turns": 200,
+    "max_llm_tokens": 3000000,
+    "max_tool_calls": 800,
+    "wall_seconds": 7200
+  },
+  "model": "deepseek-flash",
+  "max_output_tokens": 4096,
+  "max_searches_per_session": 2,
+  "max_reads_per_session": 10,
+  "retrieval_backend": "qwen06b",
+  "planning_enabled": true,
+  "stop_after_execution_failure": true,
+  "initial_retrieval": true,
+  "role_scoped_tools": true,
+  "receipt_delivery_recovery": true
+}

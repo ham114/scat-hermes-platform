@@ -1,0 +1,18 @@
+{
+  "profiles": {
+    "scat-main": "var/deploy/h7b/profile-roots/hermes-main",
+    "scat-worker": "var/deploy/h7b/profile-roots/hermes-worker",
+    "scat-author": "var/deploy/h7b/profile-roots/hermes-author"
+  },
+  "autonomy": "var/deploy/autonomy/config.json",
+  "proxy": "var/deploy/autonomy/proxy.json",
+  "policy": "config/skills-policy.yaml",
+  "tools": "config/agent-tools.json",
+  "usage": "var/autonomy/budget/state.sqlite",
+  "gates": {
+    "tasks": "var/deploy/h7b/shared/state/tasks.sqlite",
+    "bindings": "var/deploy/h7b/shared/state/bindings.sqlite",
+    "trials": "var/deploy/h7b/shared/skills/catalog.sqlite",
+    "learning": "var/autonomy/learning/state.sqlite"
+  }
+}

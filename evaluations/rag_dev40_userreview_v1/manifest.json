@@ -1,0 +1,24 @@
+{
+  "scope": "user-reviewed-development-not-independent-admission",
+  "dataset_version": "ragas-user-reviewed-dev40-v1",
+  "claim_group_version": "ragas-user-reviewed-dev40-v1-claim-groups-v1",
+  "case_count": 40,
+  "source_path": "/home/h3c/project/python/ragas-evaluation/reports/batch-20261025-dev40/user-review-20261026/candidates.jsonl",
+  "source_sha256": "f24561457bd8876d0e8e65a0adb6962306fd048bad5ae8d4df3461bf0be4add9",
+  "corpus_sha256": "61788775e03c392b493a7835bba2e5d38d7f8721035b73ccbb1dda441eb53b86",
+  "rules_sha256": "3fef59e67ee7feeb17f20735f58f6db218d59a31e616a5ab97816766f5c21d78",
+  "converted_question_answer_changes": 0,
+  "source_code_sha256": {
+    "scripts/prepare_reviewed_rag_dataset.py": "27d9a04bf1ebf5315372790aadb4fb121a379e49f4c5ddc38e5225960dbd770a",
+    "src/rag_retrieval/reviewed_dataset.py": "08c56bc00277d5e7531c346024447245f03c0541506a0df6acfc1f3a82a6ebbb"
+  },
+  "files": {
+    "evaluation.json": "7f3833c3c3610965802c9e409acfd0e3ee7e74e9441a0330eac0a0db674ef185",
+    "claim_groups.json": "9670fbea05e13476be51189b3bfb5a1c16b675ec02ff047dd69d30dc21653695",
+    "label-audit.json": "e7d0bdc913978d0c7766d8a09feac48b845a33c34655024adfd3f90a29ae4416"
+  },
+  "freeze_scope": "development-regression-only",
+  "rankings_seen_during_labeling": false,
+  "qa_started": false,
+  "external_api_calls": 0
+}

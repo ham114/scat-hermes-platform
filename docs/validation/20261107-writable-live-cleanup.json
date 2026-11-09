@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-07",
+  "server_task_temp_removed": true,
+  "local_test_caches_removed": true,
+  "active_local_preview_temp_retained": true,
+  "preview_url": "http://127.0.0.1:5175/",
+  "preview_cleanup": "Automatically removed on graceful stop or four-hour expiry",
+  "existing_conda_environments_preserved": true,
+  "dependencies_installed": 0,
+  "formal_tasks_results_logs_and_private_server_backup_retained": true
+}

@@ -1,0 +1,104 @@
+{
+  "upstream_commit": "5b147ab036d6d19131bff8d20701b5001eab844a",
+  "source": "read-only copy from the verified server vendor tree; LF-normalized for review",
+  "files": [
+    {
+      "path": "agent/agent_init.py",
+      "sha256": "ee4d53de81af7fdc188c1cbbaabb80c048866668cb54a1aaad9872627fc985aa"
+    },
+    {
+      "path": "agent/auxiliary_client.py",
+      "sha256": "053078416f2b2d94256584a5c1ed6176bfbd3f3de88a8ca858e8257274a04bb5"
+    },
+    {
+      "path": "agent/client_lifecycle.py",
+      "sha256": "270480ec65213bde63460e5c8767729b69256ad347482bfd45cca822ef92bf61"
+    },
+    {
+      "path": "agent/context_compressor.py",
+      "sha256": "065dc9babbcb811a514c32319ed13a6ddaeefbc3964a109f7bb8e4c9260779d1"
+    },
+    {
+      "path": "agent/context_compressor_retry.py",
+      "sha256": "056b297bede846f20a19ec58886017e29e0c444ab8d0ab2228ab7d0736367984"
+    },
+    {
+      "path": "agent/context_compressor_summary.py",
+      "sha256": "138edc1f3d86939b373d6c64a48ce70605fb48b5cc91184e39bc281064796073"
+    },
+    {
+      "path": "agent/model_metadata.py",
+      "sha256": "497f2342915b0c7f23e56c2ec7e191a122d6255a6d12e660e570a4013895ab3d"
+    },
+    {
+      "path": "agent/reasoning_params.py",
+      "sha256": "35a7a3b422600e0fca9169eaf50e27e7171ccddf516ff3c4133b165e14dec4dd"
+    },
+    {
+      "path": "agent/tool_executor.py",
+      "sha256": "95a7c312de5780fe3ad6ed46045f2bdf03b0f13dbc38ea5357a1e4c0d76d7442"
+    },
+    {
+      "path": "agent/turn_api_error.py",
+      "sha256": "63f855e65161a308b3a118086271f581fc6a7d0aef36171f1b20e5f9f3ce82d5"
+    },
+    {
+      "path": "agent/turn_api_request.py",
+      "sha256": "fae43abf285e6f2b82d1820b7bd62ee10214676a48d6af552b8d62530e59dd15"
+    },
+    {
+      "path": "agent/turn_context_compaction.py",
+      "sha256": "e70835eda166ff020d653e751edf52c4b53401581d9a5ef4a0124d02acee2644"
+    },
+    {
+      "path": "agent/turn_request_assembly.py",
+      "sha256": "61b6a0022037d0dfb004f71e3b085b21d3b03e83bde5478b6ee67c8a0118723a"
+    },
+    {
+      "path": "agent/turn_retry_state.py",
+      "sha256": "9cb374f452ce3813aae07f151e83a9459eea07ab78ab93cb7c548d3de5f3048b"
+    },
+    {
+      "path": "gateway/platforms/api_server.py",
+      "sha256": "71ac56c28683aa6b935a432b58e5bfe3753492363ef2cf9f8853b121d0e8214f"
+    },
+    {
+      "path": "gateway/platforms/api_server_request_options.py",
+      "sha256": "7cff5468f5626d6c4fb33146e27b5753d54bf55affc21c88657771bf8bd95474"
+    },
+    {
+      "path": "gateway/platforms/api_server_runs.py",
+      "sha256": "a9c3b02e51407ca30fc948753149984c0ec75dcc047763cf75a356c1baaba466"
+    },
+    {
+      "path": "gateway/run.py",
+      "sha256": "e6675da9aa0a23e765387b88f1835743df09d028af503869dd4d0c81b233cdb7"
+    },
+    {
+      "path": "hermes_cli/config.py",
+      "sha256": "68239827c32c60114cc01d03a2c29f872c91d2114a3f0c1d1094de49980d0d2e"
+    },
+    {
+      "path": "run_agent.py",
+      "sha256": "33c7195fc6efa9122f1a6700d416fd283f9634712189af3fd72feb01bcea054f"
+    },
+    {
+      "path": "tools/approval.py",
+      "sha256": "ace7e41b41d5c3ca028e8d2cffdc32baff225959ce1e436c1897e3cc845e4004"
+    },
+    {
+      "path": "tools/approval_gateway_wait.py",
+      "sha256": "baacb5312e186c636366141f7d5790c2c9c701b28f1a9d79d45efea2c572227f"
+    }
+  ],
+  "additional_contract_checks": {
+    "verified_at": "2026-10-22T09:59:03.061149+00:00",
+    "remote_vendor_sha256": {
+      "agent/context_compressor.py": "065dc9babbcb811a514c32319ed13a6ddaeefbc3964a109f7bb8e4c9260779d1",
+      "agent/agent_runtime_helpers.py": "717220f04b15361c856717cd31f8b2961510ed6b79f942a13505901e61de4458",
+      "agent/turn_api_error.py": "63f855e65161a308b3a118086271f581fc6a7d0aef36171f1b20e5f9f3ce82d5"
+    },
+    "compression": "original system role/content plus exact ContextCompressor._COMPRESSION_NOTE only",
+    "retry": "primary_recovery_attempted permits one primary client recovery; no-tool fault fixture cap 2 x 3, SDK retries 0, auto recovery cycles 0"
+  }
+}

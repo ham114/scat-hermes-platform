@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-07",
+  "status": "partial_provider_unavailable",
+  "root_cause_observed": "provider HTTP 500 before successful business-data tool calls",
+  "ui_status_prompt_fixed": true,
+  "old_receipts_still_readable": true,
+  "unit_tests": 143,
+  "browser_regression": 40,
+  "live_readonly_checks": 2,
+  "fresh_recovery_check": "failed_provider_http_500",
+  "new_browser_submissions": 1,
+  "new_llm_attempts": 2,
+  "new_conservative_units": 136803,
+  "provider_usage_missing": true,
+  "new_prediction_jobs": 0,
+  "server_or_container_restarts": 0,
+  "new_dependencies": 0,
+  "raw_business_data_exported": false
+}

@@ -1,0 +1,19 @@
+{
+  "kind": "materialization",
+  "batch": "SYNTH-S5",
+  "external_ids": [
+    "SYNTH-S5-001",
+    "SYNTH-S5-002"
+  ],
+  "min_flights": 2,
+  "max_flights": 2,
+  "materializations": [
+    "batch_statistics",
+    "flight_features",
+    "phase_segments",
+    "prediction_metrics",
+    "prediction_metric_summaries"
+  ],
+  "failure_policy": "keep_partial",
+  "title": "固定样本五类派生数据构建"
+}

@@ -1,0 +1,269 @@
+{
+  "scope": "real-corpus-native-development-rag-not-production-admission",
+  "date": "2026-10-26",
+  "paired_evaluation": {
+    "batch": "20261026-real-rag-dev8-v2",
+    "aggregate": {
+      "fast": {
+        "runs": 8,
+        "execution_passed": 8,
+        "model_review_passed": 7,
+        "median_seconds": 7.490648136008531,
+        "mean_cited_evidence_group_coverage": 0.75,
+        "model_requests": 36
+      },
+      "deep": {
+        "runs": 8,
+        "execution_passed": 8,
+        "model_review_passed": 7,
+        "median_seconds": 31.19452827842906,
+        "mean_cited_evidence_group_coverage": 0.625,
+        "model_requests": 130
+      }
+    },
+    "rows": [
+      {
+        "case_id": "DEV-20261025-dev40-004",
+        "mode": "fast",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 11.78763398528099,
+        "model_calls": 6,
+        "cited_evidence_group_coverage": 1.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-004",
+        "mode": "deep",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 27.427190841175616,
+        "model_calls": 14,
+        "cited_evidence_group_coverage": 0.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-005",
+        "mode": "fast",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 6.514040979556739,
+        "model_calls": 4,
+        "cited_evidence_group_coverage": 1.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-005",
+        "mode": "deep",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 54.52986527234316,
+        "model_calls": 23,
+        "cited_evidence_group_coverage": 1.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-018",
+        "mode": "fast",
+        "execution": "passed",
+        "model_review": "fail",
+        "seconds": 13.842604044824839,
+        "model_calls": 5,
+        "cited_evidence_group_coverage": 0.5
+      },
+      {
+        "case_id": "DEV-20261025-dev40-018",
+        "mode": "deep",
+        "execution": "passed",
+        "model_review": "fail",
+        "seconds": 39.57118053082377,
+        "model_calls": 16,
+        "cited_evidence_group_coverage": 0.5
+      },
+      {
+        "case_id": "DEV-20261025-dev40-023",
+        "mode": "fast",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 6.336166034452617,
+        "model_calls": 4,
+        "cited_evidence_group_coverage": 1.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-023",
+        "mode": "deep",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 26.870103851892054,
+        "model_calls": 14,
+        "cited_evidence_group_coverage": 1.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-029",
+        "mode": "fast",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 6.386129352264106,
+        "model_calls": 4,
+        "cited_evidence_group_coverage": 1.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-029",
+        "mode": "deep",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 23.800266521051526,
+        "model_calls": 14,
+        "cited_evidence_group_coverage": 1.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-030",
+        "mode": "fast",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 7.816562267951667,
+        "model_calls": 5,
+        "cited_evidence_group_coverage": 0.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-030",
+        "mode": "deep",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 36.1135829500854,
+        "model_calls": 19,
+        "cited_evidence_group_coverage": 0.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-038",
+        "mode": "fast",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 7.164734004065394,
+        "model_calls": 4,
+        "cited_evidence_group_coverage": 0.5
+      },
+      {
+        "case_id": "DEV-20261025-dev40-038",
+        "mode": "deep",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 34.96186571568251,
+        "model_calls": 17,
+        "cited_evidence_group_coverage": 0.5
+      },
+      {
+        "case_id": "DEV-20261025-dev40-039",
+        "mode": "fast",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 8.094536236487329,
+        "model_calls": 4,
+        "cited_evidence_group_coverage": 1.0
+      },
+      {
+        "case_id": "DEV-20261025-dev40-039",
+        "mode": "deep",
+        "execution": "passed",
+        "model_review": "pass",
+        "seconds": 26.002988873049617,
+        "model_calls": 13,
+        "cited_evidence_group_coverage": 1.0
+      }
+    ],
+    "citations_verified": 102
+  },
+  "render_regression": {
+    "batch": "20261026-real-rag-render-v3",
+    "aggregate": {
+      "fast": {
+        "runs": 1,
+        "execution_passed": 1,
+        "model_review_passed": 1,
+        "median_seconds": 7.830241586081684,
+        "mean_cited_evidence_group_coverage": 1.0,
+        "model_requests": 4
+      },
+      "deep": {
+        "runs": 1,
+        "execution_passed": 1,
+        "model_review_passed": 1,
+        "median_seconds": 25.014850970357656,
+        "mean_cited_evidence_group_coverage": 1.0,
+        "model_requests": 14
+      }
+    },
+    "citations_verified": 12
+  },
+  "cumulative": {
+    "llm_calls": 213,
+    "tool_calls": 145,
+    "charged_tokens": 6044464,
+    "provider_input_tokens": 1444177,
+    "provider_output_tokens": 90180,
+    "provider_cached_tokens": 1030912
+  },
+  "native_model_requests": 204,
+  "native_model_errors": 9,
+  "review_requests": 9,
+  "tests_passed": 126,
+  "assessment": {
+    "scope": "assistant_targeted_review_not_independent_human_or_new_overall_score",
+    "issues": [
+      {
+        "case_id": "004",
+        "mode": "deep",
+        "model_review": "pass",
+        "assistant_finding": "未直接指出平台UAV语义以对应研究指南为准，转而讨论全局排序和无关边界；有证据不等于答到问题。"
+      },
+      {
+        "case_id": "018",
+        "modes": [
+          "fast",
+          "deep"
+        ],
+        "model_review": "fail",
+        "assistant_finding": "遗漏标签定义、设备配置、飞行任务的混杂因素控制；原文诊断该必要组没有进入搜索/回读，未事后改标签。deep另未明确写单通道均值公式。"
+      },
+      {
+        "case_id": "005",
+        "mode": "deep",
+        "assistant_finding": "v2正文有未进入claims的全库否定断言。v3改为claims-only渲染并完成该题配对回归，旧输出保留。"
+      },
+      {
+        "case_id": "030",
+        "mode": "deep",
+        "assistant_finding": "不必要的P99等全库否定仍须语义审查；claims渲染只约束正文来源，不证明每条claim被引文蕴含。"
+      }
+    ],
+    "conclusion": "technical_development_path_usable_no_demonstrated_multi_agent_quality_gain"
+  },
+  "production_admitted": false,
+  "platform_default_switched": false,
+  "connection_error_breakdown": [
+    {
+      "batch": "20261026-real-rag-dev8-v1",
+      "run": "004-deep",
+      "errors": {
+        "APIConnectionError": 4
+      }
+    },
+    {
+      "batch": "20261026-real-rag-dev8-v2",
+      "run": "038-deep",
+      "errors": {
+        "APIConnectionError": 2
+      }
+    },
+    {
+      "batch": "20261026-real-rag-dev8-v2",
+      "run": "005-deep",
+      "errors": {
+        "APIConnectionError": 2
+      }
+    },
+    {
+      "batch": "20261026-real-rag-dev8-v2",
+      "run": "030-deep",
+      "errors": {
+        "APIConnectionError": 1
+      }
+    }
+  ]
+}

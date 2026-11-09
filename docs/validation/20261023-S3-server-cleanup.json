@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "active_s3_processes": [],
+  "ports_listening": {
+    "80": true,
+    "443": true,
+    "8080": true,
+    "8501": true,
+    "8091": true,
+    "27017": true,
+    "18080": false,
+    "18081": false,
+    "18090": false,
+    "18091": false,
+    "18092": false
+  },
+  "text_files_scanned": 648,
+  "private_value_findings": [],
+  "dotenv_mode": "0600",
+  "project_venv": false,
+  "conda_python": "/home/h3c/anaconda3/envs/scat-agent/bin/python",
+  "temporary_s3_removed": true,
+  "old_oracle_sha256": {
+    "src/agents/model_agent/graph.py": "5696f5a9d2f0adfe9b024b1b17e6e60a99aefa7ae02367713a46cb140b0f43e1",
+    "src/agents/model_tools.py": "fddbfd93603f1194600ad5d404d6194ae0e37d2e48e8da2d16c098c84d1cdb31"
+  },
+  "bundle_version": "s3.0.0",
+  "bundle_sha256": "b6914218875d7feb4425a89b26e62a125862b8d2cddeeccd330da1cd08e341e6",
+  "source_sha256": {
+    "src/scat_model_runtime/steps.py": "e86c90955189dc8b8074be2e61a52a896b66665a34bfc50d0ca2673490595bf2",
+    "src/scat_model_runtime/step_codec.py": "51e5ddee1d56d90c402e09b9b221215a10e1b93957c3f170bf720bcf91a1be8f",
+    "src/scat_model_runtime/cpu_fixture.py": "6115c3f498c61ef4914f7b60295a5a8421f0921be15f01d6c5dae003adaa977f",
+    "src/application/model_step_store.py": "00dae88e6669d62d8f9bb428072b8979f67c3cbcc9adc0312b061318f1b9b6ce",
+    "src/application/model_steps.py": "b481d82deb3294ac8da7065ce4bf1154bb9b431bf7ac7f8bbec8d841dc7c5e95",
+    "src/application/model_records.py": "2bb2ec835ea7072d16273c91d9f9926b7cda53ff4f394f2e9efa2d954ec65d49",
+    "src/application/model_tasks.py": "6386fd0f5a1102290d70b779cc9c5bbe3c8b35ff604b47f5599b9dcb09bb1113",
+    "src/hermes_runtime/model_step_bridge.py": "586c416827f7f02d67359edeffce3e65d7b13773aecc9576992725a1fb80534b",
+    "scripts/run_model_step_tool.py": "7319388c45f8bbf4fc2dbab604992dfcc08e8e3ba242d1be54288e7e19f5a5f8",
+    "scripts/probe_model_steps_s3.py": "650ff6938e86de6a3b907cad182a2ebe7f56fd175f8a57d94b85d09c1052d76e",
+    "scripts/run_hermes_api.py": "ae4cef2fc07d7c2084df1901798164f328b543ffc9fa16fde8d523c78b990165",
+    "tests/analysis_models/test_model_steps.py": "deba1f69416fcf8e96e4b1cb383ffd80ff2e1d99d5da1ed1031e81411a2f15f9",
+    "tests/hermes_runtime/test_skills.py": "e05fdcb1a3ca10d332539c1644fefa0ce9c62fb32ca4a6c0fb4a7fbad29b1f71",
+    "tests/hermes_runtime/test_skill_composition.py": "629c245b258b661bfccf7c145e2db9a9fcd1f12c9b20c0319b38c1a82828a2ca",
+    "services/hermes/skills.lock.json": "e3012f6da82cc7c357b96a47e4d0bd957fea6b7be367cbded1b66eaed99b210f",
+    "skills/scat-model-analysis/SKILL.md": "bc813b379c77af388a5ca4f83be73c010f61286a8c1e68dcc60316a6832e8784",
+    "services/hermes/model-operations.v1.json": "294427ee7a738c5e2f722cc38cb4aaf51503aaf2aa3339d4597d2f93703f7508",
+    "tests/hermes_runtime/test_model_step_bridge.py": "c595439d58fb136fffa3955edb2bb5b1321c56e9efcee36870af01e906eaff95",
+    "scripts/validate_model_steps_s3.py": "76f73b37674d5cac279003d365686f8e10ae6d8ece559f460297f38fc79d9b21"
+  }
+}

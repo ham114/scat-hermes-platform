@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "principals": {
+    "HYN": {"owner_id": "scat-researcher", "role": "user"},
+    "ZYJ": {"owner_id": "scat-zyj", "role": "user"},
+    "admin": {"owner_id": "scat-admin", "role": "admin"}
+  }
+}

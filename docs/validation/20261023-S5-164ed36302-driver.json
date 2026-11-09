@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "pid": 3661450,
+  "python": "/home/h3c/anaconda3/envs/scat-agent/bin/python3.12",
+  "started_at": 1792742789.4930959,
+  "phases": [
+    {
+      "name": "ruff",
+      "returncode": 0,
+      "seconds": 0.06,
+      "log": "docs/validation/20261023-S5-164ed36302-ruff.log"
+    },
+    {
+      "name": "format",
+      "returncode": 0,
+      "seconds": 0.06,
+      "log": "docs/validation/20261023-S5-164ed36302-format.log"
+    },
+    {
+      "name": "native-import",
+      "returncode": 0,
+      "seconds": 0.27,
+      "log": "docs/validation/20261023-S5-164ed36302-native-import.log"
+    },
+    {
+      "name": "full",
+      "returncode": 0,
+      "seconds": 227.67,
+      "log": "docs/validation/20261023-S5-164ed36302-full.log"
+    },
+    {
+      "name": "pip-app",
+      "returncode": 0,
+      "seconds": 0.57,
+      "log": "docs/validation/20261023-S5-164ed36302-pip-app.log"
+    },
+    {
+      "name": "pip-hermes",
+      "returncode": 0,
+      "seconds": 0.36,
+      "log": "docs/validation/20261023-S5-164ed36302-pip-hermes.log"
+    }
+  ],
+  "finished_at": 1792743018.4877195
+}

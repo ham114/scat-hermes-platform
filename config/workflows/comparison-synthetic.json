@@ -1,0 +1,28 @@
+{
+  "kind": "comparison",
+  "batch": "SYNTH-S5",
+  "external_ids": [
+    "SYNTH-S5-001",
+    "SYNTH-S5-002"
+  ],
+  "min_flights": 2,
+  "max_flights": 2,
+  "sampling_seed": 42,
+  "models": [
+    {
+      "model": "constant-velocity-heading",
+      "window_s": 120
+    },
+    {
+      "model": "kalman-cv",
+      "process_noise_mps2": 0.5,
+      "measurement_noise_m": 30
+    }
+  ],
+  "materializations": [
+    "phase_segments"
+  ],
+  "missing_phase": "build",
+  "failure_policy": "keep_partial",
+  "title": "合成双模型固定样本对比"
+}

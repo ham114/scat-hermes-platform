@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "pid": 3409682,
+  "started_at": 1792702793.381247,
+  "phases": [
+    {
+      "name": "ruff",
+      "returncode": 0,
+      "seconds": 0.06,
+      "log": "docs/validation/20261023-S2C-ruff3.log"
+    },
+    {
+      "name": "format",
+      "returncode": 0,
+      "seconds": 0.06,
+      "log": "docs/validation/20261023-S2C-format3.log"
+    },
+    {
+      "name": "full",
+      "returncode": 0,
+      "seconds": 32.22,
+      "log": "docs/validation/20261023-S2C-full3.log"
+    },
+    {
+      "name": "draft",
+      "returncode": 0,
+      "seconds": 0.26,
+      "log": "docs/validation/20261023-S2C-draft3.log"
+    },
+    {
+      "name": "policy",
+      "returncode": 0,
+      "seconds": 0.27,
+      "log": "docs/validation/20261023-S2C-policy3.log"
+    },
+    {
+      "name": "real-budget",
+      "returncode": 0,
+      "seconds": 18.65,
+      "log": "docs/validation/20261023-S2C-real-budget3.log"
+    },
+    {
+      "name": "real-full",
+      "returncode": 0,
+      "seconds": 36.57,
+      "log": "docs/validation/20261023-S2C-real-full3.log"
+    },
+    {
+      "name": "real-reuse",
+      "returncode": 0,
+      "seconds": 30.01,
+      "log": "docs/validation/20261023-S2C-real-reuse3.log"
+    },
+    {
+      "name": "real-uav",
+      "returncode": 0,
+      "seconds": 32.57,
+      "log": "docs/validation/20261023-S2C-real-uav3.log"
+    }
+  ],
+  "finished_at": 1792702944.0722644
+}

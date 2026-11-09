@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "profile_id": "m8_rrf_qwen06b_top100",
+  "generation_id": "kg_20261026_research_v4",
+  "corpus": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora/kg_20261026_research_v4/rag_chunks.v1.jsonl",
+  "corpus_sha256": "208c2322f951ac53028dcb999b75222d4ed4cac945d4122c76dd9544f9d38c96",
+  "chunk_count": 149,
+  "embedding_model": "/mnt/h3c/scat-rag/models/embedding/bge-m3-5617a9f61b028005a4858fdac845db406aefb181",
+  "embedding_cache": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora/kg_20261026_research_v4/bge-m3.npy",
+  "embedding_cache_sha256": "0020ce32732cc20170737c783cdcf9df50973cb8790ae866a61fcd0fb5e88d04",
+  "model_manifest": "services/rag/qwen3-06b-download.json",
+  "model_manifest_sha256": "7ed41167911fb887de93af34e26a4f5a1ea8e196ba421995f2593c5b76fd0c14",
+  "candidate_limit": 100,
+  "batch_size": 4,
+  "max_input_tokens": 2048,
+  "host": "127.0.0.1",
+  "port": 18133,
+  "max_inflight": 2
+}

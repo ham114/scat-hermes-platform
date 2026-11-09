@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "models": [
+    {
+      "status": "passed",
+      "kind": "reranker",
+      "repo": "Qwen/Qwen3-Reranker-4B",
+      "revision": "14f36843fc02cea94c1e0c59b6ae0ab1f9b9ebe2",
+      "gpu": "Tesla V100-PCIE-32GB",
+      "dtype": "float16",
+      "attention": "sdpa",
+      "max_input_tokens": 512,
+      "synthetic_queries": 3,
+      "positive_negative_scores": [
+        [
+          0.9982317090034485,
+          9.827920621319208e-06
+        ],
+        [
+          0.9998013377189636,
+          0.00011367750266799703
+        ],
+        [
+          0.9966756105422974,
+          7.6018641266273335e-06
+        ]
+      ],
+      "load_seconds": 3.201,
+      "small_batch_forward_ms_including_first": [
+        286.941,
+        72.285,
+        54.049
+      ],
+      "peak_allocated_bytes": 8118242816,
+      "peak_reserved_bytes": 8319401984,
+      "business_corpus_used": false,
+      "retrieval_quality_admitted": false,
+      "latency_sla_validated": false,
+      "api_calls": 0
+    },
+    {
+      "status": "passed",
+      "kind": "embedding",
+      "repo": "Qwen/Qwen3-Embedding-4B",
+      "revision": "959bed3521cc1e8714392c77e15ae213b00aa921",
+      "gpu": "Tesla V100-PCIE-32GB",
+      "dtype": "float16",
+      "attention": "sdpa",
+      "max_input_tokens": 512,
+      "synthetic_queries": 3,
+      "positive_negative_scores": [
+        [
+          0.7990264892578125,
+          0.3654611110687256
+        ],
+        [
+          0.7782508134841919,
+          0.3301767110824585
+        ],
+        [
+          0.6236711740493774,
+          0.34498584270477295
+        ]
+      ],
+      "load_seconds": 3.197,
+      "small_batch_forward_ms_including_first": [
+        302.272,
+        47.33,
+        45.944
+      ],
+      "peak_allocated_bytes": 8064060416,
+      "peak_reserved_bytes": 8204058624,
+      "business_corpus_used": false,
+      "retrieval_quality_admitted": false,
+      "latency_sla_validated": false,
+      "api_calls": 0
+    }
+  ],
+  "scope": "offline_synthetic_smoke_only",
+  "original_rag_service_switched": false
+}

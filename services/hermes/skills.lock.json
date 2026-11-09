@@ -1,0 +1,308 @@
+{
+  "schema_version": 2,
+  "bundle_version": "s5-release-readiness.1.0",
+  "upstream_commit": "5b147ab036d6d19131bff8d20701b5001eab844a",
+  "native_sources": {
+    "tools/skills_tool.py": "f75e1047efba2640daefa2f03b897db12ac74890792621151ed9fbfd974176b8",
+    "tools/skill_manager_tool.py": "131d3720957659c37addd27430693d5d0b7dec0b5176a83b2bedad783b7edcd7",
+    "agent/skill_utils.py": "cb1996a2ef7f52f075f1a45fa64eee4ea9f332b9910da4ecc123ce0ead79fb46",
+    "tools/registry.py": "48c3875138ac9e1875349ed2900d6940f51dfff050d655d6fb17a1dafe30f5e7",
+    "model_tools.py": "da5b7db1b05de615658e56c4172426ed82099a093c5b586e48e65ef930b778c8"
+  },
+  "skills": [
+    {
+      "name": "scat-flight-query",
+      "version": "0.2.0",
+      "allowed_operations": [
+        "mcp__scat__get_scat_database_overview",
+        "mcp__scat__list_scat_batches",
+        "mcp__scat__search_scat_flights",
+        "mcp__scat__get_scat_batch_overview",
+        "mcp__scat__get_scat_flight_overview",
+        "mcp__scat__get_scat_airport_stats"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "scat.request.v1"
+        ],
+        "outputs": [
+          "scat.flight-reference.v1",
+          "scat.query-result.v1"
+        ]
+      },
+      "requires_skills": {},
+      "files": {
+        "SKILL.md": "f771a94edd3085d3c8ed2d0bad9a63f8d75ce95ada485e0797899940980ab15c",
+        "references/query-contract.md": "8f9c31e8cf19816304faae59d86d2484092cca1ad8c4df8bfafaefcf61bea1fe"
+      }
+    },
+    {
+      "name": "aviation-knowledge",
+      "version": "0.2.0",
+      "allowed_operations": [
+        "mcp__scat__search_scat_knowledge"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "aviation.question.v1"
+        ],
+        "outputs": [
+          "aviation.cited-answer.v1"
+        ]
+      },
+      "requires_skills": {},
+      "files": {
+        "SKILL.md": "3d5baac0b8673f00858eecccf94b35483dd792209751e5b61684260510f8f082"
+      }
+    },
+    {
+      "name": "scat-data-quality",
+      "version": "0.2.0",
+      "allowed_operations": [
+        "mcp__scat__inspect_scat_collection_data_quality",
+        "mcp__scat__list_scat_quality_problem_flights",
+        "mcp__scat__list_scat_quality_clean_flights",
+        "mcp__scat__inspect_scat_model_data_quality"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "scat.flight-reference.v1",
+          "scat.batch-reference.v1"
+        ],
+        "outputs": [
+          "scat.quality-observation.v1"
+        ]
+      },
+      "requires_skills": {},
+      "files": {
+        "SKILL.md": "9e29536b8475d31e7ba998cc939ff2b9812c67036f144ca53960c0436f870933"
+      }
+    },
+    {
+      "name": "scat-trajectory-analysis",
+      "version": "0.3.1",
+      "allowed_operations": [
+        "mcp__scat__get_scat_track_points",
+        "mcp__scat__get_scat_fpl_overview",
+        "mcp__scat__get_scat_prediction_overview",
+        "mcp__scat__list_scat_prediction_snapshots",
+        "mcp__scat__get_scat_prediction_snapshot",
+        "mcp__scat__get_scat_flight_phase_stats",
+        "mcp__scat__get_scat_prediction_error_stats",
+        "mcp__scat__get_prediction_metric_summaries",
+        "mcp__scat__get_worst_prediction_cases"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "scat.flight-reference.v1"
+        ],
+        "outputs": [
+          "scat.trajectory-observation.v1"
+        ]
+      },
+      "requires_skills": {},
+      "files": {
+        "SKILL.md": "137de7774d5f5682bc02f8b8c3272f666676e5415cc3617c9215c207235cbe82"
+      }
+    },
+    {
+      "name": "uav-flight-analysis",
+      "version": "0.2.0",
+      "allowed_operations": [
+        "mcp__scat__list_uav_models",
+        "mcp__scat__search_uav_flights",
+        "mcp__scat__get_uav_flight_overview",
+        "mcp__scat__list_uav_channels",
+        "mcp__scat__get_uav_samples",
+        "mcp__scat__get_uav_channel_stats",
+        "mcp__scat__get_uav_normal_vs_anomaly_stats",
+        "mcp__scat__get_uav_phase_stats"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "uav.request.v1"
+        ],
+        "outputs": [
+          "uav.observation.v1"
+        ]
+      },
+      "requires_skills": {},
+      "files": {
+        "SKILL.md": "24a6bf7bbd395fe1af96cf77827e3852ee668e9f2baae9ff4460fbb062368059"
+      }
+    },
+    {
+      "name": "scat-investigation",
+      "version": "0.2.0",
+      "allowed_operations": [],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "scat.request.v1"
+        ],
+        "outputs": [
+          "scat.evidence-report.v1"
+        ]
+      },
+      "requires_skills": {
+        "scat-flight-query": "0.2.0",
+        "scat-data-quality": "0.2.0",
+        "scat-trajectory-analysis": "0.3.1",
+        "aviation-knowledge": "0.2.0"
+      },
+      "files": {
+        "SKILL.md": "1e86e6e232824702d9861e29d2f0e2bc02564ed08e028308a37f632acd798122"
+      }
+    },
+    {
+      "name": "scat-model-analysis",
+      "version": "0.3.0",
+      "allowed_operations": [
+        "scat_task_prepare",
+        "scat_model_prepare_input",
+        "scat_model_run",
+        "scat_model_evaluate",
+        "scat_model_save_result",
+        "scat_model_read_result"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "model.trusted-task.v1"
+        ],
+        "outputs": [
+          "model.step-reference.v1",
+          "model.analysis-result.v1"
+        ]
+      },
+      "requires_skills": {},
+      "files": {
+        "SKILL.md": "42ed5e5ae5213beafc504d2972d7835961b8a2da48ad1b22b6e5599dbc97fc9e"
+      }
+    },
+    {
+      "name": "scat-model-comparison",
+      "version": "0.3.1",
+      "allowed_operations": [
+        "scat_workflow_prepare",
+        "scat_sample_prepare",
+        "scat_trial_run"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "scat.workflow-plan.v1"
+        ],
+        "outputs": [
+          "scat.workflow-artifact.v1"
+        ]
+      },
+      "requires_skills": {
+        "scat-evaluation": "0.2.0",
+        "scat-report": "0.2.0"
+      },
+      "files": {
+        "SKILL.md": "b9fad9842c87801fa25d9a6b18c92005c172eafde7fb4a73fbe981e2371547ec"
+      }
+    },
+    {
+      "name": "scat-experiment",
+      "version": "0.2.0",
+      "allowed_operations": [
+        "scat_workflow_prepare",
+        "scat_sample_prepare",
+        "scat_trial_run"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "scat.workflow-plan.v1"
+        ],
+        "outputs": [
+          "scat.workflow-artifact.v1"
+        ]
+      },
+      "requires_skills": {
+        "scat-evaluation": "0.2.0",
+        "scat-report": "0.2.0"
+      },
+      "files": {
+        "SKILL.md": "2062e5f77e080b2c850363276fdc4f4eb623c56234e11a9c37276552b1d2d6ea"
+      }
+    },
+    {
+      "name": "scat-data-materialization",
+      "version": "0.1.0",
+      "allowed_operations": [
+        "scat_workflow_prepare",
+        "scat_sample_prepare",
+        "scat_materialize",
+        "scat_materialization_read"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "scat.workflow-plan.v1"
+        ],
+        "outputs": [
+          "scat.workflow-artifact.v1"
+        ]
+      },
+      "requires_skills": {
+        "scat-report": "0.2.0"
+      },
+      "files": {
+        "SKILL.md": "49a69f8399f0f0a1bb20abc3fd98e1f1b1add0aa251295affb0b0329d2ceb66a"
+      }
+    },
+    {
+      "name": "scat-evaluation",
+      "version": "0.2.0",
+      "allowed_operations": [
+        "scat_evaluation_summarize",
+        "scat_evaluation_diagnose"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "scat.workflow-plan.v1"
+        ],
+        "outputs": [
+          "scat.workflow-artifact.v1"
+        ]
+      },
+      "requires_skills": {},
+      "files": {
+        "SKILL.md": "49f2472b9982ca61f3e8fb1c6ec3bd6bab731c119abd37afdb7e3a647622a9ee"
+      }
+    },
+    {
+      "name": "scat-report",
+      "version": "0.2.0",
+      "allowed_operations": [
+        "scat_workflow_prepare",
+        "scat_sample_prepare",
+        "scat_report_build",
+        "scat_report_read"
+      ],
+      "contract": {
+        "version": 1,
+        "inputs": [
+          "scat.workflow-plan.v1"
+        ],
+        "outputs": [
+          "scat.workflow-artifact.v1"
+        ]
+      },
+      "requires_skills": {},
+      "files": {
+        "SKILL.md": "9d6f35aefd15a6db57d829586f6bb3ea9ad749b6483262008fbf2c7f35923014"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "action": "snapshot",
+  "environments": {
+    "scat-agent": {
+      "conda_packages": 26,
+      "pip_packages": 240,
+      "local_sources": 0,
+      "inventory_sha256": "d6aa8c5fb74e032aa5b0a7b076ac6d0611b6c1376331440571d965e8658511e3"
+    },
+    "scat-hermes": {
+      "conda_packages": 23,
+      "pip_packages": 85,
+      "local_sources": 1,
+      "inventory_sha256": "4d5c18d5701c221141e917482d2271692bafc8f72caa16d57410621764537eb4"
+    }
+  },
+  "installs": 0,
+  "new_environments": 0
+}

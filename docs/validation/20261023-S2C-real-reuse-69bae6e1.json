@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "case": "reuse",
+  "started_at": 1792702881.7221165,
+  "terminal": "run.completed",
+  "run_status": "completed",
+  "completed_tools": [
+    "skills_list",
+    "skill_view",
+    "skill_view",
+    "skill_view",
+    "skill_view",
+    "mcp__scat__search_scat_flights",
+    "mcp__scat__get_scat_track_points"
+  ],
+  "budget": {
+    "scope": "scat:a575899b0d4e1bbd776df368e75c5eef509cb3c2bd982a0f80a7f31835f409e9",
+    "run_id": "run_69eef113a20249a4b899ba44f1f0e473",
+    "started_at": 1792702896.6224241,
+    "policy_sha256": "21281509759d9185621313110c66e997e222acc48911327b6de0e2e4ae38e7f1",
+    "limits_json": "{\"max_turns\": 16, \"max_llm_tokens\": 1000000, \"max_tool_calls\": 16, \"wall_seconds\": 240, \"max_cost\": null, \"currency\": \"CNY\"}",
+    "llm_calls": 6,
+    "tool_calls": 7,
+    "charged_tokens": 341081,
+    "provider_input_tokens": 90814,
+    "provider_output_tokens": 864,
+    "provider_cached_tokens": 76800,
+    "exhausted": null,
+    "finished_at": 1792702910.6095555
+  },
+  "loads": [
+    {
+      "skill_id": "scat-investigation",
+      "file_path": "SKILL.md"
+    },
+    {
+      "skill_id": "scat-flight-query",
+      "file_path": "SKILL.md"
+    },
+    {
+      "skill_id": "scat-trajectory-analysis",
+      "file_path": "SKILL.md"
+    },
+    {
+      "skill_id": "scat-flight-query",
+      "file_path": "references/query-contract.md"
+    }
+  ],
+  "matching_operation_loads": 2,
+  "elapsed_seconds": 17.12,
+  "validated_readonly_references": 2,
+  "real_model": true,
+  "synthetic": true,
+  "real_database_query": false,
+  "gpu_executed": false,
+  "child_stopped": true,
+  "temporary_home_removed": true,
+  "log": "var/validation/hermes-s2c-f0552b012d14.log",
+  "finished_at": 1792702911.4003248,
+  "evidence": "docs/validation/20261023-S2C-real-reuse-69bae6e1.json"
+}

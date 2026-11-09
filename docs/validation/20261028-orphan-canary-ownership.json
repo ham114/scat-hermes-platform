@@ -1,0 +1,16 @@
+{
+  "status": "read_only_verified",
+  "exact_candidates": [
+    {
+      "workspace": "scat-2a7ce3e64839505222e7be21216dc568e4a107ffe39094db42402cf23c56e04f-1",
+      "source_report": "memory-native-6d1f5cb89b.json",
+      "scope_sha": "b307b7e6c4d12aa8cacb152682b06e1de9b1854aeb98d2c82c2fa8268bb699e0",
+      "session_count": 1,
+      "message_count": 1,
+      "all_messages_match_known_synthetic_input": true,
+      "input_sha256": "fe9257049286a930d9b2724eb2b71377da7bd85369a27db15308df8aeb2c0704",
+      "created_at": "2026-10-27T17:23:04.309886Z"
+    }
+  ],
+  "resources_deleted": 0
+}

@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "python": "C:/ProgramData/anaconda3/envs/scat-frontend/python.exe",
+  "files": [
+    "src/application/readonly.py",
+    "src/application/readonly_extensions.py",
+    "src/application/skill_synthetic.py",
+    "src/scat_mcp/server.py",
+    "src/hermes_runtime/results.py",
+    "src/hermes_runtime/skills.py",
+    "src/hermes_runtime/skill_contracts.py",
+    "scripts/run_scat_mcp.py",
+    "scripts/run_hermes_api.py",
+    "tests/hermes_runtime/test_skills.py",
+    "tests/scat_mcp/test_skill_extensions.py",
+    "tests/hermes_runtime/test_skill_composition.py",
+    "scripts/probe_hermes_composition.py",
+    "scripts/probe_skill_composition_native.py",
+    "scripts/probe_skill_business_readonly.py"
+  ],
+  "ruff_check": "passed",
+  "ruff_format_check": "15 files already formatted",
+  "dependencies_installed": false
+}

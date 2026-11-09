@@ -1,0 +1,57 @@
+{
+  "state": "passed",
+  "scope": "candidate-source-and-accounting-integrity-not-human-quality-approval",
+  "candidates": 40,
+  "sources": 8,
+  "claims": 116,
+  "exact_quote_references": 121,
+  "quote_offsets_checked": true,
+  "all_human_review_pending": true,
+  "automatic_reviewer_same_provider": true,
+  "assistant_corrections_rejudged": 3,
+  "assistant_hint_groups": 6,
+  "request_events": {
+    "start": 216,
+    "end": 212,
+    "error": 4
+  },
+  "provider_usage": {
+    "prompt_tokens": 148512,
+    "completion_tokens": 39251,
+    "total_tokens": 187763
+  },
+  "candidates_sha256": "7fbe96cfcfdbe3406b7338e724c404552bdd14c4e6c1987969589ef394671561",
+  "old_environment_histories_unchanged": {
+    "scat-hermes": true,
+    "scat-agent": true,
+    "scat-rag-train": true
+  },
+  "ports": {
+    "80": true,
+    "443": true,
+    "8080": true,
+    "8501": true,
+    "8091": true,
+    "27017": true,
+    "18130": false,
+    "18131": false,
+    "18132": false,
+    "18133": false
+  },
+  "processes_remaining": [],
+  "env_mode": "0o600",
+  "secret_scan_files": 330,
+  "actual_key_exposures": 0,
+  "tests_passed": 17,
+  "no_dataset_freeze": true,
+  "retrieval_comparison_run": false,
+  "artifact_sha256": {
+    "REVIEW.md": "266f2f3117d32ba4eea3f8f6df17f0cb8e2fe2f04722f959dac3c897b28c0356",
+    "REVIEW.html": "33729365c0b31da47a9f2429b92797ef93f0f9d002773f1c7929e65d9373c105",
+    "candidates.jsonl": "7fbe96cfcfdbe3406b7338e724c404552bdd14c4e6c1987969589ef394671561",
+    "summary.json": "67b639eca240ddbfe0821989a8864022dbe66824ecd085b7a1408aa2b6cfd3aa",
+    "human-review-template.json": "90969f2a4f23c5ddfb0da738f8aac7ed94c0b22065e63db32931f6abe3de2e84",
+    "assistant-corrections.json": "e3c62634ef7710f6916e75cd0a2024c03d45269c3ac3b399d558a437af58c482",
+    "assistant-review-notes.json": "54d45d5a90073e9c9295582de9546c58587859f8ac27bacccd7902606ec69eb3"
+  }
+}

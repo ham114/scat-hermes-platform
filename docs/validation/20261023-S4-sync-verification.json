@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "files_verified": 109,
+  "file_set_sha256": "f70076bbb7682ef1280812a1f4dde8c21b000fa19b2024b1acf321fcbcdba962",
+  "temporary_s4_removed": true,
+  "ruff_cache_removed": true,
+  "ports_listening": {
+    "80": true,
+    "443": true,
+    "8080": true,
+    "8501": true,
+    "8091": true,
+    "27017": true,
+    "18093": false,
+    "18094": false,
+    "18095": false
+  },
+  "text_files_scanned": 878,
+  "private_value_findings": [],
+  "source_files_unchanged_after_tests": true
+}
