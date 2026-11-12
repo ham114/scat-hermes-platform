@@ -82,6 +82,7 @@ backups/
 # Local development records, operational evidence and interview notes
 /SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md
 /interview_materials/
+/imgs/
 /infra/compose/GPU_MIGRATION.md
 /docs/*
 !/docs/CONFIGURATION.md
