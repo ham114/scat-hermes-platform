@@ -1,9 +1,0 @@
-{
-  "status": "passed",
-  "orphan_process_stopped": true,
-  "profile_removed": true,
-  "interrupted_trial_requires_retry": true,
-  "active_release_unchanged": true,
-  "model_calls": 0,
-  "effects": 0
-}

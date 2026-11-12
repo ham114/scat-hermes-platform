@@ -1,7 +1,0 @@
-{
-  "status": "failed",
-  "passed": 54,
-  "failed": 13,
-  "cause": "New test fixture wrote CRLF on Windows but hashed its LF source string; corrected fixture to write exact LF bytes. Release validation correctly rejected the mismatched bytes.",
-  "runtime_changes_from_failure": false
-}

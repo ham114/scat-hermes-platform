@@ -131,7 +131,7 @@ class SkillJobStore:
             raise ValueError("Invalid skill worker admission")
         with self.transaction() as db:
             expired = db.execute(
-                "SELECT task_id FROM skill_jobs WHERE state IN ('running','cancel_requested') AND lease<=?",
+                "SELECT task_id FROM skill_jobs WHERE state='running' AND lease<=?",
                 (self.clock(),),
             ).fetchall()
             for row in expired:
@@ -179,7 +179,16 @@ class SkillJobStore:
             )
 
     def state(
-        self, scope, task_id, state, *, error=None, reference=None, worker=None, generation=None
+        self,
+        scope,
+        task_id,
+        state,
+        *,
+        error=None,
+        reference=None,
+        worker=None,
+        generation=None,
+        expected_generation=None,
     ):
         """Trusted reconciliation/control operation. Never exposed as a model tool."""
         if state not in {
@@ -208,6 +217,10 @@ class SkillJobStore:
                 "cancelled",
             }:
                 raise TaskConflict("Skill job already terminal")
+            if expected_generation is not None and current["generation"] != expected_generation:
+                raise TaskConflict("Skill job changed during reconciliation")
+            if current["state"] == "cancel_requested" and state != "cancelled":
+                raise TaskConflict("Skill job cancellation is pending")
             db.execute(
                 "UPDATE skill_jobs SET state=?,generation=generation+1,worker=NULL,lease=NULL,updated=?,error=?,result_reference=COALESCE(?,result_reference) WHERE task_id=?",
                 (state, self.clock(), error, canonical(reference) if reference else None, task_id),
@@ -334,18 +347,29 @@ class SkillJobStore:
             return dict(row)
 
     def cancel(self, scope, task_id):
-        row = self.get(scope, task_id)
         with self.transaction() as db:
-            if row["job"] is None:
+            task = db.execute(
+                "SELECT * FROM model_tasks WHERE task_id=? AND scope=?", (task_id, scope)
+            ).fetchone()
+            if task is None:
+                raise TaskNotFound("Task not found")
+            self.tasks._decode(task)
+            job = db.execute("SELECT state FROM skill_jobs WHERE task_id=?", (task_id,)).fetchone()
+            if job is None:
                 raise TaskConflict("No approved skill job")
-            if row["job"]["state"] in {"succeeded", "partial", "failed", "cancelled"}:
-                return row
-            db.execute(
-                "UPDATE skill_jobs SET state='cancel_requested',generation=generation+1,updated=? WHERE task_id=?",
-                (self.clock(), task_id),
-            )
-            db.execute("UPDATE skill_job_delegations SET revoked=1 WHERE task_id=?", (task_id,))
-            self.event(db, task_id, "cancel_requested")
+            if job["state"] not in {
+                "succeeded",
+                "partial",
+                "failed",
+                "cancelled",
+                "cancel_requested",
+            }:
+                db.execute(
+                    "UPDATE skill_jobs SET state='cancel_requested',generation=generation+1,updated=? WHERE task_id=?",
+                    (self.clock(), task_id),
+                )
+                db.execute("UPDATE skill_job_delegations SET revoked=1 WHERE task_id=?", (task_id,))
+                self.event(db, task_id, "cancel_requested")
         return self.get(scope, task_id)
 
     def limits(self, task_id):

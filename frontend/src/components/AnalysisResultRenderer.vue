@@ -2,6 +2,7 @@
 import { computed, inject, onUnmounted, ref, watch, toRaw } from 'vue'
 import { chatDisplayKey } from '@/lib/chatDisplay'
 import { defaultDisplay, parseDisplay, displayCommand, displayBlocks } from '@/lib/displayWorkspace'
+import { downloadCsv } from '@/utils/evaluationExport'
 import BaseChart from './BaseChart.vue'
 import AnalysisTrajectoryBlock from './AnalysisTrajectoryBlock.vue'
 import {
@@ -9,6 +10,7 @@ import {
   safeAnalysisLink,
   scalarLabel,
   withUnit,
+  type AnalysisBlock,
   type AnalysisResult,
 } from '@/lib/analysisDisplay'
 
@@ -60,6 +62,38 @@ watch(
 )
 onUnmounted(() => displayBinding?.dispose())
 const visible = computed(() => displayBlocks(props.result, toRaw(config.value)))
+function sortTable(id: number, key: string) {
+  const previous = config.value.sort[id]
+  config.value = {
+    ...config.value,
+    sort: {
+      ...config.value.sort,
+      [id]: { key, descending: previous?.key === key && !previous.descending },
+    },
+  }
+}
+
+function exportTable(id: number, block: Extract<AnalysisBlock, { type: 'table' }>) {
+  const rows = [
+    block.columns.map((column) => withUnit(column.label, column.unit)),
+    ...block.rows.map((row) => block.columns.map((column) => row[column.key])),
+  ]
+  const csv = rows
+    .map((row) =>
+      row
+        .map((value) => {
+          const text = String(value ?? '')
+          // Keep arbitrary text values from being interpreted as spreadsheet formulas.
+          const safe =
+            typeof value === 'string' && /^\s*[=+@-]|^[\t\r\n]/.test(text) ? `'${text}` : text
+          return `"${safe.replaceAll('"', '""')}"`
+        })
+        .join(','),
+    )
+    .join('\r\n')
+  downloadCsv(`\uFEFF${csv}`, `analysis-table-${id + 1}.csv`)
+}
+
 function apply() {
   try {
     config.value = displayCommand(command.value, toRaw(config.value), props.result)
@@ -140,6 +174,14 @@ const link = (url: string) => safeAnalysisLink(url, window.location.origin)
           </div>
         </dl>
         <template v-else-if="block.type === 'table'">
+          <button
+            v-if="block.rows.length"
+            type="button"
+            class="table-export"
+            @click="exportTable(id, block)"
+          >
+            下载当前表格 CSV
+          </button>
           <div
             v-if="block.rows.length"
             class="result-scroll"
@@ -149,8 +191,24 @@ const link = (url: string) => safeAnalysisLink(url, window.location.origin)
             <table>
               <thead>
                 <tr>
-                  <th v-for="column in block.columns" :key="column.key" scope="col">
-                    {{ withUnit(column.label, column.unit) }}
+                  <th
+                    v-for="column in block.columns"
+                    :key="column.key"
+                    scope="col"
+                    :aria-sort="
+                      config.sort[id]?.key === column.key
+                        ? config.sort[id]?.descending
+                          ? 'descending'
+                          : 'ascending'
+                        : undefined
+                    "
+                  >
+                    <button type="button" class="table-sort" @click="sortTable(id, column.key)">
+                      {{ withUnit(column.label, column.unit) }}
+                      <span v-if="config.sort[id]?.key === column.key" aria-hidden="true">{{
+                        config.sort[id]?.descending ? '↓' : '↑'
+                      }}</span>
+                    </button>
                   </th>
                 </tr>
               </thead>
@@ -215,6 +273,18 @@ const link = (url: string) => safeAnalysisLink(url, window.location.origin)
 </template>
 
 <style scoped>
+.table-sort {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+.table-export {
+  margin-bottom: 8px;
+}
 .display-controls {
   display: flex;
   gap: 8px;

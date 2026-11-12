@@ -1,6 +1,0 @@
-{
-  "status": "passed",
-  "reason": "native exit callback recreated empty browser cache skeleton; early-registered final cleanup now removes it",
-  "remaining_round_temp": false,
-  "native_probe_sha256": "2a7a9c85e6222b80df39abbf307228681dff7ef724e518b45b4ba31a701305d4"
-}

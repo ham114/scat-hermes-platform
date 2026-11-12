@@ -1,8 +1,0 @@
-{
-  "exportDigestMatches": true,
-  "cards": 40,
-  "externalRequests": 0,
-  "decisionsAndEditsPreserved": true,
-  "state": "passed",
-  "scope": "offline-form-script-with-dom-stub-not-browser-render"
-}

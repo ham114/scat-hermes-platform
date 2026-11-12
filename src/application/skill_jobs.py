@@ -385,6 +385,15 @@ class SkillJobs:
         if job["state"] == "running" and job["lease"] > self.store.clock():
             raise TaskConflict("Worker lease is still active")
         with self.store.transaction() as db:
+            current = db.execute(
+                "SELECT state,generation FROM skill_jobs WHERE task_id=?", (task_id,)
+            ).fetchone()
+            if (
+                current is None
+                or current["generation"] != job["generation"]
+                or current["state"] != job["state"]
+            ):
+                raise TaskConflict("Skill job changed during reconciliation")
             backend = db.execute(
                 "SELECT * FROM skill_backend_executions WHERE task_id=?", (task_id,)
             ).fetchall()
@@ -464,6 +473,7 @@ class SkillJobs:
             task_id,
             target,
             error="cancel_acknowledged" if target == "cancelled" else None,
+            expected_generation=job["generation"],
         )
         if target in {"failed", "cancelled"}:
             ensure_account(self.store, row).finish()

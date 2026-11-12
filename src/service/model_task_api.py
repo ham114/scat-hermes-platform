@@ -120,8 +120,8 @@ async def revoke(
     try:
         row = await asyncio.to_thread(tasks.store.get, context.scope_key, task_id)
         if tasks.skills is not None and "skills" in row["snapshot"] and row["state"] != "pending":
-            tasks.skills.store.cancel(context.scope_key, task_id)
-            tasks.skills.reconcile(context, task_id)
+            await asyncio.to_thread(tasks.skills.store.cancel, context.scope_key, task_id)
+            await asyncio.to_thread(tasks.skills.reconcile, context, task_id)
             return await tasks.get(context, task_id)
         return tasks.view(await asyncio.to_thread(tasks.store.revoke, context.scope_key, task_id))
     except (TaskNotFound, TaskConflict) as exc:
@@ -200,7 +200,9 @@ async def revise_job_budget(
 
 
 @router.get("/threads/{thread_id}/model-tasks/{task_id}/saved-model-output")
-async def saved_output(thread_id: UUID, task_id: TaskId, runtime: Runtime, owner: Owner, tasks: Tasks):
+async def saved_output(
+    thread_id: UUID, task_id: TaskId, runtime: Runtime, owner: Owner, tasks: Tasks
+):
     from application.model_output_view import saved_model_output
 
     context = await _context(runtime, owner, thread_id)

@@ -1,9 +1,0 @@
-{
-  "status": "cancelled",
-  "probe_id": "ae34b42f34",
-  "stage": "startup",
-  "owned_processes_remaining": 0,
-  "temporary_home_removed": true,
-  "isolated_collections_removed": true,
-  "error_type": "CancelledError"
-}

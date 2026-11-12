@@ -70,6 +70,23 @@ describe('generic analysis rendering', () => {
     expect(wrapper.get('a').attributes('href')).toBe('/assistant')
     wrapper.unmount()
   })
+
+  it('sorts the current table from its header without changing the saved result', async () => {
+    const payload = structuredClone(fixture)
+    const table = payload.analysis_result.blocks.find((block) => block.type === 'table')!
+    table.rows!.push({ sample: 'smaller', error: 2 })
+    const wrapper = render(payload)
+    const result = wrapper.get('[data-block-type="table"]')
+    const header = result.findAll('th').at(-1)!
+    await header.get('button').trigger('click')
+    expect(header.attributes('aria-sort')).toBe('ascending')
+    expect(result.findAll('tbody tr').at(0)!.text()).toContain('smaller')
+    await header.get('button').trigger('click')
+    expect(header.attributes('aria-sort')).toBe('descending')
+    expect(result.findAll('tbody tr').at(0)!.text()).toContain('SYNTH-H6-001')
+    expect(wrapper.props('result').blocks[1]).toEqual(table)
+    wrapper.unmount()
+  })
   it('updates snapshot series without fetching or recomputing an analysis', async () => {
     const wrapper = render()
     await wrapper.get('select').setValue('时刻B')

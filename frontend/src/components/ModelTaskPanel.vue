@@ -72,6 +72,9 @@ async function showResult(task: ModelTask, artifactId?: string) {
 watch(
   () => props.threadId,
   () => {
+    items.value = []
+    error.value = ''
+    unresolved.value = false
     previewGeneration++
     preview.value = undefined
     previewError.value = ''
@@ -119,9 +122,12 @@ async function control(task: ModelTask, cancel: boolean) {
   try {
     if (cancel) await cancelModelTask(tid, task.task_id)
     else await reconcileModelTask(tid, task.task_id)
-    await refresh()
+    if (alive && tid === props.threadId) await refresh()
   } catch {
-    if (tid === props.threadId) error.value = '后台证据尚未就绪，请稍后刷新。'
+    if (alive && tid === props.threadId) {
+      unresolved.value = true
+      error.value = '后台状态尚未核实，请先刷新任务。'
+    }
   } finally {
     acting.value = false
   }
@@ -159,9 +165,9 @@ async function act(task: ModelTask, confirm: boolean) {
   try {
     if (confirm) await confirmModelTask(tid, task)
     else await revokeModelTask(tid, task.task_id)
-    await refresh()
+    if (alive && tid === props.threadId) await refresh()
   } catch {
-    if (tid === props.threadId) {
+    if (alive && tid === props.threadId) {
       unresolved.value = true
       error.value = '操作结果尚未确认，请先刷新任务状态。原任务号已保留。'
     }
@@ -184,11 +190,11 @@ async function download(task: ModelTask, artifactId: string) {
     link.click()
     URL.revokeObjectURL(url)
   } catch {
-    error.value = '结果获取失败，请刷新后重试。'
+    if (alive && tid === props.threadId) error.value = '结果获取失败，请刷新后重试。'
   }
 }
 watch(
-  () => [props.threadId, props.revision],
+  [() => props.threadId, () => props.revision],
   () => {
     void refresh()
   },
@@ -221,7 +227,9 @@ onUnmounted(() => {
       核对参数后确认执行。停止对话不会取消计算。
     </p>
     <p v-if="error" role="alert">{{ error }}</p>
-    <p v-if="!items.length && !error">当前会话尚无模型任务。</p>
+    <p v-if="!items.length && !error">
+      {{ loading ? '正在读取会话任务…' : '当前会话尚无模型任务。' }}
+    </p>
     <article v-for="task in items" :key="task.task_id" class="task-card">
       <h3>
         {{ task.model.display_name

@@ -78,3 +78,17 @@ backups/
 
 # Pinned third-party runtime checkout (see services/hermes/upstream.lock.json)
 /vendor/
+
+# Local development records, operational evidence and interview notes
+/SCAT_HERMES_PLATFORM_DEVELOPMENT_AND_TEST_PLAN.md
+/interview_materials/
+/infra/compose/GPU_MIGRATION.md
+/docs/*
+!/docs/CONFIGURATION.md
+!/docs/DEPLOYMENT.md
+!/docs/api/
+!/docs/examples/
+!/docs/assets/
+!/docs/validation/
+/docs/validation/*
+!/docs/validation/20261023-skills-reuse-inventory.json

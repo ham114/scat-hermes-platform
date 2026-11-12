@@ -280,4 +280,18 @@ describe('explicit model task confirmation', () => {
     expect(api.confirmModelTask).not.toHaveBeenCalled()
     wrapper.unmount()
   })
+
+  it('removes old task actions immediately when the next task list cannot be read', async () => {
+    const wrapper = mount(ModelTaskPanel, { props: { threadId: 'old-thread' } })
+    await flushPromises()
+    expect(wrapper.text()).toContain('确认参数并执行')
+    vi.mocked(api.listModelTasks).mockRejectedValueOnce(new Error('network'))
+    await wrapper.setProps({ threadId: 'new-thread' })
+    await flushPromises()
+    expect(wrapper.text()).not.toContain('确认参数并执行')
+    expect(wrapper.text()).not.toContain('flight-1')
+    expect(wrapper.get('[role=alert]').text()).toContain('任务状态暂时不可用')
+    expect(api.confirmModelTask).not.toHaveBeenCalled()
+    wrapper.unmount()
+  })
 })

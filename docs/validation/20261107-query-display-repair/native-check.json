@@ -1,9 +1,0 @@
-{
-  "status": "passed",
-  "native_dispatch": true,
-  "recovery_then_explicit_load": true,
-  "cross_run_still_denied": true,
-  "synthetic_backend_calls": 1,
-  "bundle_sha256": "720784a866322d81ea39ad2bcf3d2d5c7ff5b37d61fa494459182190c3dacf07",
-  "llm_calls": 0
-}

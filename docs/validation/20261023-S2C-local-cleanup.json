@@ -1,6 +1,0 @@
-{
-  "temporary_round_directory_exists": false,
-  "removed": ".tmp/s2c",
-  "status": "passed",
-  "preserved": "source, dependencies, formal evidence, private configuration"
-}

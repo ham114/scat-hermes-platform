@@ -448,9 +448,17 @@ class SkillWorker:
             )
             ref = completion_reference(self.app, row)
             if ref and row["job"]["state"] != "cancel_requested":
-                skills.store.state(
-                    row["scope"], row["task_id"], "paused", error="verified_result_publish_pending"
-                )
+                try:
+                    skills.store.state(
+                        row["scope"],
+                        row["task_id"],
+                        "paused",
+                        error="verified_result_publish_pending",
+                        expected_generation=row["job"]["generation"],
+                    )
+                except TaskConflict:
+                    # Another request advanced the job. Re-read it on the next pass.
+                    continue
                 try:
                     await publish_result(self.app, row, ref)
                     skills.store.state(
@@ -461,11 +469,18 @@ class SkillWorker:
                     )
                     ensure_account(skills.store, row).finish()
                 except Exception:  # noqa: BLE001 -- preserve verified result for another publication attempt
-                    skills.store.state(
-                        row["scope"], row["task_id"], "unknown", error="result_publish_unknown"
-                    )
+                    with contextlib.suppress(TaskConflict):
+                        skills.store.state(
+                            row["scope"], row["task_id"], "unknown", error="result_publish_unknown"
+                        )
             else:
-                skills.reconcile(context, row["task_id"])
+                try:
+                    skills.reconcile(context, row["task_id"])
+                except TaskConflict:
+                    current = skills.store.get(row["scope"], row["task_id"])["job"]
+                    if current["generation"] == row["job"]["generation"]:
+                        raise
+                    continue
             await publish_terminal(self.app, row)
         skills.ready_parents()
         row = await asyncio.to_thread(

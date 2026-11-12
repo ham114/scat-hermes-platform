@@ -142,6 +142,31 @@ def test_legacy_worker_cannot_claim_skill_jobs(app):
     assert app.skills.store.claim("skill-worker") is not None
 
 
+def test_cancel_survives_expired_lease_and_repeated_requests(app):
+    context, row = approved(app)
+    store = app.skills.store
+    started = store.claim("worker-a", lease_seconds=1)
+    task_id = row["task_id"]
+    cancelled = store.cancel(context.scope_key, task_id)
+    assert (
+        store.cancel(context.scope_key, task_id)["job"]["generation"]
+        == cancelled["job"]["generation"]
+    )
+    with pytest.raises(TaskConflict):
+        store.state(
+            context.scope_key, task_id, "queued", expected_generation=started["job"]["generation"]
+        )
+
+    now = time.time() + 3
+    store.clock = app.store.clock = lambda: now
+    assert store.claim("worker-b") is None
+    assert store.get(context.scope_key, task_id)["job"]["state"] == "cancel_requested"
+    final = app.skills.reconcile(context, task_id)
+    assert final["job"]["state"] == "cancelled"
+    assert final["run_id"] == row["run_id"]
+    assert store.claim("worker-b") is None
+
+
 @pytest.mark.asyncio
 async def test_result_publication_conflict_does_not_leave_an_active_worker(app, monkeypatch):
     context, row = approved(app)
