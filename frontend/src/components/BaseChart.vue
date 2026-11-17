@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { BarChart, LineChart, ScatterChart } from 'echarts/charts'
+import { BarChart, BoxplotChart, HeatmapChart, LineChart, ScatterChart } from 'echarts/charts'
 import {
   GridComponent,
+  DataZoomComponent,
   LegendComponent,
   MarkLineComponent,
   TooltipComponent,
+  VisualMapComponent,
 } from 'echarts/components'
 import { init, use, type ECharts, type EChartsCoreOption } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -12,12 +14,16 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 use([
   BarChart,
+  BoxplotChart,
   LineChart,
   ScatterChart,
+  HeatmapChart,
   GridComponent,
   LegendComponent,
   MarkLineComponent,
   TooltipComponent,
+  DataZoomComponent,
+  VisualMapComponent,
   CanvasRenderer,
 ])
 
@@ -37,6 +43,12 @@ let observer: ResizeObserver | undefined
 function updateChart() {
   chart?.setOption(props.option, { notMerge: true })
 }
+
+function imageUrl() {
+  return chart?.getDataURL({ type: 'png', pixelRatio: 2, backgroundColor: '#fff' })
+}
+
+defineExpose({ imageUrl })
 
 onMounted(() => {
   if (!root.value) return

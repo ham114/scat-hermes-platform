@@ -19,7 +19,8 @@ def arguments(name):
         "external_id": "SYNTH-001",
         "timestamp": "2020-01-01T00:00:00Z",
         "query": "缺失率",
-        "channels": ["cmp_comb_alt"],
+        "batches": ["SYNTH-ONE", "SYNTH-TWO"],
+        "channels": ["cmp_comb_alt", "cmp_comb_vu"],
     }
     return {k: values[k] for k, f in fields.items() if f.is_required()}
 

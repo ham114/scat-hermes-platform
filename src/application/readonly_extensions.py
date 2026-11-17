@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import Field
+from pydantic import Field, field_validator
 
 from application.readonly import (
     READ_ONLY_TOOLS,
@@ -24,8 +24,10 @@ from scat.schemas.tool_inputs import (
     ScatModelDataQualityInput,
     ScatQualityCleanFlightsInput,
     ScatQualityProblemFlightsInput,
+    TrackPointsInput,
     WorstPredictionCasesInput,
 )
+from uav.schemas.channels import CHANNEL_BY_KEY
 from uav.schemas.tool_inputs import (
     UavChannelStatsInput,
     UavEmptyInput,
@@ -53,6 +55,46 @@ class BoundedUavSamples(UavSamplesInput):
     limit: int = Field(default=20, ge=1, le=100)
 
 
+class UavDiagnosticInput(UavFlightReferenceInput):
+    start: int = Field(default=0, ge=0, le=1_000_000)
+    limit: int = Field(default=100, ge=1, le=200)
+    channels: list[str] = Field(min_length=2, max_length=6)
+
+    @field_validator("channels")
+    @classmethod
+    def validate_channels(cls, values):
+        if len(set(values)) != len(values) or set(values) - CHANNEL_BY_KEY.keys():
+            raise ValueError("需要两个至六个不同的已登记通道键")
+        return values
+
+
+class TrackDiagnosticInput(TrackPointsInput):
+    limit: int = Field(default=100, ge=1, le=100)
+    every_nth: Literal[1] = 1
+    fields: None = None
+    gap_s: float = Field(default=30, ge=1, le=600, allow_inf_nan=False)
+    max_ground_speed_mps: float = Field(default=400, ge=10, le=1000, allow_inf_nan=False)
+    max_vertical_rate_mps: float = Field(default=35, ge=1, le=200, allow_inf_nan=False)
+
+
+class PredictionDiagnosticInput(PredictionErrorStatsInput):
+    metric: Literal["horizontal", "vertical", "time"] = "horizontal"
+
+
+class BatchComparisonInput(EmptyInput):
+    batches: list[Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]{0,199}$")]] = Field(
+        min_length=2, max_length=2
+    )
+    group: Literal["aircraft", "departure", "arrival"] = "aircraft"
+
+    @field_validator("batches")
+    @classmethod
+    def distinct(cls, values):
+        if len(set(values)) != len(values):
+            raise ValueError("请选择两个不同的批次")
+        return values
+
+
 class BoundedCfplSummaries(PredictionMetricSummariesInput):
     limit: int = Field(default=20, ge=1, le=50)
     offset: int = Field(default=0, ge=0, le=10000)
@@ -67,6 +109,23 @@ class BoundedCfplWorst(WorstPredictionCasesInput):
 
 ALL_READ_ONLY_TOOLS = {
     **READ_ONLY_TOOLS,
+    "compare_scat_batch_profiles": ReadOnlySpec(
+        BatchComparisonInput,
+        "对照两个指定SCAT批次的UTC计划航班量、空轨迹比例以及前十机型或机场，按批次独立统计。",
+        timeout=60,
+    ),
+    "diagnose_uav_channels": ReadOnlySpec(
+        UavDiagnosticInput,
+        "诊断单 UAV 架次的连续样本窗口，最多200点和六通道。输出同期配对相关性及分布。",
+    ),
+    "diagnose_scat_track": ReadOnlySpec(
+        TrackDiagnosticInput,
+        "诊断单 SCAT 航班最多100个连续轨迹点，检查时间、间隔、位置跳变和爬降。",
+    ),
+    "diagnose_scat_prediction_errors": ReadOnlySpec(
+        PredictionDiagnosticInput,
+        "分析已有单航班预测快照与实飞的匹配明细，按所选误差生成分布和长尾。",
+    ),
     "get_prediction_metric_summaries": ReadOnlySpec(
         BoundedCfplSummaries,
         "分页读取指定批次已物化的CFPL计划vs实飞汇总，六档冻结时域；不是GBAR指标，不计算或物化。",
@@ -134,6 +193,7 @@ class NoPersistentQualityCache:
 
 
 def build_extended_business_application() -> ReadOnlyApplication:
+    from application import flight_diagnostics
     from application.knowledge import KnowledgeSearchService
     from core.settings import settings
     from scat.infrastructure.database import flight_database
@@ -162,6 +222,40 @@ def build_extended_business_application() -> ReadOnlyApplication:
 
     async def channels():
         return uav.list_channels()
+
+    async def diagnose_uav(external_id, *, start, limit, channels):
+        source = await uav.get_samples(
+            external_id, start=start, limit=limit, channels={*channels, "cmp_comb_vu"}
+        )
+        return flight_diagnostics.uav_channels(source, channels)
+
+    async def diagnose_track(
+        *, gap_s, max_ground_speed_mps, max_vertical_rate_mps, fields, **kwargs
+    ):
+        source = await flights.get_track_points(**kwargs, fields={"position", "motion"})
+        return flight_diagnostics.track_quality(
+            source,
+            gap_s=gap_s,
+            max_ground_speed_mps=max_ground_speed_mps,
+            max_vertical_rate_mps=max_vertical_rate_mps,
+        )
+
+    async def diagnose_prediction(*, metric, **kwargs):
+        return flight_diagnostics.prediction_errors(
+            await flights.get_prediction_error_stats(**kwargs), metric
+        )
+
+    async def compare_batches(*, batches, group):
+        results = []
+        for batch in batches:
+            count = await flights.repository.count_all(batch=batch)
+            if count == 0 or count > 100_000:
+                results.append(
+                    {"status": "not_found" if count == 0 else "batch_limit_exceeded", "data": None}
+                )
+            else:
+                results.append(await flights.get_batch_overview(batch=batch, distribution_limit=10))
+        return flight_diagnostics.batch_comparison(results, batches, group)
 
     async def model_quality(**kwargs):
         if kwargs.get("end_time") is not None:
@@ -223,6 +317,10 @@ def build_extended_business_application() -> ReadOnlyApplication:
         return await cfpl("get_worst_prediction_cases", **kwargs)
 
     bindings = {
+        "compare_scat_batch_profiles": compare_batches,
+        "diagnose_uav_channels": diagnose_uav,
+        "diagnose_scat_track": diagnose_track,
+        "diagnose_scat_prediction_errors": diagnose_prediction,
         "get_prediction_metric_summaries": cfpl_summaries,
         "get_worst_prediction_cases": cfpl_worst,
         "get_scat_database_overview": flights.get_database_overview,

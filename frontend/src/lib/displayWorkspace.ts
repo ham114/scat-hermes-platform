@@ -1,4 +1,5 @@
 import type { AnalysisResult, AnalysisBlock } from './analysisDisplay'
+import { resultChartInput, validChart, type ChartView } from './analysisChart'
 export interface DisplayConfig {
   version: 1
   columns: 1 | 2
@@ -7,6 +8,7 @@ export interface DisplayConfig {
   chart: 'default' | 'line' | 'bar'
   sort: Record<string, { key: string; descending: boolean }>
   fields: Record<string, string[]>
+  views?: Record<string, ChartView>
 }
 export const defaultDisplay = (result: AnalysisResult): DisplayConfig => ({
   version: 1,
@@ -16,6 +18,7 @@ export const defaultDisplay = (result: AnalysisResult): DisplayConfig => ({
   chart: 'default',
   sort: {},
   fields: {},
+  views: {},
 })
 export function parseDisplay(value: unknown, result: AnalysisResult): DisplayConfig {
   const c = value as DisplayConfig
@@ -53,7 +56,15 @@ export function parseDisplay(value: unknown, result: AnalysisResult): DisplayCon
     )
       throw Error('展示列无效')
   }
-  return JSON.parse(JSON.stringify(c)) as DisplayConfig
+  const restored = JSON.parse(JSON.stringify(c)) as DisplayConfig
+  // Old configurations lack views. A stale optional chart does not discard table layout.
+  restored.views = Object.fromEntries(
+    result.blocks.flatMap((block, index) => {
+      const view = c.views?.[index]
+      return validChart(resultChartInput(result, index, block), view) ? [[index, view]] : []
+    }),
+  )
+  return restored
 }
 /** Deliberately bounded presentation language: never turns analysis requests into computations. */
 export function displayCommand(

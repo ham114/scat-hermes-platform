@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { computed, inject, onUnmounted, ref, watch, toRaw } from 'vue'
+import { computed, inject, nextTick, onUnmounted, ref, watch, toRaw } from 'vue'
 import { chatDisplayKey } from '@/lib/chatDisplay'
 import { defaultDisplay, parseDisplay, displayCommand, displayBlocks } from '@/lib/displayWorkspace'
 import { downloadCsv } from '@/utils/evaluationExport'
+import { resultChartInput, resultCsv, validChart, type ChartView } from '@/lib/analysisChart'
 import BaseChart from './BaseChart.vue'
+import AnalysisChartView from './AnalysisChartView.vue'
 import AnalysisTrajectoryBlock from './AnalysisTrajectoryBlock.vue'
 import {
   blockChart,
@@ -23,6 +25,8 @@ const props = defineProps<{
 const config = ref(defaultDisplay(props.result))
 const command = ref('')
 const notice = ref('')
+const focus = ref<{ time: number }>()
+const resultRoot = ref<HTMLElement>()
 const chatDisplay = inject(chatDisplayKey, undefined)
 let displayBinding: ReturnType<NonNullable<typeof chatDisplay>['register']> | undefined
 const storageKey = computed(() =>
@@ -37,6 +41,7 @@ watch(
   () => {
     displayBinding?.dispose()
     config.value = defaultDisplay(props.result)
+    focus.value = undefined
     notice.value = ''
     try {
       const saved = storageKey.value && localStorage.getItem(storageKey.value)
@@ -61,7 +66,38 @@ watch(
   { immediate: true },
 )
 onUnmounted(() => displayBinding?.dispose())
-const visible = computed(() => displayBlocks(props.result, toRaw(config.value)))
+const visible = computed(() =>
+  displayBlocks(props.result, toRaw(config.value)).map((entry) => {
+    const input = resultChartInput(props.result, entry.id, entry.block)
+    const view = config.value.views?.[entry.id]
+    return { ...entry, input, view: validChart(input, view) ? view : undefined }
+  }),
+)
+
+function setChart(id: number, view?: ChartView) {
+  const views = { ...config.value.views }
+  if (view) views[id] = view
+  else delete views[id]
+  config.value = { ...config.value, views }
+}
+
+function eventLocation(block: AnalysisBlock, row: Record<string, unknown>) {
+  return (
+    props.result.operation === 'diagnose_scat_track' &&
+    block.type === 'table' &&
+    typeof row.focus_time_s === 'number' &&
+    Number.isFinite(row.focus_time_s) &&
+    visible.value.some((item) => item.block.type === 'trajectory_2d' && item.block.time_key)
+  )
+}
+
+async function locateEvent(time: number) {
+  focus.value = { time }
+  await nextTick()
+  resultRoot.value
+    ?.querySelector('[data-block-type="trajectory_2d"]')
+    ?.scrollIntoView?.({ block: 'start' })
+}
 function sortTable(id: number, key: string) {
   const previous = config.value.sort[id]
   config.value = {
@@ -74,24 +110,7 @@ function sortTable(id: number, key: string) {
 }
 
 function exportTable(id: number, block: Extract<AnalysisBlock, { type: 'table' }>) {
-  const rows = [
-    block.columns.map((column) => withUnit(column.label, column.unit)),
-    ...block.rows.map((row) => block.columns.map((column) => row[column.key])),
-  ]
-  const csv = rows
-    .map((row) =>
-      row
-        .map((value) => {
-          const text = String(value ?? '')
-          // Keep arbitrary text values from being interpreted as spreadsheet formulas.
-          const safe =
-            typeof value === 'string' && /^\s*[=+@-]|^[\t\r\n]/.test(text) ? `'${text}` : text
-          return `"${safe.replaceAll('"', '""')}"`
-        })
-        .join(','),
-    )
-    .join('\r\n')
-  downloadCsv(`\uFEFF${csv}`, `analysis-table-${id + 1}.csv`)
+  downloadCsv(resultCsv(block.columns, block.rows), `analysis-table-${id + 1}.csv`)
 }
 
 function apply() {
@@ -128,6 +147,7 @@ const link = (url: string) => safeAnalysisLink(url, window.location.origin)
 
 <template>
   <section
+    ref="resultRoot"
     class="analysis-result"
     aria-label="结构化分析结果"
     @pointerdown="displayBinding?.activate()"
@@ -160,20 +180,28 @@ const link = (url: string) => safeAnalysisLink(url, window.location.origin)
     </form>
     <div class="display-grid" :class="{ dual: config.columns === 2 }">
       <article
-        v-for="{ block, id } in visible"
+        v-for="{ block, id, input, view } in visible"
         :key="id"
         class="result-block"
         :data-block-type="block.type"
       >
         <small>内容 {{ id + 1 }}</small>
         <h4 v-if="'title' in block">{{ block.title }}</h4>
+        <AnalysisChartView
+          v-if="input && 'title' in block"
+          :input="input"
+          :view="view"
+          :title="block.title"
+          :ordinal="id + 1"
+          @change="setChart(id, $event)"
+        />
         <dl v-if="block.type === 'metrics'" class="result-metrics">
           <div v-for="item in block.items" :key="item.key">
             <dt>{{ item.label }}</dt>
             <dd>{{ withUnit(scalarLabel(item.value), item.unit) }}</dd>
           </div>
         </dl>
-        <template v-else-if="block.type === 'table'">
+        <template v-else-if="block.type === 'table' && !view">
           <button
             v-if="block.rows.length"
             type="button"
@@ -210,6 +238,9 @@ const link = (url: string) => safeAnalysisLink(url, window.location.origin)
                       }}</span>
                     </button>
                   </th>
+                  <th v-if="block.rows.some((row) => eventLocation(block, row))" scope="col">
+                    定位
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -217,13 +248,26 @@ const link = (url: string) => safeAnalysisLink(url, window.location.origin)
                   <td v-for="column in block.columns" :key="column.key">
                     {{ scalarLabel(row[column.key]) }}
                   </td>
+                  <td v-if="block.rows.some((item) => eventLocation(block, item))">
+                    <button
+                      v-if="eventLocation(block, row)"
+                      type="button"
+                      @click="locateEvent(Number(row.focus_time_s))"
+                    >
+                      地图定位
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p v-else>当前查询没有可展示的记录。</p>
         </template>
-        <AnalysisTrajectoryBlock v-else-if="block.type === 'trajectory_2d'" :block="block" />
+        <AnalysisTrajectoryBlock
+          v-else-if="block.type === 'trajectory_2d'"
+          :block="block"
+          :focus="focus"
+        />
         <template
           v-else-if="
             block.type === 'timeseries' ||
@@ -232,11 +276,11 @@ const link = (url: string) => safeAnalysisLink(url, window.location.origin)
           "
         >
           <BaseChart
-            v-if="(block.type === 'classification' ? block.items : block.points).length"
+            v-if="!view && (block.type === 'classification' ? block.items : block.points).length"
             :option="chart(block)!"
             :label="block.title"
           />
-          <p v-else>当前查询没有可展示的数据。</p>
+          <p v-else-if="!view">当前查询没有可展示的数据。</p>
           <p v-if="block.type === 'prediction'">
             预测来源：{{ block.source }}；时间轴为相对预测时距，不代表实际观测。
           </p>

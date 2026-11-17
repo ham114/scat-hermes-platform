@@ -85,10 +85,29 @@ test('seven result blocks are readable on desktop and mobile without submitting 
     'data-block-type',
     'table',
   )
+  const tableBlock = panel.locator('[data-block-type="table"]')
+  const chartKind = tableBlock.getByRole('combobox', { name: '图表类型', exact: true })
+  await chartKind.selectOption('bar')
+  await expect(tableBlock.locator('canvas')).toBeVisible()
+  const fullscreen = tableBlock.getByRole('button', { name: '切换图表全屏' })
+  await fullscreen.click()
+  await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(true)
+  await expect
+    .poll(() => tableBlock.locator('canvas').evaluate((canvas) => canvas.clientHeight))
+    .toBeGreaterThan(300)
+  await fullscreen.click()
+  await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(false)
+  const csv = page.waitForEvent('download')
+  await tableBlock.getByRole('button', { name: '下载图表数据 CSV' }).click()
+  expect((await csv).suggestedFilename()).toBe('analysis-chart-2.csv')
+  const png = page.waitForEvent('download')
+  await tableBlock.getByRole('button', { name: '下载图表 PNG' }).click()
+  expect((await png).suggestedFilename()).toBe('analysis-chart-2.png')
   await panel.getByRole('button', { name: '保存展示', exact: true }).click()
   await page.reload()
   await page.getByRole('button', { name: '查看分析结果' }).click()
   await expect(panel.locator('.display-grid')).toHaveClass(/dual/)
+  await expect(chartKind).toHaveValue('bar')
   await expect(panel.locator('[data-block-type]').first()).toHaveAttribute(
     'data-block-type',
     'table',

@@ -9,7 +9,17 @@ from __future__ import annotations
 from copy import deepcopy
 from datetime import datetime
 
+from pydantic import ValidationError
+
 from agents import analysis_results as builders
+from schema.analysis import AnalysisResult
+
+DIAGNOSTICS = {
+    "compare_scat_batch_profiles": "scat",
+    "diagnose_uav_channels": "uav",
+    "diagnose_scat_track": "scat",
+    "diagnose_scat_prediction_errors": "scat",
+}
 
 DISPLAY_BUILDERS = {
     "get_prediction_metric_summaries": builders.build_cfpl_materialized_analysis,
@@ -36,7 +46,8 @@ DISPLAY_BUILDERS = {
 
 def receipt_display(receipt: dict) -> dict:
     builder = DISPLAY_BUILDERS.get(receipt["operation"])
-    if builder is None:
+    operation = receipt["operation"]
+    if builder is None and operation not in DIAGNOSTICS:
         return receipt
     result = receipt["result"]
     if result.get("status") != "ok" or result.get("representation") == "page_summary":
@@ -46,7 +57,15 @@ def receipt_display(receipt: dict) -> dict:
         return receipt
     if receipt["operation"] == "get_scat_track_points" and not isinstance(data.get("points"), list):
         return receipt
-    analysis = builder(deepcopy(result))
+    if operation in DIAGNOSTICS:
+        try:
+            analysis = AnalysisResult.model_validate(result.get("analysis_result"))
+        except ValidationError:
+            return receipt
+        if analysis.operation != operation or analysis.dataset != DIAGNOSTICS[operation]:
+            return receipt
+    else:
+        analysis = builder(deepcopy(result))
     if analysis is None:
         return receipt
     origin = result.get("display_time_origin") if result.get("display_only") else None
@@ -86,6 +105,9 @@ def receipt_display(receipt: dict) -> dict:
                 "list_scat_quality_clean_flights",
                 "get_prediction_metric_summaries",
                 "get_worst_prediction_cases",
+                "diagnose_uav_channels",
+                "diagnose_scat_track",
+                "diagnose_scat_prediction_errors",
             }
             else "authorized_query"
         ),

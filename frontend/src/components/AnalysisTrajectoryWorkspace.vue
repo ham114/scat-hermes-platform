@@ -9,7 +9,7 @@ import Trajectory2dPlayback from './Trajectory2dPlayback.vue'
 import TrajectoryPlaybackControls from './TrajectoryPlaybackControls.vue'
 import TrajectoryProfileCharts from './TrajectoryProfileCharts.vue'
 const Trajectory3dView = defineAsyncComponent(() => import('./Trajectory3dView.vue'))
-const props = defineProps<{ block: TrajectoryBlock }>()
+const props = defineProps<{ block: TrajectoryBlock; focus?: { time: number } }>()
 const cursor = useTimeCursorStore(createPinia())
 provide(trajectoryCursorKey, cursor)
 const mode = ref('2d'),
@@ -31,6 +31,16 @@ const playable = computed(
 )
 const coordinates = ref(false)
 watch(tracks, (values) => cursor.setTracks(values), { immediate: true })
+watch(
+  [tracks, () => props.focus],
+  ([, focus]) => {
+    if (focus && playable.value && focus.time >= cursor.minTime && focus.time <= cursor.maxTime) {
+      cursor.pause()
+      cursor.setTime(focus.time)
+    }
+  },
+  { immediate: true },
+)
 </script>
 <template>
   <section aria-label="轨迹交互工作台">

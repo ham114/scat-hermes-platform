@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "bundle_version": "s5-release-readiness.1.0",
+  "bundle_version": "s5-flight-diagnostics.1.0",
   "upstream_commit": "5b147ab036d6d19131bff8d20701b5001eab844a",
   "native_sources": {
     "tools/skills_tool.py": "f75e1047efba2640daefa2f03b897db12ac74890792621151ed9fbfd974176b8",
@@ -12,14 +12,15 @@
   "skills": [
     {
       "name": "scat-flight-query",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "allowed_operations": [
         "mcp__scat__get_scat_database_overview",
         "mcp__scat__list_scat_batches",
         "mcp__scat__search_scat_flights",
         "mcp__scat__get_scat_batch_overview",
         "mcp__scat__get_scat_flight_overview",
-        "mcp__scat__get_scat_airport_stats"
+        "mcp__scat__get_scat_airport_stats",
+        "mcp__scat__compare_scat_batch_profiles"
       ],
       "contract": {
         "version": 1,
@@ -33,7 +34,7 @@
       },
       "requires_skills": {},
       "files": {
-        "SKILL.md": "f771a94edd3085d3c8ed2d0bad9a63f8d75ce95ada485e0797899940980ab15c",
+        "SKILL.md": "2549ee09400d0d781a3d3ac06b003d7681f18ddfc871eefae3111ad667b66c83",
         "references/query-contract.md": "8f9c31e8cf19816304faae59d86d2484092cca1ad8c4df8bfafaefcf61bea1fe"
       }
     },
@@ -83,7 +84,7 @@
     },
     {
       "name": "scat-trajectory-analysis",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "allowed_operations": [
         "mcp__scat__get_scat_track_points",
         "mcp__scat__get_scat_fpl_overview",
@@ -93,7 +94,9 @@
         "mcp__scat__get_scat_flight_phase_stats",
         "mcp__scat__get_scat_prediction_error_stats",
         "mcp__scat__get_prediction_metric_summaries",
-        "mcp__scat__get_worst_prediction_cases"
+        "mcp__scat__get_worst_prediction_cases",
+        "mcp__scat__diagnose_scat_track",
+        "mcp__scat__diagnose_scat_prediction_errors"
       ],
       "contract": {
         "version": 1,
@@ -106,12 +109,12 @@
       },
       "requires_skills": {},
       "files": {
-        "SKILL.md": "137de7774d5f5682bc02f8b8c3272f666676e5415cc3617c9215c207235cbe82"
+        "SKILL.md": "7576346229713dfddc54169aac5daf0430a242bf9bfc1da62bc05dbe43065810"
       }
     },
     {
       "name": "uav-flight-analysis",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "allowed_operations": [
         "mcp__scat__list_uav_models",
         "mcp__scat__search_uav_flights",
@@ -120,7 +123,8 @@
         "mcp__scat__get_uav_samples",
         "mcp__scat__get_uav_channel_stats",
         "mcp__scat__get_uav_normal_vs_anomaly_stats",
-        "mcp__scat__get_uav_phase_stats"
+        "mcp__scat__get_uav_phase_stats",
+        "mcp__scat__diagnose_uav_channels"
       ],
       "contract": {
         "version": 1,
@@ -133,12 +137,12 @@
       },
       "requires_skills": {},
       "files": {
-        "SKILL.md": "24a6bf7bbd395fe1af96cf77827e3852ee668e9f2baae9ff4460fbb062368059"
+        "SKILL.md": "e3a5af3e187f8bc80188c1d69347f5a7e4588505c2b151256cee936deb077552"
       }
     },
     {
       "name": "scat-investigation",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "allowed_operations": [],
       "contract": {
         "version": 1,
@@ -150,9 +154,9 @@
         ]
       },
       "requires_skills": {
-        "scat-flight-query": "0.2.0",
+        "scat-flight-query": "0.3.0",
         "scat-data-quality": "0.2.0",
-        "scat-trajectory-analysis": "0.3.1",
+        "scat-trajectory-analysis": "0.4.0",
         "aviation-knowledge": "0.2.0"
       },
       "files": {

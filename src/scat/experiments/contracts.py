@@ -55,6 +55,7 @@ class PhaseHorizonMetrics(BaseModel):
     mae_m: float | None = Field(default=None, ge=0)
     median_m: float | None = Field(default=None, ge=0)
     p90_m: float | None = Field(default=None, ge=0)
+    p95_m: float | None = Field(default=None, ge=0)
 
 
 class WorstSample(BaseModel):

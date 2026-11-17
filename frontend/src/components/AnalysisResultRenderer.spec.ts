@@ -17,6 +17,33 @@ function render(payload = fixture) {
 }
 
 describe('generic analysis rendering', () => {
+  it('plots a saved table, restores the chosen chart, and keeps the original rows unchanged', async () => {
+    localStorage.clear()
+    const result = parseAnalysisArtifact(fixture, fixture.artifact_id)!
+    const original = JSON.stringify(result)
+    const options = {
+      props: { result, displayIdentity: 'chart-test:fixed-digest' },
+      global: { stubs: { BaseChart: true } },
+    }
+    const wrapper = mount(AnalysisResultRenderer, options)
+    const table = wrapper.get('[data-block-type="table"]')
+    await table.get('select').setValue('bar')
+    expect(table.find('table').exists()).toBe(false)
+    expect(table.getComponent(BaseChart).props('option')).toMatchObject({
+      xAxis: { data: ['SYNTH-H6-001'] },
+      series: [{ type: 'bar', data: [12.75] }],
+    })
+    await wrapper
+      .findAll('button')
+      .find((button) => button.text() === '保存展示')!
+      .trigger('click')
+    expect(JSON.stringify(result)).toBe(original)
+    wrapper.unmount()
+    const restored = mount(AnalysisResultRenderer, options)
+    expect(restored.get('[data-block-type="table"]').get('select').element.value).toBe('bar')
+    restored.unmount()
+    localStorage.clear()
+  })
   it('applies chat presentation changes to a fixed result and restores them without changing data', async () => {
     localStorage.clear()
     const bus = createChatDisplay()
@@ -89,7 +116,7 @@ describe('generic analysis rendering', () => {
   })
   it('updates snapshot series without fetching or recomputing an analysis', async () => {
     const wrapper = render()
-    await wrapper.get('select').setValue('时刻B')
+    await wrapper.get('[data-block-type="trajectory_2d"] select').setValue('时刻B')
     await flushPromises()
     const chart = wrapper
       .findAllComponents(BaseChart)

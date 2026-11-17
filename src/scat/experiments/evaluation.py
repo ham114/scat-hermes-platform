@@ -210,6 +210,7 @@ def aggregate_phase_metrics(
                 mae_m=sum(errors) / len(errors),
                 median_m=_percentile(errors, 0.5),
                 p90_m=_percentile(errors, 0.90),
+                p95_m=_percentile(errors, 0.95),
             )
         )
     return metrics, ungrouped

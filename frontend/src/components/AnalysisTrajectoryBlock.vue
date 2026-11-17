@@ -3,7 +3,7 @@ import { computed, defineAsyncComponent, ref, watch } from 'vue'
 import BaseChart from './BaseChart.vue'
 import { scalarLabel, trajectoryChart, withUnit, type TrajectoryBlock } from '@/lib/analysisDisplay'
 
-const props = defineProps<{ block: TrajectoryBlock }>()
+const props = defineProps<{ block: TrajectoryBlock; focus?: { time: number } }>()
 const expanded = ref(false)
 const Workspace = defineAsyncComponent(() => import('./AnalysisTrajectoryWorkspace.vue'))
 const StreetMap = defineAsyncComponent(() => import('./AnalysisTrajectoryMap.vue'))
@@ -17,6 +17,12 @@ const options = computed(() =>
   props.block.snapshot_key
     ? [...new Set(props.block.points.map((point) => scalarLabel(point[props.block.snapshot_key!])))]
     : [],
+)
+watch(
+  () => props.focus,
+  (focus) => {
+    if (focus && geographic.value) expanded.value = true
+  },
 )
 watch(
   () => props.block,
@@ -57,7 +63,7 @@ const columns = computed(() => [
   <button v-if="geographic" @click="expanded = !expanded">
     {{ expanded ? '收起轨迹交互' : '打开轨迹交互' }}
   </button>
-  <Workspace v-if="expanded" :block="block" />
+  <Workspace v-if="expanded" :block="block" :focus="focus" />
   <p class="trajectory-note">按原始点序列连接，路径与分段分别展示；无效坐标保留为空缺。</p>
   <details v-if="points.length">
     <summary>轨迹数值明细 · {{ points.length }} 点（表格最多展示前200点）</summary>

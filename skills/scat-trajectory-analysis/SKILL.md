@@ -14,5 +14,7 @@ description: 分页分析 SCAT 实际轨迹、飞行计划、阶段及数据中�
 7. 用户要求二维轨迹图时，读取 get_scat_track_points，保留 position，按需要同时包含 motion；页面在本轮“查看来源→查看数据”提供标准二维轨迹及高度/速度曲线，可打开轨迹交互。无需自建绘图脚本，不猜测未发布文件。必须说明这是本次分页范围；只有确认 has_more=false 且 start=0 才可称完整窗口，降采样需说明 every_nth。没有点明细的 page_summary 不能声称已绘图。
 8. 收到 skill_required/skill_operation_not_allowed 表示该调用未执行，按返回 recovery 或目录 allowed_operations 加载适用正文后重试原查询。不可去掉权限校验或借用其他run回执。
 9. 用户问整批CFPL计划与实飞的汇总或最差样本时，使用 get_prediction_metric_summaries 或 get_worst_prediction_cases。它们读取该批次已有物化结果，按offset/limit和next_offset翻页，不生成新预测、不写物化。保留scat-prediction-metrics-v2协议、六档时域、样本/航班覆盖和来源；不能混为GBAR/M6指标，也不能声称所有原始航班都有可比CFPL。过期结果需明确准备刷新任务，空结果不换批次。
+10. 单航班连续窗口的轨迹质量诊断使用 diagnose_scat_track。保留本页起止、位移速度／爬降／采样间隔阈值、疑似事件与源点序号；范围可分页，不跨页计算间隔，也不把疑似异常当作事故结论。
+11. 单航班已有预测快照的误差分布使用 diagnose_scat_prediction_errors，保留匹配窗口、指标方向、有效点数与是否截断。P50／P95、直方图和累计分布基于可见匹配明细（最多 100 个），与物化批次统计分别解释。没有匹配真值时不报告误差分位数。已保存的模型回测报告则直接使用报告中的现有指标与绘图选项。
 
 输出说明来源、航班、时间范围、单位及限制；合成结果标为合成。
