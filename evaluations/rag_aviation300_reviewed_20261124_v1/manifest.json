@@ -1,0 +1,11 @@
+{
+  "cases": 300,
+  "individual_human_approved": 5,
+  "source_candidates_sha256": "7f9cdf6567a0c2077807cc17308335291725846b4d452eba02ac88c65940df01",
+  "corpus_sha256": "ef2a612511771646e54108eb9ee3c886195fd36d2c5f74963953704ee4defb4f",
+  "exact_evidence_quotes_checked": 1004,
+  "files": {
+    "evaluation.json": "9127b8365c367efc414a079cdb9f3427946806d8376f388160a7d6452d37daa9",
+    "user-approval.json": "7d18d61aa542de7f23a37ffb1bad2f8a2fc47f27fa2260572bc0810dbe1296fd"
+  }
+}

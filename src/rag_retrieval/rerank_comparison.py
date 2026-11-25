@@ -8,51 +8,15 @@ from collections.abc import Sequence
 from dataclasses import asdict
 from typing import Any
 
-import numpy as np
-
-from rag_retrieval.baseline import evaluate_ranking, reciprocal_rank_fusion
+from rag_retrieval.baseline import evaluate_ranking
+from rag_retrieval.candidates import build_candidates
 from rag_retrieval.claim_groups import accepted_evidence_ids, group_completion_rank, score_case
-from rag_retrieval.enhancements import (
-    apply_source_boost,
-    infer_source_ids,
-    rank_exact_identifier_matches,
-)
 from rag_retrieval.runtime import M8_RRF_PROFILE, M8RRFIndex
 
 
 def frozen_candidates(index: M8RRFIndex, query: str, limit: int = 100) -> list[str]:
-    """Mirror the unchanged runtime pipeline, retaining its full candidate order."""
-    normalized = " ".join(query.split())
-    if not normalized or not 1 <= limit <= int(M8_RRF_PROFILE["candidate_k"]):
-        raise ValueError("invalid_candidate_query_or_limit")
-    depth = int(M8_RRF_PROFILE["candidate_k"])
-    lexical = [chunk_id for chunk_id, _ in index.bm25.rank(normalized, limit=depth)]
-    vector = np.asarray(
-        index.model.encode([normalized], normalize_embeddings=True, show_progress_bar=False)[0],
-        dtype=np.float32,
-    )
-    dense = [
-        index.chunk_ids[i]
-        for i in np.argsort(-(index.corpus_vectors @ vector), kind="stable")[:depth]
-    ]
-    exact = [
-        chunk_id
-        for chunk_id, _ in rank_exact_identifier_matches(normalized, index.chunks, limit=depth)
-    ]
-    rankings, weights = [lexical, dense], [1.0, 1.0]
-    if exact:
-        rankings.append(exact)
-        weights.append(float(M8_RRF_PROFILE["exact_weight"]))
-    fused = reciprocal_rank_fusion(
-        rankings, rank_constant=int(M8_RRF_PROFILE["rrf_k"]), weights=weights, limit=depth
-    )
-    boosted = apply_source_boost(
-        fused,
-        index.chunks_by_id,
-        infer_source_ids(normalized),
-        float(M8_RRF_PROFILE["source_multiplier"]),
-    )
-    return [chunk_id for chunk_id, _ in boosted[:limit]]
+    """Compatibility entry point for the legacy fusion policy."""
+    return list(build_candidates(index, query, M8_RRF_PROFILE, limit=limit).ids)
 
 
 def order_by_scores(ids: Sequence[str], scores: Sequence[float]) -> list[str]:

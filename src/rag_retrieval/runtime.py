@@ -10,12 +10,8 @@ from typing import Any, Protocol
 
 import numpy as np
 
-from rag_retrieval.baseline import BM25Index, Chunk, reciprocal_rank_fusion
-from rag_retrieval.enhancements import (
-    apply_source_boost,
-    infer_source_ids,
-    rank_exact_identifier_matches,
-)
+from rag_retrieval.baseline import BM25Index, Chunk
+from rag_retrieval.candidates import build_candidates
 
 M8_RRF_PROFILE: dict[str, Any] = {
     "profile_id": "m8_rrf",
@@ -191,45 +187,11 @@ class M8RRFIndex:
         if not 1 <= limit <= 10:
             raise ValueError("limit must be between 1 and 10")
 
-        candidate_k = int(M8_RRF_PROFILE["candidate_k"])
-        lexical_ids = [chunk_id for chunk_id, _ in self.bm25.rank(normalized, limit=candidate_k)]
-        query_vector = np.asarray(
-            self.model.encode([normalized], normalize_embeddings=True, show_progress_bar=False)[0],
-            dtype=np.float32,
+        selection = build_candidates(
+            self, normalized, M8_RRF_PROFILE, limit=int(M8_RRF_PROFILE["candidate_k"])
         )
-        scores = self.corpus_vectors @ query_vector
-        dense_order = np.argsort(-scores, kind="stable")[:candidate_k]
-        dense_ids = [self.chunk_ids[index] for index in dense_order]
-        exact_ids = [
-            chunk_id
-            for chunk_id, _ in rank_exact_identifier_matches(
-                normalized, self.chunks, limit=candidate_k
-            )
-        ]
-
-        rankings = [lexical_ids, dense_ids]
-        weights = [1.0, 1.0]
-        if exact_ids:
-            rankings.append(exact_ids)
-            weights.append(float(M8_RRF_PROFILE["exact_weight"]))
-        fused = reciprocal_rank_fusion(
-            rankings,
-            rank_constant=int(M8_RRF_PROFILE["rrf_k"]),
-            weights=weights,
-            limit=candidate_k,
-        )
-        boosted = apply_source_boost(
-            fused,
-            self.chunks_by_id,
-            infer_source_ids(normalized),
-            float(M8_RRF_PROFILE["source_multiplier"]),
-        )
-
-        lexical_rank = {chunk_id: rank for rank, chunk_id in enumerate(lexical_ids, start=1)}
-        dense_rank = {chunk_id: rank for rank, chunk_id in enumerate(dense_ids, start=1)}
-        exact_rank = {chunk_id: rank for rank, chunk_id in enumerate(exact_ids, start=1)}
         results: list[dict[str, Any]] = []
-        for rank, (chunk_id, score) in enumerate(boosted[:limit], start=1):
+        for rank, chunk_id in enumerate(selection.ids[:limit], start=1):
             raw = self.records[chunk_id]
             results.append(
                 {
@@ -240,12 +202,8 @@ class M8RRFIndex:
                     "section_path": raw.get("section_path", []),
                     "locator": raw.get("locator"),
                     "text": raw["text"],
-                    "score": round(float(score), 8),
-                    "signals": {
-                        "bm25_rank": lexical_rank.get(chunk_id),
-                        "dense_rank": dense_rank.get(chunk_id),
-                        "exact_rank": exact_rank.get(chunk_id),
-                    },
+                    "score": round(float(selection.scores[chunk_id]), 8),
+                    "signals": selection.signals[chunk_id],
                 }
             )
         return results

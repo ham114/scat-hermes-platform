@@ -1,0 +1,18 @@
+{
+  "dataset_version": "rag_p0_reviewed_20261123_v1",
+  "retained_cases": 83,
+  "single_turn_cases": 70,
+  "dialogue_cases": 13,
+  "dialogue_user_turns": 26,
+  "development_regression_cases": 43,
+  "human_expert_approved": 3,
+  "assistant_delegated_approved": 80,
+  "original_review_sha256": "23833ec4aea04cbab27753f9f77461f04961ff1037ae7bacb181f3f47169b02f",
+  "corpus_sha256": "208c2322f951ac53028dcb999b75222d4ed4cac945d4122c76dd9544f9d38c96",
+  "files": {
+    "evaluation.json": "b629a0bb53d04f8637ef21578dea5d101186998c3e22b770165a716ba89fb7eb",
+    "regression.json": "e81ca9996929c5a5389d646a14ab658fbd7a775ade3240e773d74b85f126e024",
+    "user-approval.json": "aea22a916379d31c102d35bd196a05df06fab15e1a5aa80ff4a8c57315c8b546",
+    "protocol.json": "671f6947d08754d92c07b989e00e6aaa7a35c6133acdcc3684e7afe41a7d53aa"
+  }
+}

@@ -1,0 +1,299 @@
+[
+  {
+    "case_id": "P0-20261123-024",
+    "before": {
+      "schema_version": "scat-p0-evaluation-v1",
+      "qid": "P0-20261123-024",
+      "category": "fact",
+      "question": "固定翼无人机数据如何组织？",
+      "reference": "无人机数据以模型、飞行和多通道时间序列组织。可以先问：有哪些无人机模型？每个模型有多少正常和异常飞行、多少样本？总结某个模型的数据时间范围、任务类型和标签分布。",
+      "claims": [
+        {
+          "text": "无人机数据以模型、飞行和多通道时间序列组织。",
+          "evidence": [
+            {
+              "chunk_id": "kc1_4c38277f85f38feaf7e58bb2b7f9b0ae",
+              "source_id": "system-user-guide-curated",
+              "source_version": "sha256-1349841faa3d",
+              "text_sha256": "9798ea90a4c1c36bde869f576ea9c33e96114ea5bf7ab30d806cff37f7808d8a",
+              "section_path": [
+                "航空科研系统对话使用指南",
+                "11. 固定翼无人机数据",
+                "11.1 浏览模型与数据规模"
+              ],
+              "locator": {
+                "end_line": 341,
+                "heading_anchor": "111-浏览模型与数据规模",
+                "kind": "markdown",
+                "start_line": 337
+              },
+              "quote": "无人机数据以模型、飞行和多通道时间序列组织。",
+              "start_char": 46,
+              "end_char": 68,
+              "matching_occurrences": 1
+            }
+          ]
+        },
+        {
+          "text": "可以先问：有哪些无人机模型？每个模型有多少正常和异常飞行、多少样本？",
+          "evidence": [
+            {
+              "chunk_id": "kc1_4c38277f85f38feaf7e58bb2b7f9b0ae",
+              "source_id": "system-user-guide-curated",
+              "source_version": "sha256-1349841faa3d",
+              "text_sha256": "9798ea90a4c1c36bde869f576ea9c33e96114ea5bf7ab30d806cff37f7808d8a",
+              "section_path": [
+                "航空科研系统对话使用指南",
+                "11. 固定翼无人机数据",
+                "11.1 浏览模型与数据规模"
+              ],
+              "locator": {
+                "end_line": 341,
+                "heading_anchor": "111-浏览模型与数据规模",
+                "kind": "markdown",
+                "start_line": 337
+              },
+              "quote": "可以先问：\n\n> 有哪些无人机模型？每个模型有多少正常和异常飞行、多少样本？",
+              "start_char": 68,
+              "end_char": 106,
+              "matching_occurrences": 1
+            }
+          ]
+        },
+        {
+          "text": "总结某个模型的数据时间范围、任务类型和标签分布。",
+          "evidence": [
+            {
+              "chunk_id": "kc1_4c38277f85f38feaf7e58bb2b7f9b0ae",
+              "source_id": "system-user-guide-curated",
+              "source_version": "sha256-1349841faa3d",
+              "text_sha256": "9798ea90a4c1c36bde869f576ea9c33e96114ea5bf7ab30d806cff37f7808d8a",
+              "section_path": [
+                "航空科研系统对话使用指南",
+                "11. 固定翼无人机数据",
+                "11.1 浏览模型与数据规模"
+              ],
+              "locator": {
+                "end_line": 341,
+                "heading_anchor": "111-浏览模型与数据规模",
+                "kind": "markdown",
+                "start_line": 337
+              },
+              "quote": "> 总结某个模型的数据时间范围、任务类型和标签分布。",
+              "start_char": 108,
+              "end_char": 134,
+              "matching_occurrences": 1
+            }
+          ]
+        }
+      ],
+      "expected_status": "answerable",
+      "review_focus": "核对数据组织方式与示例问法是否均有原文依据",
+      "generation": {
+        "method": "native-ragas-0.4.3-TestsetGenerator",
+        "synthesizer": "single_hop_specific_query_synthesizer",
+        "raw_batch": "native/batch-04.raw.json",
+        "raw_index": 5
+      },
+      "corpus_sha256": "208c2322f951ac53028dcb999b75222d4ed4cac945d4122c76dd9544f9d38c96",
+      "human_review": "not_requested_user_delegated",
+      "automatic_review": "pass",
+      "nearest_previous": [
+        {
+          "question": "在固定翼无人机数据科研中，Agent 回答统计值时，必须同时给出哪些信息？",
+          "lexical_jaccard": 0.1944
+        },
+        {
+          "question": "空域文件里 points[].lat 和 coordinates[].lat 都是 WGS-84 纬度，那固定翼无人机数据里 cmp_comb_lat 的 lat 也是 WGS-84 吗？单位是 degree 吗？",
+          "lexical_jaccard": 0.1029
+        },
+        {
+          "question": "在固定翼无人机数据中，若要比较正常与异常飞行在若干关键通道上的分布差异，并报告各组飞行数和样本数，同时给出正常与异常样本均值差及相对差，应如何定义有效样本、计算均值差与相对差，以及该差异能说明什么、不能说明什么？",
+          "lexical_jaccard": 0.0952
+        }
+      ],
+      "cross_source": false,
+      "review": {
+        "reviewer": "assistant",
+        "authority": "2026-11-23 user explicitly delegated all except a few selected expert checks",
+        "decision": "keep",
+        "reason": "无人机数据组织层级可直接由指南核对。",
+        "original_category": "fact",
+        "original_question": "固定翼无人机数据如何组织？",
+        "original_reference": "无人机数据以模型、飞行和多通道时间序列组织。可以先问：有哪些无人机模型？每个模型有多少正常和异常飞行、多少样本？总结某个模型的数据时间范围、任务类型和标签分布。",
+        "original_turns": null,
+        "edits": [],
+        "human_approved": false,
+        "modified": false
+      },
+      "original_schema_version": "scat-p0-candidate-v1",
+      "original_human_review": "pending",
+      "evaluation_scope": "document_grounded_candidate_not_independent_human_admission",
+      "dataset_version": "rag_p0_reviewed_20261123_v1",
+      "split": "reviewed_new_candidates",
+      "case_id": "P0-20261123-024",
+      "required_claims": [
+        "无人机数据以模型、飞行和多通道时间序列组织。",
+        "可以先问：有哪些无人机模型？每个模型有多少正常和异常飞行、多少样本？",
+        "总结某个模型的数据时间范围、任务类型和标签分布。"
+      ],
+      "supporting_evidence_groups": [
+        [
+          "kc1_4c38277f85f38feaf7e58bb2b7f9b0ae"
+        ]
+      ],
+      "review_authority": "user_delegated_assistant_review",
+      "evaluation_protocol": "single_turn_document_qa"
+    },
+    "after": {
+      "schema_version": "scat-p0-evaluation-v1",
+      "qid": "P0-20261123-024",
+      "category": "fact",
+      "question": "固定翼无人机数据如何组织？",
+      "reference": "固定翼无人机数据按模型、飞行和多通道时间序列组织。",
+      "claims": [
+        {
+          "text": "无人机数据以模型、飞行和多通道时间序列组织。",
+          "evidence": [
+            {
+              "chunk_id": "kc1_4c38277f85f38feaf7e58bb2b7f9b0ae",
+              "source_id": "system-user-guide-curated",
+              "source_version": "sha256-1349841faa3d",
+              "text_sha256": "9798ea90a4c1c36bde869f576ea9c33e96114ea5bf7ab30d806cff37f7808d8a",
+              "section_path": [
+                "航空科研系统对话使用指南",
+                "11. 固定翼无人机数据",
+                "11.1 浏览模型与数据规模"
+              ],
+              "locator": {
+                "end_line": 341,
+                "heading_anchor": "111-浏览模型与数据规模",
+                "kind": "markdown",
+                "start_line": 337
+              },
+              "quote": "无人机数据以模型、飞行和多通道时间序列组织。",
+              "start_char": 46,
+              "end_char": 68,
+              "matching_occurrences": 1
+            }
+          ]
+        }
+      ],
+      "expected_status": "answerable",
+      "review_focus": "核对数据组织方式与示例问法是否均有原文依据",
+      "generation": {
+        "method": "native-ragas-0.4.3-TestsetGenerator",
+        "synthesizer": "single_hop_specific_query_synthesizer",
+        "raw_batch": "native/batch-04.raw.json",
+        "raw_index": 5
+      },
+      "corpus_sha256": "208c2322f951ac53028dcb999b75222d4ed4cac945d4122c76dd9544f9d38c96",
+      "human_review": "assistant_revised_not_individually_human_approved",
+      "automatic_review": "pass",
+      "nearest_previous": [
+        {
+          "question": "在固定翼无人机数据科研中，Agent 回答统计值时，必须同时给出哪些信息？",
+          "lexical_jaccard": 0.1944
+        },
+        {
+          "question": "空域文件里 points[].lat 和 coordinates[].lat 都是 WGS-84 纬度，那固定翼无人机数据里 cmp_comb_lat 的 lat 也是 WGS-84 吗？单位是 degree 吗？",
+          "lexical_jaccard": 0.1029
+        },
+        {
+          "question": "在固定翼无人机数据中，若要比较正常与异常飞行在若干关键通道上的分布差异，并报告各组飞行数和样本数，同时给出正常与异常样本均值差及相对差，应如何定义有效样本、计算均值差与相对差，以及该差异能说明什么、不能说明什么？",
+          "lexical_jaccard": 0.0952
+        }
+      ],
+      "cross_source": false,
+      "review": {
+        "reviewer": "assistant",
+        "authority": "2026-11-23 user explicitly delegated all except a few selected expert checks",
+        "decision": "keep",
+        "reason": "无人机数据组织层级可直接由指南核对。",
+        "original_category": "fact",
+        "original_question": "固定翼无人机数据如何组织？",
+        "original_reference": "无人机数据以模型、飞行和多通道时间序列组织。可以先问：有哪些无人机模型？每个模型有多少正常和异常飞行、多少样本？总结某个模型的数据时间范围、任务类型和标签分布。",
+        "original_turns": null,
+        "edits": [],
+        "human_approved": false,
+        "modified": false
+      },
+      "original_schema_version": "scat-p0-candidate-v1",
+      "original_human_review": "pending",
+      "evaluation_scope": "document_grounded_candidate_not_independent_human_admission",
+      "dataset_version": "rag_p0_reviewed_20261123_v1",
+      "split": "reviewed_new_candidates",
+      "case_id": "P0-20261123-024",
+      "required_claims": [
+        "无人机数据以模型、飞行和多通道时间序列组织。"
+      ],
+      "supporting_evidence_groups": [
+        [
+          "kc1_4c38277f85f38feaf7e58bb2b7f9b0ae"
+        ]
+      ],
+      "review_authority": "user_delegated_assistant_review",
+      "evaluation_protocol": "single_turn_document_qa",
+      "optional_claims": [
+        {
+          "text": "可以先问：有哪些无人机模型？每个模型有多少正常和异常飞行、多少样本？",
+          "evidence": [
+            {
+              "chunk_id": "kc1_4c38277f85f38feaf7e58bb2b7f9b0ae",
+              "source_id": "system-user-guide-curated",
+              "source_version": "sha256-1349841faa3d",
+              "text_sha256": "9798ea90a4c1c36bde869f576ea9c33e96114ea5bf7ab30d806cff37f7808d8a",
+              "section_path": [
+                "航空科研系统对话使用指南",
+                "11. 固定翼无人机数据",
+                "11.1 浏览模型与数据规模"
+              ],
+              "locator": {
+                "end_line": 341,
+                "heading_anchor": "111-浏览模型与数据规模",
+                "kind": "markdown",
+                "start_line": 337
+              },
+              "quote": "可以先问：\n\n> 有哪些无人机模型？每个模型有多少正常和异常飞行、多少样本？",
+              "start_char": 68,
+              "end_char": 106,
+              "matching_occurrences": 1
+            }
+          ]
+        },
+        {
+          "text": "总结某个模型的数据时间范围、任务类型和标签分布。",
+          "evidence": [
+            {
+              "chunk_id": "kc1_4c38277f85f38feaf7e58bb2b7f9b0ae",
+              "source_id": "system-user-guide-curated",
+              "source_version": "sha256-1349841faa3d",
+              "text_sha256": "9798ea90a4c1c36bde869f576ea9c33e96114ea5bf7ab30d806cff37f7808d8a",
+              "section_path": [
+                "航空科研系统对话使用指南",
+                "11. 固定翼无人机数据",
+                "11.1 浏览模型与数据规模"
+              ],
+              "locator": {
+                "end_line": 341,
+                "heading_anchor": "111-浏览模型与数据规模",
+                "kind": "markdown",
+                "start_line": 337
+              },
+              "quote": "> 总结某个模型的数据时间范围、任务类型和标签分布。",
+              "start_char": 108,
+              "end_char": 134,
+              "matching_occurrences": 1
+            }
+          ]
+        }
+      ],
+      "p0_revision": {
+        "issue": "问题只问数据组织层级，却将示例问法列为必答。",
+        "operation": "keep_core_claim_move_examples_to_optional",
+        "reference": "固定翼无人机数据按模型、飞行和多通道时间序列组织。",
+        "source_basis": "原有用户指南证据；仅核心层级计分，示例问法可选。"
+      }
+    }
+  }
+]

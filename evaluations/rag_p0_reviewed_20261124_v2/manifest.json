@@ -1,0 +1,15 @@
+{
+  "corpus_sha256": "208c2322f951ac53028dcb999b75222d4ed4cac945d4122c76dd9544f9d38c96",
+  "baseline_dataset_sha256": "b629a0bb53d04f8637ef21578dea5d101186998c3e22b770165a716ba89fb7eb",
+  "content_revised_cases": [
+    "P0-20261123-024"
+  ],
+  "rules_sha256": "21fe77a22931d9e9ef85a34a9822a8a8c711360fa06cf9f93f5808d723e857b4",
+  "external_model_calls": 0,
+  "status": "source-corrected-development-version-frozen",
+  "files": {
+    "evaluation.json": "afe4e6a906666587149bb959f33e50fd5feebc4670ddb5e00075872fbdbc9988",
+    "label-changes.json": "def6991a5ca2a3d1c668daaf40a0bd1082f688c6b36169424a2e8b36d6827369",
+    "regression.json": "e81ca9996929c5a5389d646a14ab658fbd7a775ade3240e773d74b85f126e024"
+  }
+}

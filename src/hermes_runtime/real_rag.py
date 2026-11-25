@@ -88,6 +88,7 @@ def load_config(path: Path) -> dict:
     if config["model"] != "deepseek-flash" or config["retrieval_limit"] != 5:
         raise ValueError("unsupported_model_or_retrieval_limit")
     for name in (
+        "enabled",
         "planning_enabled",
         "initial_retrieval",
         "role_scoped_tools",

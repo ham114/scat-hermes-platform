@@ -23,6 +23,11 @@ def main():
     parser.add_argument("--config", default="services/rag/qwen3-production-v1.json")
     parser.add_argument("--port", type=int, choices=[18133, 18134])
     args = parser.parse_args()
+    from rag_service_enabled import enabled
+
+    if not enabled(ROOT, args.config):
+        print("RAG disabled by deployment configuration; models were not loaded.")
+        return
     os.umask(0o077)
     runtime = ROOT / "var/rag/runtime"
     runtime.mkdir(parents=True, exist_ok=True)

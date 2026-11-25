@@ -46,7 +46,7 @@ def main():
             "SCAT_SKILL_JOB_STATE": DEPLOY + "/shared/state/tasks.sqlite",
             "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
             "ANALYSIS_IDENTITY_MODE": "single_user",
-            "SCAT_RAG_BASELINE_ENABLED": "true",
+            "SCAT_RAG_BASELINE_ENABLED": "false",
             "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
             "SCAT_GBAR_V23_ENABLED": "false",
             "SCAT_PARENT_BUDGET_PATH": DEPLOY + "/shared/homes/main/skill-loads.sqlite",
@@ -84,6 +84,8 @@ def main():
         item.update(
             image="${SCAT_" + image.upper() + "_IMAGE}", command=[role], mem_limit=memory, cpus=cpus
         )
+        if name in {"hermes-main", "hermes-worker"}:
+            item["dns"] = ["223.5.5.5", "119.29.29.29"]
         item["volumes"].append(mount(DEPLOY + "/runtime-tmp/" + name, APP + "/.tmp"))
         for key in keys[name]:
             item["volumes"].append(
@@ -158,6 +160,7 @@ def main():
         "services": services,
         "x-external-gpu-services": {
             "rag": {
+                "enabled": False,
                 "endpoint": "http://127.0.0.1:18133",
                 "mode": "existing-conda-service",
                 "candidate_port": 18134,

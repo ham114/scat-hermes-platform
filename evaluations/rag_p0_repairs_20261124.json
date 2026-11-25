@@ -1,0 +1,60 @@
+{
+  "schema_version": "rag-p0-source-corrections/1",
+  "authority": "2026-11-24 user requested P0 fixes and delegated routine review",
+  "reviewer": "assistant; source-grounded correction after observing baseline, not independent human validation",
+  "aviation": {
+    "AV300-20261124-003": {
+      "issue": "题目未明确盘旋进近场景，却把该特殊场景列为必答。一般复飞动作和MAP前复飞规则仍应保留。",
+      "question": "分别依据FAA AIM的SOIA说明与FAA-H-8083-15B的Missed Approaches说明：当FMS把FTP编码为MAP时，如何处理FMS地图显示与公布IAP的初始复飞航迹差异？一般复飞应完成哪些动作？若在MAP之前开始复飞，且没有ATC另行许可，应遵循什么航迹、高度与转弯限制？",
+      "operation": "keep_first_four_claims_move_circling_to_optional",
+      "source_basis": "原有两组证据；明确题设范围，不撤销已证实的回答覆盖缺口。"
+    },
+    "AV300-20261124-034": {
+      "issue": "‘该术语表’未指定书名，不同FAA资料的条目口径存在冲突。",
+      "question": "FAA-H-8083-15B《Instrument Flying Handbook》的Glossary中，Ultra-high frequency (UHF)这一条目写出的电磁频率范围是多少？请明确这是该版本条目的表述。",
+      "operation": "scope_existing_reference_to_named_edition",
+      "reference": "FAA-H-8083-15B的Glossary中，Ultra-high frequency (UHF)条目写出的范围为962 MHz至1213 MHz。这是在复述该版本的条目。",
+      "source_basis": "冻结引文原文可核对；不把该条目提升为所有FAA资料或通用UHF频段的统一定义。"
+    },
+    "AV300-20261124-199": {
+      "issue": "混淆按空域确定最低间隔与偏好航路/高度是否获准的交通条件。",
+      "question": "仅知道一架未获RNP 10或RNP 4授权的航空器在Gulf of America CTAs内运行，能否唯一确定采用90还是100 NM横向间隔？结合FAA AIM 4-7-1与4-7-2，分别说明还需要什么空域信息，以及偏好航路和/或高度的放行受什么条件限制。",
+      "operation": "separate_airspace_minimum_and_traffic_clearance_conditions",
+      "reference": "仅凭这些信息不能唯一选择90或100 NM；需要明确所在CTA/FIR。4-7-1规定，Miami Oceanic CTA/FIR至少90 NM，Houston、Monterrey和Merida CTA/FIR至少100 NM。4-7-2中的as traffic allows限制的是偏好航路和/或高度的放行，并规定优先给予RNP 10或RNP 4航空器；不能把traffic单独当作90与100 NM之间的选择规则。",
+      "source_basis": "同时核对FAA AIM 4-7-1与4-7-2；保留信息不足类题目定位。"
+    },
+    "AV300-20261124-236": {
+      "issue": "题干给出-20°C，标答误套用了-50°C的400英尺修正例题。",
+      "question": "根据FAA-H-8083-15B的ICAO Cold Temperature Error Table，机场高度500英尺、报告机场温度-20°C、图示程序转弯高度1800英尺。请按-20°C行，在高于机场1000与1500英尺的表格值之间作线性插值，计算修正量、未取整的修正后高度，以及将修正后高度向上取整至100英尺的结果。",
+      "operation": "recalculate_from_minus20_table_row",
+      "reference": "高于机场的高度为1800-500=1300英尺。-20°C行在1000英尺处的修正量是140英尺，在1500英尺处是210英尺。线性插值得140+(1300-1000)/(1500-1000)×(210-140)=182英尺。未取整的修正后高度为1800+182=1982英尺；向上取整至100英尺为2000英尺。",
+      "source_basis": "原始PDF第101页，图5-7；表格查值与计算过程分别记录，不沿用正文-50°C例题。"
+    },
+    "AV300-20261124-261": {
+      "issue": "CAT062标答将NAV/NVB的0与1反写；旧检索文本破坏了列对应关系。",
+      "operation": "correct_nav_nvb_mapping_preserve_gnss_claims",
+      "reference": "I062/380数据项子字段#8中，bit-8（NAV）为0时表示Trajectory Intent Data可用，为1时表示不可用；bit-7（NVB）为0时表示有效，为1时表示无效。国际飞行计划Item 10a中的字母G表示GNSS；使用G时，若存在外部GNSS增强类型，应在Item 18的NAV/之后用空格分隔说明，例如NAV/SBAS。",
+      "source_basis": "CAT062 Edition 1.21原始PDF第98页（印刷页85）与FAA AIM Appendix 4；不以旧损坏文本的逐字匹配代替语义核验。"
+    },
+    "AV300-20261124-263": {
+      "issue": "题干和参考答案漏掉启用备用静压源的必要前提。",
+      "question": "根据FAA-H-8083-25C，在启用备用静压源后、飞机实际高度保持不变时，VSI会出现什么瞬时反应？再与正常静压系统、仪表校准正确且稳定平飞时的指示比较，并说明升降率单位。",
+      "operation": "restore_alternate_static_antecedent",
+      "reference": "启用备用静压源后，若实际高度保持不变，VSI先显示瞬时爬升，然后稳定。正常静压系统下、仪表校准正确且稳定平飞时，VSI指示零。VSI表示爬升或下降率，单位为feet per minute（fpm）；刻度以hundreds of fpm表示与这一单位并不冲突。",
+      "source_basis": "原始PDF第205页的备用静压源前提，与第209页的正常VSI说明。"
+    }
+  },
+  "old_p0": {
+    "P0-20261123-024": {
+      "issue": "问题只问数据组织层级，却将示例问法列为必答。",
+      "operation": "keep_core_claim_move_examples_to_optional",
+      "reference": "固定翼无人机数据按模型、飞行和多通道时间序列组织。",
+      "source_basis": "原有用户指南证据；仅核心层级计分，示例问法可选。"
+    }
+  },
+  "corpus_only": {
+    "AV300-20261124-090": "标答数值正确；修复WMO表格的变量—起始阈值—等级关系，保持标答不变。"
+  },
+  "baseline_scores_to_modify": false,
+  "new_model_calls_authorized_by_this_file": false
+}

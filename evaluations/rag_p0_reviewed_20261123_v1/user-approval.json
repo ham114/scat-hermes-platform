@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-23",
+  "timezone": "Asia/Shanghai",
+  "qids": [
+    "P0-20261123-048",
+    "P0-20261123-068",
+    "P0-20261123-117"
+  ],
+  "decision": "approve_suggested_interpretations",
+  "exact_user_statement": "三道题都认可建议口径。可以开始下一步",
+  "original_review_sha256": "23833ec4aea04cbab27753f9f77461f04961ff1037ae7bacb181f3f47169b02f",
+  "human_approved": 3,
+  "assistant_delegated_approved": 80
+}

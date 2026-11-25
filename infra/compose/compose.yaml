@@ -37,7 +37,7 @@
         "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
         "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
         "ANALYSIS_IDENTITY_MODE": "single_user",
-        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_ENABLED": "false",
         "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
         "SCAT_GBAR_V23_ENABLED": "false",
         "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
@@ -183,7 +183,7 @@
         "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
         "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
         "ANALYSIS_IDENTITY_MODE": "single_user",
-        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_ENABLED": "false",
         "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
         "SCAT_GBAR_V23_ENABLED": "false",
         "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
@@ -329,7 +329,7 @@
         "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
         "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
         "ANALYSIS_IDENTITY_MODE": "single_user",
-        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_ENABLED": "false",
         "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
         "SCAT_GBAR_V23_ENABLED": "false",
         "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
@@ -426,6 +426,10 @@
       "command": [
         "main"
       ],
+      "dns": [
+        "223.5.5.5",
+        "119.29.29.29"
+      ],
       "healthcheck": {
         "test": [
           "CMD",
@@ -443,11 +447,7 @@
         "actions": {
           "condition": "service_healthy"
         }
-      },
-      "dns": [
-        "223.5.5.5",
-        "119.29.29.29"
-      ]
+      }
     },
     "hermes-worker": {
       "init": true,
@@ -485,7 +485,7 @@
         "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
         "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
         "ANALYSIS_IDENTITY_MODE": "single_user",
-        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_ENABLED": "false",
         "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
         "SCAT_GBAR_V23_ENABLED": "false",
         "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
@@ -590,6 +590,10 @@
       "command": [
         "job-control"
       ],
+      "dns": [
+        "223.5.5.5",
+        "119.29.29.29"
+      ],
       "healthcheck": {
         "test": [
           "CMD",
@@ -602,11 +606,7 @@
         "timeout": "6s",
         "start_period": "90s",
         "retries": 3
-      },
-      "dns": [
-        "223.5.5.5",
-        "119.29.29.29"
-      ]
+      }
     },
     "worker": {
       "init": true,
@@ -644,7 +644,7 @@
         "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
         "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
         "ANALYSIS_IDENTITY_MODE": "single_user",
-        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_ENABLED": "false",
         "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
         "SCAT_GBAR_V23_ENABLED": "false",
         "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
@@ -805,7 +805,7 @@
         "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
         "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
         "ANALYSIS_IDENTITY_MODE": "single_user",
-        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_ENABLED": "false",
         "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
         "SCAT_GBAR_V23_ENABLED": "false",
         "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
@@ -975,7 +975,7 @@
         "SCAT_SKILL_JOB_STATE": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/state/tasks.sqlite",
         "ANALYSIS_SINGLE_USER_ID": "scat-researcher",
         "ANALYSIS_IDENTITY_MODE": "single_user",
-        "SCAT_RAG_BASELINE_ENABLED": "true",
+        "SCAT_RAG_BASELINE_ENABLED": "false",
         "SCAT_RAG_BASELINE_URL": "http://127.0.0.1:18133",
         "SCAT_GBAR_V23_ENABLED": "false",
         "SCAT_PARENT_BUDGET_PATH": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared/homes/main/skill-loads.sqlite",
@@ -1095,6 +1095,7 @@
   },
   "x-external-gpu-services": {
     "rag": {
+      "enabled": false,
       "endpoint": "http://127.0.0.1:18133",
       "mode": "existing-conda-service",
       "candidate_port": 18134

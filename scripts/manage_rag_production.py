@@ -151,6 +151,12 @@ def main():
     lock = (STATE / "control.lock").open("a")
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     if args.action == "start":
+        from rag_service_enabled import enabled
+
+        if not all(enabled(ROOT, n) for n in (
+            "services/rag/qwen3-production-v1.json", "services/rag/real-agent-production-v1.json"
+        )):
+            raise ValueError("RAG is disabled; explicitly enable both production configs first")
         for name, port in zip(UNITS, (18133, 18081), strict=True):
             if command("is-active", name, check=False) != "active":
                 with socket.socket() as probe:

@@ -1,0 +1,39 @@
+{
+  "stage_order": [
+    "frozen_dataset_and_corpus",
+    "local_retrieval_all_splits",
+    "single_agent_qa",
+    "fresh_context_semantic_review",
+    "error_attribution"
+  ],
+  "single_turn_new": 70,
+  "dialogue_new": 13,
+  "regression": 43,
+  "answer_agent_inputs": "Only current user question plus actual prior user/assistant messages for dialogues; never reference/claims/evidence labels",
+  "retrieval": {
+    "k": [
+      5,
+      10
+    ],
+    "groups": "All annotated IDs per group required; report macro group coverage and complete coverage; labels are not exhaustive alternative evidence",
+    "negative_scope": "Coverage of annotated unknown/boundary evidence, not answer recall or proof of real-world absence",
+    "dialogue_diagnostics": "User-only concatenated history is retrieval diagnostic, not a real conversation QA score"
+  },
+  "semantic_review": {
+    "scope": "Same-provider fresh-context model review, not human-independent correctness",
+    "judge_input": "Question, candidate reference, required claims, retrieved evidence and actual answer",
+    "insufficiency": "Require calibrated uncertainty and no fabricated values; do not require literal status string"
+  },
+  "proposed_qa_limits": {
+    "requests": 600,
+    "returned_provider_tokens": 4000000,
+    "conservative_units": 30000000,
+    "wall_seconds": 7200,
+    "max_output_tokens": 4096,
+    "sdk_retries": 0
+  },
+  "separate_generation_budget": true,
+  "no_model_or_retriever_tuning_on_results": true,
+  "no_successful_request_replay": true,
+  "production_configuration_changes": false
+}

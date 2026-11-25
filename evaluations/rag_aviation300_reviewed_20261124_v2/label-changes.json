@@ -1,0 +1,139 @@
+[
+  {
+    "case_id": "AV300-20261124-003",
+    "before": {
+      "question": "在同时进行近距离平行 PRM 进近和 SOIA 时，如果 FMS 将 FTP 编码为 MAP，飞行员应如何理解 FMS 地图显示上的初始复飞航迹，并在复飞时依据哪些原则执行？",
+      "reference": "在 SOIA 中，由于 FTP 被编码为 MAP，FMS 地图显示会将初始复飞航迹描绘为从 FTP 开始，这一描绘与 IAP 上公布的初始复飞程序不一致；飞行员应遵循公布的 IAP 指引，而不是地图显示，完成复飞开始时的初始转弯后，其余程序编码是标准的，可像任何其他 IAP 一样使用。执行复飞时，应建立爬升俯仰姿态并设定爬升功率，将飞机配置为爬升，转向适当航向，通知 ATC 正在执行复飞并请求进一步许可；若在到达 MAP 之前开始复飞，除非 ATC 另有许可，否则继续按进近图规定飞 IAP，在开始转弯前飞到 MAP 且不低于 MDA 或 DA/DH；若在仪表进近盘旋着陆过程中失去目视参考，执行相应的 MAP，先向着陆跑道做初始爬升转弯，然后机动切入并飞复飞航迹。",
+      "required_claims": [
+        "由于FTP被编码为MAP，FMS地图显示会将初始复飞航迹描绘为从FTP开始，这一描绘与IAP上公布的初始复飞程序不一致。",
+        "飞行员应遵循公布的IAP指引，而不是地图显示；完成复飞开始时的初始转弯后，其余程序编码是标准的，可像任何其他IAP一样使用。",
+        "执行复飞时，应建立爬升俯仰姿态并设定爬升功率，将飞机配置为爬升，转向适当航向，通知ATC正在执行复飞并请求进一步许可。",
+        "若在到达MAP之前开始复飞，除非ATC另有许可，否则继续按进近图规定飞IAP，在开始转弯前飞到MAP且不低于MDA或DA/DH。",
+        "若在仪表进近盘旋着陆过程中失去目视参考，执行相应的MAP，先向着陆跑道做初始爬升转弯，然后机动切入并飞复飞航迹。"
+      ]
+    },
+    "after": {
+      "question": "分别依据FAA AIM的SOIA说明与FAA-H-8083-15B的Missed Approaches说明：当FMS把FTP编码为MAP时，如何处理FMS地图显示与公布IAP的初始复飞航迹差异？一般复飞应完成哪些动作？若在MAP之前开始复飞，且没有ATC另行许可，应遵循什么航迹、高度与转弯限制？",
+      "reference": "由于FTP被编码为MAP，FMS地图显示会将初始复飞航迹描绘为从FTP开始，这一描绘与IAP上公布的初始复飞程序不一致。飞行员应遵循公布的IAP指引，而不是地图显示；完成复飞开始时的初始转弯后，其余程序编码是标准的，可像任何其他IAP一样使用。执行复飞时，应建立爬升俯仰姿态并设定爬升功率，将飞机配置为爬升，转向适当航向，通知ATC正在执行复飞并请求进一步许可。若在到达MAP之前开始复飞，除非ATC另有许可，否则继续按进近图规定飞IAP，在开始转弯前飞到MAP且不低于MDA或DA/DH。",
+      "required_claims": [
+        "由于FTP被编码为MAP，FMS地图显示会将初始复飞航迹描绘为从FTP开始，这一描绘与IAP上公布的初始复飞程序不一致。",
+        "飞行员应遵循公布的IAP指引，而不是地图显示；完成复飞开始时的初始转弯后，其余程序编码是标准的，可像任何其他IAP一样使用。",
+        "执行复飞时，应建立爬升俯仰姿态并设定爬升功率，将飞机配置为爬升，转向适当航向，通知ATC正在执行复飞并请求进一步许可。",
+        "若在到达MAP之前开始复飞，除非ATC另有许可，否则继续按进近图规定飞IAP，在开始转弯前飞到MAP且不低于MDA或DA/DH。"
+      ]
+    },
+    "reason": "题目未明确盘旋进近场景，却把该特殊场景列为必答。一般复飞动作和MAP前复飞规则仍应保留。"
+  },
+  {
+    "case_id": "AV300-20261124-034",
+    "before": {
+      "question": "根据该术语表，超高频（UHF）所涵盖的电磁频率范围是多少？",
+      "reference": "超高频（UHF）是指介于 962 MHz 与 1213 MHz 之间的电磁频率范围。",
+      "required_claims": [
+        "超高频（UHF）是指介于 962 MHz 与 1213 MHz 之间的电磁频率范围。"
+      ]
+    },
+    "after": {
+      "question": "FAA-H-8083-15B《Instrument Flying Handbook》的Glossary中，Ultra-high frequency (UHF)这一条目写出的电磁频率范围是多少？请明确这是该版本条目的表述。",
+      "reference": "FAA-H-8083-15B的Glossary中，Ultra-high frequency (UHF)条目写出的范围为962 MHz至1213 MHz。这是在复述该版本的条目。",
+      "required_claims": [
+        "FAA-H-8083-15B的Glossary中，UHF条目写出的范围为962 MHz至1213 MHz。"
+      ]
+    },
+    "reason": "‘该术语表’未指定书名，不同FAA资料的条目口径存在冲突。"
+  },
+  {
+    "case_id": "AV300-20261124-199",
+    "before": {
+      "question": "根据 4-7-2. Accommodating Non-RNP 10 Aircraft，非 RNP 10 航空器在 Gulf of America CTAs 内按 90 或 100 NM 横向间隔放行时，缺少哪一项输入才能确定其实际可用的横向间隔值？",
+      "reference": "该条款仅说明，未获 RNP 10 或 RNP 4 授权的运营人仍可在 Gulf of America CTAs 内任何航路和高度提交飞行计划，但其偏好航路和/或高度的放行将视交通情况按 90 或 100 NM 横向间隔提供，且优先给予 RNP 10 或 RNP 4 航空器。要确定实际可用的横向间隔值，缺少的输入是当时的交通情况（traffic），因为条款只规定按 traffic allows 在 90 或 100 NM 之间提供，未给出具体选择依据。",
+      "required_claims": [
+        "未获 RNP 10 或 RNP 4 授权的运营人仍可在 Gulf of America CTAs 内任何航路和高度提交飞行计划。",
+        "其偏好航路和/或高度的放行将视交通情况按 90 或 100 NM 横向间隔提供，且优先给予 RNP 10 或 RNP 4 航空器。",
+        "要确定实际可用的横向间隔值，缺少的输入是当时的交通情况（traffic），因为条款只规定按 traffic allows 在 90 或 100 NM 之间提供，未给出具体选择依据。"
+      ]
+    },
+    "after": {
+      "question": "仅知道一架未获RNP 10或RNP 4授权的航空器在Gulf of America CTAs内运行，能否唯一确定采用90还是100 NM横向间隔？结合FAA AIM 4-7-1与4-7-2，分别说明还需要什么空域信息，以及偏好航路和/或高度的放行受什么条件限制。",
+      "reference": "仅凭这些信息不能唯一选择90或100 NM；需要明确所在CTA/FIR。4-7-1规定，Miami Oceanic CTA/FIR至少90 NM，Houston、Monterrey和Merida CTA/FIR至少100 NM。4-7-2中的as traffic allows限制的是偏好航路和/或高度的放行，并规定优先给予RNP 10或RNP 4航空器；不能把traffic单独当作90与100 NM之间的选择规则。",
+      "required_claims": [
+        "仅知未获RNP 10或RNP 4授权及在该区域运行，不能唯一确定90或100 NM，还需明确所在CTA/FIR。",
+        "Miami Oceanic CTA/FIR至少90 NM，Houston、Monterrey和Merida CTA/FIR至少100 NM。",
+        "traffic allows限定偏好航路和/或高度能否获准，优先给予RNP 10或RNP 4航空器；不能单凭traffic选择90或100 NM。"
+      ]
+    },
+    "reason": "混淆按空域确定最低间隔与偏好航路/高度是否获准的交通条件。"
+  },
+  {
+    "case_id": "AV300-20261124-236",
+    "before": {
+      "question": "根据 ICAO Cold Temperature Error Table，当报告的机场高度为 500 英尺、机场温度为 -20°C 时，如何计算 1,800 英尺程序转弯高度的修正值？",
+      "reference": "将 1,800 英尺高度值向上取整到最近的 100 英尺水平。该高度高于报告站 1,300 英尺。修正量按每高于 1,000 英尺每英尺 0.33 英尺计算：前 1,000 英尺修正 300 英尺，剩余 300 英尺乘以 0.33 得 99 英尺，取整为 100 英尺；300 英尺 + 100 英尺 = 总温度修正 400 英尺。因此，在指示高度 2,200 英尺飞行时，飞机实际真实高度为 1,800 英尺。",
+      "required_claims": [
+        "将1,800英尺高度值向上取整到最近的100英尺水平。",
+        "该高度高于报告站1,300英尺。",
+        "修正量按每高于1,000英尺每英尺0.33英尺计算。",
+        "前1,000英尺修正300英尺，剩余300英尺乘以0.33得99英尺，取整为100英尺。",
+        "300英尺加100英尺得到总温度修正400英尺。",
+        "在指示高度2,200英尺飞行时，飞机实际真实高度为1,800英尺。"
+      ]
+    },
+    "after": {
+      "question": "根据FAA-H-8083-15B的ICAO Cold Temperature Error Table，机场高度500英尺、报告机场温度-20°C、图示程序转弯高度1800英尺。请按-20°C行，在高于机场1000与1500英尺的表格值之间作线性插值，计算修正量、未取整的修正后高度，以及将修正后高度向上取整至100英尺的结果。",
+      "reference": "高于机场的高度为1800-500=1300英尺。-20°C行在1000英尺处的修正量是140英尺，在1500英尺处是210英尺。线性插值得140+(1300-1000)/(1500-1000)×(210-140)=182英尺。未取整的修正后高度为1800+182=1982英尺；向上取整至100英尺为2000英尺。",
+      "required_claims": [
+        "高于机场的高度为1800-500=1300英尺。",
+        "-20°C行在高于机场1000和1500英尺处分别给出140与210英尺修正量。",
+        "线性插值修正量为140+(1300-1000)/500*(210-140)=182英尺。",
+        "未取整修正后高度为1982英尺，向上取整至100英尺为2000英尺。"
+      ]
+    },
+    "reason": "题干给出-20°C，标答误套用了-50°C的400英尺修正例题。"
+  },
+  {
+    "case_id": "AV300-20261124-261",
+    "before": {
+      "question": "在分析航空器轨迹意图与机载导航能力时，I062/380 数据项子字段 #8 中 bit-8 与 bit-7 分别如何表示 Trajectory Intent Data 的可用性和有效性，而国际飞行计划 Item 10a 中字母 G 所对应的 GNSS 能力又要求如何在 Item 18 中说明外部增强类型？",
+      "reference": "I062/380 数据项子字段 #8 中，bit-8 的取值 1 表示 Trajectory Intent Data is available for this aircraft，取值 0 表示 Trajectory Intent Data is not available for this aircraft；bit-7 的取值 1 表示 Trajectory Intent Data is valid，取值 0 表示 Trajectory Intent Data is not valid。国际飞行计划 Item 10a 中，字母 G 对应 GNSS（See Note 2）；Note 9 规定，如果使用字母 G，则任何外部 GNSS 增强的类型应在 Item 18 中紧随指示符 NAV/ 之后指定，并用空格分隔，示例为 NAV/SBAS。",
+      "required_claims": [
+        "I062/380 子字段 #8 中，bit-8 取值 1 表示 Trajectory Intent Data is available for this aircraft，取值 0 表示 Trajectory Intent Data is not available for this aircraft。",
+        "I062/380 子字段 #8 中，bit-7 取值 1 表示 Trajectory Intent Data is valid，取值 0 表示 Trajectory Intent Data is not valid。",
+        "国际飞行计划 Item 10a 中，字母 G 对应 GNSS（See Note 2）。",
+        "Note 9 规定，如果使用字母 G，则任何外部 GNSS 增强的类型应在 Item 18 中紧随指示符 NAV/ 之后指定，并用空格分隔，示例为 NAV/SBAS。"
+      ]
+    },
+    "after": {
+      "question": "在分析航空器轨迹意图与机载导航能力时，I062/380 数据项子字段 #8 中 bit-8 与 bit-7 分别如何表示 Trajectory Intent Data 的可用性和有效性，而国际飞行计划 Item 10a 中字母 G 所对应的 GNSS 能力又要求如何在 Item 18 中说明外部增强类型？",
+      "reference": "I062/380数据项子字段#8中，bit-8（NAV）为0时表示Trajectory Intent Data可用，为1时表示不可用；bit-7（NVB）为0时表示有效，为1时表示无效。国际飞行计划Item 10a中的字母G表示GNSS；使用G时，若存在外部GNSS增强类型，应在Item 18的NAV/之后用空格分隔说明，例如NAV/SBAS。",
+      "required_claims": [
+        "I062/380子字段#8中，bit-8（NAV）：0=可用，1=不可用。",
+        "I062/380子字段#8中，bit-7（NVB）：0=有效，1=无效。",
+        "国际飞行计划 Item 10a 中，字母 G 对应 GNSS（See Note 2）。",
+        "Note 9 规定，如果使用字母 G，则任何外部 GNSS 增强的类型应在 Item 18 中紧随指示符 NAV/ 之后指定，并用空格分隔，示例为 NAV/SBAS。"
+      ]
+    },
+    "reason": "CAT062标答将NAV/NVB的0与1反写；旧检索文本破坏了列对应关系。"
+  },
+  {
+    "case_id": "AV300-20261124-263",
+    "before": {
+      "question": "根据 FAA-H-8083-25C 中关于 Impact Pressure Chamber and Lines 的说明，Vertical Speed Indicator (VSI) 在高度保持不变时会出现怎样的指示变化，而该仪表在正常校准的平飞状态下又应指示什么（以何单位表示）？",
+      "reference": "根据 <1-hop>，The VSI shows a momentary climb and then stabilizes if the altitude is held constant。根据 <2-hop>，Vertical Speed Indicator (VSI) 用于指示航空器是在爬升、下降还是平飞，爬升或下降的速率以 feet per minute (fpm) 表示；若校准正确，VSI 在平飞时指示零。因此，在高度保持不变时，VSI 会先出现瞬时爬升指示，随后稳定下来；而在正常校准的平飞状态下，它应指示零，速率单位为 fpm。",
+      "required_claims": [
+        "若高度保持不变，VSI 会显示瞬时爬升，随后稳定下来。",
+        "VSI 指示航空器是在爬升、下降还是平飞，爬升或下降速率以 feet per minute (fpm) 表示。",
+        "若校准正确，VSI 在平飞时指示零。"
+      ]
+    },
+    "after": {
+      "question": "根据FAA-H-8083-25C，在启用备用静压源后、飞机实际高度保持不变时，VSI会出现什么瞬时反应？再与正常静压系统、仪表校准正确且稳定平飞时的指示比较，并说明升降率单位。",
+      "reference": "启用备用静压源后，若实际高度保持不变，VSI先显示瞬时爬升，然后稳定。正常静压系统下、仪表校准正确且稳定平飞时，VSI指示零。VSI表示爬升或下降率，单位为feet per minute（fpm）；刻度以hundreds of fpm表示与这一单位并不冲突。",
+      "required_claims": [
+        "启用备用静压源后，若飞机实际高度保持不变，VSI先瞬时显示爬升，然后稳定。",
+        "VSI 指示航空器是在爬升、下降还是平飞，爬升或下降速率以 feet per minute (fpm) 表示。",
+        "正常静压系统下，仪表校准正确且稳定平飞时，VSI指示零。"
+      ]
+    },
+    "reason": "题干和参考答案漏掉启用备用静压源的必要前提。"
+  }
+]

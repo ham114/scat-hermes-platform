@@ -8,6 +8,7 @@ StartLimitBurst=3
 [Service]
 Type=simple
 WorkingDirectory=/home/h3c/project/python/scat-hermes-platform
+ExecCondition=/home/h3c/anaconda3/envs/scat-agent/bin/python -B scripts/rag_service_enabled.py
 ExecStart=/home/h3c/anaconda3/envs/scat-rag-train/bin/python -B scripts/serve_rag_production.py
 Environment=PYTHONDONTWRITEBYTECODE=1
 Environment=PYTHONNOUSERSITE=1

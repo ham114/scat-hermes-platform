@@ -1,0 +1,15 @@
+{
+  "user_statement": "你给出的五道抽查题都通过，可以开始问答评测",
+  "approved_qids": [
+    "AV300-20261124-043",
+    "AV300-20261124-254",
+    "AV300-20261124-003",
+    "AV300-20261124-014",
+    "AV300-20261124-021"
+  ],
+  "individual_human_approved": 5,
+  "whole_set_authorized_for_evaluation": true,
+  "remaining_cases_review": "assistant construction checks; not individual human approval",
+  "qa_authorized_by_this_statement": true,
+  "source_candidates_sha256": "7f9cdf6567a0c2077807cc17308335291725846b4d452eba02ac88c65940df01"
+}

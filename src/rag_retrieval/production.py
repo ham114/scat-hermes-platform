@@ -28,10 +28,26 @@ def load_config(root, path):
     if not path.is_relative_to(root):
         raise ValueError("configuration_outside_project")
     config = json.loads(path.read_text(encoding="utf-8"))
+    from rag_retrieval.candidates import LEGACY_POLICY, RETAIN_DENSE_POLICY, WEIGHTED_POLICY
+    from rag_retrieval.ranking import RAW_RANKING, RRF_RANKING
+
+    profiles = {
+        "m8_rrf_qwen06b_top100": (100, LEGACY_POLICY, RAW_RANKING),
+        "m8_rrf_qwen06b_dense100_plus50": (150, RETAIN_DENSE_POLICY, RAW_RANKING),
+        "m8_weighted2_qwen06b_rank_rrf_top100": (100, WEIGHTED_POLICY, RRF_RANKING),
+    }
+    if config.get("profile_id") not in profiles:
+        raise ValueError("unapproved_production_retriever")
+    candidate_limit, candidate_policy, ranking_policy = profiles[config["profile_id"]]
+    if config.get("candidate_policy", LEGACY_POLICY) != candidate_policy:
+        raise ValueError("unapproved_candidate_policy")
+    if config.get("ranking_policy", RAW_RANKING) != ranking_policy:
+        raise ValueError("unapproved_ranking_policy")
+    if type(config.get("enabled", True)) is not bool:
+        raise ValueError("invalid_rag_enabled_flag")
     required = {
         "schema_version": 1,
-        "profile_id": "m8_rrf_qwen06b_top100",
-        "candidate_limit": 100,
+        "candidate_limit": candidate_limit,
         "batch_size": 4,
         "max_input_tokens": 2048,
         "host": "127.0.0.1",
@@ -60,6 +76,11 @@ class Retriever:
 
         from rag_retrieval.rerank_comparison import Qwen3Reranker
         from rag_retrieval.runtime import M8RRFIndex, build_jieba_tokenizer, load_chunk_records
+        from rag_retrieval.candidates import LEGACY_POLICY
+
+        self.candidate_limit = config["candidate_limit"]
+        self.candidate_policy = config.get("candidate_policy", LEGACY_POLICY)
+        self.ranking_policy = config.get("ranking_policy", "reranker")
 
         manifest = json.loads((Path(root) / config["model_manifest"]).read_text())
         if manifest["huggingface_revision"] != "e61197ed45024b0ed8a2d74b80b4d909f1255473":
@@ -106,22 +127,31 @@ class Retriever:
             "generation_id": config["generation_id"],
             "corpus_sha256": config["corpus_sha256"],
             "chunk_count": len(chunks),
-            "candidate_limit": 100,
+            "candidate_limit": self.candidate_limit,
+            "candidate_policy": self.candidate_policy,
+            "ranking_policy": self.ranking_policy,
+            "score_semantics": "raw_reranker_relevance; rank includes configured policy",
             "reranker_revision": manifest["huggingface_revision"],
             "fine_tuned": False,
         }
 
     def search(self, query, limit):
-        from rag_retrieval.rerank_comparison import frozen_candidates, order_by_scores
+        from rag_retrieval.candidates import build_candidates
+        from rag_retrieval.ranking import rank_candidates
+        from rag_retrieval.runtime import M8_RRF_PROFILE
 
         with self.lock:
-            ids = frozen_candidates(self.index, query, 100)
+            selection = build_candidates(
+                self.index, query, M8_RRF_PROFILE,
+                policy=self.candidate_policy, limit=self.candidate_limit,
+            )
+            ids = selection.ids
             scores, info = self.reranker.score(
                 query, [self.index.chunks_by_id[cid].retrieval_text() for cid in ids]
             )
             if info["truncated_pairs"] or not all(map(math.isfinite, scores)):
                 raise ValueError("unscorable_query_without_truncation")
-            ranked = order_by_scores(ids, scores)
+            ranked = rank_candidates(ids, scores, getattr(self, "ranking_policy", "reranker"))
             by_id = dict(zip(ids, scores, strict=True))
             return [
                 {
@@ -133,7 +163,10 @@ class Retriever:
                     "section_path": self.records[cid].get("section_path", []),
                     "locator": self.records[cid].get("locator"),
                     "score": float(by_id[cid]),
-                    "signals": {"reranker": "qwen3-0.6b", "candidate_rank": ids.index(cid) + 1},
+                    "signals": {
+                        "reranker": "qwen3-0.6b", **selection.signals[cid],
+                        "ranking_policy": getattr(self, "ranking_policy", "reranker"),
+                    },
                 }
                 for rank, cid in enumerate(ranked[:limit], 1)
             ]

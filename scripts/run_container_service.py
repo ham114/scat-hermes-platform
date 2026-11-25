@@ -15,6 +15,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def rag_arguments(root):
+    path = "services/rag/real-agent-production-v1.json"
+    config = json.loads((Path(root) / path).read_text(encoding="utf-8"))
+    if type(config.get("enabled", True)) is not bool:
+        raise ValueError("invalid_rag_enabled_flag")
+    return ["--rag-config", path] if config.get("enabled", True) else []
+
+
 def main():
     os.umask(0o077)
     parser = argparse.ArgumentParser(description=__doc__)
@@ -60,8 +68,6 @@ def main():
             "--with-workflows",
             "--skills-policy",
             "config/rag-readonly-policy.json",
-            "--rag-config",
-            "services/rag/real-agent-production-v1.json",
         ],
         "author-api": ["run_skill_author_api.py", "--port", "18124"],
         "author": [
@@ -76,6 +82,8 @@ def main():
             "http://127.0.0.1:18124",
         ],
     }
+    if role == "main":
+        commands["main"] += rag_arguments(ROOT)
     if role == "main" and os.environ.get("SCAT_READONLY_BUDGET_JSON"):
         # The native policy validates that these deployment settings only lower
         # its ceilings; model arguments cannot change this environment value.

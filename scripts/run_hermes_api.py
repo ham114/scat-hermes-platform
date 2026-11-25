@@ -953,10 +953,10 @@ if __name__ == "__main__":
 
             args.profile = args.profile or "scat-main"
             args.home = profile_home(ROOT, args.profile).relative_to(ROOT).as_posix()
-    from hermes_runtime.entrypoint import resolve_profile
+    from hermes_runtime.entrypoint import apply_rag_switch, resolve_profile
 
     try:
-        args = resolve_profile(args)
+        args = apply_rag_switch(resolve_profile(args), ROOT)
     except ValueError as exc:
         parser.error(str(exc))
     if args.show_skills_policy:

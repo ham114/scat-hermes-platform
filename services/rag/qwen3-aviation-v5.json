@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "profile_id": "m8_rrf_qwen06b_top100",
+  "generation_id": "kg_20261123_aviation_v5",
+  "corpus": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora/kg_20261123_aviation_v5/rag_chunks.v1.jsonl",
+  "corpus_sha256": "ef2a612511771646e54108eb9ee3c886195fd36d2c5f74963953704ee4defb4f",
+  "chunk_count": 8173,
+  "embedding_model": "/mnt/h3c/scat-rag/models/embedding/bge-m3-5617a9f61b028005a4858fdac845db406aefb181",
+  "embedding_cache": "/home/h3c/project/python/scat-hermes-platform/var/rag/corpora/kg_20261123_aviation_v5/bge-m3.npy",
+  "embedding_cache_sha256": "d3b74759d2995f9aad8608ccea415032e5957b854770cf1e54e3a5f96cb02d94",
+  "model_manifest": "services/rag/qwen3-06b-download.json",
+  "model_manifest_sha256": "7ed41167911fb887de93af34e26a4f5a1ea8e196ba421995f2593c5b76fd0c14",
+  "candidate_limit": 100,
+  "batch_size": 4,
+  "max_input_tokens": 2048,
+  "host": "127.0.0.1",
+  "port": 18133,
+  "max_inflight": 2
+}
