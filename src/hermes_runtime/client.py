@@ -179,6 +179,25 @@ class HermesHTTPRuntime:
             self.registry.bind(context, str(request_id), data.get("run_id"))
         except RunBindingConflictError:
             raise HermesRuntimeError("invalid_run_binding", outcome_unknown=True) from None
+        from hermes_runtime.diagnostics import record
+
+        label = None
+        try:
+            from core.observability import redact_text
+
+            label = redact_text(message)[:160]
+        except ImportError:
+            pass  # Minimal background environments can still record structural metadata.
+
+        record(
+            "bind",
+            context.scope_key,
+            data["run_id"],
+            owner=context.user_id,
+            thread_id=context.thread_id,
+            request_id=str(request_id),
+            label=label,
+        )
         if self.memory is not None:
             self.memory.admitted(context, request_id)
         return data
@@ -188,6 +207,9 @@ class HermesHTTPRuntime:
         data = await self._json("GET", f"/v1/runs/{run_id}", context=context)
         if data.get("run_id") != run_id:
             raise HermesRuntimeError("upstream_run_mismatch")
+        from hermes_runtime.diagnostics import record
+
+        record("finish", context.scope_key, run_id, data.get("status"), authoritative=True)
         return data
 
     async def stop_run(self, context: ExecutionContext, run_id: str) -> dict[str, Any]:
@@ -233,6 +255,15 @@ class HermesHTTPRuntime:
                                     last_sequence = event.sequence
                                 yield event
                                 if event.name in _TERMINAL:
+                                    from hermes_runtime.diagnostics import record
+
+                                    record(
+                                        "finish",
+                                        context.scope_key,
+                                        run_id,
+                                        event.name.removeprefix("run."),
+                                        authoritative=True,
+                                    )
                                     return
                         lines, event_id, frame_bytes = [], None, 0
                     elif line.startswith("data:"):

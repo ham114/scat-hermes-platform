@@ -132,6 +132,9 @@ app.include_router(workflow_router)
 from service.memory_api import router as memory_router
 
 app.include_router(memory_router)
+from service.diagnostics_api import router as diagnostics_router
+
+app.include_router(diagnostics_router)
 
 
 @app.get("/health/live")

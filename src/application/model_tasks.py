@@ -92,7 +92,11 @@ class ModelTasks:
             snapshot["skills"] = self.skills.snapshot(
                 context, request, spec, source_run_id, budget=budget
             )
-        return self.view(self.store.prepare(context.scope_key, proposal_key, snapshot))
+        row = self.store.prepare(context.scope_key, proposal_key, snapshot)
+        from hermes_runtime.diagnostics import record
+
+        record("bind_task", context, row)
+        return self.view(row)
 
     def view(self, row):
         from application.model_records import _model_summary

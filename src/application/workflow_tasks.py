@@ -268,7 +268,11 @@ class WorkflowTasks(ModelTasks):
         }
         if gpu is not None:
             snapshot["workflow"]["gpu"] = gpu.pin()
-        return self.view(self.store.prepare(context.scope_key, proposal_key, snapshot))
+        row = self.store.prepare(context.scope_key, proposal_key, snapshot)
+        from hermes_runtime.diagnostics import record
+
+        record("bind_task", context, row)
+        return self.view(row)
 
     def view(self, row):
         if "workflow" not in row["snapshot"]:

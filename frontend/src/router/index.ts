@@ -15,6 +15,30 @@ export const router = createRouter({
   scrollBehavior: () => ({ top: 0 }),
   routes: [
     {
+      path: '/diagnostics',
+      name: 'diagnostics',
+      component: () => import('@/views/DiagnosticsView.vue'),
+      meta: { title: '调用链排查' },
+    },
+    {
+      path: '/diagnostics/traces/:traceId',
+      name: 'diagnostic-trace',
+      component: () => import('@/views/DiagnosticsView.vue'),
+      meta: { title: '调用链详情' },
+    },
+    {
+      path: '/diagnostics/tasks/:taskId',
+      name: 'diagnostic-task',
+      component: () => import('@/views/DiagnosticsView.vue'),
+      meta: { title: '任务调用记录' },
+    },
+    {
+      path: '/diagnostics/sessions/:sessionId',
+      name: 'diagnostic-session',
+      component: () => import('@/views/DiagnosticsView.vue'),
+      meta: { title: '会话调用记录' },
+    },
+    {
       path: '/memory',
       name: 'memory',
       component: () => import('@/views/MemoryView.vue'),

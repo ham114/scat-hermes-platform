@@ -192,6 +192,9 @@ def profile_config(
 
 
 async def serve(args) -> None:
+    from hermes_runtime.diagnostics import configure_native
+
+    diagnostics_enabled = configure_native()
     if sys.version_info[:2] != (3, 14) or not (Path(sys.prefix) / "conda-meta").is_dir():
         raise RuntimeError("Use the dedicated Python 3.14 Anaconda environment")
     home = inside_workspace(ROOT / args.home)
@@ -207,6 +210,10 @@ async def serve(args) -> None:
         source = inside_workspace(ROOT / "vendor/hermes-agent")
         sys.path.insert(0, str(source))
     home.mkdir(parents=True, exist_ok=True)
+    if diagnostics_enabled:
+        from hermes_runtime.diagnostics import prepare_native_plugin
+
+        prepare_native_plugin(home)
     (home / "tmp").mkdir(exist_ok=True)
     (ROOT / ".tmp/mcp").mkdir(parents=True, exist_ok=True)
     os.environ.update(
@@ -276,6 +283,8 @@ async def serve(args) -> None:
         with_workflows=args.with_workflows,
         readonly_budget=budget_limits,
     )
+    if diagnostics_enabled:
+        config.setdefault("plugins", {})["enabled"] = ["langfuse"]
     if specification:
         from hermes_runtime.profiles import apply_settings
 
@@ -690,6 +699,25 @@ async def serve(args) -> None:
             if run_id and loop and scope:
 
                 def completed(call_id, name, arguments, result):
+                    import time
+
+                    from hermes_runtime.diagnostics import record, summary
+
+                    started = time.time()
+                    evidence = summary(result)
+                    business_state = evidence.get("status")
+                    record(
+                        "node",
+                        scope,
+                        run_id,
+                        "result:" + call_id,
+                        name,
+                        state="completed" if business_state in {None, "ok"} else "failed",
+                        started=started,
+                        input=arguments,
+                        output=result,
+                        kind="tool-result",
+                    )
                     if original_complete:
                         original_complete(call_id, name, arguments, result)
                     try:
@@ -706,6 +734,22 @@ async def serve(args) -> None:
                             "readonly_receipt_unavailable error_type=%s", type(exc).__name__
                         )
                         reference = None
+                    if name.startswith("mcp__scat__"):
+                        record(
+                            "node",
+                            scope,
+                            run_id,
+                            "receipt:" + call_id,
+                            "发布只读回执",
+                            state="completed"
+                            if reference
+                            else "skipped"
+                            if business_state not in {None, "ok"}
+                            else "failed",
+                            started=started,
+                            output=reference,
+                            parent_id="result:" + call_id,
+                        )
                     if reference:
                         stream = self._run_streams.get(run_id)
                         if stream is not None:
@@ -742,6 +786,10 @@ async def serve(args) -> None:
 
                 kwargs["tool_complete_callback"] = completed
             agent = super()._create_agent(*pargs, **kwargs)
+            if diagnostics_enabled and run_id and scope:
+                from hermes_runtime.diagnostics import record
+
+                record("bind", scope, run_id, session_id=agent.session_id, profile=args.profile)
             if getattr(args, "rag_config", None):
                 from hermes_runtime.real_rag import readonly_provider_options
 
@@ -816,6 +864,10 @@ async def serve(args) -> None:
                 from hermes_runtime.trajectory_reply import attach_reply_guard
 
                 attach_reply_guard(agent, results, scope, run_id)
+            if diagnostics_enabled and scope and run_id:
+                from hermes_runtime.diagnostics import attach_native_outcome
+
+                attach_native_outcome(agent, scope, run_id)
             actual = set(agent.valid_tool_names)
             if actual != allowed_tools:
                 raise RuntimeError("Hermes tool allowlist did not match the business profile")

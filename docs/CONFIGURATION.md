@@ -22,3 +22,21 @@
 当前该文件与 [`real-agent-production-v1.json`](../services/rag/real-agent-production-v1.json) 都设为`"enabled": false`。前者阻止检索服务加载模型，后者阻止主Agent注册原生RAG操作。Compose及本机`.env`使用`SCAT_RAG_BASELINE_ENABLED=false`，关闭兼容知识检索入口。两个项目RAG专用systemd服务同时停用自动启动；启用需要显式调整配置和部署服务，普通重启不会开启RAG。
 
 模型权重、向量缓存、语料、评测输出与本机凭据保留在服务器，不纳入Git。部署备份和状态由`scripts/deploy_rag_rank_rrf_disabled.py`记录在`var/rag/deployments/weighted2-rank-rrf-20261126/`及`output/rag-production-disabled-20261126/`。
+
+## Langfuse 调用链排查
+
+调用链使用自托管 Langfuse 与 Hermes 官方 `langfuse` 插件。插件源码版本、两个文件的 SHA256、Hermes 核心提交和 SDK 版本固定在 [`langfuse.lock.json`](../services/hermes/langfuse.lock.json)。本轮使用插件 2.0.0、Python SDK 4.14.0，实际自托管服务版本 4.86.0；升级须重新核验采集与读取接口。本项目通过 `/api/public/v2/observations` 按原生会话读取事件，每条返回事件再次核对会话归属。
+
+| 配置 | 用途 |
+| --- | --- |
+| `SCAT_LANGFUSE_CONFIG` | 项目目录内的私有 JSON，包含 `base_url`、`public_key`、`secret_key`、`plugin_path`，可设 `enabled: false` |
+| `SCAT_DIAGNOSTICS_STATE_FILE` | 本地调用链、任务映射及回执读取事件的 SQLite 路径；生产使用共享状态目录 |
+| `HERMES_LANGFUSE_CAPTURE` | 启动时固定为 `metadata`，官方插件采集结构和模型用量元数据 |
+
+配置缺省时不启用采集。生产私有配置在 `var/deploy/langfuse/client.json`，权限600，浏览器不接触 Langfuse 密钥。普通用户通过已有签名身份查看自己的记录，管理员身份由现有身份目录核验；不能通过请求参数切换所有者。Langfuse 原始管理服务只绑定 `127.0.0.1:18160`。
+
+页面提供以下直接路由，不增加导航按钮：`/diagnostics`（列表）、`/diagnostics/traces/:traceId`（调用树）、`/diagnostics/sessions/:sessionId`（平台会话筛选；此参数是平台 thread_id）、`/diagnostics/tasks/:taskId`（后台任务）。列表也支持 `thread_id`、`run_id`、`state` 查询参数。接口前缀为 `/api/v1/hermes/diagnostics`，沿用 HTTPS 站点登录。
+
+展示内容包括请求摘要、角色、状态、调用父子关系、真实起止时间、工具参数和结果的受限结构摘要、校验失败字段、回执引用和校验摘要、关联任务、模型名称及已上报的用量/费用。缺失数据标为未记录或无法估算；历史任务没有开始时间时不从创建时间推测。原始轨迹点、完整工具正文、提示词和回答不进入本轮 Langfuse 采集。页面展示事件只发送结果引用、摘要、事件ID和成功/失败状态，并在服务端重新验证所属运行和摘要。
+
+本地补充记录失败不会中断工具执行。读取页区分等待同步、服务不可用、达到分页上限；失败时仍可查看已有本地记录。读取每个原生会话最多500条远端事件、总超时15秒。页面展示事件属于辅助观测，不能作为浏览器性能指标或最终业务正确性的证明。

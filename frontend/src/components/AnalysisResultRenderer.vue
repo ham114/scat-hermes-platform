@@ -1,5 +1,15 @@
 <script setup lang="ts">
-import { computed, inject, nextTick, onUnmounted, ref, watch, toRaw } from 'vue'
+import {
+  computed,
+  inject,
+  nextTick,
+  onMounted,
+  onErrorCaptured,
+  onUnmounted,
+  ref,
+  watch,
+  toRaw,
+} from 'vue'
 import { chatDisplayKey } from '@/lib/chatDisplay'
 import { defaultDisplay, parseDisplay, displayCommand, displayBlocks } from '@/lib/displayWorkspace'
 import { downloadCsv } from '@/utils/evaluationExport'
@@ -22,6 +32,31 @@ const props = defineProps<{
   payloadSha256?: string
   displayIdentity?: string
 }>()
+let renderFailed = false
+function recordRender(state: 'rendered' | 'failed') {
+  const context = props.result.context
+  if (!context) return
+  const trace = context.diagnostic_trace_id
+  if (typeof trace !== 'string' || !/^[a-f0-9]{32}$/.test(trace)) return
+  void fetch(`/api/v1/hermes/diagnostics/${trace}/render`, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      result_id: context.readonly_result_id,
+      payload_sha256: context.readonly_payload_sha256,
+      event_id: crypto.randomUUID(),
+      state,
+    }),
+  }).catch(() => {})
+}
+onMounted(() => {
+  if (!renderFailed) recordRender('rendered')
+})
+onErrorCaptured(() => {
+  renderFailed = true
+  recordRender('failed')
+})
 const config = ref(defaultDisplay(props.result))
 const command = ref('')
 const notice = ref('')

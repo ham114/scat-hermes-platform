@@ -317,7 +317,7 @@ async def test_message_at_maximum_is_accepted_without_truncation(api):
 
 
 @pytest.mark.asyncio
-async def test_result_receipts_are_owner_thread_run_scoped_and_survive_native_failure(api):
+async def test_result_receipts_are_owner_thread_run_scoped_and_survive_native_failure(api, monkeypatch):
     client, native, _registry, app = api
     tid = await thread(client)
     rid = (await run(client, tid)).json()["run_id"]
@@ -333,6 +333,12 @@ async def test_result_receipts_are_owner_thread_run_scoped_and_survive_native_fa
     assert (await client.get(path + "/results")).json()["items"] == [ref]
     assert (await client.get(path)).json()["result_references"] == [ref]
     native.runs.clear()  # Receipt reads have no dependency on the upstream process.
+    import sqlite3
+
+    def unavailable_journal():
+        raise sqlite3.OperationalError("diagnostic_store_unavailable")
+
+    monkeypatch.setattr("hermes_runtime.diagnostics.journal", unavailable_journal)
     assert (await client.get(path + "/results/" + ref["result_id"])).json()["result"]["data"][
         "total"
     ] == 10637

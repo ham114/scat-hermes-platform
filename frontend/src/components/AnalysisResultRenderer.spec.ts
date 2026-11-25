@@ -1,5 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import fixture from '@/test-fixtures/analysis.json'
 import { parseAnalysisArtifact } from '@/lib/analysisDisplay'
 import BaseChart from './BaseChart.vue'
@@ -17,6 +17,28 @@ function render(payload = fixture) {
 }
 
 describe('generic analysis rendering', () => {
+  it('reports a mounted receipt with only its verified reference', async () => {
+    const fetch = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(new Response('{}', { status: 202 }))
+    const result = parseAnalysisArtifact(fixture, fixture.artifact_id)!
+    result.context = {
+      ...result.context,
+      diagnostic_trace_id: 'a'.repeat(32),
+      readonly_result_id: 'receipt',
+      readonly_payload_sha256: 'b'.repeat(64),
+    }
+    const wrapper = mount(AnalysisResultRenderer, {
+      props: { result },
+      global: { stubs: { BaseChart: true } },
+    })
+    expect(fetch).toHaveBeenCalledOnce()
+    const body = JSON.parse(String(fetch.mock.calls[0]![1]?.body))
+    expect(Object.keys(body).sort()).toEqual(['event_id', 'payload_sha256', 'result_id', 'state'])
+    expect(body.state).toBe('rendered')
+    wrapper.unmount()
+    fetch.mockRestore()
+  })
   it('plots a saved table, restores the chosen chart, and keeps the original rows unchanged', async () => {
     localStorage.clear()
     const result = parseAnalysisArtifact(fixture, fixture.artifact_id)!

@@ -45,6 +45,8 @@ npm --prefix frontend run dev
 
 对话和后台任务需要固定版本的原生 Hermes、语言模型连接和平台状态目录。按运行时文档准备 `scat-main`、`scat-worker` 和 `scat-author`，启动完整平台 API `service.hermes_app:app`，并将前端的 `SCAT_DEV_PROXY_TARGET` 指向该服务。团队部署可按 Compose 配置接入认证网关和后台任务服务。[Hermes 运行时](services/hermes/README.md) · [部署指南](docs/DEPLOYMENT.md)
 
+管理员可按配置启用自托管 Langfuse 调用链采集。登录后直接访问 `/diagnostics` 查看自己的工具步骤、失败位置、回执及后台任务记录；页面沿用现有身份隔离，导航栏不增加入口。[调用链配置](docs/CONFIGURATION.md#langfuse-调用链排查)
+
 ## 操作示例
 
 ### UAV 多通道时序与分布

@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import json
+import sqlite3
 from contextlib import aclosing
 from typing import Annotated
 from uuid import UUID
@@ -323,10 +324,36 @@ async def get_result(thread_id: UUID, run_id: str, result_id: str, runtime: Runt
     try:
         await asyncio.to_thread(runtime.registry.require, context, run_id)
         store = _result_store(runtime)
-        from application.readonly_display import receipt_display
+        import time
 
+        from application.readonly_display import receipt_display
+        from hermes_runtime.diagnostics import record
+
+        started = time.time()
         receipt = await asyncio.to_thread(store.get, context.scope_key, run_id, result_id)
-        return await asyncio.to_thread(receipt_display, receipt)
+        displayed = await asyncio.to_thread(receipt_display, receipt)
+        record(
+            "node",
+            context.scope_key,
+            run_id,
+            "read:" + get_request_id(),
+            "读取与校验回执",
+            state="completed",
+            started=started,
+            output={"result_id": result_id, "payload_sha256": receipt["payload_sha256"]},
+        )
+        from hermes_runtime.diagnostics import DiagnosticStore, journal
+
+        try:
+            diagnostics = journal()
+            identity = DiagnosticStore.identifier(context.scope_key, run_id)
+            if diagnostics:
+                diagnostics.get(identity, owner)
+                if "analysis_result" in displayed:
+                    displayed["analysis_result"]["context"]["diagnostic_trace_id"] = identity
+        except (LookupError, ValueError, OSError, sqlite3.Error):
+            pass
+        return displayed
     except (RunNotFoundError, ResultNotFoundError):
         raise HTTPException(404, "Result was not found") from None
     except ValueError:

@@ -77,7 +77,11 @@ def test_legacy_mapping_has_exactly_every_original_tool_and_explicit_gpu_boundar
 
 
 @pytest.mark.asyncio
-async def test_http_prepare_never_confirms_and_controls_preserve_scope(tmp_path):
+async def test_http_prepare_never_confirms_and_controls_preserve_scope(tmp_path, monkeypatch):
+    from hermes_runtime.diagnostics import DiagnosticStore
+
+    diagnostics = DiagnosticStore(tmp_path / "diagnostic.sqlite", root=tmp_path)
+    monkeypatch.setattr("hermes_runtime.diagnostics.journal", lambda: diagnostics)
     registry = RunRegistry(tmp_path / "threads.sqlite", workspace_root=ROOT)
     tid = registry.create_thread("scat-researcher")["thread_id"]
     app = FastAPI()
@@ -114,6 +118,7 @@ async def test_http_prepare_never_confirms_and_controls_preserve_scope(tmp_path)
             response = await client.post(path + "/workflow-tasks", json=payload)
             assert response.status_code == 201, response.text
             view = response.json()
+            assert diagnostics.task(view["task_id"], "scat-researcher")["thread_id"] == tid
             identity = view["workflow"]["input_sha256"]
             assert view["confirmation_required"] and tasks.skills.store.claim("premature") is None
             assert (await client.post(path + "/workflow-tasks", json=payload)).json()[
