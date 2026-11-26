@@ -25,6 +25,61 @@ export interface DiagnosticNode {
   usage?: Record<string, number>
   cost?: Record<string, number>
   details?: Record<string, string | number | boolean>
+  failure?: DiagnosticFailure | null
+}
+export interface DiagnosticFailure {
+  code: string
+  title: string
+  message?: string
+  suggestion: string
+  retryable: boolean
+  error_id?: string
+  exception_type?: string
+  http_status?: number
+  validation?: { field: (string | number)[]; code: string; message: string }[]
+  frames?: { file: string; line: number; function: string }[]
+}
+export function tokenUsage(node: DiagnosticNode) {
+  const raw = node.usage ?? {}
+  const number = (key: string) =>
+    typeof raw[key] === 'number' && Number.isFinite(raw[key]) && raw[key] >= 0 ? raw[key]! : null
+  const cached = number('cache_read_input_tokens') ?? 0
+  const written = number('cache_creation_input_tokens') ?? 0
+  // Official plugin: input is uncached; reasoning is already part of output.
+  const input =
+    number('prompt_tokens') ??
+    (number('input') != null || cached || written
+      ? (number('input') ?? 0) + cached + written
+      : null)
+  const output = number('output') ?? number('completion_tokens')
+  return {
+    input,
+    output,
+    cached,
+    written,
+    reasoning: number('reasoning_tokens'),
+    total: input != null && output != null ? input + output : null,
+  }
+}
+export function summarizeTokenUsage(nodes: DiagnosticNode[]) {
+  const generations = nodes.filter((node) => node.kind === 'generation')
+  const known = generations.map(tokenUsage).filter((usage) => usage.total != null)
+  return {
+    generations: generations.length,
+    known: known.length,
+    state: !generations.length
+      ? 'no_generation'
+      : !known.length
+        ? 'missing'
+        : known.length < generations.length
+          ? 'partial'
+          : 'complete',
+    total: known.length ? known.reduce((sum, row) => sum + row.total!, 0) : null,
+    input: known.reduce((sum, row) => sum + row.input!, 0),
+    output: known.reduce((sum, row) => sum + row.output!, 0),
+    cached: known.reduce((sum, row) => sum + row.cached, 0),
+    written: known.reduce((sum, row) => sum + row.written, 0),
+  }
 }
 export interface DiagnosticDetail {
   trace: DiagnosticTrace

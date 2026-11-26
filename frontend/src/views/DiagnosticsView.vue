@@ -6,6 +6,8 @@ import {
   stateLabel,
   timestamp,
   duration,
+  tokenUsage,
+  summarizeTokenUsage,
   type DiagnosticTrace,
   type DiagnosticNode,
   type DiagnosticDetail,
@@ -86,19 +88,8 @@ const range = computed(() => {
     ? { start: Math.min(...times), length: Math.max(1, Math.max(...times) - Math.min(...times)) }
     : { start: 0, length: 1 }
 })
-const usage = computed(() => {
-  const generations = detail.value?.nodes.filter((node) => node.kind === 'generation') ?? []
-  if (!generations.some((node) => Object.keys(node.usage ?? {}).length)) return null
-  return generations.reduce(
-    (sum, node) =>
-      sum +
-      Object.entries(node.usage ?? {}).reduce(
-        (n, [key, value]) => n + (key === 'total' ? 0 : value),
-        0,
-      ),
-    0,
-  )
-})
+const usage = computed(() => summarizeTokenUsage(detail.value?.nodes ?? []))
+const activeUsage = computed(() => (active.value ? tokenUsage(active.value) : null))
 const cost = computed(() => {
   const generations = detail.value?.nodes.filter((node) => node.kind === 'generation') ?? []
   if (!generations.length || generations.some((node) => !Object.keys(node.cost ?? {}).length))
@@ -235,9 +226,21 @@ function selectNode(node: DiagnosticNode) {
         <span :class="['state', detail.trace.state]">{{ stateLabel(detail.trace.state) }}</span>
         <span>{{ detail.trace.profile ?? '角色待关联' }}</span>
         <span>{{ date(detail.trace.created) }}</span>
-        <span>模型用量 {{ usage == null ? '暂无记录' : `${usage} tokens` }}</span>
+        <span v-if="usage.state === 'no_generation'">暂无模型调用记录（工具步骤不计 token）</span>
+        <span v-else-if="usage.state === 'missing'"
+          >{{ usage.generations }} 次模型调用，用量尚未上报</span
+        >
+        <span v-else
+          >模型用量 {{ usage.total }} tokens{{
+            usage.state === 'partial' ? '（已知部分）' : ''
+          }}</span
+        >
         <span>费用估算 {{ cost == null ? '无法估算' : `$${cost.toFixed(5)}` }}</span>
       </div>
+      <p v-if="usage.known" class="muted">
+        输入 {{ usage.input }} · 输出 {{ usage.output }} · 输入中缓存命中 {{ usage.cached }} ·
+        缓存写入 {{ usage.written }} · 已有用量 {{ usage.known }}/{{ usage.generations }} 次
+      </p>
       <p class="muted" role="status">
         {{
           detail.langfuse_status === 'available'
@@ -313,6 +316,48 @@ function selectNode(node: DiagnosticNode) {
         </div>
         <article v-if="active" class="node-detail" aria-label="步骤详情">
           <h2>{{ displayName(active.name) }}</h2>
+          <section v-if="active.failure" class="failure-detail" aria-label="错误详情">
+            <h3>{{ active.failure.title }}</h3>
+            <p v-if="active.failure.message">{{ active.failure.message }}</p>
+            <ul v-if="active.failure.validation?.length">
+              <li v-for="(issue, index) in active.failure.validation" :key="index">
+                {{ issue.field.join('.') || '请求参数' }}：{{ issue.message }}（{{ issue.code }}）
+              </li>
+            </ul>
+            <p>处理建议：{{ active.failure.suggestion }}</p>
+            <dl>
+              <dt>错误代码</dt>
+              <dd>{{ active.failure.code }}</dd>
+              <template v-if="active.failure.exception_type"
+                ><dt>异常类型</dt>
+                <dd>{{ active.failure.exception_type }}</dd></template
+              >
+              <template v-if="active.failure.http_status"
+                ><dt>HTTP 状态</dt>
+                <dd>{{ active.failure.http_status }}</dd></template
+              >
+              <template v-if="active.failure.error_id"
+                ><dt>日志定位编号</dt>
+                <dd>{{ active.failure.error_id }}</dd></template
+              >
+            </dl>
+            <details v-if="active.failure.frames?.length">
+              <summary>代码调用位置</summary>
+              <p v-for="(frame, index) in active.failure.frames" :key="index">
+                {{ frame.file }}:{{ frame.line }} · {{ frame.function }}
+              </p>
+            </details>
+          </section>
+          <p v-if="active.kind === 'generation' && activeUsage?.total != null" class="muted">
+            本次模型：输入 {{ activeUsage.input }} · 输出 {{ activeUsage.output }} · 总计
+            {{ activeUsage.total }} · 缓存命中 {{ activeUsage.cached }}
+            <span v-if="activeUsage.reasoning != null">
+              · 输出中推理 {{ activeUsage.reasoning }}</span
+            >
+          </p>
+          <p v-else-if="active.kind === 'generation'" class="muted">
+            本次模型调用尚无完整输入/输出用量。
+          </p>
           <div class="tabs" role="group" aria-label="详情内容">
             <button
               v-for="item in [
@@ -442,6 +487,12 @@ small {
 .state.failed,
 .failure {
   color: #b42318;
+}
+.failure-detail {
+  padding: 12px;
+  margin-bottom: 16px;
+  border-left: 3px solid #c6574d;
+  background: var(--panel, white);
 }
 .state.completed,
 .state.succeeded {

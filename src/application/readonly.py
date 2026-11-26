@@ -14,6 +14,7 @@ from pydantic import BaseModel, Field, ValidationError
 
 from application.context import ExecutionContext
 from application.knowledge import KnowledgeSearchInput, KnowledgeSearchService
+from hermes_runtime.diagnostic_errors import exception_details, validation_details
 from scat.schemas.tool_inputs import (
     DEFAULT_BATCH,
     BatchOverviewInput,
@@ -114,6 +115,9 @@ class ReadOnlyApplication:
                 "operation": name,
                 "data": None,
                 "fields": [list(item["loc"]) for item in exc.errors(include_input=False)],
+                "diagnostic_error": {
+                    "validation": validation_details(exc.errors(include_input=False))
+                },
             }
         operation = self.bindings.get(name)
         if operation is None:
@@ -147,13 +151,22 @@ class ReadOnlyApplication:
         except ValueError:
             return {"status": "invalid_request", "operation": name, "data": None}
         except Exception as exc:  # noqa: BLE001 -- sanitize all backend failures at the tool boundary.
+            from pathlib import Path
+
+            detail = exception_details(exc, Path(__file__).resolve().parents[2])
             logger.warning(
-                "readonly_failed operation=%s scope=%s error_type=%s",
+                "readonly_failed operation=%s scope=%s error_type=%s error_id=%s",
                 name,
                 context.scope_key,
                 type(exc).__name__,
+                detail["error_id"],
             )
-            return {"status": "internal_error", "operation": name, "data": None}
+            return {
+                "status": "internal_error",
+                "operation": name,
+                "data": None,
+                "diagnostic_error": detail,
+            }
 
     async def aclose(self) -> None:
         if self.close is not None:

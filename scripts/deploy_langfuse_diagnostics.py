@@ -16,6 +16,8 @@ STATE = ROOT / "var/deploy/langfuse/release"
 SOURCE = ROOT / ".tmp/langfuse/candidate"
 FILES = [
     "src/hermes_runtime/diagnostics.py",
+    "src/hermes_runtime/diagnostic_errors.py",
+    "src/application/readonly.py",
     "src/hermes_runtime/client.py",
     "src/hermes_runtime/entrypoint.py",
     "src/hermes_runtime/agent_settings.py",

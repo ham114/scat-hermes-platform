@@ -94,6 +94,9 @@ async def test_unknown_tool_and_backend_failures_are_sanitized(caplog):
     assert (await app.invoke("terminal", {}, context=CONTEXT))["status"] == "tool_not_allowed"
     result = await app.invoke("search_scat_flights", {}, context=CONTEXT)
     assert result["status"] == "internal_error"
+    assert result["diagnostic_error"]["exception_type"] == "RuntimeError"
+    assert result["diagnostic_error"]["error_id"] in caplog.text
+    assert result["diagnostic_error"]["frames"]
     assert "private-secret" not in json.dumps(result) + caplog.text
 
 

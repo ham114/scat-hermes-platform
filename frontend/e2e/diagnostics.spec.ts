@@ -105,3 +105,47 @@ test('long workflow step names wrap within the viewport', async ({ page }) => {
   await expect(page.getByRole('article', { name: '步骤详情' })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 })
+
+test('generation usage shows input output and cache without double counting reasoning', async ({
+  page,
+}) => {
+  const detail = {
+    ...sample,
+    nodes: [
+      {
+        ...sample.nodes[0],
+        kind: 'generation',
+        usage: { input: 100, output: 20, cache_read_input_tokens: 30, reasoning_tokens: 5 },
+      },
+    ],
+  }
+  await page.route('**/api/v1/hermes/diagnostics/**', (route) => route.fulfill({ json: detail }))
+  await page.goto('/diagnostics/traces/' + id)
+  await expect(page.getByText('模型用量 150 tokens')).toBeVisible()
+  await expect(
+    page.getByText('输入 130 · 输出 20 · 输入中缓存命中 30', { exact: false }),
+  ).toBeVisible()
+})
+
+test('failure panel explains exact parameter range and action', async ({ page }) => {
+  const detail = {
+    ...sample,
+    nodes: [
+      {
+        ...sample.nodes[1],
+        failure: {
+          code: 'invalid_request',
+          title: '参数校验未通过',
+          suggestion: '修正参数后提交',
+          retryable: false,
+          validation: [{ field: ['limit'], code: 'less_than_equal', message: '必须小于或等于100' }],
+        },
+      },
+    ],
+  }
+  await page.route('**/api/v1/hermes/diagnostics/**', (route) => route.fulfill({ json: detail }))
+  await page.goto('/diagnostics/traces/' + id)
+  const error = page.getByRole('region', { name: '错误详情' })
+  await expect(error).toContainText('limit：必须小于或等于100')
+  await expect(error).toContainText('处理建议：修正参数后提交')
+})

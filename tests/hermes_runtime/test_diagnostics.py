@@ -61,6 +61,30 @@ def test_summary_does_not_capture_tool_content():
     assert "PRIVATE" not in json.dumps(value)
 
 
+def test_failure_details_are_rebuilt_without_raw_messages():
+    value = summary(
+        {
+            "status": "invalid_request",
+            "diagnostic_error": {
+                "validation": [
+                    {
+                        "field": ["limit"],
+                        "code": "less_than_equal",
+                        "constraints": {"le": 100},
+                        "message": "PRIVATE",
+                    }
+                ],
+                "message": "PRIVATE",
+                "frames": [{"file": "/private/secret.py", "line": 1, "function": "run"}],
+            },
+        }
+    )
+    assert value["error"]["validation"][0]["message"] == "必须小于或等于100"
+    assert value["error"]["frames"] == []
+    assert "PRIVATE" not in json.dumps(value)
+    assert summary({"status": ["invalid"]})["keys"] == ["status"]
+
+
 @pytest.mark.asyncio
 async def test_reader_rejects_wrong_session_and_marks_backend_failure(monkeypatch):
     real_client = httpx.AsyncClient

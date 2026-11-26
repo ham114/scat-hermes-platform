@@ -115,6 +115,11 @@ def summary(value):
     if not isinstance(value, dict):
         return {"type": type(value).__name__}
     result = {"keys": list(value)[:30]}
+    from hermes_runtime.diagnostic_errors import describe_failure
+
+    failure = describe_failure(value)
+    if failure:
+        result["error"] = failure
     for key in ("status", "operation", "result_id", "payload_sha256", "artifact_id", "task_id"):
         item = value.get(key)
         if (
@@ -323,12 +328,14 @@ class DiagnosticStore:
         return [dict(row) for row in rows[:limit]], len(rows) > limit
 
     def nodes(self, identity):
+        from hermes_runtime.diagnostic_errors import describe_failure
+
         with closing(self.connect()) as db:
             rows = db.execute(
                 "SELECT * FROM diagnostic_nodes WHERE trace_id=? ORDER BY started,id LIMIT 500",
                 (identity,),
             ).fetchall()
-        return [
+        nodes = [
             {
                 **dict(row),
                 "input": json.loads(row["input"]),
@@ -337,6 +344,12 @@ class DiagnosticStore:
             }
             for row in rows
         ]
+        for node in nodes:
+            failure = describe_failure(node["output"])
+            if failure:
+                node["output"]["error"] = failure
+                node["failure"] = failure
+        return nodes
 
     def bind_task(self, context, row):
         with closing(self.connect()) as db, db:
@@ -379,6 +392,8 @@ class LangfuseReader:
 
     async def observations(self, session_id):
         import asyncio
+
+        from hermes_runtime.diagnostic_errors import describe_failure
 
         if not session_id:
             return [], "pending"
@@ -454,6 +469,19 @@ class LangfuseReader:
                                 "source": "langfuse",
                                 "langfuse_trace_id": node["traceId"],
                                 "details": details,
+                                "failure": describe_failure(
+                                    {
+                                        "status": "model_api_error"
+                                        if node.get("type") == "GENERATION"
+                                        else "tool_error",
+                                        "error": {
+                                            **details,
+                                            "exception_type": details.get("error_type"),
+                                        },
+                                    }
+                                )
+                                if node.get("level") == "ERROR"
+                                else None,
                             }
                         )
                     cursor = (document.get("meta") or {}).get("cursor")
