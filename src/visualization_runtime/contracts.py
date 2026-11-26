@@ -13,6 +13,22 @@ class Contract(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True, allow_inf_nan=False)
 
 
+class SourceReference(Contract):
+    kind: Literal["readonly_result", "analysis_artifact"]
+    source_id: str = Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]{7,199}$")
+    run_id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,132}$")
+    payload_sha256: Digest
+
+
+class ExecutionLimits(Contract):
+    max_provider_requests: int = Field(default=10, ge=1, le=30)
+    max_total_tokens: int = Field(default=60000, ge=1, le=500000)
+    max_revisions: int = Field(default=2, ge=0, le=5)
+    wall_seconds: int = Field(default=900, ge=1, le=3600)
+    daily_provider_requests: int = Field(default=100, ge=1, le=10000)
+    daily_tokens: int = Field(default=600000, ge=1, le=5000000)
+
+
 class VisualizationRequest(Contract):
     """Trusted snapshot references, not arbitrary filesystem paths or raw credentials."""
 

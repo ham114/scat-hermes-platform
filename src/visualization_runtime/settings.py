@@ -42,9 +42,24 @@ class VisualizationSettings(BaseSettings):
     max_revisions: int = Field(default=2, ge=0, le=5)
     max_provider_requests: int = Field(default=10, ge=1, le=30)
     max_total_tokens: int = Field(default=60000, ge=1000, le=500000)
+    daily_provider_requests: int = Field(default=100, ge=1, le=10000)
+    daily_tokens: int = Field(default=600000, ge=1, le=5000000)
+    task_timeout_seconds: int = Field(default=900, ge=1, le=3600)
     render_timeout_seconds: int = Field(default=30, ge=1, le=120)
     worker_concurrency: int = Field(default=2, ge=1, le=8)
     artifact_root: str = "var/visualizations"
+
+    def execution_limits(self):
+        from visualization_runtime.contracts import ExecutionLimits
+
+        return ExecutionLimits(
+            max_provider_requests=self.max_provider_requests,
+            max_total_tokens=self.max_total_tokens,
+            max_revisions=self.max_revisions,
+            daily_provider_requests=self.daily_provider_requests,
+            daily_tokens=self.daily_tokens,
+            wall_seconds=self.task_timeout_seconds,
+        )
 
     @field_validator("code_base_url", "review_base_url")
     @classmethod

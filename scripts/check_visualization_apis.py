@@ -24,6 +24,9 @@ def main():
         "--live", action="store_true", help="one small request per provider, no retries"
     )
     parser.add_argument("--role", choices=("code", "review", "both"), default="both")
+    parser.add_argument(
+        "--save-report", action="store_true", help="also save the short JSON report to disk"
+    )
     args = parser.parse_args()
     try:
         settings = load_settings(ROOT)
@@ -38,12 +41,15 @@ def main():
     roles = ("code", "review") if args.role == "both" else (args.role,)
     report = asyncio.run(run_preflight(settings, live=args.live, roles=roles))
     report["checked_at"] = datetime.now(UTC).isoformat()
-    directory = ROOT / "output/visualization-api-preflight"
-    directory.mkdir(parents=True, exist_ok=True)
-    filename = directory / (datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ") + ".json")
-    filename.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=2))
-    print("Report: " + str(filename))
+    if args.save_report:
+        directory = ROOT / "output/visualization-api-preflight"
+        directory.mkdir(parents=True, exist_ok=True)
+        filename = directory / (datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ") + ".json")
+        filename.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        print("Report: " + str(filename))
     return 0 if report["passed"] else 1
 
 

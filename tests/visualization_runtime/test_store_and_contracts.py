@@ -189,7 +189,7 @@ def test_future_schema_rejected_without_creating_tables(tmp_path):
     path = tmp_path / "future.sqlite"
     with sqlite3.connect(path) as db:
         db.execute("CREATE TABLE visualization_schema(version INTEGER PRIMARY KEY)")
-        db.execute("INSERT INTO visualization_schema VALUES(2)")
+        db.execute("INSERT INTO visualization_schema VALUES(99)")
     with pytest.raises(JobConflict, match="unsupported_visualization_schema"):
         VisualizationJobStore(path, workspace_root=tmp_path)
     with sqlite3.connect(path) as db:

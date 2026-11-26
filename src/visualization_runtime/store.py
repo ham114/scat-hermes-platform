@@ -15,7 +15,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from application.context import ExecutionContext
-from visualization_runtime.contracts import VisualizationRequest
+from visualization_runtime.contracts import ExecutionLimits, VisualizationRequest
 from visualization_runtime.paths import confined_path
 
 
@@ -42,18 +42,18 @@ _TRANSITIONS = {
 
 
 class VisualizationJobStore:
-    def __init__(self, path: Path, *, workspace_root: Path, clock=time.time):
+    def __init__(self, path: Path, *, workspace_root: Path, clock=time.time, limits=None):
         self.path = confined_path(workspace_root, path)
         self.clock = clock
+        self.limits = limits or ExecutionLimits()
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self.transaction() as db:
             db.execute(
                 "CREATE TABLE IF NOT EXISTS visualization_schema(version INTEGER PRIMARY KEY)"
             )
             versions = [r[0] for r in db.execute("SELECT version FROM visualization_schema")]
-            if versions and versions != [1]:
+            if versions and versions not in ([1], [2]):
                 raise JobConflict("unsupported_visualization_schema")
-            db.execute("INSERT OR IGNORE INTO visualization_schema VALUES(1)")
             schema = """
                 CREATE TABLE IF NOT EXISTS visualization_jobs(
                     task_id TEXT PRIMARY KEY, owner TEXT NOT NULL, thread TEXT NOT NULL,
@@ -72,6 +72,16 @@ class VisualizationJobStore:
             for statement in schema.split(";"):
                 if statement.strip():
                     db.execute(statement)
+            from visualization_runtime.persistence import migrate_foundation
+
+            migrate_foundation(db)
+            db.execute(
+                "INSERT OR IGNORE INTO visualization_job_budgets "
+                "SELECT task_id,?,created+? FROM visualization_jobs",
+                (self.limits.model_dump_json(), self.limits.wall_seconds),
+            )
+            db.execute("DELETE FROM visualization_schema")
+            db.execute("INSERT INTO visualization_schema VALUES(2)")
         self.path.chmod(0o600)
 
     @contextmanager
@@ -97,6 +107,12 @@ class VisualizationJobStore:
         return value
 
     def _recover(self, db):
+        db.execute(
+            "UPDATE visualization_jobs SET state='failed',error_code='visualization_deadline_exceeded',"
+            "updated=? WHERE state='queued' AND task_id IN "
+            "(SELECT task_id FROM visualization_job_budgets WHERE deadline<=?)",
+            (self.clock(), self.clock()),
+        )
         rows = db.execute(
             "SELECT * FROM visualization_jobs WHERE state='running' AND lease_until<=?",
             (self.clock(),),
@@ -108,6 +124,9 @@ class VisualizationJobStore:
                 (self.clock(), row["task_id"]),
             )
             self._event(db, row, "lease_expired")
+            from visualization_runtime.persistence import fence_pending_calls
+
+            fence_pending_calls(db, row["task_id"], self.clock())
 
     def create(self, context: ExecutionContext, request_id: str, request: VisualizationRequest):
         if not isinstance(request_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", request_id):
@@ -134,6 +153,10 @@ class VisualizationJobStore:
                 "SELECT * FROM visualization_jobs WHERE task_id=?", (task_id,)
             ).fetchone()
             self._event(db, row, "queued")
+            db.execute(
+                "INSERT INTO visualization_job_budgets VALUES(?,?,?)",
+                (task_id, self.limits.model_dump_json(), now + self.limits.wall_seconds),
+            )
             return self._decode(row)
 
     def get(self, context: ExecutionContext, task_id):
@@ -185,7 +208,8 @@ class VisualizationJobStore:
                 return None
             self._decode(row)
             db.execute(
-                "UPDATE visualization_jobs SET state='running',phase='generating',worker=?,"
+                "UPDATE visualization_jobs SET state='running',"
+                "phase=COALESCE(resume_phase,'generating'),resume_phase=NULL,worker=?,"
                 "generation=generation+1,lease_until=?,updated=? WHERE task_id=?",
                 (worker, self.clock() + lease_seconds, self.clock(), row["task_id"]),
             )
@@ -233,11 +257,30 @@ class VisualizationJobStore:
             raise ValueError("invalid_visualization_error_code")
         with self.transaction() as db:
             row = self._fence(db, task_id, worker, generation)
-            db.execute(
-                "UPDATE visualization_jobs SET state='failed',lease_until=NULL,"
-                "error_code=?,updated=? WHERE task_id=?",
-                (error_code, self.clock(), task_id),
+            active = (
+                db.execute(
+                    "SELECT 1 FROM visualization_resources WHERE task_id=? AND state='active'",
+                    (task_id,),
+                ).fetchone()
+                or db.execute(
+                    "SELECT 1 FROM visualization_provider_calls WHERE task_id=? AND state='sending'",
+                    (task_id,),
+                ).fetchone()
             )
+            db.execute(
+                "UPDATE visualization_jobs SET state=?,lease_until=NULL,resume_phase=?,"
+                "error_code=?,updated=? WHERE task_id=?",
+                (
+                    "needs_reconciliation" if active else "failed",
+                    "failed" if active else None,
+                    error_code,
+                    self.clock(),
+                    task_id,
+                ),
+            )
+            from visualization_runtime.persistence import fence_pending_calls
+
+            fence_pending_calls(db, task_id, self.clock())
             self._event(db, row, "failed")
 
     def cancel(self, context: ExecutionContext, task_id):
@@ -250,8 +293,10 @@ class VisualizationJobStore:
                 raise JobNotFound("visualization_job_not_found")
             if row["state"] == "queued":
                 state = "cancelled"
-            elif row["state"] == "running":
+            elif row["state"] in {"running", "needs_reconciliation"}:
                 # Keep the resource slot until a future worker confirms cleanup.
+                if row["error_code"] == "user_cancelled":
+                    return self._decode(row)
                 state = "needs_reconciliation"
             else:
                 return self._decode(row)
@@ -264,4 +309,7 @@ class VisualizationJobStore:
                 "SELECT * FROM visualization_jobs WHERE task_id=?", (task_id,)
             ).fetchone()
             self._event(db, row, "cancel_requested")
+            from visualization_runtime.persistence import fence_pending_calls
+
+            fence_pending_calls(db, task_id, self.clock())
             return self._decode(row)

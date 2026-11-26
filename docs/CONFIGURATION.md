@@ -17,13 +17,15 @@
 
 ## 自主绘图与视觉审核配置准备
 
-详细设计与阶段记录见[自主可视化实施计划](AUTONOMOUS_VISUALIZATION_PLAN.md)。独立配置解析、API 预检与绘图任务存储基础已实现；Agent、Docker 和正式 worker 链路尚未接入，填写变量不会自动启用绘图或发起请求。
+详细设计与阶段记录见[自主可视化实施计划](AUTONOMOUS_VISUALIZATION_PLAN.md)。独立配置解析、API 预检、授权来源快照、调用账本与任务恢复基础已实现；Agent、Docker 和正式 worker 链路尚未接入，填写变量不会自动启用绘图或发起请求。
 
 在项目根目录 `.env` 中分别配置 `SCAT_VIS_CODE_API_KEY`、`SCAT_VIS_CODE_BASE_URL`、`SCAT_VIS_CODE_MODEL`，用于独立 DS 绘图代码生成；配置 `SCAT_VIS_REVIEW_API_KEY`、`SCAT_VIS_REVIEW_BASE_URL`、`SCAT_VIS_REVIEW_MODEL`，用于 Qwen 图片审核。审核模型使用 `qwen3.7-plus`，DS 模型示例为 `deepseek-flash`，应与账号实际可用 ID 一致。两套凭据与主 Agent 配置独立，无隐式回退。
 
 用户填写官方直连 URL。Base URL 填 OpenAI 兼容接口前缀，不包含 `/chat/completions`；Qwen 地址须与账号地域、工作空间或所购套餐对应。独立 DS 代码生成和 Qwen 真实图片识别已于 2026 年 11 月 27 日验证成功。预检不输出密钥，不使用业务数据。
 
-在已有 Conda 环境运行 `python scripts/check_visualization_apis.py` 只检查配置；加 `--live` 每家发起一次小请求，无自动重试。只测试一家使用 `--live --role code` 或 `--live --role review`。报告保存于 `output/visualization-api-preflight/`。报告中的 `feature_enabled=false` 不妨碍显式预检；预检不会启用正式绘图。
+在已有 Conda 环境运行 `python scripts/check_visualization_apis.py` 只检查配置；加 `--live` 每家发起一次小请求，无自动重试。只测试一家使用 `--live --role code` 或 `--live --role review`。短结果默认只输出，明确传入 `--save-report` 才写入 `output/visualization-api-preflight/`。报告中的 `feature_enabled=false` 不妨碍显式预检；预检不会启用正式绘图。
+
+新增可选上限 `SCAT_VIS_DAILY_PROVIDER_REQUESTS=100`、`SCAT_VIS_DAILY_TOKENS=600000`、`SCAT_VIS_TASK_TIMEOUT_SECONDS=900`，未填写时使用这些默认值。每日上限按 UTC 日、所属用户共享计量；同一任务的预算和截止时间在创建时冻结，重启不会重置。生成器和审核器共用绘图任务预算，未知调用保留预留占用。与主 Agent 父预算的联动将在正式工具桥接入时完成。
 
 保留 `SCAT_VIS_ENABLED=false`，直至链路和审核门禁验收通过。容器部署时须显式把变量注入受信 worker；仅填写宿主机 `.env` 不代表容器已经获得配置。绘图沙箱不接收上述密钥。
 

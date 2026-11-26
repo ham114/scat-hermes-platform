@@ -240,3 +240,25 @@ def test_malformed_nested_envelope_is_sanitized(value):
                 transport=httpx.MockTransport(lambda request: httpx.Response(200, json=value)),
             )
         )
+
+
+@pytest.mark.parametrize("save_report", [False, True])
+def test_short_preflight_report_only_creates_a_file_when_requested(
+    monkeypatch, tmp_path, capsys, save_report
+):
+    import importlib.util
+    from pathlib import Path
+
+    import visualization_runtime.settings as settings_module
+
+    path = Path(__file__).parents[2] / "scripts/check_visualization_apis.py"
+    spec = importlib.util.spec_from_file_location("visualization_api_check", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    module.ROOT = tmp_path
+    monkeypatch.setattr(settings_module, "load_settings", lambda root: configured())
+    monkeypatch.setattr("sys.argv", [str(path)] + (["--save-report"] if save_report else []))
+    assert module.main() == 0
+    output = capsys.readouterr().out
+    assert "test-code-secret" not in output and '"live": false' in output
+    assert len(list(tmp_path.glob("output/**/*.json"))) == int(save_report)
