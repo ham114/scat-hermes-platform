@@ -87,6 +87,7 @@ backups/
 /docs/*
 !/docs/CONFIGURATION.md
 !/docs/DEPLOYMENT.md
+!/docs/AUTONOMOUS_VISUALIZATION_PLAN.md
 !/docs/api/
 !/docs/examples/
 !/docs/assets/

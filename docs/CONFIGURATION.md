@@ -15,6 +15,18 @@
 
 模型任务需要与部署登记相符的模型源码、权重、配置及运行时。[GPU 登记模板](../config/production-gpu.example.json) · [Hermes 服务](../services/hermes/README.md)
 
+## 自主绘图与视觉审核配置准备
+
+详细设计与阶段记录见[自主可视化实施计划](AUTONOMOUS_VISUALIZATION_PLAN.md)。独立配置解析、API 预检与绘图任务存储基础已实现；Agent、Docker 和正式 worker 链路尚未接入，填写变量不会自动启用绘图或发起请求。
+
+在项目根目录 `.env` 中分别配置 `SCAT_VIS_CODE_API_KEY`、`SCAT_VIS_CODE_BASE_URL`、`SCAT_VIS_CODE_MODEL`，用于独立 DS 绘图代码生成；配置 `SCAT_VIS_REVIEW_API_KEY`、`SCAT_VIS_REVIEW_BASE_URL`、`SCAT_VIS_REVIEW_MODEL`，用于 Qwen 图片审核。审核模型使用 `qwen3.7-plus`，DS 模型示例为 `deepseek-flash`，应与账号实际可用 ID 一致。两套凭据与主 Agent 配置独立，无隐式回退。
+
+用户填写官方直连 URL。Base URL 填 OpenAI 兼容接口前缀，不包含 `/chat/completions`；Qwen 地址须与账号地域、工作空间或所购套餐对应。独立 DS 代码生成和 Qwen 真实图片识别已于 2026 年 11 月 27 日验证成功。预检不输出密钥，不使用业务数据。
+
+在已有 Conda 环境运行 `python scripts/check_visualization_apis.py` 只检查配置；加 `--live` 每家发起一次小请求，无自动重试。只测试一家使用 `--live --role code` 或 `--live --role review`。报告保存于 `output/visualization-api-preflight/`。报告中的 `feature_enabled=false` 不妨碍显式预检；预检不会启用正式绘图。
+
+保留 `SCAT_VIS_ENABLED=false`，直至链路和审核门禁验收通过。容器部署时须显式把变量注入受信 worker；仅填写宿主机 `.env` 不代表容器已经获得配置。绘图沙箱不接收上述密钥。
+
 ## RAG 生产组合与开关
 
 生产检索配置在 [`qwen3-production-v1.json`](../services/rag/qwen3-production-v1.json)：BGE-M3／BM25／标识符召回权重2∶1∶1，各路最多200条，候选100条；原始Qwen3-Reranker-0.6B评分后，以重排／召回名次权重4∶1、k=20做最终RRF。返回的`score`仍是原模型相关性分数，最终顺序以`rank`为准。
