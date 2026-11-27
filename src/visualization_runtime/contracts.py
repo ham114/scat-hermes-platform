@@ -1,5 +1,7 @@
 """Versioned visualization requests and independent review results."""
 
+import hashlib
+import json
 from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -37,6 +39,9 @@ class VisualizationRequest(Contract):
     snapshot_id: Identity
     snapshot_sha256: Digest
     preferences_sha256: Digest
+    preferences: dict[str, str | int | float | bool | None] | None = Field(
+        default=None, max_length=32
+    )
     viewports: tuple[Viewport, ...] = Field(
         default=("desktop", "mobile"), min_length=1, max_length=2
     )
@@ -45,6 +50,16 @@ class VisualizationRequest(Contract):
 
     @model_validator(mode="after")
     def consistent_references(self):
+        if self.preferences is not None:
+            raw = json.dumps(
+                self.preferences,
+                sort_keys=True,
+                ensure_ascii=False,
+                separators=(",", ":"),
+                allow_nan=False,
+            )
+            if hashlib.sha256(raw.encode()).hexdigest() != self.preferences_sha256:
+                raise ValueError("preferences digest mismatch")
         if not self.intent.strip() or len(set(self.viewports)) != len(self.viewports):
             raise ValueError("nonempty intent and distinct viewports required")
         if (self.parent_artifact_id is None) != (self.parent_version is None):

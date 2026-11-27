@@ -1,0 +1,15 @@
+{
+  "base_image": "mcr.microsoft.com/playwright",
+  "base_index_digest": "sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27",
+  "linux_amd64_manifest": "sha256:bc6ab0d6d44ff4826e4cb8c1e6d801e185bfc42bb0753f8e2a30efc70db054c7",
+  "base_config_digest": "sha256:2c1f4e0fd6450f43ddb46d60c2a6df30855a8588e165b1f2559fb0eda8d7ff35",
+  "playwright": "1.63.0",
+  "echarts": "6.1.0",
+  "seccomp_sha256": "edcc7ec801fcc0d02257df33ff617212202f8dd82b66227bfb8513d5620761c6",
+  "seccomp_source": "https://raw.githubusercontent.com/microsoft/playwright/v1.63.0/utils/docker/seccomp_profile.json",
+  "pngjs": "7.0.0",
+  "imported_base_image_id": "sha256:14f76f06f4e42fdfcd4aa97f3351ee0f97886ab3e63db380b1d2e0e070499e2e",
+  "upstream_seccomp_sha256": "cc3e61cabda6bbc1e53e54d27ba4d55a9d3be829b6dd1a596f4a7b31b1cc7849",
+  "validated_renderer_image_id": "sha256:e76dc55ce37f01c8131b5a8b645a90fc40fb92b3979fc1614bf61e7760cf4123",
+  "validated_node_version": "v24.20.0"
+}

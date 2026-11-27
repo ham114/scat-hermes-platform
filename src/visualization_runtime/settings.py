@@ -48,6 +48,9 @@ class VisualizationSettings(BaseSettings):
     render_timeout_seconds: int = Field(default=30, ge=1, le=120)
     worker_concurrency: int = Field(default=2, ge=1, le=8)
     artifact_root: str = "var/visualizations"
+    sandbox_image: str | None = Field(default=None, pattern=r"^sha256:[0-9a-f]{64}$")
+    sandbox_url: str = "http://127.0.0.1:18166"
+    sandbox_key_file: str = "var/secrets/visualization-sandbox.key"
 
     def execution_limits(self):
         from visualization_runtime.contracts import ExecutionLimits

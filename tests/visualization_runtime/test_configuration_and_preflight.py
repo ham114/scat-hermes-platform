@@ -46,7 +46,8 @@ def test_no_implicit_main_credential_fallback(monkeypatch):
     assert settings.enabled is False
     with pytest.raises(ConfigurationError, match="SCAT_VIS_CODE_API_KEY"):
         settings.provider("code")
-    assert "secret" not in repr(configured())
+    assert "test-code-secret" not in repr(configured())
+    assert "test-review-secret" not in repr(configured())
     assert "test-code-secret" not in repr(configured().provider("code"))
 
 

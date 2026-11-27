@@ -35,7 +35,7 @@ def canonical(value):
 
 _TRANSITIONS = {
     "generating": {"rendering"},
-    "rendering": {"reviewing"},
+    "rendering": {"reviewing", "revising"},
     "reviewing": {"revising", "publishing"},
     "revising": {"rendering"},
 }
@@ -52,7 +52,7 @@ class VisualizationJobStore:
                 "CREATE TABLE IF NOT EXISTS visualization_schema(version INTEGER PRIMARY KEY)"
             )
             versions = [r[0] for r in db.execute("SELECT version FROM visualization_schema")]
-            if versions and versions not in ([1], [2]):
+            if versions and versions not in ([1], [2], [3]):
                 raise JobConflict("unsupported_visualization_schema")
             schema = """
                 CREATE TABLE IF NOT EXISTS visualization_jobs(
@@ -81,7 +81,7 @@ class VisualizationJobStore:
                 (self.limits.model_dump_json(), self.limits.wall_seconds),
             )
             db.execute("DELETE FROM visualization_schema")
-            db.execute("INSERT INTO visualization_schema VALUES(2)")
+            db.execute("INSERT INTO visualization_schema VALUES(3)")
         self.path.chmod(0o600)
 
     @contextmanager
@@ -139,9 +139,10 @@ class VisualizationJobStore:
                 (context.user_id, context.thread_id, request_id),
             ).fetchone()
             if row:
-                if row["request_sha"] != sha:
+                decoded = self._decode(row)
+                if row["request_sha"] != sha and decoded["request"] != request:
                     raise JobConflict("visualization_request_id_conflict")
-                return self._decode(row)
+                return decoded
             task_id, now = uuid4().hex, self.clock()
             db.execute(
                 "INSERT INTO visualization_jobs(task_id,owner,thread,request_id,request,"

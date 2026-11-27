@@ -113,7 +113,7 @@ class ExecutionLedger:
     def start_call(self, task_id, worker, generation, call_id):
         with self.jobs.transaction() as db:
             job = self.jobs._fence(db, task_id, worker, generation)
-            self._budget(db, job)
+            limits = self._budget(db, job)
             changed = db.execute(
                 "UPDATE visualization_provider_calls SET state='sending' WHERE call_id=? "
                 "AND task_id=? AND generation=? AND state='reserved'",
@@ -121,6 +121,10 @@ class ExecutionLedger:
             ).rowcount
             if changed != 1:
                 raise JobConflict("provider_call_not_sendable")
+            deadline = db.execute(
+                "SELECT deadline FROM visualization_job_budgets WHERE task_id=?", (task_id,)
+            ).fetchone()[0]
+            return min(deadline, job["created"] + limits.wall_seconds) - self.jobs.clock()
 
     def finish_call(
         self,
@@ -194,7 +198,9 @@ class ExecutionLedger:
             raise JobConflict("provider_result_integrity_failed")
         return Completion(**json.loads(raw))
 
-    def save_attempt(self, task_id, worker, generation, *, step_key, code_call_id, source):
+    def save_attempt(
+        self, task_id, worker, generation, *, step_key, code_call_id, source, activate=False
+    ):
         _key(step_key)
         if not isinstance(source, str) or not source.strip() or len(source.encode()) > 128 * 1024:
             raise ValueError("invalid_visualization_source")
@@ -209,6 +215,13 @@ class ExecutionLedger:
             if old:
                 if old["source_sha"] != sha or old["code_call_id"] != code_call_id:
                     raise JobConflict("visualization_attempt_conflict")
+                if activate:
+                    if job["phase"] not in {"generating", "revising"}:
+                        raise JobConflict("visualization_attempt_phase")
+                    db.execute(
+                        "UPDATE visualization_jobs SET phase='rendering',updated=? WHERE task_id=?",
+                        (self.jobs.clock(), task_id),
+                    )
                 return dict(old)
             if job["phase"] not in {"generating", "revising"}:
                 raise JobConflict("visualization_attempt_phase")
@@ -240,6 +253,11 @@ class ExecutionLedger:
                     self.jobs.clock(),
                 ),
             )
+            if activate:
+                db.execute(
+                    "UPDATE visualization_jobs SET phase='rendering',updated=? WHERE task_id=?",
+                    (self.jobs.clock(), task_id),
+                )
             return dict(
                 db.execute(
                     "SELECT * FROM visualization_attempts WHERE attempt_id=?", (identity,)

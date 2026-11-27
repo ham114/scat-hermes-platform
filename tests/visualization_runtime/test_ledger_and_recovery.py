@@ -474,3 +474,35 @@ def test_reconciliation_checks_generation_again_after_external_cleanup(setup_exe
 
     with pytest.raises(JobConflict, match="reconciliation_changed"):
         ledger.reconcile(job["task_id"], job["generation"], verify_stopped=stopped)
+
+
+def test_provider_timeout_is_clamped_to_remaining_job_deadline(setup_execution):
+    jobs, ledger, _, _, job, _ = setup_execution
+    jobs.limits = ExecutionLimits(wall_seconds=3)
+    config = VisualizationSettings(
+        code_api_key="unit-key", code_base_url="https://api.deepseek.com"
+    ).provider("code")
+
+    def respond(request):
+        assert request.extensions["timeout"]["read"] <= 3
+        return httpx.Response(
+            200,
+            json={
+                "model": config.model,
+                "choices": [{"finish_reason": "stop", "message": {"content": "code"}}],
+                "usage": response().usage,
+            },
+        )
+
+    provider = LedgerProvider(ledger, config, transport=httpx.MockTransport(respond))
+    asyncio.run(
+        provider.complete(
+            job["task_id"],
+            "worker",
+            job["generation"],
+            call_key="deadline-clamp",
+            messages=[],
+            reserved_tokens=100,
+            max_tokens=10,
+        )
+    )

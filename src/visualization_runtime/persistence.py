@@ -35,7 +35,16 @@ def migrate_foundation(db):
             UNIQUE(task_id,step_key), UNIQUE(task_id,ordinal));
         CREATE TABLE IF NOT EXISTS visualization_resources(
             resource_id TEXT PRIMARY KEY, task_id TEXT NOT NULL, attempt_id TEXT NOT NULL,
-            generation INTEGER NOT NULL, state TEXT NOT NULL, updated REAL NOT NULL)
+            generation INTEGER NOT NULL, state TEXT NOT NULL, updated REAL NOT NULL);
+        CREATE TABLE IF NOT EXISTS visualization_renders(
+            render_id TEXT PRIMARY KEY, task_id TEXT NOT NULL, attempt_id TEXT UNIQUE NOT NULL,
+            manifest TEXT NOT NULL, manifest_sha TEXT NOT NULL, created REAL NOT NULL);
+        CREATE TABLE IF NOT EXISTS visualization_reviews(
+            review_id TEXT PRIMARY KEY, render_id TEXT UNIQUE NOT NULL, call_id TEXT NOT NULL,
+            report TEXT NOT NULL, report_sha TEXT NOT NULL, created REAL NOT NULL);
+        CREATE TABLE IF NOT EXISTS visualization_publications(
+            artifact_id TEXT PRIMARY KEY, task_id TEXT UNIQUE NOT NULL, owner TEXT NOT NULL,
+            thread TEXT NOT NULL, manifest TEXT NOT NULL, manifest_sha TEXT NOT NULL, created REAL NOT NULL)
     """
     for statement in schema.split(";"):
         if statement.strip():

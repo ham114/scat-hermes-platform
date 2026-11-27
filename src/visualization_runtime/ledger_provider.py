@@ -23,6 +23,7 @@ class LedgerProvider:
         reserved_tokens,
         max_tokens=1200,
         json_object=False,
+        json_schema=None,
     ):
         if (
             type(max_tokens) is not int
@@ -38,6 +39,7 @@ class LedgerProvider:
                 "messages": messages,
                 "max_tokens": max_tokens,
                 "json_object": json_object,
+                **({"json_schema": json_schema} if json_schema is not None else {}),
             }
         )
         row = self.ledger.reserve_call(
@@ -51,13 +53,18 @@ class LedgerProvider:
         )
         if row["state"] == "succeeded":
             return self.ledger.saved_completion(row)
-        self.ledger.start_call(task_id, worker, generation, row["call_id"])
+        remaining = self.ledger.start_call(task_id, worker, generation, row["call_id"])
         try:
             response = await complete(
-                self.config,
+                self.config.model_copy(
+                    update={
+                        "timeout_seconds": max(0.001, min(self.config.timeout_seconds, remaining))
+                    }
+                ),
                 messages,
                 max_tokens=max_tokens,
                 json_object=json_object,
+                json_schema=json_schema,
                 transport=self.transport,
             )
         except ProviderError as error:

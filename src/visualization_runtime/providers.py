@@ -47,6 +47,7 @@ async def complete(
     *,
     max_tokens=1200,
     json_object=False,
+    json_schema=None,
     transport=None,
 ) -> Completion:
     if type(max_tokens) is not int or not 1 <= max_tokens <= 8192:
@@ -61,7 +62,12 @@ async def complete(
         payload["thinking"] = {"type": "disabled"}
     elif config.model.startswith("qwen"):
         payload["enable_thinking"] = False
-    if json_object:
+    if json_schema is not None:
+        payload["response_format"] = {
+            "type": "json_schema",
+            "json_schema": {"name": "visualization_review", "strict": True, "schema": json_schema},
+        }
+    elif json_object:
         payload["response_format"] = {"type": "json_object"}
     try:
         async with (

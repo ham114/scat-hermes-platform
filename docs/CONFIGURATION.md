@@ -17,7 +17,7 @@
 
 ## 自主绘图与视觉审核配置准备
 
-详细设计与阶段记录见[自主可视化实施计划](AUTONOMOUS_VISUALIZATION_PLAN.md)。独立配置解析、API 预检、授权来源快照、调用账本与任务恢复基础已实现；Agent、Docker 和正式 worker 链路尚未接入，填写变量不会自动启用绘图或发起请求。
+详细设计与阶段记录见[自主可视化实施计划](AUTONOMOUS_VISUALIZATION_PLAN.md)。P0 至 P3 后端已实现并验收，包含授权快照、调用账本、Docker 渲染、独立视觉审核、修订与发布门禁。对话工具和前端入口留在 P4；填写变量不会自动启动服务或启用绘图。
 
 在项目根目录 `.env` 中分别配置 `SCAT_VIS_CODE_API_KEY`、`SCAT_VIS_CODE_BASE_URL`、`SCAT_VIS_CODE_MODEL`，用于独立 DS 绘图代码生成；配置 `SCAT_VIS_REVIEW_API_KEY`、`SCAT_VIS_REVIEW_BASE_URL`、`SCAT_VIS_REVIEW_MODEL`，用于 Qwen 图片审核。审核模型使用 `qwen3.7-plus`，DS 模型示例为 `deepseek-flash`，应与账号实际可用 ID 一致。两套凭据与主 Agent 配置独立，无隐式回退。
 
@@ -28,6 +28,8 @@
 新增可选上限 `SCAT_VIS_DAILY_PROVIDER_REQUESTS=100`、`SCAT_VIS_DAILY_TOKENS=600000`、`SCAT_VIS_TASK_TIMEOUT_SECONDS=900`，未填写时使用这些默认值。每日上限按 UTC 日、所属用户共享计量；同一任务的预算和截止时间在创建时冻结，重启不会重置。生成器和审核器共用绘图任务预算，未知调用保留预留占用。与主 Agent 父预算的联动将在正式工具桥接入时完成。
 
 保留 `SCAT_VIS_ENABLED=false`，直至链路和审核门禁验收通过。容器部署时须显式把变量注入受信 worker；仅填写宿主机 `.env` 不代表容器已经获得配置。绘图沙箱不接收上述密钥。
+
+P2/P3 增加 `SCAT_VIS_SANDBOX_IMAGE`（固定 `sha256:...` 镜像 ID）、`SCAT_VIS_SANDBOX_URL`（默认 `http://127.0.0.1:18166`）、`SCAT_VIS_SANDBOX_KEY_FILE`（项目内权限 600 的独立服务凭据路径）。受信启动服务持有 Docker 权限，worker 经内部鉴权接口提交已登记任务，不传任意路径或 Docker 参数。构建与启动方式见[渲染器说明](../services/visualization-renderer/README.md)。生产开关本轮仍关闭，P4 接入后再按部署步骤启用。
 
 ## RAG 生产组合与开关
 

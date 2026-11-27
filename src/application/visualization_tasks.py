@@ -8,7 +8,9 @@ class VisualizationTasks:
         self.jobs, self.snapshots = jobs, snapshots
         self.receipts, self.artifacts = receipts, artifacts
 
-    async def prepare(self, context, request_id, *, intent, references, preferences_sha256):
+    async def prepare(
+        self, context, request_id, *, intent, references, preferences_sha256, preferences=None
+    ):
         snapshot = await self.snapshots.capture(
             context, request_id, references, receipts=self.receipts, artifacts=self.artifacts
         )
@@ -17,6 +19,7 @@ class VisualizationTasks:
             snapshot_id=snapshot["snapshot_id"],
             snapshot_sha256=snapshot["payload_sha256"],
             preferences_sha256=preferences_sha256,
+            preferences=preferences,
         )
         return self.jobs.create(context, request_id, request)
 

@@ -1,6 +1,6 @@
 # 自主可视化实施计划
 
-日期：2026 年 11 月 27 日。状态：P0 已验证，P1 快照、调用账本与恢复基础已实现，P2 Docker 渲染待接入。适用分支：`main` 与 `codex/jev-decision-integration`。
+日期：2026 年 11 月 27 日。状态：P0 至 P3 后端已实现并验收，P4 对话与前端接入待实施。适用分支：`main` 与 `codex/jev-decision-integration`。
 
 将现有固定图表选择流程扩展为模型自主编写 ECharts JavaScript、Docker 沙箱渲染、Qwen 独立视觉审核、自动修订和用户偏好记忆的完整链路。保留现有数据工具、来源核验与历史图表入口，让自主图表作为可版本化、可追溯的独立产物交付。
 
@@ -81,6 +81,9 @@ SCAT_VIS_TASK_TIMEOUT_SECONDS=900
 SCAT_VIS_RENDER_TIMEOUT_SECONDS=30
 SCAT_VIS_WORKER_CONCURRENCY=2
 SCAT_VIS_ARTIFACT_ROOT=var/visualizations
+SCAT_VIS_SANDBOX_IMAGE=
+SCAT_VIS_SANDBOX_URL=http://127.0.0.1:18166
+SCAT_VIS_SANDBOX_KEY_FILE=var/secrets/visualization-sandbox.key
 ```
 
 上述变量已由独立设置类与预检脚本读取，正式 Agent/worker 链路尚未接入。只填写 `.env` 不会启用功能。两套 API key 不回退到主 Agent 凭据；缺失时报告具体缺少的变量名。
@@ -329,3 +332,19 @@ Qwen 成功报告 `output/visualization-api-preflight/20261126T221200038993Z.jso
 94 项新增及相关回归测试通过，Ruff 检查和格式校验通过。本轮未调用真实模型、未启用绘图，也未安装 Docker；本机未发现 Docker 命令。下一步接固定镜像、渲染宿主和受信启动服务，之后完成真正的自动审图交付链路、主 Agent 父预算联动及来源删除事件接线。
 
 按用户偏好，简短实施记录继续追加本节，不单独建日志文件。API 预检短结果默认仅输出，`--save-report` 才显式另存；业务快照和恢复账本仍作为必要持久状态保存。
+
+### 18.5 P2 与 P3 实施记录
+
+2026 年 11 月 27 日完成固定 Docker 渲染器、独立受信启动服务及 worker，以及 DS 自主代码生成、宽窄屏渲染、Qwen 图片审核、自动修订和服务端发布门禁。每轮候选、图片、源代码、数据、偏好、运行环境与审核请求均绑定摘要；取消、撤权、图片变化、缺少视口、格式错误或拒审不能发布。生成脚本仅在容器浏览器中运行，主应用不执行脚本。
+
+固定 ECharts 6.1.0、Playwright 1.63.0、PNGJS 7.0.0，实际 Node v24.20.0；基础镜像和依赖摘要见 `services/visualization-renderer/runtime.lock.json`。测试镜像为 `sha256:e76dc55ce37f01c8131b5a8b645a90fc40fb92b3979fc1614bf61e7760cf4123`。服务器 DNS 不可用时采用微软官方逐层校验、离线导入；Docker 29 导入格式改变 ID 后，另核对全部 RootFS 层和有效配置，不以标签替代内容校验。
+
+真实容器验证了中文、自定义系列、1200×720 与 390×640 视口、禁止 Node API、禁网和两秒无限循环超时清理。Chromium 自身沙箱始终开启，外层保持非 root、只读、cap-drop ALL 与 no-new-privileges。项目 seccomp 在 Playwright 固定配置基础上允许用户命名空间内的 chroot，不授予外层 capability；配置摘要单独锁定。验收结束后剩余本项目绘图容器为零，未修改系统 DNS 或生产容器。
+
+用户明确授权后，实际使用 SCAT 航班 104363 的前 100 点（总 683 点，has_more=true）验收，密钥只留在本机受信进程。完整点集送隔离容器；DS/Qwen 接收授权样本预览、元数据/聚合范围和图像。首轮因审图封装格式及预览范围误判未发布，失败记录保留；随后补齐独立计算的全页数值范围，并严格解析单结果封装，修复上下文后通过。之后复用首轮真实候选验证实际修订分支，不重复调用 DS 生成初稿。累计三次 DS、四次 Qwen 真实请求，已上报合计 37,862 token；另有一条明确标记为 replay 的零成本测试夹具记录，不计真实 API 请求。未超过三份不同候选、十请求、六万 token 的本次验收上限。
+
+实际发布产物 `52d15b34d86d4dc4a67886ce04c04952`，宽屏/窄屏图片和代码保存在 `.tmp/p3-validation-artifacts/published/` 对应目录，调用证据保存在 `.tmp/p3-validation.sqlite`。Qwen 最终返回 pass 且无问题，图片另经本地查看。实际接口接受 schema 请求，但仍出现过单元素数组封装，因此保留严格本地验证；只解包一个明确结果，多结果、缺字段或矛盾判定不能转为通过。
+
+118 项相关离线回归通过，覆盖审核驱动修订、程序错误修复、重试上限、拒审、图片变更、撤权、取消、内部服务鉴权、格式协商、全页统计及旧队列兼容。Ruff、格式检查与渲染宿主语法检查通过。真实修订分支返回 revise，DS 重写后再次送审仍为 revise，因本次验收剩余候选配额而采用一次修订上限，按规则不发布。成功发布样例与修订超限拦截样例分开记录，不声称每次修订都能收敛；默认生产策略仍为最多两次修订，后续 P6 再评估收敛率。
+
+本轮不启用生产开关，不接入主 Agent 或前端，也不建立全局偏好记忆；这些分别属于 P4/P5。源删除事件与父对话预算接线随 P4 实施。阶段记录继续追加本文件，无新增独立短日志文件。
