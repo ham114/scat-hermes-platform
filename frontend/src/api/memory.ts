@@ -1,8 +1,27 @@
 export interface MemoryStatus {
   enabled: boolean
   epoch: number
+  chart_revision?: number
   queue: Record<string, number>
   deletion: 'none' | 'pending' | 'completed'
+}
+
+export interface ChartPreference {
+  id: string
+  key: string
+  value: string | number
+  task_type: string
+  evidence: string
+  source_artifact: string | null
+  confidence: string
+  updated: number
+  supersedes: string | null
+}
+export interface ChartPreferences {
+  enabled: boolean
+  epoch: number
+  revision: number
+  items: ChartPreference[]
 }
 
 export function memorySummary(raw: string): string {

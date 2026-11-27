@@ -31,6 +31,21 @@ def position(value, kind, scope):
 class ConversationHistory:
     """Mixin over the existing registry connection and ownership checks."""
 
+    def original_question(self, context, run_id):
+        self.require(context, run_id)
+        with closing(self._connect()) as db:
+            row = db.execute(
+                "SELECT input,input_sha FROM conversation_turns WHERE scope_key=? AND run_id=?",
+                (context.scope_key, run_id),
+            ).fetchone()
+        if (
+            row is None
+            or not isinstance(row[0], str)
+            or hashlib.sha256(row[0].encode()).hexdigest() != row[1]
+        ):
+            raise ValueError("trusted_user_message_unavailable")
+        return row[0]
+
     def initialize_history(self, db):
         db.executescript("""
             CREATE TABLE IF NOT EXISTS conversation_turns(

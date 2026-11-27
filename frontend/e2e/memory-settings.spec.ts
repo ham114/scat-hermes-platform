@@ -12,6 +12,8 @@ test('Honcho memory UI distinguishes queued corrections and confirmed deletion',
   await page.route('**/api/v1/hermes/memory**', async (route) => {
     const request = route.request(),
       path = new URL(request.url()).pathname
+    if (path.endsWith('/chart-preferences'))
+      return route.fulfill({ json: { enabled, epoch, revision: 0, items: [] } })
     if (path.endsWith('/context')) {
       contextReads++
       return route.fulfill({ json: { enabled, available: true, context: '合成偏好：中文、公里' } })
@@ -90,10 +92,12 @@ test('Honcho memory UI distinguishes queued corrections and confirmed deletion',
   await expect(page.getByText('合成偏好：中文、公里', { exact: true })).toHaveCount(0)
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
   await page.screenshot({
-    path: resolve(
-      import.meta.dirname,
-      `../../docs/validation/20261107-memory-${info.project.name}.png`,
-    ),
+    path: process.env.SCAT_VIS_QA_DIR
+      ? resolve(process.env.SCAT_VIS_QA_DIR, `p5-memory-legacy-${info.project.name}.png`)
+      : resolve(
+          import.meta.dirname,
+          `../../docs/validation/20261107-memory-${info.project.name}.png`,
+        ),
     fullPage: true,
     scale: 'css',
   })

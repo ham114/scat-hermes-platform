@@ -80,6 +80,17 @@ class RenderLauncher:
                 "SELECT * FROM visualization_attempts WHERE attempt_id=? AND task_id=?",
                 (attempt_id, task_id),
             ).fetchone()
+            context_binding = db.execute(
+                "SELECT request_sha FROM visualization_attempt_contexts WHERE attempt_id=?",
+                (attempt_id,),
+            ).fetchone()
+            if (
+                context_binding
+                and context_binding[0] != job["request_sha"]
+                or context_binding is None
+                and request.preferences_round
+            ):
+                raise JobConflict("visualization_attempt_context_changed")
             if (
                 attempt is None
                 or hashlib.sha256(attempt["source"].encode()).hexdigest() != attempt["source_sha"]
@@ -106,6 +117,8 @@ class RenderLauncher:
                 "source_sha256": attempt["source_sha"],
                 "snapshot_sha256": request.snapshot_sha256,
                 "preferences_sha256": request.preferences_sha256,
+                "request_sha256": job["request_sha"],
+                "preferences_round": request.preferences_round,
                 "generation": generation,
                 "state": "rendering",
                 "images": [],

@@ -140,7 +140,7 @@ test('delivers reviewed charts, revises with natural feedback, and restores hist
   })
   await page.goto('/assistant')
   await expect(page).toHaveURL(/\/assistant$/)
-  await expect(page).toHaveTitle('Hermes 工作台')
+  await expect(page).toHaveTitle('对话 · Hermes')
   await expect(page.getByLabel('你的问题')).toBeVisible()
   await page.getByLabel('你的问题').fill('请用自主可视化比较当前数据')
   await page.getByRole('button', { name: '发送问题' }).click()

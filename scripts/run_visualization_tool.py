@@ -64,6 +64,14 @@ async def invoke(payload):
     context = registry.require_control_scope(payload["scope"], payload["source_run_id"])
     operation = payload["operation"]
     args = schemas()[operation][1].model_validate(payload["arguments"])
+    if operation in {"create_visualization", "revise_visualization"}:
+        field = "intent" if operation == "create_visualization" else "feedback"
+        # The model may summarize intent but cannot promote recalled style into a
+        # fresh user preference. Keep the platform's exact, owner-scoped question.
+        args = type(args).model_validate(
+            args.model_dump(mode="json")
+            | {field: registry.original_question(context, payload["source_run_id"])}
+        )
     visualization_settings = load_settings(ROOT)
     parent_budget_path = (
         os.environ.get("SCAT_PARENT_BUDGET_PATH") or visualization_settings.parent_budget_path

@@ -60,6 +60,9 @@ class ExecutionLedger:
             raise ValueError("invalid_provider_token_reservation")
         with self.jobs.transaction() as db:
             job = self.jobs._fence(db, task_id, worker, generation)
+            from visualization_runtime.preferences import assert_current
+
+            assert_current(db, self.jobs, job)
             limits = self._budget(db, job)
             old = db.execute(
                 "SELECT * FROM visualization_provider_calls WHERE task_id=? AND call_key=?",
@@ -116,6 +119,9 @@ class ExecutionLedger:
     def start_call(self, task_id, worker, generation, call_id):
         with self.jobs.transaction() as db:
             job = self.jobs._fence(db, task_id, worker, generation)
+            from visualization_runtime.preferences import assert_current
+
+            assert_current(db, self.jobs, job)
             limits = self._budget(db, job)
             changed = db.execute(
                 "UPDATE visualization_provider_calls SET state='sending' WHERE call_id=? "
@@ -221,6 +227,12 @@ class ExecutionLedger:
             if old:
                 if old["source_sha"] != sha or old["code_call_id"] != code_call_id:
                     raise JobConflict("visualization_attempt_conflict")
+                binding = db.execute(
+                    "SELECT request_sha FROM visualization_attempt_contexts WHERE attempt_id=?",
+                    (old["attempt_id"],),
+                ).fetchone()
+                if binding and binding[0] != job["request_sha"]:
+                    raise JobConflict("visualization_attempt_context_changed")
                 if activate:
                     if job["phase"] not in {"generating", "revising"}:
                         raise JobConflict("visualization_attempt_phase")
@@ -264,6 +276,10 @@ class ExecutionLedger:
                     "UPDATE visualization_jobs SET phase='rendering',updated=? WHERE task_id=?",
                     (self.jobs.clock(), task_id),
                 )
+            db.execute(
+                "INSERT INTO visualization_attempt_contexts VALUES(?,?,?)",
+                (identity, task_id, job["request_sha"]),
+            )
             return dict(
                 db.execute(
                     "SELECT * FROM visualization_attempts WHERE attempt_id=?", (identity,)

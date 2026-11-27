@@ -983,6 +983,111 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/hermes/memory": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Status */
+        get: operations["status_api_v1_hermes_memory_get"];
+        put?: never;
+        post?: never;
+        /** Forget */
+        delete: operations["forget_api_v1_hermes_memory_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/memory/context": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Context */
+        get: operations["context_api_v1_hermes_memory_context_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/memory/corrections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Correction Records */
+        get: operations["correction_records_api_v1_hermes_memory_corrections_get"];
+        put?: never;
+        /** Corrections */
+        post: operations["corrections_api_v1_hermes_memory_corrections_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/memory/learning": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Learning */
+        get: operations["learning_api_v1_hermes_memory_learning_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/memory/settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Settings */
+        put: operations["settings_api_v1_hermes_memory_settings_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/memory/chart-preferences": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Chart Preferences */
+        get: operations["chart_preferences_api_v1_hermes_memory_chart_preferences_get"];
+        put?: never;
+        /** Edit Chart Preference */
+        post: operations["edit_chart_preference_api_v1_hermes_memory_chart_preferences_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -3328,6 +3433,10 @@ export interface components {
             intent: string;
             /** Data Refs */
             data_refs: components["schemas"]["SourceReference"][];
+            /** Memory Epoch */
+            memory_epoch?: number | null;
+            /** Memory Revision */
+            memory_revision?: number | null;
         };
         /** ReviseVisualization */
         ReviseVisualization: {
@@ -3335,6 +3444,10 @@ export interface components {
             request_id: string;
             /** Feedback */
             feedback: string;
+            /** Memory Epoch */
+            memory_epoch?: number | null;
+            /** Memory Revision */
+            memory_revision?: number | null;
         };
         /** SourceReference */
         SourceReference: {
@@ -3456,6 +3569,78 @@ export interface components {
             payload_sha256: string;
             /** Operation */
             operation: string;
+        };
+        /** Correction */
+        Correction: {
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            request_id: string;
+            /** Content */
+            content: string;
+            /** Epoch */
+            epoch?: number | null;
+            /** Revision */
+            revision?: number | null;
+        };
+        /** PreferenceEdit */
+        PreferenceEdit: {
+            /** Request Id */
+            request_id: string;
+            /** Epoch */
+            epoch: number;
+            /** Revision */
+            revision: number;
+            /** Key */
+            key: string;
+            /** Value */
+            value: string | number | null;
+            /**
+             * Task Type
+             * @default all
+             */
+            task_type: string;
+        };
+        /** PreferenceList */
+        PreferenceList: {
+            /** Enabled */
+            enabled: boolean;
+            /** Epoch */
+            epoch: number;
+            /** Revision */
+            revision: number;
+            /** Items */
+            items: components["schemas"]["PreferenceRecord"][];
+        };
+        /** PreferenceRecord */
+        PreferenceRecord: {
+            /** Id */
+            id: string;
+            /** Task Type */
+            task_type: string;
+            /** Key */
+            key: string;
+            /** Value */
+            value: string | number;
+            /** Evidence */
+            evidence: string;
+            /** Source Artifact */
+            source_artifact: string | null;
+            /**
+             * Confidence
+             * @constant
+             */
+            confidence: "explicit";
+            /** Updated */
+            updated: number;
+            /** Supersedes */
+            supersedes: string | null;
+        };
+        /** Settings */
+        Settings: {
+            /** Enabled */
+            enabled: boolean;
         };
     };
     responses: never;
@@ -6173,6 +6358,297 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    status_api_v1_hermes_memory_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    forget_api_v1_hermes_memory_delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    context_api_v1_hermes_memory_context_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    correction_records_api_v1_hermes_memory_corrections_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    corrections_api_v1_hermes_memory_corrections_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Correction"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    learning_api_v1_hermes_memory_learning_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    settings_api_v1_hermes_memory_settings_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Settings"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    chart_preferences_api_v1_hermes_memory_chart_preferences_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PreferenceList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    edit_chart_preference_api_v1_hermes_memory_chart_preferences_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PreferenceEdit"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PreferenceList"];
                 };
             };
             /** @description Validation Error */

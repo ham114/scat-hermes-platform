@@ -7,6 +7,7 @@ import {
   createVisualization,
   reviseVisualization,
   cancelVisualization,
+  chartMemoryToken,
   type VisualizationTask,
   type VisualizationSource,
 } from '@/api/visualizations'
@@ -16,14 +17,16 @@ const emit = defineEmits<{ available: [value: boolean] }>()
 const items = ref<VisualizationTask[]>([])
 const enabled = ref(false)
 const error = ref('')
+const preferenceNotice = ref('')
 const acting = ref(false)
 const sources = ref<VisualizationSource[]>([])
 const selected = ref('')
 const intent = ref('')
 const showCreate = ref(false)
-type Pending =
+type Pending = { memory_epoch?: number | null; memory_revision?: number | null } & (
   | { thread: string; request_id: string; intent: string; data_refs: VisualizationSource[] }
   | { thread: string; request_id: string; artifact: string; feedback: string }
+)
 const pending = ref<Pending>()
 const pendingKey = (thread: string) => 'scat-vis-pending-v1:' + thread
 function restorePending(thread?: string): Pending | undefined {
@@ -112,6 +115,7 @@ watch(
     enabled.value = false
     showCreate.value = false
     pending.value = restorePending(props.threadId)
+    preferenceNotice.value = ''
     error.value = ''
     emit('available', false)
     void load()
@@ -149,15 +153,33 @@ async function submit() {
   acting.value = true
   error.value = ''
   try {
+    if (!('memory_epoch' in request)) {
+      const text = 'artifact' in request ? request.feedback : request.intent
+      const token = await chartMemoryToken(text)
+      if (request.thread !== props.threadId) return
+      request.memory_epoch = token?.epoch ?? null
+      request.memory_revision = token?.revision ?? null
+      pending.value = { ...request }
+      if (/以后|今后|所有图|长期|请记住|记住我的/.test(text))
+        preferenceNotice.value = token
+          ? token.enabled
+            ? '明确的长期图表偏好可在记忆页核对。'
+            : '记忆已暂停，本次要求只用于当前图表。'
+          : '记忆状态暂不可用，本次只修改当前图表；可在记忆页设置长期偏好。'
+    }
     if ('artifact' in request)
       await reviseVisualization(request.thread, request.artifact, {
         request_id: request.request_id,
         feedback: request.feedback,
+        memory_epoch: request.memory_epoch,
+        memory_revision: request.memory_revision,
       })
     else
       await createVisualization(request.thread, {
         request_id: request.request_id,
         intent: request.intent,
+        memory_epoch: request.memory_epoch,
+        memory_revision: request.memory_revision,
         data_refs: request.data_refs.map(({ kind, source_id, run_id, payload_sha256 }) => ({
           kind,
           source_id,
@@ -226,6 +248,7 @@ async function cancel(task: string) {
       </button>
     </header>
     <p v-if="error" role="alert">{{ error }}</p>
+    <p v-if="preferenceNotice" role="status">{{ preferenceNotice }}</p>
     <button v-if="pending" :disabled="acting || readOnly" @click="submit">恢复原绘图请求</button>
     <form v-if="showCreate && !readOnly" @submit.prevent="create">
       <label

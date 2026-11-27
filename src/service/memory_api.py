@@ -33,6 +33,8 @@ class Correction(BaseModel):
     model_config = ConfigDict(extra="forbid")
     request_id: UUID
     content: str = Field(min_length=1, max_length=2000)
+    epoch: int | None = Field(default=None, ge=1)
+    revision: int | None = Field(default=None, ge=0)
 
 
 @router.get("")
@@ -72,7 +74,9 @@ def settings(body: Settings, owner: Owner, memory: Memory):
 @router.post("/corrections", status_code=202)
 def corrections(body: Correction, owner: Owner, memory: Memory):
     try:
-        return memory.correct(owner, body.content, body.request_id)
+        return memory.correct(
+            owner, body.content, body.request_id, epoch=body.epoch, revision=body.revision
+        )
     except ValueError as exc:
         raise HTTPException(409, str(exc)) from None
 
@@ -80,3 +84,19 @@ def corrections(body: Correction, owner: Owner, memory: Memory):
 @router.delete("", status_code=202)
 def forget(owner: Owner, memory: Memory):
     return memory.forget(owner)
+
+
+from visualization_runtime.preferences import PreferenceEdit, PreferenceList
+
+
+@router.get("/chart-preferences", response_model=PreferenceList)
+def chart_preferences(owner: Owner, memory: Memory):
+    return memory.charts.list(owner)
+
+
+@router.post("/chart-preferences", response_model=PreferenceList)
+def edit_chart_preference(body: PreferenceEdit, owner: Owner, memory: Memory):
+    try:
+        return memory.charts.edit(owner, body)
+    except ValueError:
+        raise HTTPException(409, "chart_preference_conflict_or_memory_disabled") from None

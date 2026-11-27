@@ -64,6 +64,9 @@ class Publisher:
         render = self.launcher.read(render_id)
         with self.jobs.transaction() as db:
             current = self.jobs._fence(db, task_id, worker, generation)
+            from visualization_runtime.preferences import assert_current
+
+            assert_current(db, self.jobs, current)
             if current["phase"] != "publishing":
                 raise JobConflict("publication_phase_required")
             ExecutionLedger(self.jobs)._budget(db, current)
@@ -80,6 +83,17 @@ class Publisher:
                 or digest(json.loads(row["report"])) != row["report_sha"]
             ):
                 raise JobConflict("verified_review_required")
+            attempt_context = db.execute(
+                "SELECT request_sha FROM visualization_attempt_contexts WHERE attempt_id=?",
+                (attempt["attempt_id"],),
+            ).fetchone()
+            if (
+                attempt_context
+                and attempt_context[0] != job["request_sha"]
+                or attempt_context is None
+                and request.preferences_round
+            ):
+                raise JobConflict("publication_evidence_changed")
             review = json.loads(row["report"])
             review_call = db.execute(
                 "SELECT * FROM visualization_provider_calls WHERE call_id=? AND task_id=? AND role='review'",
@@ -103,6 +117,8 @@ class Publisher:
                 or {i["viewport"] for i in render["images"]} != set(request.viewports)
                 or render["snapshot_sha256"] != snapshot["payload_sha256"]
                 or render["preferences_sha256"] != request.preferences_sha256
+                or render.get("preferences_round", 0) != request.preferences_round
+                or render.get("request_sha256", job["request_sha"]) != job["request_sha"]
                 or render.get("runtime_image") != self.launcher.sandbox.image
                 or render["source_sha256"] != hashlib.sha256(attempt["source"].encode()).hexdigest()
             ):
@@ -141,6 +157,7 @@ class Publisher:
             "snapshot_id": request.snapshot_id,
             "snapshot_sha256": request.snapshot_sha256,
             "preferences_sha256": request.preferences_sha256,
+            "preferences_round": request.preferences_round,
             "source_sha256": render["source_sha256"],
             "render_id": render_id,
             "render_sha256": digest(render),
@@ -151,6 +168,7 @@ class Publisher:
         }
         with self.jobs.transaction() as db:
             current = self.jobs._fence(db, task_id, worker, generation)
+            assert_current(db, self.jobs, current)
             ExecutionLedger(self.jobs)._budget(db, current)
             self._snapshot_access(db, context, request.snapshot_id, require_unexpired=True)
             # The frozen request and copied evidence cannot change during this

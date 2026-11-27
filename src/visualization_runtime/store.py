@@ -53,7 +53,7 @@ class VisualizationJobStore:
                 "CREATE TABLE IF NOT EXISTS visualization_schema(version INTEGER PRIMARY KEY)"
             )
             versions = [r[0] for r in db.execute("SELECT version FROM visualization_schema")]
-            if versions and versions not in ([1], [2], [3], [4]):
+            if versions and versions not in ([1], [2], [3], [4], [5]):
                 raise JobConflict("unsupported_visualization_schema")
             schema = """
                 CREATE TABLE IF NOT EXISTS visualization_jobs(
@@ -82,7 +82,7 @@ class VisualizationJobStore:
                 (self.limits.model_dump_json(), self.limits.wall_seconds),
             )
             db.execute("DELETE FROM visualization_schema")
-            db.execute("INSERT INTO visualization_schema VALUES(4)")
+            db.execute("INSERT INTO visualization_schema VALUES(5)")
         self.path.chmod(0o600)
 
     @contextmanager
@@ -136,6 +136,8 @@ class VisualizationJobStore:
         request: VisualizationRequest,
         *,
         parent=None,
+        admission_sha=None,
+        preference_setup=None,
     ):
         if not isinstance(request_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", request_id):
             raise ValueError("invalid_visualization_request_id")
@@ -148,6 +150,15 @@ class VisualizationJobStore:
             ).fetchone()
             if row:
                 decoded = self._decode(row)
+                if admission_sha is not None:
+                    admitted = db.execute(
+                        "SELECT input_sha FROM visualization_admissions WHERE task_id=?",
+                        (row["task_id"],),
+                    ).fetchone()
+                    if admitted:
+                        if admitted[0] != admission_sha:
+                            raise JobConflict("visualization_request_id_conflict")
+                        return decoded
                 if row["request_sha"] != sha and decoded["request"] != request:
                     raise JobConflict("visualization_request_id_conflict")
                 return decoded
@@ -155,6 +166,14 @@ class VisualizationJobStore:
             from visualization_runtime.parent_budget import reserve
 
             reserve(db, self, context, task_id, parent)
+            if preference_setup is not None:
+                request = preference_setup(db, task_id, request)
+                raw = canonical(request.model_dump(mode="json"))
+                sha = hashlib.sha256(raw.encode()).hexdigest()
+            if admission_sha is not None:
+                db.execute(
+                    "INSERT INTO visualization_admissions VALUES(?,?)", (task_id, admission_sha)
+                )
             db.execute(
                 "INSERT INTO visualization_jobs(task_id,owner,thread,request_id,request,"
                 "request_sha,state,phase,created,updated) VALUES(?,?,?,?,?,?,'queued',"

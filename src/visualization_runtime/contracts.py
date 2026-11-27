@@ -49,6 +49,7 @@ class VisualizationRequest(Contract):
     )
     parent_artifact_id: Identity | None = None
     parent_version: int | None = Field(default=None, ge=1)
+    preferences_round: int = Field(default=0, ge=0, le=100)
 
     @model_validator(mode="after")
     def consistent_references(self):
@@ -73,6 +74,8 @@ class CreateVisualization(Contract):
     request_id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,128}$")
     intent: str = Field(min_length=1, max_length=8000)
     data_refs: tuple[SourceReference, ...] = Field(min_length=1, max_length=16)
+    memory_epoch: int | None = Field(default=None, ge=1)
+    memory_revision: int | None = Field(default=None, ge=0)
 
 
 class VisualizationSourceView(SourceReference):
@@ -86,6 +89,8 @@ class VisualizationSourceList(Contract):
 class ReviseVisualization(Contract):
     request_id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,128}$")
     feedback: str = Field(min_length=1, max_length=4000)
+    memory_epoch: int | None = Field(default=None, ge=1)
+    memory_revision: int | None = Field(default=None, ge=0)
 
 
 class VisualizationTaskView(Contract):

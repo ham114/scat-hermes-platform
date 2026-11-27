@@ -8,6 +8,7 @@ import {
   type LearningStatus,
 } from '@/api/memory'
 import { newRequestId } from '@/api/hermes'
+import ChartPreferencePanel from '@/components/ChartPreferencePanel.vue'
 const status = ref<MemoryStatus>(),
   records = ref<Correction[]>([]),
   learning = ref<LearningStatus>()
@@ -18,7 +19,7 @@ const context = ref(''),
   busy = ref(false),
   clearConfirm = ref(false),
   tab = ref('memory')
-const pending = ref<{ request_id: string; content: string }>(),
+const pending = ref<{ request_id: string; content: string; epoch?: number; revision?: number }>(),
   uncertainDelete = ref(false)
 const readonly = import.meta.env.VITE_SCAT_READONLY_PREVIEW === '1'
 let alive = true
@@ -77,7 +78,13 @@ async function recall() {
   }
 }
 async function correct() {
-  if (!pending.value) pending.value = { request_id: newRequestId(), content: content.value.trim() }
+  if (!pending.value)
+    pending.value = {
+      request_id: newRequestId(),
+      content: content.value.trim(),
+      epoch: status.value?.epoch,
+      revision: status.value?.chart_revision,
+    }
   await memoryRequest('/corrections', 'POST', pending.value)
   notice.value = '更正已提交，等待处理；不代表召回内容已经更新'
   await refresh()
@@ -154,6 +161,14 @@ onUnmounted(() => {
         <pre v-if="context">{{ context }}</pre>
         <p v-else>尚未读取可用摘要</p>
       </section>
+      <ChartPreferencePanel
+        v-if="status"
+        :epoch="status.epoch"
+        :enabled="status.enabled"
+        :revision="status.chart_revision"
+        :read-only="readonly || busy"
+        @changed="action(refresh)"
+      />
       <section class="panel">
         <h2>更正记忆</h2>
         <textarea
@@ -180,7 +195,10 @@ onUnmounted(() => {
       </section>
       <section class="panel">
         <h2>清空长期记忆</h2>
-        <p>清空当前用户的Honcho长期记忆，不删除聊天历史、技能草稿或备份。完成后保持暂停。</p>
+        <p>
+          清空当前用户的 Honcho
+          长期记忆、本地图表偏好及依据原话；不删除聊天历史、已发布图表、技能草稿或备份。生成中的图表将按当前偏好重新检查。完成后保持暂停。
+        </p>
         <label
           ><input
             v-model="clearConfirm"

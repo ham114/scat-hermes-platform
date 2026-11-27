@@ -1,12 +1,34 @@
 """Additive schema migration and shared recovery of provider admissions."""
 
 
+def require_atomic_journals(db, *schemas):
+    # SQLite's multi-file commit requires rollback journals. Do not silently
+    # change an existing shared store's mode on behalf of the visualization lane.
+    for schema in ("main", *schemas):
+        if schema not in {"main", "vis_parent", "vis_preferences"}:
+            raise ValueError("invalid_shared_store_schema")
+        if db.execute(f"PRAGMA {schema}.journal_mode").fetchone()[0].lower() not in {
+            "delete",
+            "persist",
+            "truncate",
+        }:
+            from visualization_runtime.store import JobConflict
+
+            raise JobConflict("visualization_shared_journal_unsupported")
+
+
 def migrate_foundation(db):
     if "resume_phase" not in {
         row[1] for row in db.execute("PRAGMA table_info(visualization_jobs)")
     }:
         db.execute("ALTER TABLE visualization_jobs ADD COLUMN resume_phase TEXT")
     schema = """
+        CREATE TABLE IF NOT EXISTS visualization_attempt_contexts(attempt_id TEXT PRIMARY KEY,task_id TEXT NOT NULL,request_sha TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS visualization_admissions(task_id TEXT PRIMARY KEY,input_sha TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS visualization_preference_bindings(
+            task_id TEXT PRIMARY KEY,path TEXT NOT NULL,owner_hash TEXT NOT NULL,
+            epoch INTEGER NOT NULL,revision INTEGER NOT NULL,enabled INTEGER NOT NULL,
+            local_json TEXT NOT NULL,task_type TEXT NOT NULL,learned INTEGER NOT NULL);
         CREATE TABLE IF NOT EXISTS visualization_parent_allocations(
             task_id TEXT PRIMARY KEY, scope TEXT NOT NULL, run_id TEXT NOT NULL,
             path TEXT NOT NULL, reserved_requests INTEGER NOT NULL, reserved_tokens INTEGER NOT NULL);

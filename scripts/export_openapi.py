@@ -10,13 +10,14 @@ from pathlib import Path
 def main() -> None:
     from fastapi import FastAPI
 
+    from service.memory_api import router as memory_router
     from service.visualization_api import router as visualization_router
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--hermes",
         action="store_true",
-        help="refresh visualization and shared analysis contracts, retain the checked-in legacy API paths",
+        help="refresh visualization, memory and shared analysis contracts, retain the checked-in legacy API paths",
     )
     args = parser.parse_args()
     target = Path(__file__).resolve().parents[1] / "frontend" / "src" / "api" / "openapi.json"
@@ -28,6 +29,7 @@ def main() -> None:
         document = app.openapi()
     chart_app = FastAPI()
     chart_app.include_router(visualization_router)
+    chart_app.include_router(memory_router)
     hermes = chart_app.openapi()
     for path, route in hermes["paths"].items():
         if path.startswith("/api/v1/hermes"):

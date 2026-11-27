@@ -12,6 +12,7 @@ vi.mock('@/api/visualizations', () => ({
   visualizationSources: vi.fn(),
   createVisualization: vi.fn(),
   cancelVisualization: vi.fn(),
+  chartMemoryToken: vi.fn(),
   visualizationFile: (t: string, a: string, f: string) => `/files/${t}/${a}/${f}`,
 }))
 const artifact = {

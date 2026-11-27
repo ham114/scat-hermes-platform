@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 
 from visualization_runtime.paths import confined_path
+from visualization_runtime.persistence import require_atomic_journals
 from visualization_runtime.store import JobConflict
 
 
@@ -21,6 +22,7 @@ def reserve(db, jobs, context, task_id, parent):
     if not path.is_file():
         raise JobConflict("visualization_parent_budget_unavailable")
     db.execute("ATTACH DATABASE ? AS vis_parent", (str(path),))
+    require_atomic_journals(db, "vis_parent")
     row = db.execute(
         "SELECT * FROM vis_parent.skill_run_budgets WHERE scope=? AND run_id=?",
         (context.scope_key, run_id),
@@ -57,6 +59,7 @@ def reserve_request(db, jobs, task_id):
     if not path.is_file():
         raise JobConflict("visualization_parent_budget_unavailable")
     db.execute("ATTACH DATABASE ? AS vis_parent", (str(path),))
+    require_atomic_journals(db, "vis_parent")
     row = db.execute(
         "SELECT * FROM vis_parent.skill_run_budgets WHERE scope=? AND run_id=?",
         (allocation["scope"], allocation["run_id"]),
@@ -94,6 +97,7 @@ def account_overrun(db, jobs, task_id):
     if not path.is_file():
         raise JobConflict("visualization_parent_budget_unavailable")
     db.execute("ATTACH DATABASE ? AS vis_parent", (str(path),))
+    require_atomic_journals(db, "vis_parent")
     db.execute(
         "UPDATE vis_parent.skill_run_budgets SET charged_tokens=charged_tokens+?,exhausted='visualization_provider_overrun' WHERE scope=? AND run_id=?",
         (extra, allocation["scope"], allocation["run_id"]),
