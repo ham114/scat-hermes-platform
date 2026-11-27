@@ -141,6 +141,8 @@ async def run(args, plan):
         report = json.loads((output / "report.json").read_text(encoding="utf-8"))
         if report.get("candidate") != candidate:
             raise ValueError("acceptance_candidate_changed")
+        if report.get("prior_run") != args.prior_run:
+            raise ValueError("acceptance_budget_parent_changed")
     (output / "frozen-plan.json").write_text(
         json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8"
     )

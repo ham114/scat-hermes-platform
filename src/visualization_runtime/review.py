@@ -20,20 +20,23 @@ REVIEW_SCHEMA = {
         "decision": {"type": "string", "enum": ["pass", "revise", "reject"]},
         "issues": {
             "type": "array",
+            "maxItems": 30,
             "items": {
                 "type": "object",
                 "additionalProperties": False,
                 "properties": {
                     "severity": {"type": "string", "enum": ["blocker", "major", "minor", "info"]},
-                    "location": {"type": "string"},
-                    "message": {"type": "string"},
-                    "suggestion": {"type": "string"},
+                    "location": {"type": "string", "minLength": 1, "maxLength": 200},
+                    "message": {"type": "string", "minLength": 1, "maxLength": 1000},
+                    "suggestion": {"type": "string", "minLength": 1, "maxLength": 1000},
                 },
                 "required": ["severity", "location", "message", "suggestion"],
             },
         },
         "checked_viewports": {
             "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
             "items": {"type": "string", "enum": ["desktop", "mobile"]},
         },
     },
@@ -196,6 +199,12 @@ class ImageReviewer:
                 }
             )
             image_reservation += max(4096, math.ceil(item["width"] * item["height"] / 196))
+        parts.append(
+            {
+                "type": "text",
+                "text": "请审查上面两个视口，只返回含decision、issues、checked_viewports三个键的JSON。issues仅列已确认的实际缺陷，每项message和suggestion尽量不超过120字；不要输出推理过程、反复自问、数据摘要或JSON Schema。核对后不成立的指控应删除，不得以猜测判为major。遵守system的审核规则。",
+            }
+        )
         messages = [
             {
                 "role": "system",

@@ -431,3 +431,16 @@ def test_temporal_summary_compares_offsets_and_refuses_mixed_naive_ranges():
         "count": 2,
         "timezone": "mixed",
     }
+
+
+def test_provider_review_schema_carries_local_size_limits():
+    from visualization_runtime.contracts import ReviewResult
+    from visualization_runtime.review import REVIEW_SCHEMA
+
+    contract = ReviewResult.model_json_schema()
+    fields = REVIEW_SCHEMA["properties"]["issues"]["items"]["properties"]
+    for name in ("location", "message", "suggestion"):
+        for limit in ("minLength", "maxLength"):
+            assert (
+                fields[name][limit] == contract["$defs"]["ReviewIssue"]["properties"][name][limit]
+            )
