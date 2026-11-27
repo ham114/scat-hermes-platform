@@ -4,7 +4,6 @@ import argparse
 import asyncio
 import json
 import re
-import sqlite3
 import sys
 from pathlib import Path
 
@@ -20,6 +19,7 @@ async def run(args, plan):
         RemoteSandbox,
         SyntheticArtifacts,
         defect_source,
+        prior_campaign_usage,
         synthetic,
     )
     from visualization_runtime.launcher import RenderLauncher
@@ -77,26 +77,7 @@ async def run(args, plan):
     app = VisualizationTasks(jobs, snapshots, receipts, artifacts=fixtures)
     launcher = RenderLauncher(jobs, snapshots, sandbox)
     worker = VisualizationWorker(app, launcher, settings)
-    prior_usage = (0, 0)
-    if args.prior_run:
-        if (
-            not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", args.prior_run)
-            or args.prior_run == args.run_id
-        ):
-            raise ValueError("invalid_prior_acceptance_run")
-        prior = ROOT / ".tmp/visualization-p6" / args.prior_run
-        if json.loads((prior / "frozen-plan.json").read_text(encoding="utf-8")) != plan:
-            raise ValueError("acceptance_frozen_plan_changed")
-        with sqlite3.connect(
-            (prior / "tasks.sqlite").resolve().as_uri() + "?mode=ro", uri=True
-        ) as db:
-            if db.execute(
-                "SELECT 1 FROM visualization_jobs WHERE state NOT IN ('succeeded','failed','cancelled') LIMIT 1"
-            ).fetchone():
-                raise ValueError("prior_acceptance_not_finished")
-            prior_usage = db.execute(
-                "SELECT count(*),COALESCE(sum(charged_tokens),0) FROM visualization_provider_calls WHERE call_key!='fixture-seed' AND state!='aborted'"
-            ).fetchone()
+    prior_usage = prior_campaign_usage(ROOT, args.prior_run, plan, current_run=args.run_id)
     original_reserve = worker.ledger.reserve_call
 
     def bounded_reserve(*call_args, **call_kwargs):

@@ -5,12 +5,49 @@ import math
 import re
 import shlex
 import subprocess
+from contextlib import closing
 from pathlib import PurePosixPath
 from types import SimpleNamespace
 
 from visualization_runtime.sandbox import DockerSandbox, RenderError
 from visualization_runtime.snapshots import digest
 from visualization_runtime.store import canonical
+
+
+def prior_campaign_usage(root, run_id, plan, *, current_run):
+    """Count the full ancestry, not just the immediately preceding attempt."""
+    from visualization_runtime.paths import confined_path
+    from visualization_runtime.release import readonly
+
+    totals = [0, 0]
+    seen = {current_run}
+    while run_id:
+        if (
+            not isinstance(run_id, str)
+            or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", run_id)
+            or run_id in seen
+        ):
+            raise ValueError("invalid_prior_acceptance_chain")
+        seen.add(run_id)
+        folder = confined_path(root, root / ".tmp/visualization-p6" / run_id)
+        if json.loads((folder / "frozen-plan.json").read_text(encoding="utf-8")) != plan:
+            raise ValueError("acceptance_frozen_plan_changed")
+        with closing(readonly(confined_path(root, folder / "tasks.sqlite"))) as db:
+            if (
+                db.execute(
+                    "SELECT 1 FROM visualization_jobs WHERE state NOT IN ('succeeded','failed','cancelled') LIMIT 1"
+                ).fetchone()
+                or db.execute(
+                    "SELECT 1 FROM visualization_provider_calls WHERE state IN ('reserved','sending','unknown') LIMIT 1"
+                ).fetchone()
+            ):
+                raise ValueError("prior_acceptance_not_finished")
+            usage = db.execute(
+                "SELECT count(*),COALESCE(sum(charged_tokens),0) FROM visualization_provider_calls WHERE call_key!='fixture-seed' AND state!='aborted'"
+            ).fetchone()
+            totals = [totals[i] + usage[i] for i in range(2)]
+        run_id = json.loads((folder / "report.json").read_text(encoding="utf-8")).get("prior_run")
+    return tuple(totals)
 
 
 class SyntheticArtifacts:

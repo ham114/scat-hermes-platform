@@ -161,6 +161,15 @@ class VisualizationWorker:
                             ),
                         }
                     )
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": "本次原始绘图任务：\n"
+                        + request.intent
+                        + "\n请优先准确完成以上任务，只绘制任务需要的数据，不为未要求的字段增加图表。数据必须来自前述完整授权snapshot；修订时保留正确部分，修复已确认的问题。适用样式偏好："
+                        + canonical(request.preferences or {}),
+                    }
+                )
                 prefix = (
                     "p" + str(request.preferences_round) + "-" if request.preferences_round else ""
                 )
