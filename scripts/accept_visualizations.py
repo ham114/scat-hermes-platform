@@ -175,14 +175,21 @@ async def run(args, plan):
         else:
             references = [fixtures.add(context, case["id"], payload)]
         preferences = case.get("preferences", {})
-        job = await app.prepare(
-            context,
-            case["id"],
-            intent=case["intent"],
-            references=references,
-            preferences_sha256=digest(preferences),
-            preferences=preferences,
-        )
+        original_limits = jobs.limits
+        if case.get("expected_first") == "not_pass":
+            # This probe tests first-review interception, not repair convergence.
+            jobs.limits = original_limits.model_copy(update={"max_revisions": 0})
+        try:
+            job = await app.prepare(
+                context,
+                case["id"],
+                intent=case["intent"],
+                references=references,
+                preferences_sha256=digest(preferences),
+                preferences=preferences,
+            )
+        finally:
+            jobs.limits = original_limits
         job = jobs.get(context, job["task_id"])
         if job["state"] == "needs_reconciliation":
             ExecutionLedger(jobs).reconcile(

@@ -41,6 +41,14 @@ def token_usage(value):
     }
 
 
+def request_options(config):
+    if config.role == "code":
+        return {"thinking": {"type": "disabled"}}
+    if config.model.startswith("qwen"):
+        return {"enable_thinking": False, "temperature": 0.1}
+    return {}
+
+
 async def complete(
     config: ProviderSettings,
     messages: list[dict],
@@ -58,10 +66,7 @@ async def complete(
         "max_tokens": max_tokens,
         "stream": False,
     }
-    if config.role == "code":
-        payload["thinking"] = {"type": "disabled"}
-    elif config.model.startswith("qwen"):
-        payload["enable_thinking"] = False
+    payload.update(request_options(config))
     if json_schema is not None:
         payload["response_format"] = {
             "type": "json_schema",

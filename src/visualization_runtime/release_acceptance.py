@@ -44,7 +44,10 @@ def candidate_stamp(root):
         ).hexdigest()
         for path in sorted(set(files))
     }
-    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+    # Appending an evidence report under docs/ must not invalidate identical code.
+    commit = subprocess.check_output(
+        ["git", "log", "-1", "--format=%H", "--", *scope], cwd=root, text=True
+    ).strip()
     dirty = subprocess.check_output(
         ["git", "status", "--porcelain", "--", *scope], cwd=root, text=True
     ).strip()

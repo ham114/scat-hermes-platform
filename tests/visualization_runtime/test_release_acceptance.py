@@ -3,6 +3,7 @@
 import asyncio
 import json
 import shutil
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -134,6 +135,39 @@ def test_code_change_invalidates_session(tmp_path, monkeypatch):
         acceptance, "candidate_stamp", lambda _: CANDIDATE | {"source_sha256": "c" * 64}
     )
     assert "candidate_changed_or_dirty" in acceptance.assess(tmp_path, folder)["blockers"]
+
+
+def test_document_only_commit_preserves_code_candidate_but_source_change_does_not(tmp_path):
+    def git(*args):
+        return subprocess.check_output(
+            [
+                "git",
+                "-c",
+                "user.name=Acceptance Test",
+                "-c",
+                "user.email=acceptance@example.invalid",
+                *args,
+            ],
+            cwd=tmp_path,
+            text=True,
+        )
+
+    git("init", "--quiet")
+    (tmp_path / "src").mkdir()
+    (tmp_path / "src/example.py").write_text("value=1\n")
+    git("add", "src")
+    git("commit", "--quiet", "-m", "candidate")
+    first = acceptance.candidate_stamp(tmp_path)
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "docs/report.md").write_text("evidence only\n")
+    git("add", "docs")
+    git("commit", "--quiet", "-m", "record evidence")
+    assert acceptance.candidate_stamp(tmp_path) == first
+    (tmp_path / "src/example.py").write_text("value=2\n")
+    assert acceptance.candidate_stamp(tmp_path)["dirty"] is True
+    git("add", "src")
+    git("commit", "--quiet", "-m", "changed candidate")
+    assert acceptance.candidate_stamp(tmp_path)["commit"] != first["commit"]
 
 
 def test_missing_published_image_blocks_round(pipeline):

@@ -398,3 +398,36 @@ def test_full_summary_is_not_limited_to_preview_rows():
         "min": 800,
         "max": 22700,
     }
+
+
+def test_temporal_summary_uses_full_timestamp_extent_without_assuming_timezone():
+    from visualization_runtime.review import temporal_summary
+
+    points = [{"timestamp": "2016-10-19T14:19:14.195312"}] * 8 + [
+        {"timestamp": "2016-10-19T14:27:34.195312"}
+    ]
+    value = temporal_summary({"datasets": [{"payload": {"points": points}}]})[
+        "dataset0.payload.points[].timestamp"
+    ]
+    assert value == {
+        "count": 9,
+        "timezone": "not_declared",
+        "min": points[0]["timestamp"],
+        "max": points[-1]["timestamp"],
+        "span_seconds": 500.0,
+    }
+
+
+def test_temporal_summary_compares_offsets_and_refuses_mixed_naive_ranges():
+    from visualization_runtime.review import temporal_summary
+
+    def summarize(times):
+        return temporal_summary({"datasets": [{"payload": {"times": times}}]})[
+            "dataset0.payload.times[]"
+        ]
+
+    assert summarize(["2026-11-28T10:00:00+01:00", "2026-11-28T09:02:00Z"])["span_seconds"] == 120
+    assert summarize(["2026-11-28T09:00:00", "2026-11-28T09:02:00Z"]) == {
+        "count": 2,
+        "timezone": "mixed",
+    }

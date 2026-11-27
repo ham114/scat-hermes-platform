@@ -3,7 +3,7 @@
 import asyncio
 from contextlib import suppress
 
-from visualization_runtime.providers import ProviderError, complete
+from visualization_runtime.providers import ProviderError, complete, request_options
 from visualization_runtime.snapshots import digest
 from visualization_runtime.store import JobConflict
 
@@ -39,6 +39,7 @@ class LedgerProvider:
                 "messages": messages,
                 "max_tokens": max_tokens,
                 "json_object": json_object,
+                "request_options": request_options(self.config),
                 **({"json_schema": json_schema} if json_schema is not None else {}),
             }
         )

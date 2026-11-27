@@ -105,6 +105,7 @@ def test_real_probe_wire_format_uses_two_separate_keys_and_image_bytes():
         else:
             assert request.headers["authorization"] == "Bearer test-review-secret"
             assert payload["response_format"] == {"type": "json_object"}
+            assert payload["temperature"] == 0.1
             parts = payload["messages"][0]["content"]
             assert parts[1]["type"] == "image_url"
             assert parts[1]["image_url"]["url"].startswith("data:image/png;base64,iVBOR")
