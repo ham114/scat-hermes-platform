@@ -26,6 +26,7 @@ async def run(args, plan):
     from visualization_runtime.ledger import ExecutionLedger
     from visualization_runtime.paths import confined_path
     from visualization_runtime.providers import Completion
+    from visualization_runtime.release_acceptance import candidate_stamp
     from visualization_runtime.sandbox import DockerSandbox
     from visualization_runtime.settings import load_settings
     from visualization_runtime.snapshots import SnapshotStore, digest
@@ -34,6 +35,14 @@ async def run(args, plan):
 
     if not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", args.run_id):
         raise ValueError("invalid_acceptance_run_id")
+    candidate = candidate_stamp(ROOT)
+    if candidate["dirty"]:
+        raise ValueError("acceptance_candidate_source_dirty")
+    pinned = json.loads(
+        (ROOT / "services/visualization-renderer/runtime.lock.json").read_text(encoding="utf-8")
+    )["validated_renderer_image_id"]
+    if args.image != pinned:
+        raise ValueError("acceptance_runtime_image_not_validated")
     output = ROOT / ".tmp/visualization-p6" / args.run_id
     output.mkdir(parents=True, exist_ok=args.resume)
     if (
@@ -124,11 +133,14 @@ async def run(args, plan):
         "cases": [],
         "synthetic_uav_is_not_business_uav": True,
         "production_enabled": False,
+        "candidate": candidate,
         "prior_run": args.prior_run,
         "prior_usage": list(prior_usage),
     }
     if args.resume and (output / "report.json").is_file():
         report = json.loads((output / "report.json").read_text(encoding="utf-8"))
+        if report.get("candidate") != candidate:
+            raise ValueError("acceptance_candidate_changed")
     (output / "frozen-plan.json").write_text(
         json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8"
     )

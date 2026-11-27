@@ -107,3 +107,60 @@ python scripts/check_visualization_release.py --verify-backup .tmp/visualization
 6. **取消与恢复**：任务仍运行时点击取消，确认不交付新图且其他任务可继续；对已成功图刷新页面，检查版本和图片恢复，不再次发起生成/付费请求。
 
 验收记录至少保存测试用户、任务ID、父/子版本、数据页范围、桌面/手机结果及记忆前后状态。仅聊天声称“画好了”“已记住”不能代替卡片、账本和记忆页的实际状态。
+
+## 下一轮上线前验收准备（2026-11-28）
+
+已提供离线准备/汇总工具 `scripts/prepare_visualization_acceptance.py`，以及 `config/visualization-release-gates-v1.json` 中的9组检查。准备操作不调用模型、不启动服务、不修改生产环境，也不新增API授权。上一轮80次请求已用完，真实轮次和真实主Agent测试必须另有明确的新额度和目标环境授权；不要用新目录绕过既有额度。
+
+**先修复已知问题再冻结候选**：优先核查高度图、custom误差线、混合单位的真实拒审图/轴映射及窄屏布局。准备测试资料不表示这些缺陷已经修复。对候选提交要求连续两轮完整12场景通过，不能跨轮拼接成功样例，也不能将同一轮的数据库复制成第二轮。
+
+### 1 候选环境和测试资料
+
+采用独立候选宿主或VM，使用独立状态副本、测试用户与产物目录。当前Compose为host网络且端口固定，不可直接在现有生产主机原端口启动第二套服务；若选同宿主，须先完成端口和网络/状态隔离设计并通过部署检查。保留实际认证、主Agent、父预算、记忆与Docker链路，禁止以模拟HTTP代替真实闭环验收。
+
+准备两个有权限隔离的真实测试用户A/B；每次只读取指定SCAT100点，UAV仍明确使用模拟数据，新增真实数据范围另行确认。备份/恢复检查仅在停写的候选副本进行，不能恢复旧父预算库覆盖生产用量。安装或启动服务、上传代码与更改生产开关不属于本次离线准备动作。
+
+提交修复并确认候选源码干净后，在现有Conda环境执行：
+
+```bash
+python scripts/prepare_visualization_acceptance.py prepare --name prelaunch-20261128
+```
+
+生成 `.tmp/visualization-release/prelaunch-20261128/session.json`、冻结场景副本和 `evidence/` 下9个待填写JSON模板。它们记录提交SHA、源码摘要、固定镜像及场景/检查配置摘要，初始全部pending。目录不覆盖；候选代码变化或计划变化时用新名称重新准备。`.env`、密钥、业务原始数据不会被复制到测试包。
+
+### 2 先完成离线与运维检查
+
+离线回归沿用P6完整相关后端、前端 `npm run check` 和8项桌面/手机Playwright测试。保存两个分支相同候选提交下的命令、退出码和日志。前端模拟接口测试只能用于offline检查，不能用于conversation/ownership等真实门禁。
+
+部署检查需在候选实际环境运行 `docker compose config`（避免将包含密钥的输出写入可公开文件）、核对镜像来源与挂载、只向worker注入模型凭据，再运行本报告的 `check_visualization_release.py`。停写备份需校验副本及历史PNG，实际从恢复副本读取历史；只返回 `backup_valid=true` 不等于已做完整服务恢复演练。
+
+### 3 两轮真实图表验收
+
+以下命令仅作为执行模板，**需新额度与目标授权后运行**，将镜像/宿主/隔离目录替换为已确认值。首次轮次与第二轮共享该脚本的80请求/400000 token上限，第二轮用 `--prior-run` 扣除第一轮用量；如果预算不足则不判通过，不自动扩大预算。该上限不涵盖另由主Agent发起的人工闭环请求，其额度须另外纳入获批测试总额。测试中不得并行启动多份验收器或建立新目录重置额度。
+
+```bash
+python scripts/accept_visualizations.py --live --run-id prelaunch-20261128-r1 --track .tmp/visualization-real-track.json --image <固定镜像ID> --host <候选宿主> --remote-root <已准备的P6隔离目录>
+python scripts/accept_visualizations.py --live --run-id prelaunch-20261128-r2 --prior-run prelaunch-20261128-r1 --track .tmp/visualization-real-track.json --image <同一镜像ID> --host <同一候选宿主> --remote-root <同一隔离目录>
+```
+
+两轮必须同一候选且源码无改动。验收器现在在报告写入候选标识；旧P6报告不能导入为新一轮通过。新的真实运行只能恢复同一候选的已知状态，修改代码后不得用旧结果继续计为通过。
+
+```bash
+python scripts/prepare_visualization_acceptance.py round --session .tmp/visualization-release/prelaunch-20261128 --index 1 --report .tmp/visualization-p6/prelaunch-20261128-r1/report.json
+python scripts/prepare_visualization_acceptance.py round --session .tmp/visualization-release/prelaunch-20261128 --index 2 --report .tmp/visualization-p6/prelaunch-20261128-r2/report.json
+```
+
+导入会重新读取SQLite审核/发布账本与图片/快照引用，不信任报告中的 `passed=true`；检查两种视口、负样本首审、完整场景、活动/unknown状态及文件摘要。只接受完整符合要求的轮次，失败记录仍留原目录供诊断。
+
+### 4 人工闭环与证据记录
+
+按 `evidence/` 的模板逐组执行：offline、deployment、backup、conversation、revision、memory、ownership、recovery、disable。真实用户操作沿用上节6条指令，另用用户B验证无法读取用户A的任务、文件和会话引用。每项保留真实任务/版本、请求记录、截图或日志，人工抽查实际数值、单位、100/683范围及缺测表达。
+
+完成某组后，将对应JSON的status改为pass，仅将已验证的checks设为true，并在attachments填写证据文件相对 `evidence/` 的路径和实际SHA256（小写）。所有条件及附件必须齐全；不能把pending模板或空附件当通过。例如保存 `evidence/offline/pytest.txt` 后，将其相对路径与真实摘要写入 `evidence/offline.json`；不要在证据中保存登录口令、API key或完整私有环境文件。
+
+```bash
+python scripts/prepare_visualization_acceptance.py gate --session .tmp/visualization-release/prelaunch-20261128 --id offline --evidence .tmp/visualization-release/prelaunch-20261128/evidence/offline.json
+python scripts/prepare_visualization_acceptance.py assess --session .tmp/visualization-release/prelaunch-20261128
+```
+
+prepare/成功导入返回0；assess在缺项时返回1，输入或证据无效返回2。每次汇总重新校验源码、配置、报告、数据库与附件；任何变化或缺项都保持未通过。`ready_for_release_review=true` 只表示资料齐全，可提交人工上线评审；人工证据属于执行者证明，工具不能自动证明真实登录/业务行为，也不会授权部署或打开生产开关。

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "required_rounds": 2,
+  "gates": [
+    {"id":"offline","title":"两个分支离线回归","checks":["backend_passed","frontend_passed","browser_desktop_mobile_passed","both_branches_same_candidate"]},
+    {"id":"deployment","title":"候选部署与配置","checks":["actual_compose_config_passed","images_match_candidate","provider_keys_only_in_worker","shared_state_memory_identity_parent_verified","candidate_services_healthy"]},
+    {"id":"backup","title":"停写备份及恢复副本","checks":["writers_stopped","databases_and_artifacts_verified","restored_copy_reads_history","no_usage_ledger_rewind"]},
+    {"id":"conversation","title":"真实主Agent对话闭环","checks":["authenticated_real_user","real_native_tools_and_parent_budget","reviewed_desktop_mobile_card","scope_units_values_human_checked"]},
+    {"id":"revision","title":"反馈与版本","checks":["feedback_creates_new_version","new_version_independently_reviewed","old_version_readable","refresh_sends_no_new_generation"]},
+    {"id":"memory","title":"偏好作用域及删除","checks":["current_chart_not_global","explicit_preference_cross_session","correction_effective","pause_no_recall_or_learning","deleted_preference_never_revives"]},
+    {"id":"ownership","title":"用户及会话隔离","checks":["two_real_test_users","foreign_task_and_files_denied","foreign_session_refs_denied","no_model_code_in_main_page"]},
+    {"id":"recovery","title":"取消、断联与原任务兼容","checks":["cancel_prevents_publication","unknown_calls_not_replayed","resources_stopped_verified","legacy_queue_not_blocked"]},
+    {"id":"disable","title":"停用及历史读取","checks":["disabled_create_and_revise_denied","worker_does_not_claim","published_history_readable","original_cesium_available"]}
+  ]
+}
