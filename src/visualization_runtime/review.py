@@ -141,6 +141,8 @@ class ImageReviewer:
                     "The preview shows only a few records, NOT the entire plotted range. Use full_numeric_summary as the authoritative full-input numeric ranges. Do not infer the maximum from preview rows. "
                     "Never approve an unreadable, unsupported or blank image. Return one required JSON object, not an array. "
                     "Use concise actionable Chinese issue messages. Do not claim a human audit or guaranteed numerical correctness."
+                    "The response MUST have exactly decision, issues, checked_viewports. Never substitute an audit, summary or recommendations object. Follow this JSON schema literally: "
+                    + canonical(REVIEW_SCHEMA)
                 ),
             },
             {"role": "user", "content": parts},
@@ -182,7 +184,10 @@ class ImageReviewer:
             completion = self.ledger.saved_completion(call)
             if not completion.model_matches:
                 raise JobConflict("review_model_mismatch")
-            report = parse_review(completion.content)
+            try:
+                report = parse_review(completion.content)
+            except ValueError:
+                raise JobConflict("review_contract_invalid") from None
             if set(report.checked_viewports) != set(request.viewports):
                 raise JobConflict("review_viewports_incomplete")
             record = {

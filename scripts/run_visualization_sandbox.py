@@ -1,6 +1,7 @@
 """Start the trusted loopback Docker launcher; no model provider credentials required."""
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -17,14 +18,30 @@ def main():
     from visualization_runtime.store import VisualizationJobStore
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--image", required=True, help="locally built sha256 image ID")
-    parser.add_argument("--state", default="var/platform/model-tasks.sqlite")
-    parser.add_argument("--artifacts", default="var/visualizations")
-    parser.add_argument("--key-file", default="var/secrets/visualization-sandbox.key")
+    parser.add_argument(
+        "--image",
+        default=os.environ.get("SCAT_VIS_SANDBOX_IMAGE"),
+        help="locally built sha256 image ID",
+    )
+    parser.add_argument(
+        "--state",
+        default=os.environ.get("HERMES_TASK_STATE_FILE", "var/platform/model-tasks.sqlite"),
+    )
+    parser.add_argument(
+        "--artifacts", default=os.environ.get("SCAT_VIS_ARTIFACT_ROOT", "var/visualizations")
+    )
+    parser.add_argument(
+        "--key-file",
+        default=os.environ.get(
+            "SCAT_VIS_SANDBOX_KEY_FILE", "var/secrets/visualization-sandbox.key"
+        ),
+    )
     parser.add_argument("--port", type=int, default=18166)
     parser.add_argument("--render-timeout", type=int, default=30)
     parser.add_argument("--concurrency", type=int, default=2)
     args = parser.parse_args()
+    if not args.image:
+        parser.error("--image or SCAT_VIS_SANDBOX_IMAGE is required")
     key_path = confined_path(ROOT, Path(args.key_file))
     if sys.platform != "win32" and key_path.stat().st_mode & 0o077:
         raise ValueError("sandbox_key_requires_0600")

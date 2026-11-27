@@ -114,6 +114,7 @@ async def lifespan(app: FastAPI):
         artifacts=app.state.model_tasks.artifacts,
         parent_budget_path=Path(parent_budget_path) if parent_budget_path else None,
         read_only=True,
+        execution_credentials=False,
         preferences=memory.charts if memory else None,
     )
     app.state.memory_runtime = memory

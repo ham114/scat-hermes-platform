@@ -31,6 +31,12 @@ def server(launcher, key, *, port=18166, concurrency=2):
             self.end_headers()
             self.wfile.write(raw)
 
+        def do_GET(self):
+            if self.path != "/health":
+                self.reply(404, {"error": "not_found"})
+                return
+            self.reply(200, {"status": "alive", "readiness_is_not_task_completion": True})
+
         def do_POST(self):
             if not hmac.compare_digest(self.headers.get("Authorization", ""), "Bearer " + key):
                 self.reply(403, {"error": "forbidden"})

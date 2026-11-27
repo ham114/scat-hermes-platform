@@ -35,6 +35,8 @@ P4 的平台 API 还需 `SCAT_VIS_PARENT_BUDGET_PATH`，指向实际 `scat-main`
 
 P5 不增加 API key 或独立队列。复用 `SCAT_AUTONOMY_CONFIG` 中的 `memory.enabled/state/identity_key`；平台、绘图 worker 和私有工具必须使用同一记忆状态文件及身份密钥。worker 仅访问本地偏好，不创建 Honcho 客户端，绘图容器不接收记忆凭据。共享 SQLite 状态库要求回滚日志模式（DELETE/PERSIST/TRUNCATE），发现 WAL 等不支持模式会拒绝新绘图，不自动更改数据库设置。未配置或暂停记忆时，本次图表要求仍有效；长期偏好可在记忆页查看、更正和删除。
 
+P6 增加可选 `compose.visualization.yaml`、worker/宿主启动器环境模板和 `check_visualization_release.py`。平台、主 Agent 和私有 actions 的控制接口不要求 DS/Qwen key，凭据只注入绘图 worker；控制角色仍需显式开关、固定沙箱镜像和真实父预算。绘图代码输出上限8192，并纳入原60000 token总预算，其他请求/候选限制不变。当前生产开关保持关闭；实际验收、停用与备份、上线门禁及用户测试指令见[P6报告](VISUALIZATION_RELEASE_REPORT.md)。
+
 ## RAG 生产组合与开关
 
 生产检索配置在 [`qwen3-production-v1.json`](../services/rag/qwen3-production-v1.json)：BGE-M3／BM25／标识符召回权重2∶1∶1，各路最多200条，候选100条；原始Qwen3-Reranker-0.6B评分后，以重排／召回名次权重4∶1、k=20做最终RRF。返回的`score`仍是原模型相关性分数，最终顺序以`rank`为准。

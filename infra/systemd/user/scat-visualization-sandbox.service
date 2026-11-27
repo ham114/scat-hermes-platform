@@ -1,0 +1,19 @@
+[Unit]
+Description=SCAT trusted visualization Docker launcher
+After=docker.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/project/python/scat-hermes-platform
+Environment=PYTHONPATH=%h/project/python/scat-hermes-platform/src
+Environment=PYTHONDONTWRITEBYTECODE=1
+# This file contains paths/image ID only, never DS/Qwen credentials.
+EnvironmentFile=%h/project/python/scat-hermes-platform/var/deploy/h7b/secrets/visualization-sandbox.env
+ExecStart=%h/anaconda3/envs/scat-agent/bin/python -B scripts/run_visualization_sandbox.py
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=45
+UMask=0077
+
+[Install]
+WantedBy=default.target

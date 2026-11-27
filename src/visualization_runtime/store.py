@@ -6,7 +6,6 @@ verified publication transaction may complete a job successfully.
 """
 
 import hashlib
-import json
 import re
 import sqlite3
 import time
@@ -16,6 +15,9 @@ from uuid import uuid4
 
 from application.context import ExecutionContext
 from visualization_runtime.contracts import ExecutionLimits, VisualizationRequest
+from visualization_runtime.json_codec import (
+    canonical as canonical,  # noqa: PLC0414 -- public compatibility export
+)
 from visualization_runtime.paths import confined_path
 
 
@@ -25,12 +27,6 @@ class JobNotFound(LookupError):
 
 class JobConflict(ValueError):
     pass
-
-
-def canonical(value):
-    return json.dumps(
-        value, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False
-    )
 
 
 _TRANSITIONS = {

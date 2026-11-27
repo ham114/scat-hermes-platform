@@ -298,6 +298,7 @@ def create_visualization_tasks(
     parent_budget_path=None,
     read_only=False,
     preferences=None,
+    execution_credentials=True,
 ):
     from visualization_runtime.settings import ConfigurationError
     from visualization_runtime.snapshots import SnapshotStore
@@ -305,13 +306,14 @@ def create_visualization_tasks(
 
     if not settings.enabled and not read_only:
         raise ConfigurationError("autonomous_visualization_disabled")
-    if settings.enabled and not read_only:
+    if settings.enabled and not read_only and execution_credentials:
         settings.provider("code")
         settings.provider("review")
 
     def admission_check():
-        settings.provider("code")
-        settings.provider("review")
+        if execution_credentials:
+            settings.provider("code")
+            settings.provider("review")
         if not settings.sandbox_image:
             raise ConfigurationError("SCAT_VIS_SANDBOX_IMAGE_required")
 

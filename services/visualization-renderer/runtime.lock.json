@@ -11,5 +11,9 @@
   "imported_base_image_id": "sha256:14f76f06f4e42fdfcd4aa97f3351ee0f97886ab3e63db380b1d2e0e070499e2e",
   "upstream_seccomp_sha256": "cc3e61cabda6bbc1e53e54d27ba4d55a9d3be829b6dd1a596f4a7b31b1cc7849",
   "validated_renderer_image_id": "sha256:e76dc55ce37f01c8131b5a8b645a90fc40fb92b3979fc1614bf61e7760cf4123",
-  "validated_node_version": "v24.20.0"
+  "validated_node_version": "v24.20.0",
+  "source_hash_newlines": "LF",
+  "renderer_host_sha256": "8c1baab31569957bcd2198de05255a1ac1a20fcc8054578efd3c32014851b09c",
+  "dockerfile_sha256": "93b9716dd147ad95c2673af07795fd5c7ce595f91297c757c81163b7895d0776",
+  "package_lock_sha256": "9245f5cc6ee11f663a2e8a98db4d45a39f5e9abe75e3044ab537946edc523378"
 }

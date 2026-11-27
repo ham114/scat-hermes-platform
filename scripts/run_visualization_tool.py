@@ -84,6 +84,7 @@ async def invoke(payload):
         artifacts=analysis_artifact_repository,
         parent_budget_path=path(parent_budget_path) if parent_budget_path else None,
         read_only=True,
+        execution_credentials=False,
     )
     if operation == "list_visualization_sources":
         return {"status": "ok", "data": await app.sources(context, registry)}

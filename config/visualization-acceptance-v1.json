@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {"id":"scat-track","source":"scat","intent":"用实际回执绘制经纬度轨迹与高度随时间的两个子图。标明仅本页前100点、总683点、has_more=true，不得声称完整航班；使用真实字段、原单位，窄屏上下排列。"},
+    {"id":"scat-altitude","source":"scat","intent":"绘制本页高度随时间的折线图，明确时间与高度单位、仅100点且has_more=true；刻度清晰，宽窄屏都不裁切。"},
+    {"id":"scat-sampling","source":"scat","intent":"显示本页轨迹，标注起止点及本页数据范围。不得推断完整飞行阶段或把前100点称为全部683点。经纬度刻度最多3位小数，窄屏也清楚。"},
+    {"id":"scat-preferences","source":"scat","intent":"绘制本页高度时序，注明仅前100点、has_more=true，使用蓝色线、18号字体、图例底部。","preferences":{"palette":"blue","font_size":18,"legend_position":"bottom"}},
+    {"id":"uav-facets","source":"synthetic","intent":"这是一组模拟UAV传感器验收数据。将temperature、pressure、vibration按t_s画为三个独立分面，不共享不同单位的y轴；标题明确模拟数据，缺测留空。"},
+    {"id":"missing-values","source":"synthetic","intent":"使用temperature绘制模拟温度时序。明确模拟数据，null表示缺测并保留断点，不插值，不当作零。"},
+    {"id":"long-labels","source":"synthetic","intent":"对模拟数据的categories/value画横向柱状图，展示完整中文长标签；必须适应390像素窄屏，标题明确模拟数据。"},
+    {"id":"custom-errors","source":"synthetic","intent":"对模拟数据errors绘制均值及上下界误差线，使用ECharts custom series或等价自由代码，不使用固定模板；展示label、low、mean、high并说明模拟数据。"},
+    {"id":"mixed-units","source":"synthetic","intent":"分别绘制模拟温度temperature(摄氏度)与压力pressure(kPa)，使用独立子图和明确单位，不混合共用数值轴。"},
+    {"id":"empty-data","source":"empty","intent":"授权结果为空。画面清楚说明暂无数据、模拟空结果，不编造任何观察或数值；宽窄屏均清晰。"},
+    {"id":"wrong-unit","source":"synthetic","intent":"绘制模拟temperature随t_s变化，温度为摄氏度°C，必须与来源单位一致。","defect":"unit","expected_first":"not_pass"},
+    {"id":"misleading-scale","source":"synthetic","intent":"绘制模拟temperature的柱状图，y轴必须从0开始，避免夸大变化，明确单位摄氏度°C。","defect":"scale","expected_first":"not_pass"}
+  ]
+}

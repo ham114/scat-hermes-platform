@@ -28,7 +28,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "role",
-        choices=["platform", "main", "actions", "worker", "job-control", "author-api", "author"],
+        choices=[
+            "platform",
+            "main",
+            "actions",
+            "worker",
+            "job-control",
+            "author-api",
+            "author",
+            "visualization-worker",
+        ],
     )
     role = parser.parse_args().role
     if not (Path(sys.prefix) / "conda-meta").is_dir():
@@ -54,6 +63,7 @@ def main():
             "--background-port",
             "18128",
         ],
+        "visualization-worker": ["run_visualization_worker.py"],
         "main": [
             "run_hermes_api.py",
             "--profile",
@@ -88,7 +98,7 @@ def main():
         # The native policy validates that these deployment settings only lower
         # its ceilings; model arguments cannot change this environment value.
         commands["main"] += ["--readonly-budget", os.environ["SCAT_READONLY_BUDGET_JSON"]]
-    if role != "worker":
+    if role not in {"worker", "visualization-worker"}:
         os.execv(
             sys.executable,
             [sys.executable, "-B", "scripts/" + commands[role][0], *commands[role][1:]],
@@ -103,7 +113,7 @@ def main():
             body = json.dumps(
                 {
                     "status": "alive" if alive else "failed",
-                    "service": "worker",
+                    "service": role,
                     "readiness_is_not_task_completion": True,
                 }
             ).encode()
@@ -114,7 +124,9 @@ def main():
         def log_message(self, *args):
             pass
 
-    server = ThreadingHTTPServer(("127.0.0.1", 18126), Handler)
+    server = ThreadingHTTPServer(
+        ("127.0.0.1", 18167 if role == "visualization-worker" else 18126), Handler
+    )
     threading.Thread(target=server.serve_forever, daemon=True).start()
     for sig in [signal.SIGTERM, signal.SIGINT]:
         signal.signal(sig, lambda *_: child.terminate() if child.poll() is None else None)

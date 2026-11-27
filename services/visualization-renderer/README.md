@@ -22,4 +22,6 @@ python scripts/run_visualization_worker.py --once
 
 生成脚本仅通过 Blob ES module 在 Chromium 页面执行；Node 只执行固定渲染宿主。容器使用非 root、只读根目录、禁网、移除 capabilities、no-new-privileges、固定 seccomp 和资源限制，Chromium 自身沙箱保持开启。每个候选的宽屏和窄屏图片均检查尺寸、非空白内容和摘要。失败不会发布，也不会在主页面执行生成脚本。
 
+P6 已增加独立 Compose worker、宿主 systemd 启动器、离线预检及备份检查。`runtime.lock.json` 增加 render.mjs、Dockerfile 和 package-lock 的 LF 标准化摘要，实际镜像内宿主及依赖锁已逐项核对。部署方式和真实验收结论见[P6报告](../../docs/VISUALIZATION_RELEASE_REPORT.md)；健康接口只表示进程存活，不证明审核或任务通过。生产开关仍须通过上线门禁后显式启用。
+
 `render_visualization_once.py` 是运维冒烟入口，读取 stdin 中的 `source`、`snapshot`、`viewports`，只在项目内生成测试产物。它没有模型凭据，也不会调用模型。短执行结果只输出到终端；需要恢复和审计的图表、数据快照与调用账本作为业务产物保存。

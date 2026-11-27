@@ -19,6 +19,78 @@ def mount(source, target, readonly=False):
     }
 
 
+def visualization_overlay():
+    """Opt-in queue consumer; the Docker launcher runs on the trusted host."""
+    shared = DEPLOY + "/shared"
+    environment = {
+        "SCAT_VIS_ENABLED": "${SCAT_VIS_ENABLED:-false}",
+        "SCAT_VIS_ARTIFACT_ROOT": "var/deploy/h7b/shared/visualizations",
+        "SCAT_VIS_SANDBOX_IMAGE": "${SCAT_VIS_SANDBOX_IMAGE:-}",
+        "SCAT_VIS_SANDBOX_KEY_FILE": "var/deploy/h7b/secrets/visualization-sandbox.key",
+        "SCAT_VIS_SANDBOX_URL": "http://127.0.0.1:18166",
+        "SCAT_AUTONOMY_CONFIG": "${SCAT_AUTONOMY_CONFIG:-}",
+    }
+    services = {
+        name: {"environment": deepcopy(environment)}
+        for name in ("platform", "actions", "hermes-main")
+    }
+    services["visualization-worker"] = {
+        "image": "${SCAT_BUSINESS_IMAGE}",
+        "command": ["visualization-worker"],
+        "profiles": ["visualization"],
+        "init": True,
+        "network_mode": "host",
+        "user": "1000:1000",
+        "read_only": True,
+        "cap_drop": ["ALL"],
+        "security_opt": ["no-new-privileges:true"],
+        "restart": "unless-stopped",
+        "stop_grace_period": "45s",
+        "pids_limit": 256,
+        "cpus": 1,
+        "mem_limit": "1g",
+        "logging": {"driver": "json-file", "options": {"max-size": "4m", "max-file": "3"}},
+        "environment": environment
+        | {
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "HERMES_TASK_STATE_FILE": "var/deploy/h7b/shared/state/tasks.sqlite",
+            "HERMES_RESULT_STATE_FILE": "var/deploy/h7b/shared/state/results.sqlite",
+        },
+        "env_file": [DEPLOY + "/secrets/visualization-worker.env"],
+        "volumes": [
+            mount(shared, shared),
+            mount(DEPLOY + "/runtime-tmp/visualization-worker", APP + "/.tmp"),
+            mount(
+                DEPLOY + "/secrets/visualization-sandbox.key",
+                DEPLOY + "/secrets/visualization-sandbox.key",
+                True,
+            ),
+        ],
+        "healthcheck": {
+            "test": [
+                "CMD",
+                "/usr/local/bin/scat-python",
+                "-B",
+                "-c",
+                "import urllib.request;urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:18167/health',timeout=4)",
+            ],
+            "interval": "15s",
+            "timeout": "6s",
+            "start_period": "30s",
+            "retries": 3,
+        },
+    }
+    return {
+        "services": services,
+        "x-visualization-launcher": {
+            "mode": "host-systemd",
+            "unit": "scat-visualization-sandbox.service",
+            "endpoint": "http://127.0.0.1:18166",
+            "docker_socket_in_worker": False,
+        },
+    }
+
+
 def main():
     common = {
         "init": True,
@@ -193,6 +265,9 @@ def main():
         }
     }
     (ROOT / "infra/compose/compose.smoke.yaml").write_text(json.dumps(overlay, indent=2) + "\n")
+    (ROOT / "infra/compose/compose.visualization.yaml").write_text(
+        json.dumps(visualization_overlay(), indent=2) + "\n"
+    )
     print(
         json.dumps(
             {"services": list(services), "default_cpu": 5, "optional_author": 2, "gated_gpu": 2}

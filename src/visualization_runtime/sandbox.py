@@ -7,8 +7,8 @@ import struct
 import subprocess
 from pathlib import Path
 
+from visualization_runtime.json_codec import canonical
 from visualization_runtime.paths import confined_path
-from visualization_runtime.store import canonical
 
 SIZES = {"desktop": (1200, 720), "mobile": (390, 640)}
 SECCOMP_SHA = "edcc7ec801fcc0d02257df33ff617212202f8dd82b66227bfb8513d5620761c6"

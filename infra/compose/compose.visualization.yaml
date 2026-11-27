@@ -1,0 +1,127 @@
+{
+  "services": {
+    "platform": {
+      "environment": {
+        "SCAT_VIS_ENABLED": "${SCAT_VIS_ENABLED:-false}",
+        "SCAT_VIS_ARTIFACT_ROOT": "var/deploy/h7b/shared/visualizations",
+        "SCAT_VIS_SANDBOX_IMAGE": "${SCAT_VIS_SANDBOX_IMAGE:-}",
+        "SCAT_VIS_SANDBOX_KEY_FILE": "var/deploy/h7b/secrets/visualization-sandbox.key",
+        "SCAT_VIS_SANDBOX_URL": "http://127.0.0.1:18166",
+        "SCAT_AUTONOMY_CONFIG": "${SCAT_AUTONOMY_CONFIG:-}"
+      }
+    },
+    "actions": {
+      "environment": {
+        "SCAT_VIS_ENABLED": "${SCAT_VIS_ENABLED:-false}",
+        "SCAT_VIS_ARTIFACT_ROOT": "var/deploy/h7b/shared/visualizations",
+        "SCAT_VIS_SANDBOX_IMAGE": "${SCAT_VIS_SANDBOX_IMAGE:-}",
+        "SCAT_VIS_SANDBOX_KEY_FILE": "var/deploy/h7b/secrets/visualization-sandbox.key",
+        "SCAT_VIS_SANDBOX_URL": "http://127.0.0.1:18166",
+        "SCAT_AUTONOMY_CONFIG": "${SCAT_AUTONOMY_CONFIG:-}"
+      }
+    },
+    "hermes-main": {
+      "environment": {
+        "SCAT_VIS_ENABLED": "${SCAT_VIS_ENABLED:-false}",
+        "SCAT_VIS_ARTIFACT_ROOT": "var/deploy/h7b/shared/visualizations",
+        "SCAT_VIS_SANDBOX_IMAGE": "${SCAT_VIS_SANDBOX_IMAGE:-}",
+        "SCAT_VIS_SANDBOX_KEY_FILE": "var/deploy/h7b/secrets/visualization-sandbox.key",
+        "SCAT_VIS_SANDBOX_URL": "http://127.0.0.1:18166",
+        "SCAT_AUTONOMY_CONFIG": "${SCAT_AUTONOMY_CONFIG:-}"
+      }
+    },
+    "visualization-worker": {
+      "image": "${SCAT_BUSINESS_IMAGE}",
+      "command": [
+        "visualization-worker"
+      ],
+      "profiles": [
+        "visualization"
+      ],
+      "init": true,
+      "network_mode": "host",
+      "user": "1000:1000",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "restart": "unless-stopped",
+      "stop_grace_period": "45s",
+      "pids_limit": 256,
+      "cpus": 1,
+      "mem_limit": "1g",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "4m",
+          "max-file": "3"
+        }
+      },
+      "environment": {
+        "SCAT_VIS_ENABLED": "${SCAT_VIS_ENABLED:-false}",
+        "SCAT_VIS_ARTIFACT_ROOT": "var/deploy/h7b/shared/visualizations",
+        "SCAT_VIS_SANDBOX_IMAGE": "${SCAT_VIS_SANDBOX_IMAGE:-}",
+        "SCAT_VIS_SANDBOX_KEY_FILE": "var/deploy/h7b/secrets/visualization-sandbox.key",
+        "SCAT_VIS_SANDBOX_URL": "http://127.0.0.1:18166",
+        "SCAT_AUTONOMY_CONFIG": "${SCAT_AUTONOMY_CONFIG:-}",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HERMES_TASK_STATE_FILE": "var/deploy/h7b/shared/state/tasks.sqlite",
+        "HERMES_RESULT_STATE_FILE": "var/deploy/h7b/shared/state/results.sqlite"
+      },
+      "env_file": [
+        "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/visualization-worker.env"
+      ],
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/shared",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/runtime-tmp/visualization-worker",
+          "target": "/home/h3c/project/python/scat-hermes-platform/.tmp",
+          "read_only": false,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/visualization-sandbox.key",
+          "target": "/home/h3c/project/python/scat-hermes-platform/var/deploy/h7b/secrets/visualization-sandbox.key",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "/usr/local/bin/scat-python",
+          "-B",
+          "-c",
+          "import urllib.request;urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:18167/health',timeout=4)"
+        ],
+        "interval": "15s",
+        "timeout": "6s",
+        "start_period": "30s",
+        "retries": 3
+      }
+    }
+  },
+  "x-visualization-launcher": {
+    "mode": "host-systemd",
+    "unit": "scat-visualization-sandbox.service",
+    "endpoint": "http://127.0.0.1:18166",
+    "docker_socket_in_worker": false
+  }
+}
