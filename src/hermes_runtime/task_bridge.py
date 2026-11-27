@@ -45,6 +45,7 @@ class TaskToolBridge:
                 "run_model_task_tool.py": "tasks",
                 "run_model_step_tool.py": "steps",
                 "run_workflow_tool.py": "workflows",
+                "run_visualization_tool.py": "visualizations",
             }.get(Path(self.script).name)
             if namespace is None:
                 raise ValueError("unreviewed_private_action_namespace")

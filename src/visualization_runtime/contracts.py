@@ -6,6 +6,8 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from schema.analysis import AnalysisResult
+
 Digest = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
 Identity = Annotated[str, Field(pattern=r"^[0-9a-f]{32}$")]
 Viewport = Literal["desktop", "mobile"]
@@ -65,6 +67,59 @@ class VisualizationRequest(Contract):
         if (self.parent_artifact_id is None) != (self.parent_version is None):
             raise ValueError("parent artifact and version must be supplied together")
         return self
+
+
+class CreateVisualization(Contract):
+    request_id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,128}$")
+    intent: str = Field(min_length=1, max_length=8000)
+    data_refs: tuple[SourceReference, ...] = Field(min_length=1, max_length=16)
+
+
+class VisualizationSourceView(SourceReference):
+    operation: str
+
+
+class VisualizationSourceList(Contract):
+    items: list[VisualizationSourceView]
+
+
+class ReviseVisualization(Contract):
+    request_id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,128}$")
+    feedback: str = Field(min_length=1, max_length=4000)
+
+
+class VisualizationTaskView(Contract):
+    task_id: Identity
+    state: Literal["queued", "running", "succeeded", "failed", "cancelled", "needs_reconciliation"]
+    phase: str
+    intent: str
+    created_at: float
+    error_code: str | None = None
+    artifact_id: Identity | None = None
+    parent_artifact_id: Identity | None = None
+    version: int = Field(ge=1)
+
+
+class VisualizationTaskList(Contract):
+    enabled: bool
+    items: list[VisualizationTaskView]
+
+
+class VisualizationArtifactView(Contract):
+    schema_version: Literal[1] = 1
+    artifact_id: Identity
+    task_id: Identity
+    version: int = Field(ge=1)
+    parent_artifact_id: Identity | None = None
+    intent: str
+    created_at: float
+    snapshot_sha256: Digest
+    source_sha256: Digest
+    review_id: Identity
+    viewports: tuple[Viewport, ...]
+    data_refs: tuple[SourceReference, ...]
+    files: dict[str, Digest]
+    analysis_result: AnalysisResult
 
 
 class ReviewIssue(Contract):

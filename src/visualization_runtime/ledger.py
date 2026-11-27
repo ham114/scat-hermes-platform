@@ -89,6 +89,9 @@ class ExecutionLedger:
             ):
                 raise BudgetExceeded("visualization_daily_budget_exceeded")
             identity = uuid4().hex
+            from visualization_runtime.parent_budget import reserve_request
+
+            reserve_request(db, self.jobs, task_id)
             db.execute(
                 "INSERT INTO visualization_provider_calls VALUES(?,?,?,?,?,?,'reserved',?,?,?,?,NULL,NULL,NULL,NULL)",
                 (
@@ -175,6 +178,9 @@ class ExecutionLedger:
                 ),
             )
             if actual is not None and actual > row["reserved_tokens"]:
+                from visualization_runtime.parent_budget import account_overrun
+
+                account_overrun(db, self.jobs, task_id)
                 db.execute(
                     "UPDATE visualization_jobs SET state='needs_reconciliation',"
                     "error_code='provider_reservation_overrun',updated=? WHERE task_id=?",

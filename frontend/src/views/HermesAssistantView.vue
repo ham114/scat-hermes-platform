@@ -14,6 +14,7 @@ import { isPlotRequest } from '@/lib/plotIntent'
 import { conversationStorageKey } from '@/lib/portalSession'
 import { loadConversationPage, validThread, type HistoryTurn } from '@/api/workspace'
 import ModelTaskPanel from '@/components/ModelTaskPanel.vue'
+import VisualizationTaskPanel from '@/components/VisualizationTaskPanel.vue'
 import WorkflowCatalogPanel from '@/components/WorkflowCatalogPanel.vue'
 
 import {
@@ -105,6 +106,7 @@ let alive = true
 let historyGeneration = 0
 let historyController: AbortController | undefined
 const taskRevision = ref(0)
+const hasAutonomousCharts = ref(false)
 const pendingWorkflow = ref<{
   threadId: string
   requestId: string
@@ -152,6 +154,11 @@ async function prepareDirect(proposal: Record<string, unknown>, budget: Record<s
 }
 let controller: AbortController | undefined
 const toolLabels: Record<string, string> = {
+  create_visualization: '创建自主图表',
+  revise_visualization: '修订自主图表',
+  get_visualization_status: '查询图表任务',
+  list_visualizations: '读取历史图表',
+  list_visualization_sources: '核对绘图来源',
   skill_script_run: '执行技能脚本',
   skill_view: '读取技能',
   skills_list: '选择技能',
@@ -223,6 +230,7 @@ function finish(state: HermesRun) {
         >
       )[state.status] ?? state.status
   conversation.value.pending = undefined
+  taskRevision.value++
   save()
 }
 function handle(event: HermesEvent) {
@@ -303,7 +311,7 @@ async function send() {
   if (!canSend.value) return
   const text = input.value.trim()
   const command = displayIntent(text)
-  if (command || isDisplayRequest(text)) {
+  if (!hasAutonomousCharts.value && (command || isDisplayRequest(text))) {
     input.value = ''
     try {
       if (!command)
@@ -585,6 +593,12 @@ onUnmounted(() => {
       :thread-id="conversation.threadId"
       :revision="taskRevision"
       :show-empty="showTasks"
+    />
+    <VisualizationTaskPanel
+      :thread-id="conversation.threadId"
+      :revision="taskRevision"
+      :read-only="readOnlyPreview"
+      @available="hasAutonomousCharts = $event"
     />
     <div ref="messageEnd" />
     <p v-if="error" class="assistant-error" role="alert">{{ error }}</p>

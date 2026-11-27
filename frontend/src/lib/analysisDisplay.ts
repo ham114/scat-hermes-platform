@@ -38,6 +38,13 @@ function validBlock(block: unknown): boolean {
   if (block.type === 'action_link') return text(block.label) && text(block.url)
   if (!text(block.title)) return false
   switch (block.type) {
+    case 'visualization_ref':
+      return (
+        /^[a-f0-9]{32}$/.test(String(block.artifact_id)) &&
+        /^[A-Za-z0-9][A-Za-z0-9_.:@-]{0,127}$/.test(String(block.thread_id)) &&
+        Number.isInteger(block.version) &&
+        Number(block.version) >= 1
+      )
     case 'metrics':
       return list(
         block.items,
@@ -129,7 +136,7 @@ export function parseAnalysisArtifact(payload: unknown, artifactId: string): Ana
     const result = payload.analysis_result
     if (
       !record(result) ||
-      !/^1\.[0-6]$/.test(String(result.schema_version)) ||
+      !/^1\.[0-7]$/.test(String(result.schema_version)) ||
       !['scat', 'uav', 'cross_dataset'].includes(String(result.dataset)) ||
       !text(result.title) ||
       !text(result.operation) ||
@@ -137,6 +144,11 @@ export function parseAnalysisArtifact(payload: unknown, artifactId: string): Ana
       !Array.isArray(result.blocks) ||
       result.blocks.length === 0 ||
       !list(result.blocks, 20, validBlock)
+    )
+      return null
+    if (
+      result.blocks.some((block: unknown) => record(block) && block.type === 'visualization_ref') &&
+      result.schema_version !== '1.7'
     )
       return null
     return result as AnalysisResult

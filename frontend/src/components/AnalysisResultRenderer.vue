@@ -15,6 +15,7 @@ import { defaultDisplay, parseDisplay, displayCommand, displayBlocks } from '@/l
 import { downloadCsv } from '@/utils/evaluationExport'
 import { resultChartInput, resultCsv, validChart, type ChartView } from '@/lib/analysisChart'
 import BaseChart from './BaseChart.vue'
+import VisualizationArtifactView from './VisualizationArtifactView.vue'
 import AnalysisChartView from './AnalysisChartView.vue'
 import AnalysisTrajectoryBlock from './AnalysisTrajectoryBlock.vue'
 import {
@@ -230,7 +231,13 @@ const link = (url: string) => safeAnalysisLink(url, window.location.origin)
           :ordinal="id + 1"
           @change="setChart(id, $event)"
         />
-        <dl v-if="block.type === 'metrics'" class="result-metrics">
+        <VisualizationArtifactView
+          v-if="block.type === 'visualization_ref'"
+          :thread-id="block.thread_id"
+          :artifact-id="block.artifact_id"
+          read-only
+        />
+        <dl v-else-if="block.type === 'metrics'" class="result-metrics">
           <div v-for="item in block.items" :key="item.key">
             <dt>{{ item.label }}</dt>
             <dd>{{ withUnit(scalarLabel(item.value), item.unit) }}</dd>

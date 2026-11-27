@@ -391,6 +391,20 @@ async def serve(args) -> None:
         config["platform_toolsets"]["api_server"] = [
             group for group in config["platform_toolsets"]["api_server"] if group not in disabled
         ]
+    visualization_enabled = (
+        not author_mode
+        and not args.background_job
+        and args.with_skills
+        and str(os.environ.get("SCAT_VIS_ENABLED", values.get("SCAT_VIS_ENABLED", "false"))).lower()
+        in {"true", "1"}
+    )
+    if visualization_enabled:
+        config["platform_toolsets"]["api_server"].append("scat_visualizations")
+        config["platform_hints"]["api_server"]["append"] += (
+            "用户要求自主绘图时先用只读工具取得真实数据，再用 list_visualization_sources 获取真实 data_refs，调用 create_visualization，返回后台任务号。"
+            "后台独立模型负责自由编码、容器绘制和审图；你不能自行宣称审核通过。"
+            "用户修改图时先 list_visualizations 确认目标，再 revise_visualization，保留旧版本。不要轮询等待或重复创建。"
+        )
     config_path = home / "config.yaml"
     if not specification and config_path.exists() and json.loads(config_path.read_text()) != config:
         raise RuntimeError("Existing runtime profile differs; use a separate workspace home")
@@ -619,6 +633,33 @@ async def serve(args) -> None:
         )
         skill_guard.install(native_registry)
 
+    visualization_bridge = None
+    if visualization_enabled:
+        from tools.registry import registry as native_registry
+
+        from hermes_runtime.visualization_bridge import VISUALIZATION_TOOLS, VisualizationBridge
+
+        vis_env = os.environ.copy()
+        vis_env["SCAT_PARENT_BUDGET_PATH"] = str(home / "skill-loads.sqlite")
+        for setting in ("HERMES_STATE_FILE", "HERMES_TASK_STATE_FILE", "HERMES_RESULT_STATE_FILE"):
+            if values.get(setting):
+                vis_env.setdefault(setting, values[setting])
+        visualization_bridge = VisualizationBridge(
+            "/home/h3c/anaconda3/envs/scat-agent/bin/python",
+            ROOT / "scripts/run_visualization_tool.py",
+            env=vis_env,
+        )
+        for schema in visualization_bridge.schemas():
+            native_registry.register(
+                name=schema["name"],
+                toolset="scat_visualizations",
+                schema=schema,
+                handler=visualization_bridge.handler(schema["name"]),
+                execution_timeout=40,
+            )
+            allowed_tools.add(schema["name"])
+        skill_guard.controls = skill_guard.controls | VISUALIZATION_TOOLS
+
     task_bridge = None
     if args.with_model_tasks:
         from tools.registry import registry as native_registry
@@ -813,6 +854,8 @@ async def serve(args) -> None:
                 )
             if task_bridge is not None:
                 task_bridge.bind(agent.session_id, scope, run_id)
+            if visualization_bridge is not None:
+                visualization_bridge.bind(agent.session_id, scope, run_id)
             if workflow_bridge is not None:
                 if args.background_job:
                     capability = background_jobs.bind(

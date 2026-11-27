@@ -44,6 +44,7 @@ _TRANSITIONS = {
 class VisualizationJobStore:
     def __init__(self, path: Path, *, workspace_root: Path, clock=time.time, limits=None):
         self.path = confined_path(workspace_root, path)
+        self.workspace_root = workspace_root.resolve()
         self.clock = clock
         self.limits = limits or ExecutionLimits()
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -52,7 +53,7 @@ class VisualizationJobStore:
                 "CREATE TABLE IF NOT EXISTS visualization_schema(version INTEGER PRIMARY KEY)"
             )
             versions = [r[0] for r in db.execute("SELECT version FROM visualization_schema")]
-            if versions and versions not in ([1], [2], [3]):
+            if versions and versions not in ([1], [2], [3], [4]):
                 raise JobConflict("unsupported_visualization_schema")
             schema = """
                 CREATE TABLE IF NOT EXISTS visualization_jobs(
@@ -81,7 +82,7 @@ class VisualizationJobStore:
                 (self.limits.model_dump_json(), self.limits.wall_seconds),
             )
             db.execute("DELETE FROM visualization_schema")
-            db.execute("INSERT INTO visualization_schema VALUES(3)")
+            db.execute("INSERT INTO visualization_schema VALUES(4)")
         self.path.chmod(0o600)
 
     @contextmanager
@@ -128,7 +129,14 @@ class VisualizationJobStore:
 
             fence_pending_calls(db, row["task_id"], self.clock())
 
-    def create(self, context: ExecutionContext, request_id: str, request: VisualizationRequest):
+    def create(
+        self,
+        context: ExecutionContext,
+        request_id: str,
+        request: VisualizationRequest,
+        *,
+        parent=None,
+    ):
         if not isinstance(request_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", request_id):
             raise ValueError("invalid_visualization_request_id")
         raw = canonical(request.model_dump(mode="json"))
@@ -144,6 +152,9 @@ class VisualizationJobStore:
                     raise JobConflict("visualization_request_id_conflict")
                 return decoded
             task_id, now = uuid4().hex, self.clock()
+            from visualization_runtime.parent_budget import reserve
+
+            reserve(db, self, context, task_id, parent)
             db.execute(
                 "INSERT INTO visualization_jobs(task_id,owner,thread,request_id,request,"
                 "request_sha,state,phase,created,updated) VALUES(?,?,?,?,?,?,'queued',"

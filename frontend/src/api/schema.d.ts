@@ -813,6 +813,176 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/hermes/threads/{thread_id}/visualizations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create */
+        post: operations["create_api_v1_hermes_threads__thread_id__visualizations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/threads/{thread_id}/visualization-sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Sources */
+        get: operations["sources_api_v1_hermes_threads__thread_id__visualization_sources_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/threads/{thread_id}/visualization-tasks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Tasks */
+        get: operations["list_tasks_api_v1_hermes_threads__thread_id__visualization_tasks_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/threads/{thread_id}/visualization-tasks/{task_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Status */
+        get: operations["status_api_v1_hermes_threads__thread_id__visualization_tasks__task_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/threads/{thread_id}/visualization-tasks/{task_id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel */
+        post: operations["cancel_api_v1_hermes_threads__thread_id__visualization_tasks__task_id__cancel_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/threads/{thread_id}/visualizations/{artifact_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Artifact */
+        get: operations["artifact_api_v1_hermes_threads__thread_id__visualizations__artifact_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/threads/{thread_id}/visualizations/{artifact_id}/revisions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Revise */
+        post: operations["revise_api_v1_hermes_threads__thread_id__visualizations__artifact_id__revisions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/threads/{thread_id}/visualizations/{artifact_id}/files/{file_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** File */
+        get: operations["file_api_v1_hermes_threads__thread_id__visualizations__artifact_id__files__file_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/threads/{thread_id}/visualization-sources/revoke": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Revoke Source */
+        post: operations["revoke_source_api_v1_hermes_threads__thread_id__visualization_sources_revoke_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/hermes/threads/{thread_id}/runs/{run_id}/results/{result_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Source */
+        delete: operations["delete_source_api_v1_hermes_threads__thread_id__runs__run_id__results__result_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1070,7 +1240,7 @@ export interface components {
              * @default 1.0
              * @enum {string}
              */
-            schema_version: "1.0" | "1.1" | "1.2" | "1.3" | "1.4" | "1.5" | "1.6";
+            schema_version: "1.0" | "1.1" | "1.2" | "1.3" | "1.4" | "1.5" | "1.6" | "1.7";
             /**
              * Dataset
              * @enum {string}
@@ -1087,7 +1257,7 @@ export interface components {
                 [key: string]: components["schemas"]["AnalysisScalar"];
             };
             /** Blocks */
-            blocks: (components["schemas"]["MetricsBlock"] | components["schemas"]["TableBlock"] | components["schemas"]["TimeSeriesBlock"] | components["schemas"]["Trajectory2dBlock"] | components["schemas"]["ClassificationBlock"] | components["schemas"]["PredictionBlock"] | components["schemas"]["ActionLinkBlock"])[];
+            blocks: (components["schemas"]["MetricsBlock"] | components["schemas"]["TableBlock"] | components["schemas"]["TimeSeriesBlock"] | components["schemas"]["Trajectory2dBlock"] | components["schemas"]["ClassificationBlock"] | components["schemas"]["PredictionBlock"] | components["schemas"]["ActionLinkBlock"] | components["schemas"]["VisualizationRefBlock"])[];
         };
         AnalysisScalar: string | number | boolean | null;
         /**
@@ -3149,6 +3319,143 @@ export interface components {
             metadata?: unknown | null;
         } & {
             [key: string]: unknown;
+        };
+        /** CreateVisualization */
+        CreateVisualization: {
+            /** Request Id */
+            request_id: string;
+            /** Intent */
+            intent: string;
+            /** Data Refs */
+            data_refs: components["schemas"]["SourceReference"][];
+        };
+        /** ReviseVisualization */
+        ReviseVisualization: {
+            /** Request Id */
+            request_id: string;
+            /** Feedback */
+            feedback: string;
+        };
+        /** SourceReference */
+        SourceReference: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "readonly_result" | "analysis_artifact";
+            /** Source Id */
+            source_id: string;
+            /** Run Id */
+            run_id: string;
+            /** Payload Sha256 */
+            payload_sha256: string;
+        };
+        /** VisualizationArtifactView */
+        VisualizationArtifactView: {
+            /**
+             * Schema Version
+             * @default 1
+             * @constant
+             */
+            schema_version: 1;
+            /** Artifact Id */
+            artifact_id: string;
+            /** Task Id */
+            task_id: string;
+            /** Version */
+            version: number;
+            /** Parent Artifact Id */
+            parent_artifact_id?: string | null;
+            /** Intent */
+            intent: string;
+            /** Created At */
+            created_at: number;
+            /** Snapshot Sha256 */
+            snapshot_sha256: string;
+            /** Source Sha256 */
+            source_sha256: string;
+            /** Review Id */
+            review_id: string;
+            /** Viewports */
+            viewports: ("desktop" | "mobile")[];
+            /** Data Refs */
+            data_refs: components["schemas"]["SourceReference"][];
+            /** Files */
+            files: {
+                [key: string]: string;
+            };
+            analysis_result: components["schemas"]["AnalysisResult"];
+        };
+        /**
+         * VisualizationRefBlock
+         * @description Reference only; generated code/data never become deterministic blocks.
+         */
+        VisualizationRefBlock: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "visualization_ref";
+            /** Title */
+            title: string;
+            /** Artifact Id */
+            artifact_id: string;
+            /** Thread Id */
+            thread_id: string;
+            /** Version */
+            version: number;
+        };
+        /** VisualizationTaskList */
+        VisualizationTaskList: {
+            /** Enabled */
+            enabled: boolean;
+            /** Items */
+            items: components["schemas"]["VisualizationTaskView"][];
+        };
+        /** VisualizationTaskView */
+        VisualizationTaskView: {
+            /** Task Id */
+            task_id: string;
+            /**
+             * State
+             * @enum {string}
+             */
+            state: "queued" | "running" | "succeeded" | "failed" | "cancelled" | "needs_reconciliation";
+            /** Phase */
+            phase: string;
+            /** Intent */
+            intent: string;
+            /** Created At */
+            created_at: number;
+            /** Error Code */
+            error_code?: string | null;
+            /** Artifact Id */
+            artifact_id?: string | null;
+            /** Parent Artifact Id */
+            parent_artifact_id?: string | null;
+            /** Version */
+            version: number;
+        };
+        /** VisualizationSourceList */
+        VisualizationSourceList: {
+            /** Items */
+            items: components["schemas"]["VisualizationSourceView"][];
+        };
+        /** VisualizationSourceView */
+        VisualizationSourceView: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "readonly_result" | "analysis_artifact";
+            /** Source Id */
+            source_id: string;
+            /** Run Id */
+            run_id: string;
+            /** Payload Sha256 */
+            payload_sha256: string;
+            /** Operation */
+            operation: string;
         };
     };
     responses: never;
@@ -5516,6 +5823,356 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ChatHistory"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_api_v1_hermes_threads__thread_id__visualizations_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path: {
+                thread_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateVisualization"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VisualizationTaskView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    sources_api_v1_hermes_threads__thread_id__visualization_sources_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path: {
+                thread_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VisualizationSourceList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_tasks_api_v1_hermes_threads__thread_id__visualization_tasks_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path: {
+                thread_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VisualizationTaskList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    status_api_v1_hermes_threads__thread_id__visualization_tasks__task_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path: {
+                thread_id: string;
+                task_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VisualizationTaskView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cancel_api_v1_hermes_threads__thread_id__visualization_tasks__task_id__cancel_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path: {
+                thread_id: string;
+                task_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VisualizationTaskView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    artifact_api_v1_hermes_threads__thread_id__visualizations__artifact_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path: {
+                thread_id: string;
+                artifact_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VisualizationArtifactView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    revise_api_v1_hermes_threads__thread_id__visualizations__artifact_id__revisions_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path: {
+                thread_id: string;
+                artifact_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReviseVisualization"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VisualizationTaskView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    file_api_v1_hermes_threads__thread_id__visualizations__artifact_id__files__file_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path: {
+                thread_id: string;
+                artifact_id: string;
+                file_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    revoke_source_api_v1_hermes_threads__thread_id__visualization_sources_revoke_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path: {
+                thread_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SourceReference"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_source_api_v1_hermes_threads__thread_id__runs__run_id__results__result_id__delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Authenticated-User"?: string | null;
+            };
+            path: {
+                thread_id: string;
+                run_id: string;
+                result_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */

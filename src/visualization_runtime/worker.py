@@ -99,6 +99,20 @@ class VisualizationWorker:
                     },
                     {"role": "user", "content": evidence},
                 ]
+                if attempt is None and request.parent_artifact_id:
+                    messages.append(
+                        {
+                            "role": "user",
+                            "content": canonical(
+                                {
+                                    "previous_source": self.publisher.read_file(
+                                        context, request.parent_artifact_id, "source.js"
+                                    ).decode(),
+                                    "instruction": "Revise this previously approved chart according to the user's current intent; preserve the authorized data scope.",
+                                }
+                            ),
+                        }
+                    )
                 if attempt and feedback:
                     messages.append(
                         {

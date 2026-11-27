@@ -167,6 +167,15 @@ class ToolResultStore:
             ).fetchall()
         return [self.reference(row) for row in rows]
 
+    def delete(self, scope_key, run_id, result_id):
+        """Explicit deletion only; caller first durably revokes derived snapshots."""
+        self.get(scope_key, run_id, result_id)
+        with closing(self._connect()) as conn, conn:
+            conn.execute(
+                "DELETE FROM tool_results WHERE result_id=? AND scope_key=? AND run_id=?",
+                (result_id, scope_key, run_id),
+            )
+
 
 def publish_tool_result(store, *, scope_key, run_id, call_id, tool, result):
     """Input comes from the pinned agent's completion callback, never model text."""

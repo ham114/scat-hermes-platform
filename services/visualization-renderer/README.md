@@ -18,7 +18,7 @@ python scripts/run_visualization_sandbox.py --image sha256:YOUR_IMAGE_ID
 python scripts/run_visualization_worker.py --once
 ```
 
-启动 worker 前须配置两家 API、同一任务数据库与产物目录，显式启用 `SCAT_VIS_ENABLED=true`。服务默认仅监听 `127.0.0.1:18166`；受信服务持有 Docker 权限，worker 只通过携带独立 Bearer key 的内部接口发送任务 ID、代次和候选 ID。模型不能指定任意路径、镜像或 Docker 参数。正式 API 和主 Agent 工具入口在 P4 接入。
+启动 worker 前须配置两家 API、同一任务数据库与产物目录，显式启用 `SCAT_VIS_ENABLED=true`。服务默认仅监听 `127.0.0.1:18166`；受信服务持有 Docker 权限，worker 只通过携带独立 Bearer key 的内部接口发送任务 ID、代次和候选 ID。模型不能指定任意路径、镜像或 Docker 参数。P4 已接入平台 API、主 Agent 工具与图表卡片；平台还须将 `SCAT_VIS_PARENT_BUDGET_PATH`（或既有 `SCAT_PARENT_BUDGET_PATH`）指向实际主 profile 的预算数据库，原生工具自动绑定自己的 home。生产开关继续关闭至 P6 部署验收。
 
 生成脚本仅通过 Blob ES module 在 Chromium 页面执行；Node 只执行固定渲染宿主。容器使用非 root、只读根目录、禁网、移除 capabilities、no-new-privileges、固定 seccomp 和资源限制，Chromium 自身沙箱保持开启。每个候选的宽屏和窄屏图片均检查尺寸、非空白内容和摘要。失败不会发布，也不会在主页面执行生成脚本。
 

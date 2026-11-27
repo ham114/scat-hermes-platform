@@ -17,7 +17,7 @@
 
 ## 自主绘图与视觉审核配置准备
 
-详细设计与阶段记录见[自主可视化实施计划](AUTONOMOUS_VISUALIZATION_PLAN.md)。P0 至 P3 后端已实现并验收，包含授权快照、调用账本、Docker 渲染、独立视觉审核、修订与发布门禁。对话工具和前端入口留在 P4；填写变量不会自动启动服务或启用绘图。
+详细设计与阶段记录见[自主可视化实施计划](AUTONOMOUS_VISUALIZATION_PLAN.md)。P0 至 P4 已实现，包含授权快照、调用账本、Docker 渲染、独立视觉审核、修订与发布门禁，以及对话工具、API 和前端图表卡片；填写变量不会自动启动服务。生产部署验收留在 P6。
 
 在项目根目录 `.env` 中分别配置 `SCAT_VIS_CODE_API_KEY`、`SCAT_VIS_CODE_BASE_URL`、`SCAT_VIS_CODE_MODEL`，用于独立 DS 绘图代码生成；配置 `SCAT_VIS_REVIEW_API_KEY`、`SCAT_VIS_REVIEW_BASE_URL`、`SCAT_VIS_REVIEW_MODEL`，用于 Qwen 图片审核。审核模型使用 `qwen3.7-plus`，DS 模型示例为 `deepseek-flash`，应与账号实际可用 ID 一致。两套凭据与主 Agent 配置独立，无隐式回退。
 
@@ -25,11 +25,13 @@
 
 在已有 Conda 环境运行 `python scripts/check_visualization_apis.py` 只检查配置；加 `--live` 每家发起一次小请求，无自动重试。只测试一家使用 `--live --role code` 或 `--live --role review`。短结果默认只输出，明确传入 `--save-report` 才写入 `output/visualization-api-preflight/`。报告中的 `feature_enabled=false` 不妨碍显式预检；预检不会启用正式绘图。
 
-新增可选上限 `SCAT_VIS_DAILY_PROVIDER_REQUESTS=100`、`SCAT_VIS_DAILY_TOKENS=600000`、`SCAT_VIS_TASK_TIMEOUT_SECONDS=900`，未填写时使用这些默认值。每日上限按 UTC 日、所属用户共享计量；同一任务的预算和截止时间在创建时冻结，重启不会重置。生成器和审核器共用绘图任务预算，未知调用保留预留占用。与主 Agent 父预算的联动将在正式工具桥接入时完成。
+新增可选上限 `SCAT_VIS_DAILY_PROVIDER_REQUESTS=100`、`SCAT_VIS_DAILY_TOKENS=600000`、`SCAT_VIS_TASK_TIMEOUT_SECONDS=900`，未填写时使用这些默认值。每日上限按 UTC 日、所属用户共享计量；同一任务的预算和截止时间在创建时冻结，重启不会重置。生成器和审核器共用绘图任务预算，未知调用保留预留占用。P4 在父对话原预算中原子预留整份图表 token 上限，并逐次占用父请求次数；保守预留不自动退款，供应商实际用量单独保存。
 
 保留 `SCAT_VIS_ENABLED=false`，直至链路和审核门禁验收通过。容器部署时须显式把变量注入受信 worker；仅填写宿主机 `.env` 不代表容器已经获得配置。绘图沙箱不接收上述密钥。
 
-P2/P3 增加 `SCAT_VIS_SANDBOX_IMAGE`（固定 `sha256:...` 镜像 ID）、`SCAT_VIS_SANDBOX_URL`（默认 `http://127.0.0.1:18166`）、`SCAT_VIS_SANDBOX_KEY_FILE`（项目内权限 600 的独立服务凭据路径）。受信启动服务持有 Docker 权限，worker 经内部鉴权接口提交已登记任务，不传任意路径或 Docker 参数。构建与启动方式见[渲染器说明](../services/visualization-renderer/README.md)。生产开关本轮仍关闭，P4 接入后再按部署步骤启用。
+P2/P3 增加 `SCAT_VIS_SANDBOX_IMAGE`（固定 `sha256:...` 镜像 ID）、`SCAT_VIS_SANDBOX_URL`（默认 `http://127.0.0.1:18166`）、`SCAT_VIS_SANDBOX_KEY_FILE`（项目内权限 600 的独立服务凭据路径）。受信启动服务持有 Docker 权限，worker 经内部鉴权接口提交已登记任务，不传任意路径或 Docker 参数。构建与启动方式见[渲染器说明](../services/visualization-renderer/README.md)。生产开关仍关闭，完成 P6 部署验收后启用。
+
+P4 的平台 API 还需 `SCAT_VIS_PARENT_BUDGET_PATH`，指向实际 `scat-main` profile 的项目内 `skill-loads.sqlite`；如部署已注入 `SCAT_PARENT_BUDGET_PATH` 则优先复用。原生工具自动绑定自己的实际 home。缺少该预算文件时创建/修订拒绝，读取历史图不需要两家 API key 或父预算文件。前端与主应用不执行绘图代码，所有图表显示及 PNG 下载均读取已审核文件；`source.js` 强制以纯文本附件下载。
 
 ## RAG 生产组合与开关
 

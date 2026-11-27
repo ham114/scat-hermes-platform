@@ -273,6 +273,16 @@ class ActionLinkBlock(AnalysisModel):
         return value
 
 
+class VisualizationRefBlock(AnalysisModel):
+    """Reference only; generated code/data never become deterministic blocks."""
+
+    type: Literal["visualization_ref"] = "visualization_ref"
+    title: str = Field(min_length=1, max_length=200)
+    artifact_id: str = Field(pattern=r"^[0-9a-f]{32}$")
+    thread_id: str = Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:@-]{0,127}$")
+    version: int = Field(ge=1)
+
+
 AnalysisBlock = Annotated[
     MetricsBlock
     | TableBlock
@@ -280,7 +290,8 @@ AnalysisBlock = Annotated[
     | Trajectory2dBlock
     | ClassificationBlock
     | PredictionBlock
-    | ActionLinkBlock,
+    | ActionLinkBlock
+    | VisualizationRefBlock,
     Field(discriminator="type"),
 ]
 
@@ -288,7 +299,7 @@ AnalysisBlock = Annotated[
 class AnalysisResult(AnalysisModel):
     """A complete, independently renderable analysis result."""
 
-    schema_version: Literal["1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6"] = "1.0"
+    schema_version: Literal["1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7"] = "1.0"
     dataset: Literal["scat", "uav", "cross_dataset"]
     operation: str = Field(min_length=1, max_length=100)
     title: str = Field(min_length=1, max_length=200)
@@ -325,7 +336,7 @@ class AnalysisResult(AnalysisModel):
         timeseries = [block for block in self.blocks if isinstance(block, TimeSeriesBlock)]
         if timeseries and self.schema_version == "1.0":
             raise ValueError("timeseries blocks require schema_version 1.1 or newer")
-        if timeseries and self.schema_version in {"1.2", "1.3", "1.4", "1.5", "1.6"}:
+        if timeseries and self.schema_version in {"1.2", "1.3", "1.4", "1.5", "1.6", "1.7"}:
             if self.start_time is None:
                 raise ValueError(
                     f"schema_version {self.schema_version} timeseries require start_time"
@@ -342,7 +353,7 @@ class AnalysisResult(AnalysisModel):
         )
         if any(
             isinstance(block, new_block_types) for block in self.blocks
-        ) and self.schema_version not in {"1.3", "1.4", "1.5", "1.6"}:
+        ) and self.schema_version not in {"1.3", "1.4", "1.5", "1.6", "1.7"}:
             raise ValueError(
                 "trajectory_2d/classification/prediction/action_link blocks "
                 "require schema_version 1.3 or newer"
@@ -350,16 +361,17 @@ class AnalysisResult(AnalysisModel):
         if any(
             isinstance(block, Trajectory2dBlock) and block.snapshot_key is not None
             for block in self.blocks
-        ) and self.schema_version not in {"1.5", "1.6"}:
+        ) and self.schema_version not in {"1.5", "1.6", "1.7"}:
             raise ValueError("trajectory_2d snapshot grouping requires schema_version 1.5")
-        if (
-            any(
-                isinstance(block, Trajectory2dBlock) and len(block.series) > 2
-                for block in self.blocks
-            )
-            and self.schema_version != "1.6"
-        ):
+        if any(
+            isinstance(block, Trajectory2dBlock) and len(block.series) > 2 for block in self.blocks
+        ) and self.schema_version not in {"1.6", "1.7"}:
             raise ValueError("trajectory_2d third series requires schema_version 1.6")
+        if (
+            any(isinstance(block, VisualizationRefBlock) for block in self.blocks)
+            and self.schema_version != "1.7"
+        ):
+            raise ValueError("visualization_ref requires schema_version 1.7")
         return self
 
 
@@ -403,5 +415,6 @@ __all__ = [
     "TimeSeriesSeries",
     "Trajectory2dBlock",
     "Trajectory2dSeries",
+    "VisualizationRefBlock",
     "extract_analysis_result",
 ]

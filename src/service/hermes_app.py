@@ -97,6 +97,24 @@ async def lifespan(app: FastAPI):
             workflows_enabled=settings.HERMES_WORKFLOWS_ENABLED,
         )
     app.state.hermes_runtime = runtime
+    import os
+
+    from application.visualization_tasks import create_visualization_tasks
+    from visualization_runtime.settings import load_settings
+
+    visualization_settings = load_settings(ROOT)
+    parent_budget_path = (
+        os.environ.get("SCAT_PARENT_BUDGET_PATH") or visualization_settings.parent_budget_path
+    )
+    app.state.visualization_tasks = create_visualization_tasks(
+        ROOT,
+        project_path(settings.HERMES_TASK_STATE_FILE),
+        visualization_settings,
+        runtime.results,
+        artifacts=app.state.model_tasks.artifacts,
+        parent_budget_path=Path(parent_budget_path) if parent_budget_path else None,
+        read_only=True,
+    )
     app.state.memory_runtime = memory
     if memory:
         memory.start()
@@ -106,6 +124,7 @@ async def lifespan(app: FastAPI):
     finally:
         shutdown_production_model_runtime()
         app.state.model_tasks = None
+        app.state.visualization_tasks = None
         app.state.hermes_runtime = None
         app.state.memory_runtime = None
         if memory:
@@ -129,6 +148,9 @@ for business_router in [analysis_router, materialization_router, scat_router, ua
 app.include_router(hermes_router)
 app.include_router(model_task_router)
 app.include_router(workflow_router)
+from service.visualization_api import router as visualization_router
+
+app.include_router(visualization_router)
 from service.memory_api import router as memory_router
 
 app.include_router(memory_router)

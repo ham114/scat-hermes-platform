@@ -7,6 +7,9 @@ def migrate_foundation(db):
     }:
         db.execute("ALTER TABLE visualization_jobs ADD COLUMN resume_phase TEXT")
     schema = """
+        CREATE TABLE IF NOT EXISTS visualization_parent_allocations(
+            task_id TEXT PRIMARY KEY, scope TEXT NOT NULL, run_id TEXT NOT NULL,
+            path TEXT NOT NULL, reserved_requests INTEGER NOT NULL, reserved_tokens INTEGER NOT NULL);
         CREATE TABLE IF NOT EXISTS visualization_job_budgets(
             task_id TEXT PRIMARY KEY, limits_json TEXT NOT NULL, deadline REAL NOT NULL);
         CREATE TABLE IF NOT EXISTS visualization_snapshots(

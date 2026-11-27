@@ -51,6 +51,7 @@ class VisualizationSettings(BaseSettings):
     sandbox_image: str | None = Field(default=None, pattern=r"^sha256:[0-9a-f]{64}$")
     sandbox_url: str = "http://127.0.0.1:18166"
     sandbox_key_file: str = "var/secrets/visualization-sandbox.key"
+    parent_budget_path: str | None = None
 
     def execution_limits(self):
         from visualization_runtime.contracts import ExecutionLimits

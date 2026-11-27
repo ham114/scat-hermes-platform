@@ -16,6 +16,7 @@ SCRIPTS = {
     "tasks": "run_model_task_tool.py",
     "steps": "run_model_step_tool.py",
     "workflows": "run_workflow_tool.py",
+    "visualizations": "run_visualization_tool.py",
 }
 
 
@@ -30,6 +31,7 @@ def role_for(headers, keys):
 def allowed(role, namespace, payload):
     from hermes_runtime.model_step_bridge import MODEL_STEP_TOOLS
     from hermes_runtime.task_bridge import TASK_TOOLS
+    from hermes_runtime.visualization_bridge import VISUALIZATION_TOOLS
     from workflow_runtime.catalog import CONTROLS, OPERATIONS
 
     if not isinstance(payload, dict) or set(payload) - {
@@ -51,6 +53,7 @@ def allowed(role, namespace, payload):
         return "job_session" not in payload and (
             (namespace == "tasks" and operation in TASK_TOOLS)
             or (namespace == "workflows" and operation in CONTROLS)
+            or (namespace == "visualizations" and operation in VISUALIZATION_TOOLS)
         )
     return (
         role == "worker"
