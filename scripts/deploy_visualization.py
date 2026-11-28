@@ -216,6 +216,17 @@ def prepare():
 def build():
     for role in UPDATED:
         print("Building " + role, flush=True)
+        # BuildKit interprets a bare sha256:ID as a repository named 'sha256'.
+        # Pin a local tag to the inspected image ID before resolving FROM.
+        base = IMAGE_PREFIX + "-base-" + role + ":20261128"
+        run(["docker", "tag", read(STATE / "before.json")["images"][role], base])
+        (STATE / "build" / (role + ".Dockerfile")).write_text(
+            "FROM "
+            + base
+            + "\nUSER root\nCOPY --chown=1000:1000 overlay/ "
+            + str(ROOT)
+            + "/\nUSER 1000:1000\n"
+        )
         run(
             [
                 "docker",

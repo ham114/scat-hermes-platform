@@ -104,3 +104,23 @@ def test_old_entrypoint_mount_cannot_hide_new_native_role_code(active):
         mount["target"] != (deployment.ROOT / "scripts/run_container_service.py").as_posix()
         for mount in result["services"]["hermes-main"]["volumes"]
     )
+
+
+def test_build_pins_local_base_before_offline_build(tmp_path, monkeypatch):
+    monkeypatch.setattr(deployment, "STATE", tmp_path)
+    (tmp_path / "build").mkdir()
+    images = {role: "sha256:" + str(i) * 64 for i, role in enumerate(deployment.UPDATED, 1)}
+    deployment.save(tmp_path / "before.json", {"images": images})
+    commands = []
+    monkeypatch.setattr(deployment, "run", lambda args, **kwargs: commands.append(args) or "")
+    deployment.build()
+    for role in deployment.UPDATED:
+        tag = deployment.IMAGE_PREFIX + "-base-" + role + ":20261128"
+        assert ["docker", "tag", images[role], tag] in commands
+        assert (tmp_path / "build" / (role + ".Dockerfile")).read_text().splitlines()[
+            0
+        ] == "FROM " + tag
+    builds = [command for command in commands if command[:2] == ["docker", "build"]]
+    assert len(builds) == 3 and all(
+        "--pull=false" in command and "--network=none" in command for command in builds
+    )
