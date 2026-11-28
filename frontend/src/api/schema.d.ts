@@ -3524,6 +3524,8 @@ export interface components {
             created_at: number;
             /** Error Code */
             error_code?: string | null;
+            /** Error Message */
+            error_message?: string | null;
             /** Artifact Id */
             artifact_id?: string | null;
             /** Parent Artifact Id */

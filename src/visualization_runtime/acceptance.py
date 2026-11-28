@@ -161,7 +161,10 @@ class RemoteSandbox:
         except (subprocess.TimeoutExpired, OSError, ValueError):
             raise RenderError("acceptance_transport_unavailable") from None
         if result.returncode:
-            raise RenderError(value.get("error", "acceptance_transport_unavailable"))
+            raise RenderError(
+                value.get("error", "acceptance_transport_unavailable"),
+                detail=value.get("diagnostic"),
+            )
         return value
 
     def render(self, name, directory, request):

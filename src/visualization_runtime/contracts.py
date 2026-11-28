@@ -122,6 +122,7 @@ class VisualizationTaskView(Contract):
     intent: str
     created_at: float
     error_code: str | None = None
+    error_message: str | None = None
     artifact_id: Identity | None = None
     parent_artifact_id: Identity | None = None
     version: int = Field(ge=1)

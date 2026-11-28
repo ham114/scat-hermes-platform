@@ -35,7 +35,10 @@ def main():
         print(json.dumps(result))
         return 0
     except RenderError as error:
-        print(json.dumps({"state": "failed", "error": str(error)}))
+        result = {"state": "failed", "error": str(error)}
+        if error.diagnostic:
+            result["diagnostic"] = error.diagnostic
+        print(json.dumps(result))
         return 1
 
 

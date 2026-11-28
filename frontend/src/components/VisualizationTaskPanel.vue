@@ -281,7 +281,9 @@ async function cancel(task: string) {
       </p>
       <template v-if="task.state !== 'succeeded'">
         <p>{{ task.intent }}</p>
-        <p v-if="task.error_code">图表未交付（{{ task.error_code }}）。已发布版本仍可查看。</p>
+        <p v-if="task.error_code">
+          {{ task.error_message || '图表未交付' }}（{{ task.error_code }}）。已发布版本仍可查看。
+        </p>
         <button
           v-if="['queued', 'running'].includes(task.state)"
           :disabled="acting || readOnly"

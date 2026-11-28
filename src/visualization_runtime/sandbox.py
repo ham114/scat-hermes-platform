@@ -9,13 +9,16 @@ from pathlib import Path
 
 from visualization_runtime.json_codec import canonical
 from visualization_runtime.paths import confined_path
+from visualization_runtime.render_diagnostics import diagnostic
 
 SIZES = {"desktop": (1200, 720), "mobile": (390, 640)}
 SECCOMP_SHA = "edcc7ec801fcc0d02257df33ff617212202f8dd82b66227bfb8513d5620761c6"
 
 
 class RenderError(RuntimeError):
-    pass
+    def __init__(self, code, *, detail=None):
+        super().__init__(code)
+        self.diagnostic = diagnostic(detail)
 
 
 def file_bytes(path, *, maximum=15 * 1024 * 1024):
@@ -139,11 +142,19 @@ class DockerSandbox:
             if result.returncode:
                 raise RenderError("sandbox_create_failed")
             result = self._run(["start", "--attach", name], timeout=self.timeout)
-            if result.returncode:
-                raise RenderError("render_execution_failed")
-            manifest = json.loads(file_bytes(outputs / "manifest.json", maximum=16384))
-            if manifest.get("state") != "rendered":
-                raise RenderError("render_execution_failed")
+            try:
+                manifest = json.loads(file_bytes(outputs / "manifest.json", maximum=16384))
+            except (RenderError, OSError, ValueError):
+                if result.returncode:
+                    raise RenderError("render_execution_failed") from None
+                raise
+            if not isinstance(manifest, dict):
+                raise RenderError("render_output_invalid")
+            if result.returncode or manifest.get("state") != "rendered":
+                detail = diagnostic(
+                    manifest.get("diagnostic"), source_lines=request["source"].count("\n") + 1
+                )
+                raise RenderError("render_execution_failed", detail=detail)
             images = manifest.get("images", [])
             if len(images) != len(request["viewports"]) or {
                 i.get("viewport") for i in images

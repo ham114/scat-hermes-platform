@@ -41,6 +41,25 @@ beforeEach(() => {
   vi.mocked(readVisualization).mockResolvedValue(artifact as never)
 })
 describe('autonomous chart delivery', () => {
+  it('explains render failure without describing it as a review rejection', async () => {
+    vi.mocked(listVisualizations).mockResolvedValue({
+      enabled: true,
+      items: [
+        {
+          ...task,
+          state: 'failed',
+          artifact_id: undefined,
+          error_code: 'render_not_passed',
+          error_message: '绘图脚本在渲染阶段执行失败，自动修订次数已用尽，未进入本候选的视觉审核。',
+        },
+      ],
+    } as never)
+    const wrapper = mount(VisualizationTaskPanel, { props: { threadId: 'thread' } })
+    await flushPromises()
+    expect(wrapper.text()).toContain('未进入本候选的视觉审核')
+    expect(wrapper.text()).toContain('render_not_passed')
+    wrapper.unmount()
+  })
   it('submits the generic memory version with feedback without specialized endpoints', async () => {
     vi.mocked(readMemoryVersion).mockResolvedValue({ enabled: true, epoch: 3, revision: 8 })
     vi.mocked(reviseVisualization).mockResolvedValue(task as never)

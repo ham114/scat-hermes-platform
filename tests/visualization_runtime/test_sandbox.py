@@ -26,6 +26,26 @@ def sandbox(tmp_path, *, mode="ok"):
         if args[1] == "start":
             if mode == "timeout":
                 raise subprocess.TimeoutExpired(args, 1)
+            if mode == "diagnostic":
+                (output / "manifest.json").write_text(
+                    json.dumps(
+                        {
+                            "state": "failed",
+                            "error": "render_execution_failed",
+                            "diagnostic": {
+                                "stage": "render",
+                                "viewport": "desktop",
+                                "error_type": "TypeError",
+                                "message_code": "missing_property",
+                                "receiver": "undefined",
+                                "property": "every_nth",
+                                "source_line": 7,
+                                "source_column": 35,
+                            },
+                        }
+                    )
+                )
+                return SimpleNamespace(returncode=1, stdout="untrusted raw output never forwarded")
             images = []
             for viewport, (width, height) in SIZES.items():
                 (output / (viewport + ".png")).write_bytes(png(viewport))
@@ -111,3 +131,22 @@ def test_daemon_failure_is_not_evidence_of_cleanup(tmp_path):
     assert runner.stopped("vis-" + "a" * 32 + "-g1") is False
     with pytest.raises(ValueError):
         runner.stopped("production-container")
+
+
+def test_nonzero_exit_preserves_bounded_diagnostic_before_cleanup(tmp_path):
+    runner, calls = sandbox(tmp_path, mode="diagnostic")
+    with pytest.raises(RenderError) as caught:
+        runner.render(
+            "vis-" + "a" * 32 + "-g1",
+            tmp_path / "case",
+            {
+                "source": "\n" * 7,
+                "snapshot": {},
+                "viewports": ["desktop", "mobile"],
+            },
+        )
+    assert str(caught.value) == "render_execution_failed"
+    assert caught.value.diagnostic["source_line"] == 7
+    assert caught.value.diagnostic["property"] == "every_nth"
+    assert "untrusted" not in json.dumps(caught.value.diagnostic)
+    assert any(c[1:3] == ["rm", "--force"] for c in calls)

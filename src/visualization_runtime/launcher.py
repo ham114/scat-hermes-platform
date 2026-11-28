@@ -156,6 +156,8 @@ class RenderLauncher:
             )
         except RenderError as error:
             result = {"state": "failed", "error": str(error), "images": []}
+            if error.diagnostic:
+                result["diagnostic"] = error.diagnostic
         finally:
             self.ledger.confirm_resource_stopped(
                 task_id, worker, generation, name, verify_stopped=self.sandbox.stopped

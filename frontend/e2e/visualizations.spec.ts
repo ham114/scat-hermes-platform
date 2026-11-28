@@ -9,6 +9,60 @@ const artifact = 'c'.repeat(32),
   revised = 'd'.repeat(32)
 const sha = 'e'.repeat(64)
 
+test('render failure explains the execution stage without claiming a review rejection', async ({
+  page,
+}, info) => {
+  await page.addInitScript(
+    ({ thread }) =>
+      sessionStorage.setItem(
+        'scat-hermes-conversation-v1:visualization-qa',
+        JSON.stringify({ threadId: thread, messages: [] }),
+      ),
+    { thread },
+  )
+  await page.route('**/portal-session', (route) =>
+    route.fulfill({
+      json: {
+        username: 'qa',
+        owner_id: 'visualization-qa',
+        role: 'user',
+      },
+    }),
+  )
+  await page.route('**/api/v1/hermes/**', (route) =>
+    route.fulfill({
+      json: {
+        enabled: true,
+        items: new URL(route.request().url()).pathname.endsWith('/visualization-tasks')
+          ? [
+              {
+                task_id: first,
+                state: 'failed',
+                phase: 'rendering',
+                intent: '模拟渲染失败诊断',
+                created_at: 1,
+                version: 1,
+                error_code: 'render_not_passed',
+                error_message:
+                  '绘图脚本在渲染阶段执行失败，自动修订次数已用尽，未进入本候选的视觉审核。',
+              },
+            ]
+          : [],
+      },
+    }),
+  )
+  await page.goto('/assistant')
+  await expect(page).toHaveTitle('对话 · Hermes')
+  await expect(page.getByText(/未进入本候选的视觉审核/)).toBeVisible()
+  await expect(page.getByAltText('已审核图表预览')).toHaveCount(0)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  if (process.env.SCAT_VIS_QA_DIR)
+    await page.screenshot({
+      path: join(process.env.SCAT_VIS_QA_DIR, `render-failure-${info.project.name}.png`),
+      fullPage: false,
+    })
+})
+
 function png(width: number, height: number) {
   const chunk = (type: string, data: Buffer) => {
     const body = Buffer.concat([Buffer.from(type), data])

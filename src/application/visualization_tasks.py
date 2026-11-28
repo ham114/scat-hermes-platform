@@ -267,6 +267,7 @@ class VisualizationTasks:
                 "SELECT outcome FROM visualization_delegation_memory WHERE task_id=?", (task_id,)
             ).fetchone()
         from visualization_runtime.delegation import model_context
+        from visualization_runtime.render_diagnostics import failure_message
 
         packet = model_context(request)
         outcome = None
@@ -289,6 +290,7 @@ class VisualizationTasks:
             intent=request.intent,
             created_at=job["created"],
             error_code=job["error_code"],
+            error_message=failure_message(job["error_code"]),
             artifact_id=row[0] if row else None,
             parent_artifact_id=request.parent_artifact_id,
             version=(request.parent_version or 0) + 1,

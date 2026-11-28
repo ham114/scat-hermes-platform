@@ -36,7 +36,7 @@ def schemas():
             Revise,
         ),
         "get_visualization_status": (
-            "查询当前会话图表任务与已审核产物引用；失败或待核实时不能声称交付。",
+            "查询当前会话图表任务与已审核产物引用；失败或待核实时不能声称交付。按error_message解释失败阶段：render_not_passed是脚本渲染执行失败，不能解释为视觉审核不通过；review_not_passed才是审图未通过。不凭错误码猜测数据或单位问题。",
             Get,
         ),
         "list_visualizations": (
