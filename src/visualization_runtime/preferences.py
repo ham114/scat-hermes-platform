@@ -8,7 +8,6 @@ import sqlite3
 import time
 from contextlib import closing
 from pathlib import Path
-from typing import Literal
 from uuid import uuid4
 
 from pydantic import Field, model_validator
@@ -53,25 +52,6 @@ class PreferenceEdit(Contract):
     def valid(self):
         validate(self.key, self.value)
         return self
-
-
-class PreferenceRecord(Contract):
-    id: str
-    task_type: str
-    key: str
-    value: str | int
-    evidence: str
-    source_artifact: str | None
-    confidence: Literal["explicit"]
-    updated: float
-    supersedes: str | None
-
-
-class PreferenceList(Contract):
-    enabled: bool
-    epoch: int
-    revision: int
-    items: list[PreferenceRecord] = Field(max_length=64)
 
 
 def validate(key, value):

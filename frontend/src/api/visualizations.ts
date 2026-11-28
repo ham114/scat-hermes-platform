@@ -1,16 +1,5 @@
 import type { components } from './schema'
 import { HermesApiError, newRequestId } from './hermes'
-import { memoryRequest, type ChartPreferences } from './memory'
-
-export async function chartMemoryToken() {
-  try {
-    const value = await memoryRequest<ChartPreferences>('/chart-preferences')
-    if (Number.isSafeInteger(value.epoch) && Number.isSafeInteger(value.revision)) return value
-  } catch {
-    /* Local chart feedback remains usable without configured memory. */
-  }
-  return undefined
-}
 
 export type VisualizationTask = components['schemas']['VisualizationTaskView']
 export type VisualizationArtifact = components['schemas']['VisualizationArtifactView']

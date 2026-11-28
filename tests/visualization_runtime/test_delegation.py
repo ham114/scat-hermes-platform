@@ -408,3 +408,112 @@ def test_natural_language_condition_is_preserved_and_reviewed_without_scope_fiel
     assert memory.charts.list(context.user_id)["items"][0]["value"] == condition
     assert observed["review"][0]["proposed_memory_changes"] == changes
     assert "scope" not in observed["review"][0]["proposed_memory_changes"][0]
+
+
+def test_generic_memory_status_preserves_http_delegation_and_cross_thread_defaults(
+    pipeline, memory
+):
+    from types import SimpleNamespace
+
+    from fastapi import FastAPI
+
+    from service.auth import verify_bearer
+    from service.hermes_api import get_hermes_owner, get_runtime
+    from service.memory_api import router as memory_router
+    from service.visualization_api import router as visualization_router
+
+    app, context, worker, refs, observed, changes = configure(pipeline, memory)
+    second = ExecutionContext(context.user_id, "another-thread")
+    thread, new_thread = str(uuid4()), str(uuid4())
+    contexts = {thread: context, new_thread: second}
+    parent(app, second)
+    receipt = app.receipts.put(
+        second.scope_key,
+        "run_fixture",
+        "new-thread-data",
+        "get_scat_track_points",
+        {"status": "ok", "data": {"points": [{"altitude_ft": 2000}]}},
+    )
+    new_ref = {
+        "kind": "readonly_result",
+        "source_id": receipt["result_id"],
+        "run_id": "run_fixture",
+        "payload_sha256": receipt["payload_sha256"],
+    }
+    runtime = SimpleNamespace(
+        registry=SimpleNamespace(
+            require_thread=lambda owner, tid: contexts[tid],
+            require=lambda *args: None,
+            list_runs=lambda *args: [{"run_id": "run_fixture"}],
+        )
+    )
+    web = FastAPI()
+    web.include_router(memory_router)
+    web.include_router(visualization_router)
+    web.state.memory_runtime = memory
+    web.state.visualization_tasks = app
+    web.dependency_overrides[verify_bearer] = lambda: None
+    web.dependency_overrides[get_hermes_owner] = lambda: context.user_id
+    web.dependency_overrides[get_runtime] = lambda: runtime
+
+    async def exercise():
+        async with httpx.AsyncClient(
+            transport=httpx.ASGITransport(app=web), base_url="http://test"
+        ) as client:
+            memory_path = "/api/v1/hermes/memory"
+
+            async def token():
+                state = (await client.get(memory_path)).json()
+                return {"memory_epoch": state["epoch"], "memory_revision": state["chart_revision"]}
+
+            assert (await client.get(memory_path + "/chart-preferences")).status_code == 404
+            first = await client.post(
+                f"/api/v1/hermes/threads/{thread}/visualizations",
+                json={
+                    "request_id": "generic-create",
+                    "intent": "绘制高度时间图，原始英尺",
+                    "data_refs": [refs],
+                    **await token(),
+                },
+            )
+            assert first.status_code == 202
+            assert await worker.run_once()
+            first_view = app.view(context, first.json()["task_id"])
+            assert first_view.state == "succeeded"
+            artifact = first_view.artifact_id
+            feedback = "以后高度默认使用米，当前图也换算为米"
+            changes.append({"key": "altitude_unit", "value": "m", "evidence": "以后高度默认使用米"})
+            revised = await client.post(
+                f"/api/v1/hermes/threads/{thread}/visualizations/{artifact}/revisions",
+                json={"request_id": "generic-revise", "feedback": feedback, **await token()},
+            )
+            assert revised.status_code == 202
+            # Use the async worker directly: the surrounding HTTP client already
+            # owns this event loop.
+            assert await worker.run_once()
+            status = app.view(context, revised.json()["task_id"])
+            assert status.state == "succeeded" and status.memory_outcome == "saved"
+            assert observed["code"][-1]["delegation_context"]["user_message"] == feedback
+            assert (
+                observed["code"][-1]["context_sha256"] == observed["review"][-1]["context_sha256"]
+            )
+            changes.clear()
+            created = await client.post(
+                f"/api/v1/hermes/threads/{new_thread}/visualizations",
+                json={
+                    "request_id": "generic-next-thread",
+                    "intent": "画另一组高度图，使用默认偏好",
+                    "data_refs": [new_ref],
+                    **await token(),
+                },
+            )
+            assert created.status_code == 202
+            assert await worker.run_once()
+            assert app.view(second, created.json()["task_id"]).state == "succeeded"
+            assert observed["code"][-1]["preferences"] == {"altitude_unit": "m"}
+            assert observed["review"][-1]["preferences"] == {"altitude_unit": "m"}
+            assert observed["code"][-1]["delegation_context"]["history"] == []
+            assert (await client.delete(memory_path)).status_code == 202
+            assert not memory.charts.list(context.user_id)["items"]
+
+    asyncio.run(exercise())

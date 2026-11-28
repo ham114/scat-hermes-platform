@@ -333,7 +333,7 @@ def test_model_arguments_never_teach_long_term_preferences_and_stale_user_token_
     assert memory.charts.list(context.user_id)["items"] == []
 
 
-def test_memory_api_is_owner_scoped_and_requires_epoch_revision(memory):
+def test_generic_memory_api_keeps_versions_and_specialized_routes_are_removed(memory):
     web = FastAPI()
     web.include_router(router)
     web.state.memory_runtime = memory
@@ -344,22 +344,29 @@ def test_memory_api_is_owner_scoped_and_requires_epoch_revision(memory):
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=web), base_url="http://test"
         ) as client:
-            path = "/api/v1/hermes/memory/chart-preferences"
+            path = "/api/v1/hermes/memory"
+            assert (await client.get(path + "/chart-preferences")).status_code == 404
+            assert (await client.post(path + "/chart-preferences", json={})).status_code == 404
+            assert path + "/chart-preferences" not in web.openapi()["paths"]
             state = (await client.get(path)).json()
             body = {
-                "request_id": "api",
+                "request_id": str(uuid4()),
                 "epoch": state["epoch"],
-                "revision": state["revision"],
-                "key": "palette",
-                "value": "blue",
+                "revision": state["chart_revision"],
+                "content": "请更正，以后图表用蓝色",
             }
-            assert (await client.post(path, json=body)).status_code == 200
-            assert (await client.post(path, json=body | {"owner": "bob"})).status_code == 422
+            assert (await client.post(path + "/corrections", json=body)).status_code == 202
+            assert memory.charts.list("alice")["items"][0]["value"] == "blue"
+            assert (await client.get(path)).json()["chart_revision"] > state["chart_revision"]
+            assert (
+                await client.post(path + "/corrections", json=body | {"owner": "bob"})
+            ).status_code == 422
             web.dependency_overrides[get_hermes_owner] = lambda: "bob"
-            assert (await client.get(path)).json()["items"] == []
+            assert (await client.get(path)).json()["chart_revision"] == 0
             web.dependency_overrides[get_hermes_owner] = lambda: "alice"
-            assert (await client.delete("/api/v1/hermes/memory")).status_code == 202
-            assert (await client.post(path, json=body)).status_code == 409
+            assert (await client.delete(path)).status_code == 202
+            assert (await client.get(path)).json()["epoch"] > state["epoch"]
+            assert (await client.post(path + "/corrections", json=body)).status_code == 409
 
     asyncio.run(exercise())
 

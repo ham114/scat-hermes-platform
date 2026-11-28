@@ -61,6 +61,11 @@ test('delivers reviewed charts, revises with natural feedback, and restores hist
   let created = false,
     revision = false
   const errors: string[] = []
+  const specializedRequests: string[] = []
+  page.on('request', (request) => {
+    if (new URL(request.url()).pathname.endsWith('/chart-preferences'))
+      specializedRequests.push(request.url())
+  })
   page.on('pageerror', (e) => errors.push(e.message))
   page.on('console', (message) => {
     if (['error', 'warning'].includes(message.type())) errors.push(message.text())
@@ -82,6 +87,8 @@ test('delivers reviewed charts, revises with natural feedback, and restores hist
   await page.route('**/api/v1/hermes/**', async (route) => {
     const path = new URL(route.request().url()).pathname
     if (route.request().method() === 'POST') posts++
+    if (path === '/api/v1/hermes/memory')
+      return route.fulfill({ json: { enabled: true, epoch: 3, chart_revision: 8 } })
     if (path.endsWith('/threads'))
       return route.fulfill({ status: 201, json: { thread_id: thread } })
     if (path.endsWith('/model-tasks')) return route.fulfill({ json: { items: [] } })
@@ -105,7 +112,10 @@ test('delivers reviewed charts, revises with natural feedback, and restores hist
         },
       })
     if (path.endsWith('/revisions')) {
-      feedback = route.request().postDataJSON().feedback
+      const body = route.request().postDataJSON()
+      expect(body.memory_epoch).toBe(3)
+      expect(body.memory_revision).toBe(8)
+      feedback = body.feedback
       revision = true
       return route.fulfill({ status: 202, json: task(second, 2) })
     }
@@ -143,12 +153,13 @@ test('delivers reviewed charts, revises with natural feedback, and restores hist
   await expect(page).toHaveURL(/\/assistant$/)
   await expect(page).toHaveTitle('对话 · Hermes')
   await expect(page.getByLabel('你的问题')).toBeVisible()
+  await expect(page.locator('vite-error-overlay')).toHaveCount(0)
   await page.getByLabel('你的问题').fill('请用自主可视化比较当前数据')
   await page.getByRole('button', { name: '发送问题' }).click()
   await expect(page.getByRole('heading', { name: '自主图表 · 版本 1' })).toBeVisible()
   await page.getByLabel('图表修改要求').fill('将图例放在底部，增大字号，保留原数据。')
   await expect(
-    page.getByText('未收到完整的偏好确认，未保存新的长期偏好；可在记忆页核对。'),
+    page.getByText('未收到完整的偏好确认，未保存新的长期偏好；可在后续对话中明确要求记住。'),
   ).toBeVisible()
   if (process.env.SCAT_VIS_QA_DIR)
     await page.screenshot({
@@ -164,6 +175,7 @@ test('delivers reviewed charts, revises with natural feedback, and restores hist
   await page.reload()
   await expect(page.getByRole('heading', { name: '自主图表 · 版本 2' })).toBeVisible()
   expect(posts).toBe(posted)
+  expect(specializedRequests).toEqual([])
   await expect(page.getByRole('link', { name: '下载宽屏 PNG' }).first()).toHaveAttribute(
     'href',
     /files\/desktop\.png$/,
@@ -200,6 +212,11 @@ test('manual creation recovers the same unknown request and supports cancellatio
   page,
 }) => {
   const requests: object[] = []
+  const specializedRequests: string[] = []
+  page.on('request', (request) => {
+    if (new URL(request.url()).pathname.endsWith('/chart-preferences'))
+      specializedRequests.push(request.url())
+  })
   let state = ''
   await page.addInitScript(
     ({ thread }) =>
@@ -222,6 +239,8 @@ test('manual creation recovers the same unknown request and supports cancellatio
   })
   await page.route('**/api/v1/hermes/**', (route) => {
     const path = new URL(route.request().url()).pathname
+    if (path === '/api/v1/hermes/memory')
+      return route.fulfill({ json: { enabled: true, epoch: 4, chart_revision: 9 } })
     if (path.endsWith('/model-tasks')) return route.fulfill({ json: { items: [] } })
     if (path.endsWith('/visualization-tasks'))
       return route.fulfill({ json: { enabled: true, items: state ? [task()] : [] } })
@@ -269,6 +288,8 @@ test('manual creation recovers the same unknown request and supports cancellatio
   await expect(page.getByRole('button', { name: '恢复原绘图请求' })).toHaveCount(0)
   expect(requests).toHaveLength(2)
   expect(requests[0]).toEqual(requests[1])
+  expect(requests[0]).toMatchObject({ memory_epoch: 4, memory_revision: 9 })
+  expect(specializedRequests).toEqual([])
   await page.getByRole('button', { name: '取消绘图' }).click()
   await expect(page.getByText('版本 1 · 已取消')).toBeVisible()
   await expect(page.getByAltText('已审核图表预览')).toHaveCount(0)

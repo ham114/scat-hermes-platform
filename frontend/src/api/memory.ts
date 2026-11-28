@@ -6,22 +6,27 @@ export interface MemoryStatus {
   deletion: 'none' | 'pending' | 'completed'
 }
 
-export interface ChartPreference {
-  id: string
-  key: string
-  value: string | number
-  task_type: string
-  evidence: string
-  source_artifact: string | null
-  confidence: string
-  updated: number
-  supersedes: string | null
-}
-export interface ChartPreferences {
+export interface MemoryVersion {
   enabled: boolean
   epoch: number
   revision: number
-  items: ChartPreference[]
+}
+
+export async function readMemoryVersion(): Promise<MemoryVersion | undefined> {
+  try {
+    const state = await memoryRequest<MemoryStatus>()
+    if (
+      typeof state.enabled === 'boolean' &&
+      Number.isSafeInteger(state.epoch) &&
+      state.epoch >= 1 &&
+      Number.isSafeInteger(state.chart_revision) &&
+      Number(state.chart_revision) >= 0
+    )
+      return { enabled: state.enabled, epoch: state.epoch, revision: state.chart_revision! }
+  } catch {
+    /* Task context remains usable when persistent memory is unavailable. */
+  }
+  return undefined
 }
 
 export function memorySummary(raw: string): string {

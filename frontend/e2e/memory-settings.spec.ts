@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 import { resolve } from 'node:path'
+import { tmpdir } from 'node:os'
 test('Honcho memory UI distinguishes queued corrections and confirmed deletion', async ({
   page,
 }, info) => {
@@ -9,11 +10,19 @@ test('Honcho memory UI distinguishes queued corrections and confirmed deletion',
     contextReads = 0,
     deleteCalls = 0
   const rows: { request_id: string; content: string; created: number; state: string }[] = []
+  const specializedRequests: string[] = []
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  page.on('console', (message) => {
+    if (['error', 'warning'].includes(message.type())) errors.push(message.text())
+  })
+  page.on('request', (request) => {
+    if (new URL(request.url()).pathname.endsWith('/chart-preferences'))
+      specializedRequests.push(request.url())
+  })
   await page.route('**/api/v1/hermes/memory**', async (route) => {
     const request = route.request(),
       path = new URL(request.url()).pathname
-    if (path.endsWith('/chart-preferences'))
-      return route.fulfill({ json: { enabled, epoch, revision: 0, items: [] } })
     if (path.endsWith('/context')) {
       contextReads++
       return route.fulfill({ json: { enabled, available: true, context: '合成偏好：中文、公里' } })
@@ -64,6 +73,11 @@ test('Honcho memory UI distinguishes queued corrections and confirmed deletion',
     return route.fulfill({ json: { enabled, epoch, queue: {}, deletion } })
   })
   await page.goto('/memory')
+  await expect(page).toHaveURL(/\/memory$/)
+  await expect(page).toHaveTitle('记忆 · Hermes')
+  await expect(page.locator('vite-error-overlay')).toHaveCount(0)
+  await expect(page.getByLabel('图表长期偏好')).toHaveCount(0)
+  expect(specializedRequests).toEqual([])
   await expect(page.getByText('记忆已启用', { exact: true })).toBeVisible()
   expect(contextReads).toBe(0)
   await page.getByRole('button', { name: '查看 / 刷新摘要' }).click()
@@ -91,13 +105,13 @@ test('Honcho memory UI distinguishes queued corrections and confirmed deletion',
   expect(deleteCalls).toBe(1)
   await expect(page.getByText('合成偏好：中文、公里', { exact: true })).toHaveCount(0)
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  expect(specializedRequests).toEqual([])
+  expect(errors).toEqual([])
   await page.screenshot({
-    path: process.env.SCAT_VIS_QA_DIR
-      ? resolve(process.env.SCAT_VIS_QA_DIR, `p5-memory-legacy-${info.project.name}.png`)
-      : resolve(
-          import.meta.dirname,
-          `../../docs/validation/20261107-memory-${info.project.name}.png`,
-        ),
+    path: resolve(
+      process.env.SCAT_VIS_QA_DIR || tmpdir(),
+      `unified-memory-${info.project.name}.png`,
+    ),
     fullPage: true,
     scale: 'css',
   })

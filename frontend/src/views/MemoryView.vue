@@ -8,7 +8,6 @@ import {
   type LearningStatus,
 } from '@/api/memory'
 import { newRequestId } from '@/api/hermes'
-import ChartPreferencePanel from '@/components/ChartPreferencePanel.vue'
 const status = ref<MemoryStatus>(),
   records = ref<Correction[]>([]),
   learning = ref<LearningStatus>()
@@ -161,14 +160,6 @@ onUnmounted(() => {
         <pre v-if="context">{{ context }}</pre>
         <p v-else>尚未读取可用摘要</p>
       </section>
-      <ChartPreferencePanel
-        v-if="status"
-        :epoch="status.epoch"
-        :enabled="status.enabled"
-        :revision="status.chart_revision"
-        :read-only="readonly || busy"
-        @changed="action(refresh)"
-      />
       <section class="panel">
         <h2>更正记忆</h2>
         <textarea
@@ -196,8 +187,7 @@ onUnmounted(() => {
       <section class="panel">
         <h2>清空长期记忆</h2>
         <p>
-          清空当前用户的 Honcho
-          长期记忆、本地图表偏好及依据原话；不删除聊天历史、已发布图表、技能草稿或备份。生成中的图表将按当前偏好重新检查。完成后保持暂停。
+          清空当前用户的长期记忆、本地偏好及依据原话；不删除聊天历史、已发布产物、技能草稿或备份。完成后保持暂停。
         </p>
         <label
           ><input

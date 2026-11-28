@@ -84,19 +84,3 @@ def corrections(body: Correction, owner: Owner, memory: Memory):
 @router.delete("", status_code=202)
 def forget(owner: Owner, memory: Memory):
     return memory.forget(owner)
-
-
-from visualization_runtime.preferences import PreferenceEdit, PreferenceList
-
-
-@router.get("/chart-preferences", response_model=PreferenceList)
-def chart_preferences(owner: Owner, memory: Memory):
-    return memory.charts.list(owner)
-
-
-@router.post("/chart-preferences", response_model=PreferenceList)
-def edit_chart_preference(body: PreferenceEdit, owner: Owner, memory: Memory):
-    try:
-        return memory.charts.edit(owner, body)
-    except ValueError:
-        raise HTTPException(409, "chart_preference_conflict_or_memory_disabled") from None

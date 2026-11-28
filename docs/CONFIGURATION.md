@@ -33,7 +33,7 @@ P2/P3 增加 `SCAT_VIS_SANDBOX_IMAGE`（固定 `sha256:...` 镜像 ID）、`SCAT
 
 P4 的平台 API 还需 `SCAT_VIS_PARENT_BUDGET_PATH`，指向实际 `scat-main` profile 的项目内 `skill-loads.sqlite`；如部署已注入 `SCAT_PARENT_BUDGET_PATH` 则优先复用。原生工具自动绑定自己的实际 home。缺少该预算文件时创建/修订拒绝，读取历史图不需要两家 API key 或父预算文件。前端与主应用不执行绘图代码，所有图表显示及 PNG 下载均读取已审核文件；`source.js` 强制以纯文本附件下载。
 
-P5 不增加 API key 或独立队列。复用 `SCAT_AUTONOMY_CONFIG` 中的 `memory.enabled/state/identity_key`；平台、绘图 worker 和私有工具必须使用同一记忆状态文件及身份密钥。worker 仅访问本地偏好，不创建 Honcho 客户端，绘图容器不接收记忆凭据。共享 SQLite 状态库要求回滚日志模式（DELETE/PERSIST/TRUNCATE），发现 WAL 等不支持模式会拒绝新绘图，不自动更改数据库设置。未配置或暂停记忆时，本次图表要求仍有效；长期偏好可在记忆页查看、更正和删除。
+P5 不增加 API key 或独立队列。复用 `SCAT_AUTONOMY_CONFIG` 中的 `memory.enabled/state/identity_key`；平台、绘图 worker 和私有工具必须使用同一记忆状态文件及身份密钥。worker 仅访问本地偏好，不创建 Honcho 客户端，绘图容器不接收记忆凭据。共享 SQLite 状态库要求回滚日志模式（DELETE/PERSIST/TRUNCATE），发现 WAL 等不支持模式会拒绝新绘图，不自动更改数据库设置。未配置或暂停记忆时，本次图表要求仍有效；通用记忆页提供状态、摘要、更正、暂停和清空，不再提供图表专属偏好表单或GET/POST `/api/v1/hermes/memory/chart-preferences`。图卡从现有GET `/api/v1/hermes/memory`读取epoch和chart_revision，委派任务中的自然语言长期要求仍通过双模型审核后保存。
 
 图表偏好语义提取复用 `SCAT_VIS_CODE_*` 和现有 worker。已配置偏好存储的每个新建/修订任务在编写代码前增加一次 DS 提取调用（输出上限2048），共享原任务、每日和父对话预算；不新增密钥、独立队列或自动重试。前端每次提交记忆epoch/revision；缺少版本、暂停记忆或版本冲突时，不写长期偏好并显示实际回执。高度显示偏好独立于源数据单位，米制转换不会更改原始数据。
 

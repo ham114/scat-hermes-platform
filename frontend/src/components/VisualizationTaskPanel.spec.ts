@@ -1,6 +1,7 @@
 import { flushPromises, mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { HermesApiError } from '@/api/hermes'
+import { readMemoryVersion } from '@/api/memory'
 import { listVisualizations, readVisualization, reviseVisualization } from '@/api/visualizations'
 import VisualizationTaskPanel from './VisualizationTaskPanel.vue'
 import VisualizationArtifactView from './VisualizationArtifactView.vue'
@@ -12,9 +13,9 @@ vi.mock('@/api/visualizations', () => ({
   visualizationSources: vi.fn(),
   createVisualization: vi.fn(),
   cancelVisualization: vi.fn(),
-  chartMemoryToken: vi.fn(),
   visualizationFile: (t: string, a: string, f: string) => `/files/${t}/${a}/${f}`,
 }))
+vi.mock('@/api/memory', () => ({ readMemoryVersion: vi.fn() }))
 const artifact = {
   artifact_id: 'a'.repeat(32),
   task_id: 'b'.repeat(32),
@@ -40,6 +41,22 @@ beforeEach(() => {
   vi.mocked(readVisualization).mockResolvedValue(artifact as never)
 })
 describe('autonomous chart delivery', () => {
+  it('submits the generic memory version with feedback without specialized endpoints', async () => {
+    vi.mocked(readMemoryVersion).mockResolvedValue({ enabled: true, epoch: 3, revision: 8 })
+    vi.mocked(reviseVisualization).mockResolvedValue(task as never)
+    const wrapper = mount(VisualizationTaskPanel, { props: { threadId: 'thread' } })
+    await flushPromises()
+    await wrapper.get('textarea').setValue('后续高度默认使用米')
+    await wrapper.get('form').trigger('submit')
+    await flushPromises()
+    expect(vi.mocked(reviseVisualization).mock.calls[0]![2]).toMatchObject({
+      feedback: '后续高度默认使用米',
+      memory_epoch: 3,
+      memory_revision: 8,
+    })
+    expect(readMemoryVersion).toHaveBeenCalledTimes(1)
+    wrapper.unmount()
+  })
   it('distinguishes chart delivery from an unconfirmed memory result', async () => {
     vi.mocked(listVisualizations).mockResolvedValue({
       enabled: true,
@@ -49,7 +66,7 @@ describe('autonomous chart delivery', () => {
     await flushPromises()
     expect(wrapper.text()).toContain('未收到完整的偏好确认，未保存新的长期偏好')
     expect(wrapper.text()).toContain('原始图表')
-    expect(wrapper.text()).not.toContain('本次明确的长期图表偏好已保存')
+    expect(wrapper.text()).not.toContain('本次明确的长期偏好已保存')
     wrapper.unmount()
   })
   it('retains the request ID after an unknown POST and never automatically retries', async () => {
