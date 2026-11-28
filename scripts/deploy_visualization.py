@@ -92,6 +92,11 @@ def compose_candidate(before, images, image, root=ROOT):
     worker = copy.deepcopy(template)
     worker.pop("profiles", None)
     worker["image"] = images["platform"]
+    # Match the proven model egress resolver. The Docker host stub can be
+    # unreliable even while the native Agent's explicitly configured DNS works.
+    for key in ("dns", "dns_search", "dns_opt"):
+        if key in before["services"]["hermes-main"]:
+            worker[key] = copy.deepcopy(before["services"]["hermes-main"][key])
     worker["environment"].update(common | {"SCAT_AUTONOMY_CONFIG": policy})
     worker["volumes"].extend(copy.deepcopy(preference_mounts))
     document["services"]["visualization-worker"] = worker

@@ -142,3 +142,18 @@ def test_host_launcher_refreshes_authorized_docker_group():
         in unit
     )
     assert "visualization-worker.env" not in unit
+
+
+def test_worker_inherits_proven_native_model_dns_without_mutating_it(active):
+    main = active["services"]["hermes-main"]
+    main["dns"] = ["192.0.2.53", "192.0.2.54"]
+    main["dns_opt"] = ["timeout:2", "attempts:2"]
+    worker = candidate(active)["services"]["visualization-worker"]
+    assert worker["dns"] == main["dns"] and worker["dns_opt"] == main["dns_opt"]
+    worker["dns"].append("192.0.2.55")
+    assert main["dns"] == ["192.0.2.53", "192.0.2.54"]
+
+
+def test_worker_does_not_invent_public_dns_if_native_uses_host_resolver(active):
+    worker = candidate(active)["services"]["visualization-worker"]
+    assert "dns" not in worker and "dns_search" not in worker and "dns_opt" not in worker

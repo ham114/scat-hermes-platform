@@ -187,6 +187,45 @@ def test_timeout_reports_unknown_without_exception_text():
     assert str(error.value) == "provider_timeout"
 
 
+@pytest.mark.parametrize(
+    "exception,code",
+    [
+        (httpx.ConnectTimeout, "provider_connection_timeout"),
+        (httpx.ConnectError, "provider_connection_failed"),
+        (httpx.PoolTimeout, "provider_pool_timeout"),
+    ],
+)
+def test_connection_failure_is_distinct_from_unknown_sent_request(exception, code, caplog):
+    calls = []
+
+    def respond(request):
+        calls.append(request)
+        raise exception("secret provider details", request=request)
+
+    with pytest.raises(ProviderError) as error:
+        asyncio.run(
+            complete(configured().provider("code"), [], transport=httpx.MockTransport(respond))
+        )
+    assert str(error.value) == code and not error.value.unknown
+    assert len(calls) == 1
+    assert "secret provider details" not in caplog.text
+
+
+def test_write_timeout_remains_unknown_and_is_not_retried():
+    calls = []
+
+    def respond(request):
+        calls.append(request)
+        raise httpx.WriteTimeout("secret write details", request=request)
+
+    with pytest.raises(ProviderError) as error:
+        asyncio.run(
+            complete(configured().provider("code"), [], transport=httpx.MockTransport(respond))
+        )
+    assert error.value.unknown and str(error.value) == "provider_timeout"
+    assert len(calls) == 1
+
+
 def test_total_deadline_limits_slow_provider():
     async def respond(request):
         await asyncio.sleep(1)

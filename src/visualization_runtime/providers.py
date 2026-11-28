@@ -2,12 +2,15 @@
 
 import asyncio
 import json
+import logging
 import re
 from dataclasses import dataclass, field
 
 import httpx
 
 from visualization_runtime.settings import ProviderSettings
+
+logger = logging.getLogger(__name__)
 
 
 class ProviderError(RuntimeError):
@@ -107,7 +110,29 @@ async def complete(
                 body.extend(chunk)
                 if len(body) > 1_000_000:
                     raise ProviderError("response_too_large", unknown=True)
-    except (TimeoutError, httpx.TimeoutException):
+    except (httpx.ConnectTimeout, httpx.ConnectError, httpx.PoolTimeout) as error:
+        code = (
+            "provider_connection_timeout"
+            if isinstance(error, httpx.ConnectTimeout)
+            else "provider_connection_failed"
+            if isinstance(error, httpx.ConnectError)
+            else "provider_pool_timeout"
+        )
+        logger.warning(
+            "visualization_provider_failure role=%s code=%s type=%s",
+            config.role,
+            code,
+            type(error).__name__,
+        )
+        # These fail before the HTTP request is sent. Read/write/total timeouts
+        # below remain unknown and must never be automatically replayed.
+        raise ProviderError(code, unknown=False) from None
+    except (TimeoutError, httpx.TimeoutException) as error:
+        logger.warning(
+            "visualization_provider_failure role=%s code=provider_timeout type=%s",
+            config.role,
+            type(error).__name__,
+        )
         raise ProviderError("provider_timeout", unknown=True) from None
     except httpx.TransportError:
         raise ProviderError("provider_transport_error", unknown=True) from None

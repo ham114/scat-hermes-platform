@@ -6,6 +6,7 @@ import json
 import sqlite3
 from pathlib import Path
 
+import httpx
 import pytest
 
 from tests.visualization_runtime.test_pipeline import pipeline as pipeline  # noqa: PLC0414
@@ -200,6 +201,32 @@ def test_disabled_worker_never_claims_or_calls_providers(pipeline):
     assert asyncio.run(worker.run_once()) is False
     assert app.jobs.get(context, job["task_id"])["state"] == "queued"
     assert calls == {"code": 0, "review": 0}
+
+
+@pytest.mark.parametrize(
+    "exception,expected",
+    [
+        (httpx.ConnectTimeout, "provider_connection_timeout"),
+        (httpx.ConnectError, "provider_connection_failed"),
+    ],
+)
+def test_connection_failure_is_terminal_without_unknown_replay(pipeline, exception, expected):
+    app, context, job, worker, *_ = pipeline
+    attempts = []
+
+    def fail(request):
+        attempts.append(request)
+        raise exception("private network information", request=request)
+
+    worker.code.transport = httpx.MockTransport(fail)
+    assert asyncio.run(worker.run_once())
+    view = app.view(context, job["task_id"])
+    assert view.state == "failed" and view.error_code == expected
+    assert not asyncio.run(worker.run_once()) and len(attempts) == 1
+    with app.jobs.transaction() as db:
+        row = db.execute("SELECT state,charged_tokens FROM visualization_provider_calls").fetchone()
+        assert row[0] == "failed" and row[1] > 0
+        assert db.execute("SELECT count(*) FROM visualization_resources").fetchone()[0] == 0
 
 
 def test_malformed_review_is_named_and_not_retried_or_published(pipeline):
