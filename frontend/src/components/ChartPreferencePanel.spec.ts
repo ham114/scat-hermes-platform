@@ -10,6 +10,19 @@ beforeEach(() => {
   vi.mocked(memoryRequest).mockResolvedValue(initial)
 })
 
+it('accepts a natural-language altitude default without a separate scope selector', async () => {
+  const wrapper = mount(ChartPreferencePanel, { props: { epoch: 1, enabled: true } })
+  await flushPromises()
+  await wrapper.get('[aria-label="图表偏好项目"]').setValue('altitude_unit')
+  await wrapper.get('input').setValue('未说明单位时默认以米显示')
+  await wrapper.get('form').trigger('submit')
+  await flushPromises()
+  expect(vi.mocked(memoryRequest).mock.calls.find((call) => call[1] === 'POST')?.[2]).toMatchObject(
+    { key: 'altitude_unit', value: '未说明单位时默认以米显示' },
+  )
+  wrapper.unmount()
+})
+
 it('displays learned height units and keeps new semantic rules editable', async () => {
   vi.mocked(memoryRequest).mockResolvedValue({
     ...initial,

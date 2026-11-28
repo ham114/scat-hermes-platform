@@ -151,11 +151,8 @@ function save() {
   let parsed = key.value === 'font_size' ? Number(value.value) : value.value.trim()
   if (key.value === 'altitude_unit') {
     const aliases: Record<string, string> = { 米: 'm', 英尺: 'ft', 公里: 'km', 千米: 'km' }
-    parsed = aliases[String(parsed)] ?? String(parsed).toLowerCase()
-    if (!['m', 'ft', 'km'].includes(String(parsed))) {
-      error.value = '高度单位请输入米（m）、英尺（ft）或公里（km）。'
-      return
-    }
+    const unit = String(parsed).toLowerCase()
+    parsed = aliases[String(parsed)] ?? (['m', 'ft', 'km'].includes(unit) ? unit : parsed)
   }
   if (
     key.value === 'font_size' &&
@@ -226,11 +223,7 @@ function edit(item: ChartPreference) {
       </li>
     </ul>
     <form @submit.prevent="save">
-      <label
-        >适用范围<select v-model="taskType" :disabled="busy || readOnly || !!pending">
-          <option v-for="(label, id) in scopes" :key="id" :value="id">{{ label }}</option>
-        </select></label
-      >
+      <p v-if="taskType !== 'all'">正在更正已有的{{ scopes[taskType] ?? taskType }}记录。</p>
       <label
         >偏好项目<select
           v-model="key"
@@ -246,7 +239,7 @@ function edit(item: ChartPreference) {
           aria-label="图表偏好值"
           :maxlength="key === 'special_needs' ? 300 : 80"
           :disabled="busy || readOnly || !!pending"
-          placeholder="例如：蓝色系、底部、微软雅黑，或字号 18"
+          placeholder="例如：米、未说明单位时默认用米、蓝色系，或字号 18"
       /></label>
       <button
         type="submit"

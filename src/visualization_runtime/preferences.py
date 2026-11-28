@@ -79,8 +79,6 @@ def validate(key, value):
         raise ValueError("unknown_chart_preference")
     if value is None:
         return
-    if key == "altitude_unit" and value not in ("m", "ft", "km"):
-        raise ValueError("invalid_chart_altitude_unit")
     if key == "font_size":
         if type(value) is not int or not 8 <= value <= 40:
             raise ValueError("invalid_chart_font_size")

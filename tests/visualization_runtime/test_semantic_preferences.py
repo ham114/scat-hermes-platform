@@ -270,7 +270,7 @@ def test_invented_evidence_fails_without_memory_or_chart_delivery(pipeline, memo
 
 def test_model_proposals_cannot_bypass_value_and_key_validation():
     for change in [
-        {"key": "altitude_unit", "value": "yards", "evidence": "yards"},
+        {"key": "altitude_unit", "value": 999, "evidence": "999"},
         {"key": "disable_review", "value": "true", "evidence": "true"},
         {"key": "rule_x", "value": "sk-abcdefghijklmnopqrst", "evidence": "secret"},
     ]:

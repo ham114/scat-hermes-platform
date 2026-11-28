@@ -394,3 +394,17 @@ def test_missing_memory_receipt_does_not_block_chart_or_claim_saved(pipeline, me
     finish(app, context, worker, job)
     assert app.view(context, job["task_id"]).memory_outcome == "unconfirmed"
     assert not memory.charts.list(context.user_id)["items"]
+
+
+def test_natural_language_condition_is_preserved_and_reviewed_without_scope_fields(
+    pipeline, memory
+):
+    app, context, worker, refs, observed, changes = configure(pipeline, memory)
+    text = "以后高度未说明单位就默认以米显示。"
+    condition = "未说明单位时默认以米(m)显示"
+    changes.append({"key": "altitude_unit", "value": condition, "evidence": text})
+    job = create(app, context, refs, text, learn=True)
+    finish(app, context, worker, job)
+    assert memory.charts.list(context.user_id)["items"][0]["value"] == condition
+    assert observed["review"][0]["proposed_memory_changes"] == changes
+    assert "scope" not in observed["review"][0]["proposed_memory_changes"][0]
