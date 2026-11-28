@@ -25,6 +25,15 @@ def migrate_foundation(db):
     schema = """
         CREATE TABLE IF NOT EXISTS visualization_attempt_contexts(attempt_id TEXT PRIMARY KEY,task_id TEXT NOT NULL,request_sha TEXT NOT NULL);
         CREATE TABLE IF NOT EXISTS visualization_admissions(task_id TEXT PRIMARY KEY,input_sha TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS visualization_dialogue(
+            owner TEXT NOT NULL,thread TEXT NOT NULL,source_id TEXT NOT NULL,
+            role TEXT NOT NULL,content TEXT NOT NULL,content_sha TEXT NOT NULL,at REAL NOT NULL,
+            PRIMARY KEY(owner,thread,source_id));
+        CREATE TABLE IF NOT EXISTS visualization_dialogue_heads(
+            owner TEXT NOT NULL,thread TEXT NOT NULL,revision INTEGER NOT NULL,
+            PRIMARY KEY(owner,thread));
+        CREATE TABLE IF NOT EXISTS visualization_delegation_memory(
+            task_id TEXT PRIMARY KEY,outcome TEXT NOT NULL,events TEXT NOT NULL,events_sha TEXT NOT NULL);
         CREATE TABLE IF NOT EXISTS visualization_preference_bindings(
             task_id TEXT PRIMARY KEY,path TEXT NOT NULL,owner_hash TEXT NOT NULL,
             epoch INTEGER NOT NULL,revision INTEGER NOT NULL,enabled INTEGER NOT NULL,

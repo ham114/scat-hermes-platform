@@ -12506,6 +12506,29 @@
             "minimum": 1.0,
             "title": "Version"
           },
+          "context_revision": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Context Revision"
+          },
+          "context_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Context Sha256"
+          },
           "memory_outcome": {
             "anyOf": [
               {

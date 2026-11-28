@@ -134,7 +134,9 @@ def pipeline(tmp_path):
     ]
     # Historical foundation/race tests explicitly exercise the legacy admission
     # path. The factory and all new production tasks use semantic preferences.
-    app = VisualizationTasks(jobs, snapshots, receipts, semantic_preferences=False)
+    app = VisualizationTasks(
+        jobs, snapshots, receipts, semantic_preferences=False, delegation_enabled=False
+    )
     job = asyncio.run(
         app.prepare(
             context,

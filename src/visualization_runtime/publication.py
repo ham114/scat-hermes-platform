@@ -13,8 +13,9 @@ from visualization_runtime.store import JobConflict, JobNotFound, canonical
 
 
 class Publisher:
-    def __init__(self, jobs, snapshots, launcher):
+    def __init__(self, jobs, snapshots, launcher, *, preferences=None):
         self.jobs, self.snapshots, self.launcher = jobs, snapshots, launcher
+        self.preferences = preferences
 
     def _snapshot_access(self, db, context, snapshot_id, *, require_unexpired=False):
         row = db.execute(
@@ -180,6 +181,16 @@ class Publisher:
                 (task_id,),
             ).fetchone():
                 raise JobConflict("publication_resources_active")
+            from visualization_runtime.delegation import commit_memory
+
+            commit_memory(
+                db,
+                self.jobs,
+                self.preferences() if self.preferences else None,
+                context,
+                current,
+                attempt,
+            )
             db.execute(
                 "INSERT INTO visualization_publications VALUES(?,?,?,?,?,?,?)",
                 (

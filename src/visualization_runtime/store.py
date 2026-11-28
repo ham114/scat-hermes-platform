@@ -134,6 +134,7 @@ class VisualizationJobStore:
         parent=None,
         admission_sha=None,
         preference_setup=None,
+        context_setup=None,
     ):
         if not isinstance(request_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", request_id):
             raise ValueError("invalid_visualization_request_id")
@@ -164,6 +165,9 @@ class VisualizationJobStore:
             reserve(db, self, context, task_id, parent)
             if preference_setup is not None:
                 request = preference_setup(db, task_id, request)
+            if context_setup is not None:
+                request = context_setup(db, task_id, request)
+            if preference_setup is not None or context_setup is not None:
                 raw = canonical(request.model_dump(mode="json"))
                 sha = hashlib.sha256(raw.encode()).hexdigest()
             if admission_sha is not None:

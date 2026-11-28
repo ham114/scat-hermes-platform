@@ -19,6 +19,7 @@ class VisualizationTasks:
         admission_check=None,
         preferences=None,
         semantic_preferences=True,
+        delegation_enabled=True,
     ):
         self.jobs, self.snapshots = jobs, snapshots
         self.receipts, self.artifacts = receipts, artifacts
@@ -26,6 +27,7 @@ class VisualizationTasks:
         self.admission_check = admission_check
         self.preferences = preferences
         self.semantic_preferences = semantic_preferences
+        self.delegation_enabled = delegation_enabled
         self.publisher = Publisher(jobs, snapshots, None)
 
     def _admission(self, parent_run_id):
@@ -83,11 +85,24 @@ class VisualizationTasks:
             "items": [ref for ref in refs if (ref["kind"], ref["source_id"]) not in revoked][:100]
         }
 
-    async def create(self, context, body, *, parent_run_id, learn=False):
+    async def create(
+        self,
+        context,
+        body,
+        *,
+        parent_run_id,
+        learn=False,
+        user_message=None,
+        conversation=(),
+        source_turn_id=None,
+    ):
         from visualization_runtime.preferences import extract
 
         parent = self._admission(parent_run_id)
-        local = {} if self.semantic_preferences else extract(body.intent)
+        raw_user = user_message if user_message is not None else body.intent
+        local = {} if self.semantic_preferences or self.delegation_enabled else extract(body.intent)
+        from visualization_runtime.delegation import snapshot_setup
+
         return await self.prepare(
             context,
             body.request_id,
@@ -97,16 +112,35 @@ class VisualizationTasks:
             preferences=local,
             parent=parent,
             admission_sha=digest(
-                body.model_dump(mode="json", exclude={"memory_epoch", "memory_revision"})
+                {
+                    "body": body.model_dump(
+                        mode="json", exclude={"memory_epoch", "memory_revision"}
+                    ),
+                    "user_message": raw_user,
+                }
+                if self.delegation_enabled
+                else body.model_dump(mode="json", exclude={"memory_epoch", "memory_revision"})
             ),
             preference_options={
                 "local": local,
-                "text": body.intent if learn else None,
+                "text": raw_user if learn and not self.delegation_enabled else None,
                 "token": self._memory_token(body),
                 "request_id": body.request_id,
-                "semantic": self.semantic_preferences,
-                "input_text": body.intent,
+                "semantic": self.semantic_preferences and not self.delegation_enabled,
+                "input_text": raw_user if not self.delegation_enabled else None,
             },
+            context_setup=snapshot_setup(
+                self.jobs,
+                context,
+                body.request_id,
+                user_message=raw_user,
+                conversation=conversation,
+                source_turn_id=source_turn_id,
+                learn=learn,
+                token=self._memory_token(body),
+            )
+            if self.delegation_enabled
+            else None,
         )
 
     @staticmethod
@@ -117,7 +151,18 @@ class VisualizationTasks:
             else None
         )
 
-    def revise(self, context, artifact_id, body, *, parent_run_id, learn=False):
+    def revise(
+        self,
+        context,
+        artifact_id,
+        body,
+        *,
+        parent_run_id,
+        learn=False,
+        user_message=None,
+        conversation=(),
+        source_turn_id=None,
+    ):
         import json
 
         from visualization_runtime.preferences import extract, setup, task_type
@@ -134,7 +179,14 @@ class VisualizationTasks:
         local = (json.loads(binding[0]) if binding else extract(original.intent)) | (
             {} if self.semantic_preferences else extract(body.feedback)
         )
-        intent = original.intent + "\n用户本次修改要求：" + body.feedback
+        if self.delegation_enabled:
+            local = {}
+        raw_user = user_message if user_message is not None else body.feedback
+        intent = (
+            body.feedback
+            if self.delegation_enabled
+            else original.intent + "\n用户本次修改要求：" + body.feedback
+        )
         if len(intent) > 8000:
             raise JobConflict("visualization_revision_intent_too_long")
         request = original.model_copy(
@@ -153,12 +205,12 @@ class VisualizationTasks:
                 context,
                 local,
                 task_type(snapshot),
-                text=body.feedback if learn else None,
+                text=raw_user if learn and not self.delegation_enabled else None,
                 token=self._memory_token(body),
                 source=artifact_id,
                 request_id=body.request_id,
-                semantic=self.semantic_preferences,
-                input_text=body.feedback,
+                semantic=self.semantic_preferences and not self.delegation_enabled,
+                input_text=raw_user if not self.delegation_enabled else None,
                 reference_source=self.publisher.read_file(
                     context, artifact_id, "source.js"
                 ).decode()
@@ -168,6 +220,8 @@ class VisualizationTasks:
             if self.preferences
             else None
         )
+        from visualization_runtime.delegation import snapshot_setup
+
         return self.jobs.create(
             context,
             body.request_id,
@@ -179,9 +233,23 @@ class VisualizationTasks:
                         mode="json", exclude={"memory_epoch", "memory_revision", "artifact_id"}
                     ),
                     "artifact": artifact_id,
+                    **({"user_message": raw_user} if self.delegation_enabled else {}),
                 }
             ),
             preference_setup=preference_setup,
+            context_setup=snapshot_setup(
+                self.jobs,
+                context,
+                body.request_id,
+                user_message=raw_user,
+                conversation=conversation,
+                source_turn_id=source_turn_id,
+                learn=learn,
+                token=self._memory_token(body),
+                target=artifact_id,
+            )
+            if self.delegation_enabled
+            else None,
         )
 
     def view(self, context, task_id):
@@ -195,6 +263,25 @@ class VisualizationTasks:
                 "SELECT state,outcome FROM visualization_preference_inputs WHERE task_id=?",
                 (task_id,),
             ).fetchone()
+            delegated_memory = db.execute(
+                "SELECT outcome FROM visualization_delegation_memory WHERE task_id=?", (task_id,)
+            ).fetchone()
+        from visualization_runtime.delegation import model_context
+
+        packet = model_context(request)
+        outcome = None
+        if request.delegation:
+            outcome = (
+                delegated_memory[0]
+                if delegated_memory
+                else "pending"
+                if job["state"] in {"queued", "running"}
+                else "failed"
+            )
+        elif memory:
+            outcome = memory["outcome"] or (
+                "pending" if job["state"] in {"queued", "running"} else "failed"
+            )
         return VisualizationTaskView(
             task_id=task_id,
             state=job["state"],
@@ -205,12 +292,9 @@ class VisualizationTasks:
             artifact_id=row[0] if row else None,
             parent_artifact_id=request.parent_artifact_id,
             version=(request.parent_version or 0) + 1,
-            memory_outcome=(
-                memory["outcome"]
-                or ("pending" if job["state"] in {"queued", "running"} else "failed")
-            )
-            if memory
-            else None,
+            context_revision=request.delegation.revision if request.delegation else None,
+            context_sha256=packet.get("context_sha256"),
+            memory_outcome=outcome,
         )
 
     def list(self, context):
@@ -276,6 +360,7 @@ class VisualizationTasks:
         parent=None,
         admission_sha=None,
         preference_options=None,
+        context_setup=None,
     ):
         snapshot = await self.snapshots.capture(
             context, request_id, references, receipts=self.receipts, artifacts=self.artifacts
@@ -301,6 +386,7 @@ class VisualizationTasks:
             parent=parent,
             admission_sha=admission_sha,
             preference_setup=preference_setup,
+            context_setup=context_setup,
         )
 
     def require_snapshot(self, context, task_id):

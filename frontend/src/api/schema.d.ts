@@ -3548,6 +3548,10 @@ export interface components {
             parent_artifact_id?: string | null;
             /** Version */
             version: number;
+            /** Context Revision */
+            context_revision?: number | null;
+            /** Context Sha256 */
+            context_sha256?: string | null;
             /** Memory Outcome */
             memory_outcome?: ("pending" | "saved" | "not_requested" | "disabled" | "conflict" | "unavailable" | "failed") | null;
         };

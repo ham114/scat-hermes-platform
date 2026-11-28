@@ -58,7 +58,14 @@ async def create(
         runs = await asyncio.to_thread(runtime.registry.list_runs, context, 1)
         if not runs:
             raise JobConflict("visualization_parent_budget_unavailable")
-        row = await tasks.create(context, body, parent_run_id=runs[0]["run_id"], learn=True)
+        history = (
+            await asyncio.to_thread(runtime.registry.delegation_history, context)
+            if hasattr(runtime.registry, "delegation_history")
+            else ()
+        )
+        row = await tasks.create(
+            context, body, parent_run_id=runs[0]["run_id"], learn=True, conversation=history
+        )
         return await asyncio.to_thread(tasks.view, context, row["task_id"])
     except (LookupError, ValueError) as exc:
         raise translate(exc) from None
@@ -145,6 +152,9 @@ async def revise(
             body,
             parent_run_id=runs[0]["run_id"] if runs else row[0],
             learn=True,
+            conversation=await asyncio.to_thread(runtime.registry.delegation_history, context)
+            if hasattr(runtime.registry, "delegation_history")
+            else (),
         )
         return await asyncio.to_thread(tasks.view, context, result["task_id"])
     except (LookupError, ValueError) as exc:

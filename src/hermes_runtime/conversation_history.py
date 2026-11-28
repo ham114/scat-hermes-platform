@@ -46,6 +46,57 @@ class ConversationHistory:
             raise ValueError("trusted_user_message_unavailable")
         return row[0]
 
+    def delegation_history(self, context, run_id=None):
+        """Trusted user-facing messages only; no native reasoning or tool credentials."""
+        self.require_thread(context.user_id, context.thread_id)
+        if run_id is not None:
+            self.require(context, run_id)
+        with closing(self._connect()) as db:
+            end = (
+                db.execute(
+                    "SELECT id FROM conversation_turns WHERE scope_key=? AND run_id=?",
+                    (context.scope_key, run_id),
+                ).fetchone()
+                if run_id
+                else None
+            )
+            if run_id and end is None:
+                raise ValueError("trusted_user_message_unavailable")
+            rows = db.execute(
+                "SELECT id,run_id,input,input_sha,output,status,created_at FROM conversation_turns "
+                "WHERE scope_key=? AND id<=? ORDER BY id LIMIT 129",
+                (context.scope_key, end[0] if end else 2**63 - 1),
+            ).fetchall()
+        if len(rows) > 128:
+            raise ValueError("visualization_context_too_large")
+        messages = []
+        for identity, run, question, sha, answer, status, at in rows:
+            if question is None:
+                continue
+            if hashlib.sha256(question.encode()).hexdigest() != sha:
+                raise ValueError("trusted_user_message_unavailable")
+            source = "chat:" + str(identity)
+            messages.append(
+                {"source_id": source + ":user", "role": "user", "content": question, "at": at or 0}
+            )
+            # Large assistant output is not a user requirement. Preserve its
+            # absence explicitly rather than truncating a user instruction.
+            if run != run_id and status == "completed" and answer:
+                content = (
+                    answer
+                    if len(answer) <= 8000
+                    else "[助手长回复未展开；请以用户原话及已登记图表产物为准]"
+                )
+                messages.append(
+                    {
+                        "source_id": source + ":assistant",
+                        "role": "assistant",
+                        "content": content,
+                        "at": at or 0,
+                    }
+                )
+        return messages
+
     def initialize_history(self, db):
         db.executescript("""
             CREATE TABLE IF NOT EXISTS conversation_turns(

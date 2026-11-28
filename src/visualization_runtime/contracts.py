@@ -33,6 +33,27 @@ class ExecutionLimits(Contract):
     daily_tokens: int = Field(default=600000, ge=1, le=5000000)
 
 
+class DialogueMessage(Contract):
+    source_id: str = Field(min_length=1, max_length=200)
+    role: Literal["user", "assistant"]
+    content: str = Field(min_length=1, max_length=8000)
+    at: float = Field(ge=0)
+
+
+class DelegationContext(Contract):
+    version: Literal[1] = 1
+    context_id: Digest
+    revision: int = Field(ge=1)
+    user_message: str = Field(min_length=1, max_length=8000)
+    task_brief: str = Field(min_length=1, max_length=8000)
+    history: list[DialogueMessage] = Field(max_length=128)
+    related_charts: list[dict[str, str]] = Field(default_factory=list, max_length=8)
+    target_artifact_id: Identity | None = None
+    memory_epoch: int | None = None
+    memory_revision: int | None = None
+    learn: bool = False
+
+
 class VisualizationRequest(Contract):
     """Trusted snapshot references, not arbitrary filesystem paths or raw credentials."""
 
@@ -50,6 +71,7 @@ class VisualizationRequest(Contract):
     parent_artifact_id: Identity | None = None
     parent_version: int | None = Field(default=None, ge=1)
     preferences_round: int = Field(default=0, ge=0, le=100)
+    delegation: DelegationContext | None = None
 
     @model_validator(mode="after")
     def consistent_references(self):
@@ -103,6 +125,8 @@ class VisualizationTaskView(Contract):
     artifact_id: Identity | None = None
     parent_artifact_id: Identity | None = None
     version: int = Field(ge=1)
+    context_revision: int | None = None
+    context_sha256: Digest | None = None
     memory_outcome: (
         Literal[
             "pending", "saved", "not_requested", "disabled", "conflict", "unavailable", "failed"

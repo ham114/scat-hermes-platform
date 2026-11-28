@@ -28,11 +28,11 @@ def schemas():
 
     return {
         "create_visualization": (
-            "根据实际 data_refs 创建自主图表后台任务。先查询数据，再调用 list_visualization_sources 取得 kind/source_id/run_id/payload_sha256，只传这四个来源字段；不传代码。只表示入队，审核后才交付。request_id 使用唯一 UUID，重试保留原号。",
+            "根据实际 data_refs 委派自主绘图。intent应是结合相关对话后的完整任务说明，保留仍适用的指标、单位和用户约定，不能只转发最后一句；作用范围通过自然语言说明，不添加scope参数。换数据时重新查询并使用新的真实引用，不添加未要求的指标。先用list_visualization_sources取得kind/source_id/run_id/payload_sha256；不传代码。只表示入队，审核后才交付。request_id使用唯一UUID，重试保留原号。",
             CreateVisualization,
         ),
         "revise_visualization": (
-            "按用户自然语言反馈修改已发布图表，创建新版本，不覆盖旧图。保持 request_id 幂等；不自行填写审核结论。",
+            "按用户反馈委派修改指定artifact_id图表。feedback应结合相关对话说明本轮完整修改要求；仅本次、以后默认等含义用自然语言表达。新版本保留旧图和原数据，换航班等数据变化使用create并取得新数据引用。保持request_id幂等，不自行填写审核结论。",
             Revise,
         ),
         "get_visualization_status": (
@@ -64,14 +64,9 @@ async def invoke(payload):
     context = registry.require_control_scope(payload["scope"], payload["source_run_id"])
     operation = payload["operation"]
     args = schemas()[operation][1].model_validate(payload["arguments"])
+    delegation = {}
     if operation in {"create_visualization", "revise_visualization"}:
-        field = "intent" if operation == "create_visualization" else "feedback"
-        # The model may summarize intent but cannot promote recalled style into a
-        # fresh user preference. Keep the platform's exact, owner-scoped question.
-        args = type(args).model_validate(
-            args.model_dump(mode="json")
-            | {field: registry.original_question(context, payload["source_run_id"])}
-        )
+        delegation = trusted_delegation(registry, context, payload["source_run_id"])
     visualization_settings = load_settings(ROOT)
     parent_budget_path = (
         os.environ.get("SCAT_PARENT_BUDGET_PATH") or visualization_settings.parent_budget_path
@@ -93,12 +88,19 @@ async def invoke(payload):
         for ref in args.data_refs:
             if ref.kind == "readonly_result":
                 registry.require(context, ref.run_id)
-        row = await app.create(context, args, parent_run_id=payload["source_run_id"], learn=True)
+        row = await app.create(
+            context, args, parent_run_id=payload["source_run_id"], learn=True, **delegation
+        )
         data = app.view(context, row["task_id"])
     elif operation == "revise_visualization":
         args = memory_token(app, context, args)
         row = app.revise(
-            context, args.artifact_id, args, parent_run_id=payload["source_run_id"], learn=True
+            context,
+            args.artifact_id,
+            args,
+            parent_run_id=payload["source_run_id"],
+            learn=True,
+            **delegation,
         )
         data = app.view(context, row["task_id"])
     elif operation == "get_visualization_status":
@@ -108,6 +110,16 @@ async def invoke(payload):
     from fastapi.encoders import jsonable_encoder
 
     return {"status": "ok", "data": jsonable_encoder(data)}
+
+
+def trusted_delegation(registry, context, run_id):
+    raw = registry.original_question(context, run_id)
+    history = registry.delegation_history(context, run_id)
+    return {
+        "user_message": raw,
+        "conversation": history,
+        "source_turn_id": history[-1]["source_id"],
+    }
 
 
 def memory_token(app, context, args):
