@@ -365,3 +365,18 @@ def test_assistant_verbosity_does_not_drop_user_requirements(pipeline):
     packet = job["request"].delegation
     assert packet.history[0].content == "高度用米"
     assert "未展开" in packet.history[1].content
+
+
+def test_known_provider_format_tag_does_not_relax_delegation_validation(pipeline):
+    from visualization_runtime.delegation import parse_generation
+
+    app, context, _, refs, _, _ = configure(pipeline)
+    job = create(app, context, refs, "画图")
+    body = {"source": "export async function render() {}", "memory_changes": []}
+    assert (
+        parse_generation(json.dumps(body | {"type": "json_object"}), job["request"]).source
+        == body["source"]
+    )
+    for extra in ({"type": "skip_validation"}, {"scope": "all"}, {"untrusted": True}):
+        with pytest.raises(JobConflict, match="invalid_delegated_generation"):
+            parse_generation(json.dumps(body | extra), job["request"])

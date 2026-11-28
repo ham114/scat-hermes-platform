@@ -30,6 +30,7 @@ INSTRUCTIONS = (
 )
 GENERATION_OUTPUT = (
     "For this delegated task return exactly one JSON object with source and memory_changes. "
+    'Its shape is {"source":"export async function render(...) {...}","memory_changes":[]}; do not echo response_format or type metadata. '
     "source is the complete JavaScript export async function render({echarts,container,data,metadata}). "
     "memory_changes is an array of {key,value,evidence}, empty when the CURRENT exact user message "
     "does not explicitly request a lasting default or withdrawal. Do not omit an explicit request to remember. "
@@ -207,7 +208,12 @@ class Generated(Contract):
 
 def parse_generation(content, request):
     try:
-        generated = Generated.model_validate_json(content)
+        payload = json.loads(content)
+        # A provider may echo its non-semantic JSON response-format tag. Accept
+        # only this exact known tag; all other extra keys remain forbidden.
+        if isinstance(payload, dict) and payload.get("type") == "json_object":
+            payload.pop("type")
+        generated = Generated.model_validate(payload)
         keys = set()
         for change in generated.memory_changes:
             validate(change.key, change.value)
