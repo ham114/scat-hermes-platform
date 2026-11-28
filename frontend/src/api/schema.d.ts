@@ -3553,7 +3553,7 @@ export interface components {
             /** Context Sha256 */
             context_sha256?: string | null;
             /** Memory Outcome */
-            memory_outcome?: ("pending" | "saved" | "not_requested" | "disabled" | "conflict" | "unavailable" | "failed") | null;
+            memory_outcome?: ("pending" | "saved" | "not_requested" | "disabled" | "conflict" | "unavailable" | "failed" | "unconfirmed") | null;
         };
         /** VisualizationSourceList */
         VisualizationSourceList: {

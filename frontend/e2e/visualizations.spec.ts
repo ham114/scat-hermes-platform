@@ -77,6 +77,7 @@ test('delivers reviewed charts, revises with natural feedback, and restores hist
     artifact_id: version === 2 ? revised : artifact,
     parent_artifact_id: version === 2 ? artifact : null,
     version,
+    memory_outcome: version === 1 ? 'unconfirmed' : 'not_requested',
   })
   await page.route('**/api/v1/hermes/**', async (route) => {
     const path = new URL(route.request().url()).pathname
@@ -146,6 +147,13 @@ test('delivers reviewed charts, revises with natural feedback, and restores hist
   await page.getByRole('button', { name: '发送问题' }).click()
   await expect(page.getByRole('heading', { name: '自主图表 · 版本 1' })).toBeVisible()
   await page.getByLabel('图表修改要求').fill('将图例放在底部，增大字号，保留原数据。')
+  await expect(
+    page.getByText('未收到完整的偏好确认，未保存新的长期偏好；可在记忆页核对。'),
+  ).toBeVisible()
+  if (process.env.SCAT_VIS_QA_DIR)
+    await page.screenshot({
+      path: join(process.env.SCAT_VIS_QA_DIR, `delegation-unconfirmed-${info.project.name}.png`),
+    })
   await page.getByRole('button', { name: '生成新版本' }).click()
   await expect(page.getByRole('heading', { name: '自主图表 · 版本 2' })).toBeVisible({
     timeout: 10000,

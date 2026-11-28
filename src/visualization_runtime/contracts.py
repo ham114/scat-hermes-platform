@@ -129,7 +129,14 @@ class VisualizationTaskView(Contract):
     context_sha256: Digest | None = None
     memory_outcome: (
         Literal[
-            "pending", "saved", "not_requested", "disabled", "conflict", "unavailable", "failed"
+            "pending",
+            "saved",
+            "not_requested",
+            "disabled",
+            "conflict",
+            "unavailable",
+            "failed",
+            "unconfirmed",
         ]
         | None
     ) = None

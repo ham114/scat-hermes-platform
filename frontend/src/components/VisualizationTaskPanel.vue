@@ -91,6 +91,7 @@ const memoryLabels: Record<string, string> = {
   conflict: '记忆版本已变化：本次要求用于当前图表，长期偏好未保存。请在记忆页核对后设置。',
   unavailable: '未取得有效的记忆状态：本次要求用于当前图表，长期偏好未保存。',
   failed: '偏好识别未完成，未保存新的长期偏好。',
+  unconfirmed: '未收到完整的偏好确认，未保存新的长期偏好；可在记忆页核对。',
 }
 async function load() {
   const thread = props.threadId

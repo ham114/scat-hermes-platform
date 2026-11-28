@@ -40,6 +40,18 @@ beforeEach(() => {
   vi.mocked(readVisualization).mockResolvedValue(artifact as never)
 })
 describe('autonomous chart delivery', () => {
+  it('distinguishes chart delivery from an unconfirmed memory result', async () => {
+    vi.mocked(listVisualizations).mockResolvedValue({
+      enabled: true,
+      items: [{ ...task, memory_outcome: 'unconfirmed' }],
+    } as never)
+    const wrapper = mount(VisualizationTaskPanel, { props: { threadId: 'thread' } })
+    await flushPromises()
+    expect(wrapper.text()).toContain('未收到完整的偏好确认，未保存新的长期偏好')
+    expect(wrapper.text()).toContain('原始图表')
+    expect(wrapper.text()).not.toContain('本次明确的长期图表偏好已保存')
+    wrapper.unmount()
+  })
   it('retains the request ID after an unknown POST and never automatically retries', async () => {
     vi.mocked(reviseVisualization)
       .mockRejectedValueOnce(new HermesApiError('unknown', true))

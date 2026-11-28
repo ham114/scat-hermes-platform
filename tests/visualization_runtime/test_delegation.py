@@ -380,3 +380,17 @@ def test_known_provider_format_tag_does_not_relax_delegation_validation(pipeline
     for extra in ({"type": "skip_validation"}, {"scope": "all"}, {"untrusted": True}):
         with pytest.raises(JobConflict, match="invalid_delegated_generation"):
             parse_generation(json.dumps(body | extra), job["request"])
+
+
+def test_missing_memory_receipt_does_not_block_chart_or_claim_saved(pipeline, memory):
+    app, context, worker, refs, _, _ = configure(pipeline, memory)
+    worker.code.transport = httpx.MockTransport(
+        lambda request: completion(
+            json.dumps({"source": "export async function render() {}"}),
+            json.loads(request.content)["model"],
+        )
+    )
+    job = create(app, context, refs, "以后用蓝色，画本页图", learn=True)
+    finish(app, context, worker, job)
+    assert app.view(context, job["task_id"]).memory_outcome == "unconfirmed"
+    assert not memory.charts.list(context.user_id)["items"]

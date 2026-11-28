@@ -12540,7 +12540,8 @@
                   "disabled",
                   "conflict",
                   "unavailable",
-                  "failed"
+                  "failed",
+                  "unconfirmed"
                 ]
               },
               {

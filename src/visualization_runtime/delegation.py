@@ -203,7 +203,7 @@ class MemoryChange(Contract):
 
 class Generated(Contract):
     source: str = Field(min_length=1, max_length=128 * 1024)
-    memory_changes: list[MemoryChange] = Field(max_length=16)
+    memory_changes: list[MemoryChange] | None = Field(default=None, max_length=16)
 
 
 def parse_generation(content, request):
@@ -215,7 +215,7 @@ def parse_generation(content, request):
             payload.pop("type")
         generated = Generated.model_validate(payload)
         keys = set()
-        for change in generated.memory_changes:
+        for change in generated.memory_changes or []:
             validate(change.key, change.value)
             if change.key in keys or change.evidence not in request.delegation.user_message:
                 raise ValueError("untrusted_memory_change")
@@ -241,7 +241,7 @@ def commit_memory(db, jobs, store, context, job, attempt):
     if extract_source(generated.source) != attempt["source"]:
         raise JobConflict("delegated_source_binding_changed")
     packet = request.delegation
-    outcome = "not_requested"
+    outcome = "unconfirmed" if generated.memory_changes is None else "not_requested"
     if generated.memory_changes:
         if store is None or not packet.learn:
             outcome = "unavailable"
@@ -279,7 +279,11 @@ def commit_memory(db, jobs, store, context, job, attempt):
                     (user["chart_revision"], job["task_id"]),
                 )
                 outcome = "saved"
-    events = canonical([c.model_dump(mode="json") for c in generated.memory_changes])
+    events = canonical(
+        [c.model_dump(mode="json") for c in generated.memory_changes]
+        if generated.memory_changes is not None
+        else None
+    )
     db.execute(
         "INSERT INTO visualization_delegation_memory VALUES(?,?,?,?)",
         (job["task_id"], outcome, events, digest(json.loads(events))),
