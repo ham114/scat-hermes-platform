@@ -103,6 +103,12 @@ class VisualizationTaskView(Contract):
     artifact_id: Identity | None = None
     parent_artifact_id: Identity | None = None
     version: int = Field(ge=1)
+    memory_outcome: (
+        Literal[
+            "pending", "saved", "not_requested", "disabled", "conflict", "unavailable", "failed"
+        ]
+        | None
+    ) = None
 
 
 class VisualizationTaskList(Contract):

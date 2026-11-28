@@ -12505,6 +12505,26 @@
             "type": "integer",
             "minimum": 1.0,
             "title": "Version"
+          },
+          "memory_outcome": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "saved",
+                  "not_requested",
+                  "disabled",
+                  "conflict",
+                  "unavailable",
+                  "failed"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Memory Outcome"
           }
         },
         "additionalProperties": false,

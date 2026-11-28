@@ -103,6 +103,10 @@ test('chart preferences can be corrected, paused, individually deleted and clear
   await panel.getByRole('button', { name: '保存图表偏好', exact: true }).click()
   await expect(panel.getByText('所有图表 · 字号：18', { exact: true })).toBeVisible()
   expect(writes).toBe(4)
+  await panel.getByLabel('图表偏好项目').selectOption('altitude_unit')
+  await panel.getByLabel('图表偏好值').fill('米')
+  await panel.getByRole('button', { name: '保存图表偏好', exact: true }).click()
+  await expect(panel.getByText('所有图表 · 高度单位：米', { exact: true })).toBeVisible()
   if (process.env.SCAT_VIS_QA_DIR) {
     await panel.screenshot({
       path: join(process.env.SCAT_VIS_QA_DIR, `p5-preferences-${info.project.name}.png`),
@@ -116,7 +120,7 @@ test('chart preferences can be corrected, paused, individually deleted and clear
   await page.reload()
   await expect(page.getByLabel('图表长期偏好').getByText('尚无已保存的图表偏好。')).toBeVisible()
   expect(clears).toBe(1)
-  expect(writes).toBe(4)
+  expect(writes).toBe(5)
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
   await expect(page.locator('vite-error-overlay')).toHaveCount(0)
   expect(errors).toEqual([])

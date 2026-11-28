@@ -2,9 +2,7 @@ import type { components } from './schema'
 import { HermesApiError, newRequestId } from './hermes'
 import { memoryRequest, type ChartPreferences } from './memory'
 
-export async function chartMemoryToken(text: string) {
-  if (!/以后|今后|所有图|长期|请记住|记住我的|always\s+use|remember\s+my/i.test(text))
-    return undefined
+export async function chartMemoryToken() {
   try {
     const value = await memoryRequest<ChartPreferences>('/chart-preferences')
     if (Number.isSafeInteger(value.epoch) && Number.isSafeInteger(value.revision)) return value

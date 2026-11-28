@@ -18,12 +18,14 @@ class VisualizationTasks:
         parent_budget_path=None,
         admission_check=None,
         preferences=None,
+        semantic_preferences=True,
     ):
         self.jobs, self.snapshots = jobs, snapshots
         self.receipts, self.artifacts = receipts, artifacts
         self.enabled, self.parent_budget_path = enabled, parent_budget_path
         self.admission_check = admission_check
         self.preferences = preferences
+        self.semantic_preferences = semantic_preferences
         self.publisher = Publisher(jobs, snapshots, None)
 
     def _admission(self, parent_run_id):
@@ -85,7 +87,7 @@ class VisualizationTasks:
         from visualization_runtime.preferences import extract
 
         parent = self._admission(parent_run_id)
-        local = extract(body.intent)
+        local = {} if self.semantic_preferences else extract(body.intent)
         return await self.prepare(
             context,
             body.request_id,
@@ -102,6 +104,8 @@ class VisualizationTasks:
                 "text": body.intent if learn else None,
                 "token": self._memory_token(body),
                 "request_id": body.request_id,
+                "semantic": self.semantic_preferences,
+                "input_text": body.intent,
             },
         )
 
@@ -127,8 +131,8 @@ class VisualizationTasks:
                 "SELECT local_json FROM visualization_preference_bindings WHERE task_id=?",
                 (manifest["task_id"],),
             ).fetchone()
-        local = (json.loads(binding[0]) if binding else extract(original.intent)) | extract(
-            body.feedback
+        local = (json.loads(binding[0]) if binding else extract(original.intent)) | (
+            {} if self.semantic_preferences else extract(body.feedback)
         )
         intent = original.intent + "\n用户本次修改要求：" + body.feedback
         if len(intent) > 8000:
@@ -153,6 +157,13 @@ class VisualizationTasks:
                 token=self._memory_token(body),
                 source=artifact_id,
                 request_id=body.request_id,
+                semantic=self.semantic_preferences,
+                input_text=body.feedback,
+                reference_source=self.publisher.read_file(
+                    context, artifact_id, "source.js"
+                ).decode()
+                if self.semantic_preferences
+                else None,
             )
             if self.preferences
             else None
@@ -180,6 +191,10 @@ class VisualizationTasks:
             row = db.execute(
                 "SELECT artifact_id FROM visualization_publications WHERE task_id=?", (task_id,)
             ).fetchone()
+            memory = db.execute(
+                "SELECT state,outcome FROM visualization_preference_inputs WHERE task_id=?",
+                (task_id,),
+            ).fetchone()
         return VisualizationTaskView(
             task_id=task_id,
             state=job["state"],
@@ -190,6 +205,12 @@ class VisualizationTasks:
             artifact_id=row[0] if row else None,
             parent_artifact_id=request.parent_artifact_id,
             version=(request.parent_version or 0) + 1,
+            memory_outcome=(
+                memory["outcome"]
+                or ("pending" if job["state"] in {"queued", "running"} else "failed")
+            )
+            if memory
+            else None,
         )
 
     def list(self, context):
@@ -334,4 +355,5 @@ def create_visualization_tasks(
         parent_budget_path=parent_budget_path,
         admission_check=admission_check,
         preferences=preferences,
+        semantic_preferences=True,
     )

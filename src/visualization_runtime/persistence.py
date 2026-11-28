@@ -29,6 +29,10 @@ def migrate_foundation(db):
             task_id TEXT PRIMARY KEY,path TEXT NOT NULL,owner_hash TEXT NOT NULL,
             epoch INTEGER NOT NULL,revision INTEGER NOT NULL,enabled INTEGER NOT NULL,
             local_json TEXT NOT NULL,task_type TEXT NOT NULL,learned INTEGER NOT NULL);
+        CREATE TABLE IF NOT EXISTS visualization_preference_inputs(
+            task_id TEXT PRIMARY KEY,text TEXT NOT NULL,context_json TEXT NOT NULL,
+            epoch INTEGER NOT NULL,revision INTEGER NOT NULL,learn INTEGER NOT NULL,
+            source_artifact TEXT,state TEXT NOT NULL,result TEXT,result_sha TEXT,outcome TEXT);
         CREATE TABLE IF NOT EXISTS visualization_parent_allocations(
             task_id TEXT PRIMARY KEY, scope TEXT NOT NULL, run_id TEXT NOT NULL,
             path TEXT NOT NULL, reserved_requests INTEGER NOT NULL, reserved_tokens INTEGER NOT NULL);

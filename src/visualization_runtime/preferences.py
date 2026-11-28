@@ -25,6 +25,7 @@ KEYS = {
     "density",
     "legend_position",
     "units",
+    "altitude_unit",
     "chart_style",
     "special_needs",
 }
@@ -74,10 +75,12 @@ class PreferenceList(Contract):
 
 
 def validate(key, value):
-    if key not in KEYS:
+    if key not in KEYS and not re.fullmatch(r"rule_[a-z0-9_]{1,48}", key):
         raise ValueError("unknown_chart_preference")
     if value is None:
         return
+    if key == "altitude_unit" and value not in ("m", "ft", "km"):
+        raise ValueError("invalid_chart_altitude_unit")
     if key == "font_size":
         if type(value) is not int or not 8 <= value <= 40:
             raise ValueError("invalid_chart_font_size")
@@ -539,7 +542,20 @@ def task_type(snapshot):
     )
 
 
-def setup(store, context, local, kind, *, text=None, token=None, source=None, request_id=None):
+def setup(
+    store,
+    context,
+    local,
+    kind,
+    *,
+    text=None,
+    token=None,
+    source=None,
+    request_id=None,
+    semantic=False,
+    input_text=None,
+    reference_source=None,
+):
     def apply(db, task_id, request):
         if not any(r[1] == "vis_preferences" for r in db.execute("PRAGMA database_list")):
             db.execute("ATTACH DATABASE ? AS vis_preferences", (str(store.path),))
@@ -548,8 +564,11 @@ def setup(store, context, local, kind, *, text=None, token=None, source=None, re
         require_atomic_journals(db, "vis_preferences")
         owner = store.owner(context.user_id)
         user = store.user(db, owner, "vis_preferences.")
-        learned = False
-        values = extract(text, durable=True) if text else {}
+        previous = db.execute(
+            "SELECT learned FROM visualization_preference_bindings WHERE task_id=?", (task_id,)
+        ).fetchone()
+        learned = bool(previous[0]) if previous and text is None and input_text is None else False
+        values = extract(text, durable=True) if text and not semantic else {}
         if values and token is not None:
             if store.token(user) != token:
                 raise JobConflict("visualization_memory_changed")
@@ -567,6 +586,42 @@ def setup(store, context, local, kind, *, text=None, token=None, source=None, re
                 )
                 user = store.user(db, owner, "vis_preferences.")
         effective = store.effective(db, owner, user, kind, prefix="vis_preferences.") | local
+        if len(effective) > 32:
+            raise JobConflict("visualization_preference_capacity_exceeded")
+        if semantic and input_text is not None:
+            saved_records = (
+                [
+                    dict(row) | {"value": json.loads(row["value"])}
+                    for row in db.execute(
+                        "SELECT task_type,key,value FROM vis_preferences.chart_preferences WHERE owner=? AND epoch=? AND state='active' ORDER BY task_type,key LIMIT 64",
+                        (owner, user["epoch"]),
+                    )
+                ]
+                if user["enabled"]
+                else []
+            )
+            db.execute(
+                "INSERT INTO visualization_preference_inputs VALUES(?,?,?,?,?,?,?,'pending',NULL,NULL,NULL)",
+                (
+                    task_id,
+                    input_text,
+                    canonical(
+                        {
+                            "intent": request.intent,
+                            "preferences": effective,
+                            "task_type": kind,
+                            "saved_records": saved_records,
+                            "reference_source": reference_source[:18000]
+                            if reference_source
+                            else None,
+                        }
+                    ),
+                    token["epoch"] if token else user["epoch"],
+                    token["revision"] if token else user["chart_revision"],
+                    int(text is not None and token is not None),
+                    source,
+                ),
+            )
         db.execute(
             "INSERT OR REPLACE INTO visualization_preference_bindings VALUES(?,?,?,?,?,?,?,?,?)",
             (

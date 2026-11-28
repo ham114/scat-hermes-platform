@@ -84,6 +84,14 @@ const labels: Record<string, string> = {
   cancelled: '已取消',
   needs_reconciliation: '执行状态待核实',
 }
+const memoryLabels: Record<string, string> = {
+  pending: '正在识别本次要求与长期偏好。',
+  saved: '本次明确的长期图表偏好已保存，可在记忆页核对。',
+  disabled: '记忆已暂停：本次要求用于当前图表，长期偏好未保存。',
+  conflict: '记忆版本已变化：本次要求用于当前图表，长期偏好未保存。请在记忆页核对后设置。',
+  unavailable: '未取得有效的记忆状态：本次要求用于当前图表，长期偏好未保存。',
+  failed: '偏好识别未完成，未保存新的长期偏好。',
+}
 async function load() {
   const thread = props.threadId
   const token = ++generation
@@ -154,18 +162,16 @@ async function submit() {
   error.value = ''
   try {
     if (!('memory_epoch' in request)) {
-      const text = 'artifact' in request ? request.feedback : request.intent
-      const token = await chartMemoryToken(text)
+      const token = await chartMemoryToken()
       if (request.thread !== props.threadId) return
       request.memory_epoch = token?.epoch ?? null
       request.memory_revision = token?.revision ?? null
       pending.value = { ...request }
-      if (/以后|今后|所有图|长期|请记住|记住我的/.test(text))
-        preferenceNotice.value = token
-          ? token.enabled
-            ? '明确的长期图表偏好可在记忆页核对。'
-            : '记忆已暂停，本次要求只用于当前图表。'
-          : '记忆状态暂不可用，本次只修改当前图表；可在记忆页设置长期偏好。'
+      preferenceNotice.value = token
+        ? token.enabled
+          ? '偏好是否保存以任务回执为准，可在记忆页核对。'
+          : '记忆已暂停，本次要求只用于当前图表。'
+        : '记忆状态暂不可用，本次只修改当前图表；可在记忆页设置长期偏好。'
     }
     if ('artifact' in request)
       await reviseVisualization(request.thread, request.artifact, {
@@ -265,6 +271,9 @@ async function cancel(task: string) {
       <button :disabled="acting || !!pending || !selected || !intent.trim()">创建图表</button>
     </form>
     <article v-for="task in items" :key="task.task_id">
+      <p v-if="task.memory_outcome && memoryLabels[task.memory_outcome]" role="status">
+        {{ memoryLabels[task.memory_outcome] }}
+      </p>
       <p>
         版本 {{ task.version }} ·
         {{ labels[task.state === 'running' ? task.phase : task.state] ?? task.state }}

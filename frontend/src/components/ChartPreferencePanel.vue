@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onUnmounted } from 'vue'
+import { computed, ref, watch, onUnmounted } from 'vue'
 import { memoryRequest, type ChartPreferences, type ChartPreference } from '@/api/memory'
 import { newRequestId } from '@/api/hermes'
 const props = defineProps<{
@@ -23,6 +23,7 @@ const labels: Record<string, string> = {
   density: '布局密度',
   legend_position: '图例位置',
   units: '单位习惯',
+  altitude_unit: '高度单位',
   chart_style: '图形习惯',
   special_needs: '特殊需求',
 }
@@ -33,6 +34,16 @@ const scopes: Record<string, string> = {
   prediction: '预测图',
   classification: '分类图',
 }
+const editableLabels = computed(() => ({
+  ...labels,
+  ...Object.fromEntries(
+    (state.value?.items ?? [])
+      .filter((item) => item.key.startsWith('rule_'))
+      .map((item) => [item.key, `其他规则：${item.value}`]),
+  ),
+}))
+const preferenceLabel = (key: string) =>
+  labels[key] ?? (key.startsWith('rule_') ? '其他绘图规则' : key)
 const values: Record<string, string> = {
   blue: '蓝色系',
   red: '红色系',
@@ -54,6 +65,9 @@ const values: Record<string, string> = {
   bar: '柱状图',
   scatter: '散点图',
   heatmap: '热力图',
+  m: '米',
+  ft: '英尺',
+  km: '公里',
 }
 const pending = ref<{
   request_id: string
@@ -134,7 +148,15 @@ async function submit() {
 }
 function save() {
   if (!state.value || pending.value || !state.value.enabled) return
-  const parsed = key.value === 'font_size' ? Number(value.value) : value.value.trim()
+  let parsed = key.value === 'font_size' ? Number(value.value) : value.value.trim()
+  if (key.value === 'altitude_unit') {
+    const aliases: Record<string, string> = { 米: 'm', 英尺: 'ft', 公里: 'km', 千米: 'km' }
+    parsed = aliases[String(parsed)] ?? String(parsed).toLowerCase()
+    if (!['m', 'ft', 'km'].includes(String(parsed))) {
+      error.value = '高度单位请输入米（m）、英尺（ft）或公里（km）。'
+      return
+    }
+  }
   if (
     key.value === 'font_size' &&
     (!Number.isInteger(parsed) || Number(parsed) < 8 || Number(parsed) > 40)
@@ -176,7 +198,7 @@ function edit(item: ChartPreference) {
   <section class="chart-preferences" aria-label="图表长期偏好">
     <h2>图表长期偏好</h2>
     <p>
-      “这张图换蓝色”只修改当前图；“以后所有图都用蓝色系”才保存为长期偏好。图表样式不会自动升级为记忆。
+      模型根据原话区分当前图表要求和长期默认偏好；只有明确要求长期使用的偏好才保存。请在这里核对保存结果和依据。
     </p>
     <p v-if="state && !state.enabled">记忆已暂停：保存的偏好不会用于新图，也不会记录新偏好。</p>
     <button :disabled="busy" @click="load">刷新图表偏好</button>
@@ -186,7 +208,7 @@ function edit(item: ChartPreference) {
     <ul v-if="state?.items.length">
       <li v-for="item in state.items" :key="item.id">
         <strong
-          >{{ scopes[item.task_type] ?? item.task_type }} · {{ labels[item.key] ?? item.key }}：{{
+          >{{ scopes[item.task_type] ?? item.task_type }} · {{ preferenceLabel(item.key) }}：{{
             values[String(item.value)] ?? item.value
           }}</strong
         >
@@ -196,10 +218,10 @@ function edit(item: ChartPreference) {
           <p v-if="item.source_artifact">来源图表：{{ item.source_artifact }}</p>
         </details>
         <button :disabled="busy || readOnly || !!pending || !state.enabled" @click="edit(item)">
-          更正{{ labels[item.key] ?? item.key }}
+          更正{{ preferenceLabel(item.key) }}
         </button>
         <button :disabled="busy || readOnly || !!pending" @click="remove(item)">
-          删除{{ labels[item.key] ?? item.key }}偏好
+          删除{{ preferenceLabel(item.key) }}偏好
         </button>
       </li>
     </ul>
@@ -215,7 +237,7 @@ function edit(item: ChartPreference) {
           :disabled="busy || readOnly || !!pending"
           aria-label="图表偏好项目"
         >
-          <option v-for="(label, id) in labels" :key="id" :value="id">{{ label }}</option>
+          <option v-for="(label, id) in editableLabels" :key="id" :value="id">{{ label }}</option>
         </select></label
       >
       <label

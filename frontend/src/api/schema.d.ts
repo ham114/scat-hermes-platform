@@ -3548,6 +3548,8 @@ export interface components {
             parent_artifact_id?: string | null;
             /** Version */
             version: number;
+            /** Memory Outcome */
+            memory_outcome?: ("pending" | "saved" | "not_requested" | "disabled" | "conflict" | "unavailable" | "failed") | null;
         };
         /** VisualizationSourceList */
         VisualizationSourceList: {

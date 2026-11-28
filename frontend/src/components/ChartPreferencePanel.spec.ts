@@ -10,6 +10,34 @@ beforeEach(() => {
   vi.mocked(memoryRequest).mockResolvedValue(initial)
 })
 
+it('displays learned height units and keeps new semantic rules editable', async () => {
+  vi.mocked(memoryRequest).mockResolvedValue({
+    ...initial,
+    revision: 1,
+    items: [
+      { id: 'height', task_type: 'all', key: 'altitude_unit', value: 'm' },
+      {
+        id: 'rotation',
+        task_type: 'all',
+        key: 'rule_long_label_rotation',
+        value: '长标签倾斜45度',
+      },
+    ],
+  })
+  const wrapper = mount(ChartPreferencePanel, { props: { epoch: 1, enabled: true } })
+  await flushPromises()
+  expect(wrapper.text()).toContain('所有图表 · 高度单位：米')
+  expect(wrapper.text()).toContain('所有图表 · 其他绘图规则：长标签倾斜45度')
+  await wrapper.get('[aria-label="图表偏好项目"]').setValue('altitude_unit')
+  await wrapper.get('input').setValue('英尺')
+  await wrapper.get('form').trigger('submit')
+  await flushPromises()
+  expect(vi.mocked(memoryRequest).mock.calls.find((call) => call[1] === 'POST')?.[2]).toMatchObject(
+    { key: 'altitude_unit', value: 'ft' },
+  )
+  wrapper.unmount()
+})
+
 it('ignores a late save response after all memory was cleared', async () => {
   let release!: (value: unknown) => void
   vi.mocked(memoryRequest).mockImplementation(async (_path, method) => {

@@ -89,13 +89,17 @@ async def invoke(payload):
     if operation == "list_visualization_sources":
         return {"status": "ok", "data": await app.sources(context, registry)}
     if operation == "create_visualization":
+        args = memory_token(app, context, args)
         for ref in args.data_refs:
             if ref.kind == "readonly_result":
                 registry.require(context, ref.run_id)
-        row = await app.create(context, args, parent_run_id=payload["source_run_id"])
+        row = await app.create(context, args, parent_run_id=payload["source_run_id"], learn=True)
         data = app.view(context, row["task_id"])
     elif operation == "revise_visualization":
-        row = app.revise(context, args.artifact_id, args, parent_run_id=payload["source_run_id"])
+        args = memory_token(app, context, args)
+        row = app.revise(
+            context, args.artifact_id, args, parent_run_id=payload["source_run_id"], learn=True
+        )
         data = app.view(context, row["task_id"])
     elif operation == "get_visualization_status":
         data = app.view(context, args.task_id)
@@ -104,6 +108,15 @@ async def invoke(payload):
     from fastapi.encoders import jsonable_encoder
 
     return {"status": "ok", "data": jsonable_encoder(data)}
+
+
+def memory_token(app, context, args):
+    if app.preferences:
+        state = app.preferences.list(context.user_id)
+        return args.model_copy(
+            update={"memory_epoch": state["epoch"], "memory_revision": state["revision"]}
+        )
+    return args
 
 
 def main():

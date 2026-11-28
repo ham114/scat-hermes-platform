@@ -132,7 +132,9 @@ def pipeline(tmp_path):
             "payload_sha256": receipt["payload_sha256"],
         }
     ]
-    app = VisualizationTasks(jobs, snapshots, receipts)
+    # Historical foundation/race tests explicitly exercise the legacy admission
+    # path. The factory and all new production tasks use semantic preferences.
+    app = VisualizationTasks(jobs, snapshots, receipts, semantic_preferences=False)
     job = asyncio.run(
         app.prepare(
             context,
