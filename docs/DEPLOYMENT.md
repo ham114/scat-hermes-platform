@@ -12,6 +12,10 @@
 
 发布入口为`scripts/deploy_visualization.py`，基于当前生产镜像和Compose准备/构建/切换；切换前停写备份共享状态、主Agent预算及记忆SQLite，备份配置、镜像ID和门户单元。预检失败未切换生产；切换异常自动回滚，手动回滚使用`python scripts/deploy_visualization.py rollback`。回滚只恢复程序和配置，不自动恢复旧账本覆盖新用量。原配置、备份、两次预检失败和最终证据位于服务器`var/deploy/visualization/20261128*`，本地摘要位于`.tmp/visualization-deploy-20261128/`；凭据和原始证据不提交Git。
 
+用户页面测试的104363和104362绘图任务均在DS代码阶段约10秒超时。进一步排查复现worker域名解析临时失败：主Agent显式使用223.5.5.5/119.29.29.29，新worker漏继承DNS而回退127.0.0.53。f0d1f55修复部署配置继承，只更新worker容器；系统DNS、主Agent、页面与凭据不变。连接建立/连接池失败单独标为已知失败，读写/总超时仍按未知处理，均不自动重试；异常分类依据[HTTPX官方定义](https://www.python-httpx.org/exceptions/)，不追溯改写旧回执。
+
+修复后189项回归通过，worker内6次解析及4次TLS/HTTP连通检查全部成功，连接约0.12–0.38秒。另以已授权5点新建独立验收图，DS和Qwen均成功、桌面手机PNG可读；8角色健康。用户原两条调用ID、unknown状态及18846/18621 token占位保持不变，未自动重跑。新增验证共2次模型请求；将用户页面两次尝试也计入后，累计53/120次、424393计量token。修复/回滚与诊断证据位于服务器`var/deploy/visualization/network-fix-20261128/`。
+
 ## 本地开发
 
 使用现有 Conda 环境安装项目依赖，准备 MongoDB 和本机 `.env`。前端使用 Node.js 24 与 npm 11。数据 API 和前端的启动方式见[项目首页](../README.md)。
