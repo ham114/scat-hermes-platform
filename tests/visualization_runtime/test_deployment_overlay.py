@@ -124,3 +124,11 @@ def test_build_pins_local_base_before_offline_build(tmp_path, monkeypatch):
     assert len(builds) == 3 and all(
         "--pull=false" in command and "--network=none" in command for command in builds
     )
+    native = next(
+        command
+        for command in commands
+        if command[:2] == ["docker", "run"]
+        and deployment.IMAGE_PREFIX + "-hermes-main:20261128" in command
+    )
+    assert "VisualizationBridge" in native[-1]
+    assert "VisualizationWorker" not in native[-1] and "service.visualization_api" not in native[-1]

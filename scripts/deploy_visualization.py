@@ -241,6 +241,11 @@ def build():
             ],
             timeout=240,
         )
+        import_check = (
+            "from hermes_runtime.visualization_bridge import VisualizationBridge; print('native_bridge_ok')"
+            if role == "hermes-main"
+            else "from visualization_runtime.worker import VisualizationWorker; from service.visualization_api import router; print('backend_imports_ok')"
+        )
         run(
             [
                 "docker",
@@ -252,7 +257,7 @@ def build():
                 IMAGE_PREFIX + "-" + role + ":20261128",
                 "-B",
                 "-c",
-                "from visualization_runtime.worker import VisualizationWorker; from service.visualization_api import router; from hermes_runtime.visualization_bridge import VisualizationBridge; print('imports_ok')",
+                import_check,
             ]
         )
     run(["docker", "compose", "-f", str(STATE / "compose-after.json"), "config", "--quiet"])
