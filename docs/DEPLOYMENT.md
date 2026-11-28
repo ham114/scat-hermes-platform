@@ -1,5 +1,17 @@
 # 部署指南
 
+## 自主绘图上线（2026-11-28）
+
+用户明确要求上线后，已在正式门户`https://172.26.67.148:8444/assistant`启用自主绘图。当前配置为`var/deploy/visualization/20261128/compose-after.json`，新增独立visualization-worker，平台/动作服务/主Agent使用新镜像；其他业务挂载与RAG关闭状态保留。前端制品为`20261128-visualization-a7e3660df7ed`。八角色容器健康，宿主未重启。
+
+仅绘图worker持有独立DS/Qwen凭据，通过宿主loopback启动器请求固定ECharts/Playwright Docker，无Docker socket挂载。启动器用户服务使用固定`sg docker -c`命令刷新已授权Docker组，避免长期运行的用户管理器缺少后来加入的组；生成代码仍只在隔离容器中执行。
+
+上线前175项可视化后端回归、183项前端测试及格式/lint/类型/构建通过；发布脚本新增6项角色、挂载、凭据隔离与本地镜像标签回归。实际主Agent读取SCAT104363前5点并创建一张图，页面以新散点图修改场景交付版本2；桌面1280×900、手机390×844、旧版保留、刷新无新POST和控制台检查通过。浏览器走真实受信门户转发，使用本地SSH原点适配，不是生产密码登录测试。
+
+失败记录保留：原生验证首轮因保守额度不足停止，追加仅使用剩余请求数；一条折线修改请求在DS连接阶段10秒超时，仍保留unknown回执及23594 token占位，不自动重发。后续散点图修改是不同图型的新场景。原120次专项与本次上线冒烟合计49次请求、377629计量token（含超时占位），剩余71次；临时原生验证策略已恢复retired。已知审图误报/漏检及轻微手机版长说明裁切仍须通过用户反馈改进，不将历史完整验收门禁改写为通过。
+
+发布入口为`scripts/deploy_visualization.py`，基于当前生产镜像和Compose准备/构建/切换；切换前停写备份共享状态、主Agent预算及记忆SQLite，备份配置、镜像ID和门户单元。预检失败未切换生产；切换异常自动回滚，手动回滚使用`python scripts/deploy_visualization.py rollback`。回滚只恢复程序和配置，不自动恢复旧账本覆盖新用量。原配置、备份、两次预检失败和最终证据位于服务器`var/deploy/visualization/20261128*`，本地摘要位于`.tmp/visualization-deploy-20261128/`；凭据和原始证据不提交Git。
+
 ## 本地开发
 
 使用现有 Conda 环境安装项目依赖，准备 MongoDB 和本机 `.env`。前端使用 Node.js 24 与 npm 11。数据 API 和前端的启动方式见[项目首页](../README.md)。
