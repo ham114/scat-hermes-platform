@@ -1,0 +1,106 @@
+"""Production overlay keeps business state, RAG settings and credentials separated."""
+
+from copy import deepcopy
+from pathlib import Path, PurePosixPath
+
+import pytest
+
+import scripts.deploy_visualization as deployment
+
+
+@pytest.fixture
+def active(monkeypatch):
+    monkeypatch.setattr(deployment, "SOURCE", Path(__file__).resolve().parents[2])
+    root = PurePosixPath(deployment.ROOT.as_posix())
+    shared = {
+        "type": "bind",
+        "source": str(root / "var/deploy/h7b/shared"),
+        "target": str(root / "var/deploy/h7b/shared"),
+        "read_only": False,
+    }
+    policy_mounts = [
+        {
+            "type": "bind",
+            "source": str(root / name),
+            "target": str(root / name),
+            "read_only": readonly,
+        }
+        for name, readonly in [
+            ("var/deploy/autonomy/config.json", True),
+            ("var/deploy/autonomy/secrets/identity.key", True),
+            ("var/autonomy/memory", False),
+        ]
+    ]
+    services = {
+        role: {
+            "image": "prior-" + role,
+            "volumes": [deepcopy(shared)],
+            "environment": {"SCAT_RAG_BASELINE_ENABLED": "false", "BUSINESS_SETTING": "preserved"},
+            "env_file": ["/private/existing.env"],
+        }
+        for role in deployment.UPDATED
+    }
+    services["platform"]["environment"]["SCAT_AUTONOMY_CONFIG"] = "var/deploy/autonomy/config.json"
+    services["platform"]["volumes"] += policy_mounts
+    services["hermes-main"]["volumes"].append(
+        {
+            "type": "bind",
+            "source": str(root / "scripts/run_container_service.py"),
+            "target": str(root / "scripts/run_container_service.py"),
+            "read_only": True,
+        }
+    )
+    return {"name": "scat-hermes-h7b", "services": services}
+
+
+def candidate(active):
+    return deployment.compose_candidate(
+        active, {role: "new-" + role for role in deployment.UPDATED}, "sha256:" + "1" * 64
+    )
+
+
+def test_overlay_preserves_existing_business_settings_and_shared_paths(active):
+    original = deepcopy(active)
+    result = candidate(active)
+    assert active == original
+    assert result["name"] == original["name"]
+    for role in deployment.UPDATED:
+        service = result["services"][role]
+        assert service["environment"]["SCAT_RAG_BASELINE_ENABLED"] == "false"
+        assert service["environment"]["BUSINESS_SETTING"] == "preserved"
+        assert service["env_file"] == original["services"][role]["env_file"]
+        assert service["volumes"][0] == original["services"][role]["volumes"][0]
+
+
+def test_model_credentials_are_only_supplied_to_separate_worker(active):
+    services = candidate(active)["services"]
+    for role in deployment.UPDATED:
+        assert all("visualization-worker.env" not in name for name in services[role]["env_file"])
+    worker = services["visualization-worker"]
+    assert len(worker["env_file"]) == 1 and worker["env_file"][0].endswith(
+        "visualization-worker.env"
+    )
+    assert all("docker.sock" not in mount["source"] for mount in worker["volumes"])
+    assert worker["read_only"] and worker["cap_drop"] == ["ALL"]
+
+
+def test_native_control_and_worker_share_authoritative_preference_state(active):
+    services = candidate(active)["services"]
+    for role in ("actions", "visualization-worker"):
+        assert (
+            services[role]["environment"]["SCAT_AUTONOMY_CONFIG"]
+            == "var/deploy/autonomy/config.json"
+        )
+        mounts = {mount["target"]: mount for mount in services[role]["volumes"]}
+        assert mounts[(deployment.ROOT / "var/deploy/autonomy/secrets/identity.key").as_posix()][
+            "read_only"
+        ]
+        assert not mounts[(deployment.ROOT / "var/autonomy/memory").as_posix()]["read_only"]
+
+
+def test_old_entrypoint_mount_cannot_hide_new_native_role_code(active):
+    result = candidate(active)
+    assert all(
+        mount["target"] != (deployment.ROOT / "scripts/run_container_service.py").as_posix()
+        for mount in result["services"]["hermes-main"]["volumes"]
+    )
