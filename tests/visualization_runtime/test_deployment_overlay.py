@@ -132,3 +132,13 @@ def test_build_pins_local_base_before_offline_build(tmp_path, monkeypatch):
     )
     assert "VisualizationBridge" in native[-1]
     assert "VisualizationWorker" not in native[-1] and "service.visualization_api" not in native[-1]
+
+
+def test_host_launcher_refreshes_authorized_docker_group():
+    root = Path(__file__).resolve().parents[2]
+    unit = (root / "infra/systemd/user/scat-visualization-sandbox.service").read_text()
+    assert (
+        'ExecStart=/usr/bin/sg docker -c "%h/anaconda3/envs/scat-agent/bin/python -B scripts/run_visualization_sandbox.py"'
+        in unit
+    )
+    assert "visualization-worker.env" not in unit
