@@ -2,7 +2,11 @@
 
 ## 自主绘图上线（2026-11-28）
 
-2026年11月28日追加偏好语义提取修复8c13424：在现用Compose上更新platform/actions/visualization-worker，门户制品为`20261128-semantic-preferences-27b090610c5b`。不新增队列、密钥或容器角色，保持DNS修复、固定渲染镜像和其余业务配置。回滚及停写备份位于服务器`var/deploy/visualization/semantic-preferences-20261128/`；保留两次前端清单失败回滚，独立端口门户预检通过后最终切换成功。原用户米制偏好按已核验的原话和epoch补回，历史产物不改写。生产API、实际桌面/手机记忆页和八角色健康已核验，未增加模型请求。详细范围和已披露限制见[偏好验收记录](VISUALIZATION_RELEASE_REPORT.md#图表偏好语义提取验收2026-11-28)。
+当前生产已更新为渲染诊断与专业委派候选 **8afa4e3**，门户制品为`20261128-render-repair-f942000407d4`。更新platform/actions/hermes-main/visualization-worker四角色及宿主启动器，其他角色配置保留；固定离线渲染镜像为`sha256:5ceae598b2c551e8e5bc2432ece0e2a62d0467f918da92778f5bfa9ce56b7c80`。同时启用专业委派上下文和审核后偏好提交，移除图表专属记忆表单与GET/POST `/api/v1/hermes/memory/chart-preferences`，图卡复用通用记忆状态接口。渲染失败现在向修订模型返回受限诊断，并向用户说明失败阶段，不再混同视觉审核未通过。
+
+上线前233项后台、186项前端、桌面/手机8项交互通过；另以官方DS/Qwen、固定离线Docker验证6个模拟场景及两视口逐点数值/单位，12次新增外部调用，既有专项累计77/80次、282196计量token。生产八角色健康、四角色源码摘要与镜像一致，六份SQLite和产物备份、回滚配置位于`var/deploy/visualization/render-repair-20261128/`。真实门户制品的桌面/手机只读验证通过，原失败任务保持失败且显示准确说明；未自动重发旧任务或unknown。完整主Agent真实LLM整轮未在本次验收中执行，用户可按方案18.14的新会话指令试用。详见[渲染修复上线记录](VISUALIZATION_RELEASE_REPORT.md#渲染错误闭环修复与专业委派上线2026-11-28)。
+
+此前2026年11月28日上线偏好语义提取修复8c13424：在现用Compose上更新platform/actions/visualization-worker，门户制品为`20261128-semantic-preferences-27b090610c5b`。不新增队列、密钥或容器角色，保持DNS修复、固定渲染镜像和其余业务配置。回滚及停写备份位于服务器`var/deploy/visualization/semantic-preferences-20261128/`；保留两次前端清单失败回滚，独立端口门户预检通过后最终切换成功。原用户米制偏好按已核验的原话和epoch补回，历史产物不改写。生产API、实际桌面/手机记忆页和八角色健康已核验，未增加模型请求。详细范围和已披露限制见[偏好验收记录](VISUALIZATION_RELEASE_REPORT.md#图表偏好语义提取验收2026-11-28)。
 
 用户明确要求上线后，已在正式门户`https://172.26.67.148:8444/assistant`启用自主绘图。当前配置为`var/deploy/visualization/20261128/compose-after.json`，新增独立visualization-worker，平台/动作服务/主Agent使用新镜像；其他业务挂载与RAG关闭状态保留。前端制品为`20261128-visualization-a7e3660df7ed`。八角色容器健康，宿主未重启。
 
