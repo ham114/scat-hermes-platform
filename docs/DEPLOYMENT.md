@@ -2,6 +2,8 @@
 
 ## 自主绘图上线（2026-11-28）
 
+2026年11月28日追加偏好语义提取修复8c13424：在现用Compose上更新platform/actions/visualization-worker，门户制品为`20261128-semantic-preferences-27b090610c5b`。不新增队列、密钥或容器角色，保持DNS修复、固定渲染镜像和其余业务配置。回滚及停写备份位于服务器`var/deploy/visualization/semantic-preferences-20261128/`；保留两次前端清单失败回滚，独立端口门户预检通过后最终切换成功。原用户米制偏好按已核验的原话和epoch补回，历史产物不改写。生产API、实际桌面/手机记忆页和八角色健康已核验，未增加模型请求。详细范围和已披露限制见[偏好验收记录](VISUALIZATION_RELEASE_REPORT.md#图表偏好语义提取验收2026-11-28)。
+
 用户明确要求上线后，已在正式门户`https://172.26.67.148:8444/assistant`启用自主绘图。当前配置为`var/deploy/visualization/20261128/compose-after.json`，新增独立visualization-worker，平台/动作服务/主Agent使用新镜像；其他业务挂载与RAG关闭状态保留。前端制品为`20261128-visualization-a7e3660df7ed`。八角色容器健康，宿主未重启。
 
 仅绘图worker持有独立DS/Qwen凭据，通过宿主loopback启动器请求固定ECharts/Playwright Docker，无Docker socket挂载。启动器用户服务使用固定`sg docker -c`命令刷新已授权Docker组，避免长期运行的用户管理器缺少后来加入的组；生成代码仍只在隔离容器中执行。
